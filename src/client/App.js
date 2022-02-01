@@ -15,7 +15,16 @@ import SettingsIcon from "./react/components/icons/settings"
 
 import qs from "qs";
 import * as _ from "lodash"
+import axios from "axios";
+import Web3Modal from "web3modal";
 
+import {
+    nftAddress, nftMarketAddress
+} from "../../config";
+
+import NFT from "../../artifacts/contracts/NFT.sol/NFT.json";
+import ESMarket from "../../artifacts/contracts/ESMarket.sol/ESMarket.json";
+import { ethers } from "ethers";
 
 import { showDrawer } from "../client/redux/actions/appActions"
 import { loadWord, updateBlocks } from "../client/redux/actions/wordsActions"
@@ -32,12 +41,54 @@ import AudioPlayer from "./react/components/audioplayer"
 class App extends Component {
     state = {
         appVisible: false,
-        savingBlocks: false
+        savingBlocks: false,
+        balance: null
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.auth()
-        this.loadWord()
+        this.loadWeb3()
+        const provider = new ethers.providers.JsonRpcProvider("");
+        const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
+        const marketContract = new ethers.Contract(nftMarketAddress, ESMarket.abi, provider);
+        const data = await marketContract.fetchMarketTokens();
+       
+
+        const items = await Promise.all(data.map(async i => {
+            const tokenURI = await tokenContract.tokenURI(i.tokenId);
+
+            const meta = await axios.get(tokenURI);
+            let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+            let item = {
+                price,
+                tokenId: i.tokenId.toNumber(),
+                seller: i.seller,
+                owner: i.owner,
+                image: meta.data.image,
+                name: meta.data.name,
+                description: meta.data.description,
+            }
+            return item;
+        }))
+
+        console.log(items)
+        setTimeout(() => {
+            this.getBalance()
+        }, 1000)
+
+    }
+
+    async getBalance() {
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner()
+
+        let contract = new ethers.Contract(nftAddress, NFT.abi, signer)
+        console.log(this.state.account)
+        let balance = await contract.balanceOf(this.state.account);
+        console.log("owned token: " + parseInt(balance, 16))
+
+        const ethbalance = await provider.getBalance(this.state.account)
+        console.log(ethers.utils.formatUnits(ethbalance.toString(), "ether"))
     }
 
     auth() {
@@ -98,11 +149,50 @@ class App extends Component {
         })
     }
 
+    async loadWeb3() {
+        const provider = window.ethereum;
+
+        if (typeof provider !== 'undefined') {
+            console.log('MetaMask is installed!');
+        }
+
+        const accounts = await provider.request({ method: "eth_requestAccounts"});
+        const account = accounts[0]
+        console.log(account)
+        this.setState({
+            account: account
+        })
+
+        provider.on('chainChanged', () => {
+            window.location.reload();
+            console.log("reload")
+        })
+
+        provider.on('accountsChanged', () => {
+            // window.location.reload();
+            console.log("reload")
+        })
+
+        provider.on('networkChanged', function(networkId){
+            console.log('networkChanged',networkId);
+            this.setState({
+                networkId: networkId
+            })
+        });
+
+    }
+
+    getAccountBalance = async () => {
+        userTokenBalance = await tokenContract.balanceOf(signerAddress);
+        //Note that userTokenBalance is not a number and it is bigNumber
+        console.log(userTokenBalance);
+    }
+
     render() {
         return (
             <div className="app">
                 {this.props.drawerOpen && <Drawer type={this.props.drawerType} />}
-                <Header/>
+                <Header balance={this.state.balance}/>
 
                 {/* <div className="main-section">
                     <div className="app-route-container">
