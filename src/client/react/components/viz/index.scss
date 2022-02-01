@@ -1,0 +1,64 @@
+.viz-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    transition: all 0.2s;
+    z-index: 1;
+    
+  
+    &.full {
+      bottom: 0;
+    }
+  
+    .viz {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    canvas {
+        // -webkit-filter: url("#goo");
+        // filter: url("#goo");
+    }
+  }
+  
+  .example {
+    fill: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+  
+    rect {
+      fill: none
+    }
+}
+
+.glass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    transition: all 0.2s linear;
+
+    
+    // animation: fadeIn forwards 2s 0 ease-in-out; 
+}
+
+.goo {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+}
+  

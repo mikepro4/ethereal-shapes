@@ -1,0 +1,105 @@
+// reset
+@import "./imports/reset";
+
+// blueprint
+@import "../../../node_modules/@blueprintjs/core/lib/css/blueprint.css";
+@import "../../../node_modules/@blueprintjs/core/lib/scss/variables.scss";
+
+// imports
+@import "./imports/colors";
+@import "./imports/fonts";
+@import "./imports/variables";
+@import "./imports/blueprint_overides";
+@import "./imports/animations";
+@import "./imports/buttons";
+
+// pages
+@import "../App.scss";
+@import "../react/pages/auth/index.scss";
+@import "../react/pages/home/index.scss";
+
+// form
+@import "../react/components/form/BladeInput.scss";
+@import "../react/components/form/BladeTextarea.scss";
+@import "../react/components/form/ColorPicker.scss";
+@import "../react/components/form/Slider.scss";
+@import "../react/components/form/TabGroup.scss";
+
+// componenta
+@import "../react/components/header/index.scss";
+@import "../react/components/header/words_list.scss";
+@import "../react/components/drawer/index.scss";
+@import "../react/components/drawer/type/word_settings.scss";
+@import "../react/components/block/index.scss";
+@import "../react/components/viz/index.scss";
+@import "../react/components/list/views/wordView.scss";
+
+
+
+html {
+    touch-action: manipulation;
+    user-select: none;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background: $black;
+    color: $white;
+	font-family: "A", sans-serif;
+	font-weight: 400;
+	-webkit-font-smoothing: subpixel-antialiased;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+	opacity: 1;
+    transition: opacity 1s;
+
+	&.no-scroll {
+		overflow: hidden;
+    }
+}
+
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-overflow-scrolling: touch;
+}
+
+// Selection
+// -------------------------
+
+::selection {
+  background: $yellow;
+  color: $black;
+}
+
+::-moz-selection {
+  background: $yellow;
+  color: $black;
+}
+
+// Links
+// -------------------------
+
+a {
+	text-decoration: none !important;
+    font-weight: 400;
+    color: $white;
+
+    &:hover, &:active {
+        color: $white
+    }
+}
+
+.placeholder {
+	display: block;
+	position: relative;
+	height: 3000px;
+	width: 100%;
+}

@@ -1,0 +1,68 @@
+.bp3-button {
+    width: 100%;
+    border-radius: 0;
+    font-family: "A";
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 3px;
+
+    &:not([class*="bp3-intent-"]) {
+        border: none;
+        box-shadow: none;
+        padding: 13px 10px;
+
+        .bp3-button-text {
+            position: relative;
+            top: -2px;
+            letter-spacing: 0.5px;
+        }
+
+        &.small-button {
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        &:not([class*="control"]) {
+            background: $white;
+            color: $black;
+
+            &.bp3-minimal {
+                background: $white;
+                color: $black;
+            }
+        }
+    }
+
+    &.theme-dark {
+        .bp3-icon {
+            svg {
+                fill: $white;
+            }
+        }
+    }
+
+    &:active,
+    &:hover {
+        &.control {
+            @media only screen and (max-width: $mobile) {
+                background: none !important;
+            }
+        }
+    }
+
+    &:active {
+        @media only screen and (max-width: $mobile) {
+            // transform: scale(0.8);
+        }
+    }
+}
+
+.bp3-button.bp3-minimal {
+    color: $white;
+    font-size: 14px;
+
+    &:hover {
+        color: $white;
+    }
+}

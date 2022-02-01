@@ -1,0 +1,121 @@
+.slider-container {
+  display: flex;
+  margin: 10px 0 15px 0;
+  flex-direction: column;
+
+  .input-label {
+    display: flex;
+    width: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: center;
+    font-size: 12px;
+    letter-spacing: 0.34px;
+    margin-bottom: 3px;
+  }
+
+  .input-right {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+
+  .control-container {
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
+
+    .control-slider-container {
+      display: flex;
+      position: relative;
+      flex-grow: 1;
+      flex-shrink: 1;
+      background: #505050;
+      overflow: hidden;
+      cursor: ew-resize;
+      width: 100%;
+
+      .control-slider-bar {
+        position: absolute;
+        background: $blue1;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 20%;
+      }
+    }
+
+    .control-input {
+      width: 100%;
+      flex-grow: 0;
+      flex-shrink: 0;
+      display: flex;
+
+      input {
+        width: 100%;
+        background: #000000;
+        border: 1px solid #505050;
+        color: $white;
+        padding: 0 5px;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .action-container {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-left: 20px;
+
+     ul {
+       display: flex;
+
+       li {
+            a {
+                border: none;
+                color: $white;
+                height: 28px;
+                margin: 0 0 0 5px;
+                font-size: 10px;
+                font-weight: 300;
+                transition: all 0.2s;
+                display: flex;
+                align-items: center;
+                padding: 0 10px;
+                background: rgba($white, 0.1);
+                border-radius: 3px;
+                transition: all .2s ease;
+
+                &:active {
+                    background: rgba($white, 0.5);
+                }
+            }
+       }
+     }
+  }
+}
+
+.bp3-slider-progress.bp3-intent-primary {
+    background-color: $white
+}
+
+.bp3-slider-label {
+    font-size: 10px;
+    opacity: 0.5;
+}
+
+.bp3-slider-handle .bp3-slider-label {
+    background: rgba($white,1);
+    color: $black;
+    opacity: 1;
+}
+
+.bp3-slider-handle {
+    border-radius: 100%;
+}
+
+.bp3-slider-track, .bp3-slider-progress {
+    height: 2px;
+    top: 7px;
+}

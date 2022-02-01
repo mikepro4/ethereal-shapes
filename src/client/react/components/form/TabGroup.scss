@@ -1,0 +1,48 @@
+.tabgroup-container {
+    margin-bottom: 20px;
+
+    .control-input {
+        display: none
+    }
+
+    .input-label {
+        margin: 0 0 10px 0;
+        font-size: 12px;
+    }
+
+    ul.tab-options {
+        display: flex;
+        width: 100%;
+
+        li.tab-option {
+            flex-grow: 1;
+            flex-shrink: 1;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 3px;
+            font-weight: 600;
+            background: rgba($white, 0.1);
+            margin: 0 10px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 1s $animation_easing2;
+            cursor: pointer;
+
+            .tab-option-label {
+                position: relative;
+                top: -2px;
+                letter-spacing: 0.34px;
+            }
+
+            &.tab-option-active {
+                background: $white;
+                color: $black;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}

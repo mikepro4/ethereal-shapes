@@ -1,0 +1,14 @@
+.word-view {
+    padding: 15px 0 15px 0;
+
+    .word-title {
+        font-size: 24px;
+        opacity: 0.5;
+        font-weight: 300;
+
+        &.active {
+            opacity: 1;
+            font-weight: 500;
+        }
+    }
+}

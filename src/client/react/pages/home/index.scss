@@ -1,0 +1,78 @@
+.inner-container {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    // padding: 80px;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    // background: transparent;
+    // object-fit: contain; 
+    // -webkit-backface-visibility: hidden; 
+    // -ms-transform: translateZ(0); /* IE 9 */
+    // -webkit-transform: translateZ(0); /* Chrome, Safari, Opera */
+    // transform: translateZ(0);
+    // -webkit-perspective: 1000;
+    transform-origin: 0 0;
+    // padding-top: 250px;
+
+    svg {
+        // -webkit-backface-visibility: hidden; 
+        // -ms-transform: translateZ(0); /* IE 9 */
+        // -webkit-transform: translateZ(0); /* Chrome, Safari, Opera */
+        // transform: translateZ(0);
+        // -webkit-perspective: 1000;
+        opacity: 0;
+        animation: fadeIn 1s linear forwards;
+
+        @media only screen and (max-width: $mobile) {
+            transform: scale(10);
+        }
+
+        foreignObject {
+            // animation: fadeIn 0.2s linear forwards;
+            position: relative;
+
+            // @for $i from 1 through 200 {
+            //     &:nth-child(#{$i}) {
+            //         animation-delay: $i * 0.001s;
+            //     }
+            // }
+        }
+
+    }
+}
+
+
+
+
+.word-container {
+    // position: relative;
+    // top: 0;
+    // left: 0;
+    // right: 0;
+    // bottom: 0;
+    // transform-origin: 0 0;
+    // align-items: center;
+    // justify-content: center;
+    @media only screen and (max-width: $mobile) {
+        position: relative;
+        top: 20px;
+        height: 100%;
+        transform: scale(0.21);
+    }
+}
+
+.word-block-container {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    background: #505050;
+
+    .empty-avatar-headline {
+        display: none;
+    }
+}

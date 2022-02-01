@@ -1,0 +1,130 @@
+.textarea-text  {
+    height: 100px;
+    position: relative;
+    margin: 0px 0 10px 0;
+    display: flex;
+  
+    &:before {
+      content: "";
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+      display: block;
+      background-color: rgba($white, 0.2);
+      height: 1px;
+      z-index: 1;
+      transition: all .15s $animation-easing;
+    }
+  
+    &:after {
+      content: "";
+      left: 0;
+      right: 100%;
+      bottom: 0;
+      position: absolute;
+      display: block;
+      background-color: $white;
+      transition: all .15s $animation-easing;
+      height: 1px;
+      z-index: 2
+    }
+  
+    &.textarea-focused {
+      &:after {
+        right: 0
+      }
+    }
+  
+    .textarea-placeholder {
+      position: absolute;
+      z-index: 1;
+      font-weight: 300;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: rgba($white, 1);
+  
+      &.textarea-placeholder-small {
+        top: 4px;
+        opacity: 0;
+        visibility: hidden;
+        font-size: 11px;
+        transition: all 0.2s $animation-easing;
+        z-index:100;
+  
+        &.textarea-placeholder-small-visible {
+          top: 0;
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+  
+      &.textarea-placeholder-large {
+        font-size: 20px;
+        top: 13px;
+        opacity: 0;
+        transition: all 0.2s $animation-easing;
+        color: rgba($white, 0.5);
+  
+        &.textarea-placeholder-large-visible {
+          opacity: 1;
+        }
+      }
+    }
+  
+    &:hover {
+        .input-placeholder-large {
+            color: rgba($white, 0.2);
+        }
+    }
+  
+    .blade-textarea {
+        height: 100px;
+        margin: 15px 0 0 0;
+        outline: none;
+        border: none;
+        font-size: 18px;
+        background: none;
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        color: $white;
+    }
+  
+    .textarea-error {
+      position: absolute;
+      z-index: 1;
+      font-weight: 300;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: $red4;
+      top: 0;
+      opacity: 1;
+      font-size: 11px;
+    }
+  
+    &.textarea-invalid {
+      &:after {
+        right: 0;
+        background-color: $red4;
+      }
+    }
+  
+    .select-icon {
+      position: absolute;
+      right: 0;
+      z-index: 1;
+      top: 17px;
+  
+      path {
+        fill: $gray4
+      }
+    }
+  }
