@@ -27,7 +27,7 @@ class Scroll extends Component {
                 this.props.setScrollTo(0)
             }
 
-            let node = document.getElementById("menu-container")
+            let node = document.getElementById("body")
 
             if(this.props.totalPixels !== node.scrollHeight) {
                 this.props.updateTotalPixels(node.scrollHeight, node.clientWidth, node.clientHeight)
@@ -36,38 +36,34 @@ class Scroll extends Component {
 
        
         if(prevProps.scrollTo !== this.props.scrollTo) {
-            document.getElementById("menu-container").scrollTop = this.props.scrollTo
+            document.getElementById("body").scrollTop = this.props.scrollTo
             this.props.resetScrollTo()
         }
 
     }
 
     handleScroll = (event) => {
-        console.log("Scroll")
-
-        this.props.updateTotalScrolledPixels(document.getElementById("menu-container").scrollTop)
+        this.props.updateTotalScrolledPixels(document.getElementById("body").scrollTop)
     }
 
     componentDidMount() {
-        setTimeout(() => {
-            let node = document.getElementById("menu-container")
-            window.addEventListener('scroll', this.handleScroll);
-            this.props.updateTotalPixels(node.scrollHeight, node.clientWidth, node.clientHeight)
+        let node = document.getElementById("body")
+        window.addEventListener('scroll', this.handleScroll);
+        this.props.updateTotalPixels(node.scrollHeight, node.clientWidth, node.clientHeight)
 
-            this.setState({
-                clientHeight: node.clientHeight
-            })
+        this.setState({
+            clientHeight: node.clientHeight
+        })
 
-            window.addEventListener("resize", this.handleResize);
-            console.log(node)
-        }, 1000)
-        
+        window.addEventListener("resize", this.handleResize);
 
-        
+        // setTimeout(() => {
+        //     this.forceUpdate()
+        // }, 1)
     }
 
     handleResize = () => {
-        let node = document.getElementById("menu-container")
+        let node = document.getElementById("body")
         this.props.updateTotalPixels(node.scrollHeight, node.clientWidth, node.clientHeight)
     }
 

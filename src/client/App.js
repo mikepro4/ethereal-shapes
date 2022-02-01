@@ -130,8 +130,10 @@ class App extends Component {
                     
                 </div> */}
 
+                <div className="placeholder"></div>
 
-                {/* <Scroll/> */}
+
+                <Scroll/>
                 
             </div>
         )

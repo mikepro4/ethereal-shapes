@@ -19,6 +19,8 @@ import {
 
 import ListResults  from "../../components/list"
 
+import NavLinks  from "../../components/navLinks"
+
 import qs from "qs";
 
 import moment from 'moment'
@@ -49,35 +51,7 @@ class WordsList extends Component {
                     "words-list-container": true,
                 })}
             >
-               <ListResults
-                    type="recent_words"
-                    resultType="word"
-                    searchCollection={this.props.searchWords}
-                    updateTotal={(count) => {
-                        this.setState({
-                            count: count
-                        })
-                    }}
-                    handleClick={() => this.props.handleClick()}
-                />
-
-                <Button 
-                    minimal="true"
-                    icon="plus"
-                    text="Create"
-                    className={"control "}
-                    onClick={() =>  {
-                        this.props.createWord({
-                            metadata: {
-                                title: "Iteration " + (this.state.count + 1),
-                                createdBy: "anon"
-                            },
-                        }, () => {
-                            this.props.updateCollection(true)
-                        })
-                        }
-                    }
-                />
+                <NavLinks />
             </div>
         );
     }

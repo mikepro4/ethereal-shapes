@@ -11,6 +11,9 @@ import Scroll from "../scroll"
 
 import Account from "../icons/account"
 import LogoMobile from "../icons/logo_mobile"
+import Powered from "../icons/powered"
+
+import NavLinks  from "../../components/navLinks"
 
 class Header extends Component {
 
@@ -376,8 +379,16 @@ class Header extends Component {
                 >
 
                     {this.state.showContent && <div className="menu_content">
-                        <WordsList handleClick={() => this.hideMenu()}/>
-                        <Scroll />
+                        <div
+                            className={classNames({
+                                "words-list-container": true,
+                            })}
+                        >
+                            <NavLinks hideMenu={() => this.hideMenu()}/>
+                            <dic className="powered">
+                                <Powered/>
+                            </dic>
+                        </div>
 
                         {/* {this.renderBottom()} */}
                     </div>}

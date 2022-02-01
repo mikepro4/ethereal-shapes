@@ -1,0 +1,33 @@
+.nav-links-container {
+
+    a {
+        font-size: 38px;
+        font-weight: 200;
+    }
+
+    .nav-link-container {
+        margin: 0 0 20px 0;
+        ul {
+            li{
+                
+            }
+        }
+
+        &.nav-link-active {
+            a {
+                font-weight: 500;
+            }
+        }
+    }
+   
+}
+
+.nav-link-status {
+    width: 8px;
+    height: 8px;
+    background-color: #29FF7F;
+    display: inline-block;
+    position: relative;
+    margin: 0 0 22px 6px;
+    border-radius: 50px;
+}
