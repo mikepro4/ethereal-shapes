@@ -15,6 +15,8 @@ import Powered from "../icons/powered"
 
 import NavLinks  from "../../components/navLinks"
 
+import { showDrawer } from "../../../redux/actions/appActions"
+
 class Header extends Component {
 
     constructor(props) {
@@ -475,7 +477,7 @@ class Header extends Component {
                         
                     </div>
 
-                    <div className="header-account">
+                    <div className="header-account" onClick={() => this.props.showDrawer("word-settings")}>
                         <Account/>
                     </div>
 
@@ -498,4 +500,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
+    showDrawer
 })(withRouter(Header));
