@@ -34,18 +34,24 @@ class NavLinks extends Component {
                                 <div className="link-wrapper">
                                     <Link 
                                         to ={link.url} 
-                                        className="nav-link"
+                                        
                                         onClick={() =>  {
                                             this.props.hideMenu()
                                             }
                                         }
                                     >
-                                        <div className="nav-link-left">
-                                            <span className="nav-link-label">{link.name}</span>
-                                            {link.active && <span className="nav-link-status"></span>}
+                                        <div className="nav-link line-hover"> 
+                                            <div className="nav-link-left">
+                                                <span className="nav-link-label">{link.name}</span>
 
+                                            </div>
                                         </div>
+
+                                        {link.active && <span className="nav-link-status"></span>}
+
+
                                     </Link>
+
                                 </div>
                             </li>
                         )

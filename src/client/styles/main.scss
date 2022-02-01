@@ -37,6 +37,65 @@
 @import "../react/components/navLinks/index.scss";
 
 
+.line-hover {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+
+    span {
+      transition: all 2s cubic-bezier(0.19, 1, .22, 1);
+    }
+
+    &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        margin-top: -1px;
+        background-color: $white;
+        transform: translateX(-108%);
+        transition: transform 1s cubic-bezier(.26,.9,.21,.94);
+        transition-delay: .1s;
+        z-index: 1;
+        opacity: 0;
+    }
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        margin-top: -1px;
+        background-color: $white;
+        transform: translateX(-108%);
+        transition: transform 1s cubic-bezier(.26,.9,.21,.94);
+        transition-delay: .1s;
+        z-index: 2;
+        opacity: 0;
+    }
+
+    &:hover {
+      &:after {
+        transform: translateX(108%);
+        opacity: 1;
+      }
+      
+      &:before {
+        
+        opacity: 1;
+      }
+    }
+}
+
+
+
 
 html {
     touch-action: manipulation;

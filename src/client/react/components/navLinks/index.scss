@@ -1,21 +1,26 @@
 .nav-links-container {
 
     a {
-        font-size: 38px;
-        font-weight: 200;
+        font-size: 30px;
+        font-weight: 300;
     }
 
     .nav-link-container {
         margin: 0 0 20px 0;
+        transition: all 0.5s;
+        opacity: 0.5;
         ul {
             li{
                 
             }
         }
 
+
         &.nav-link-active {
+            opacity: 1;
+
             a {
-                font-weight: 500;
+                font-weight: 300;
             }
         }
     }
@@ -27,7 +32,6 @@
     height: 8px;
     background-color: #29FF7F;
     display: inline-block;
-    position: relative;
-    margin: 0 0 22px 6px;
+    position: absolute;
     border-radius: 50px;
 }

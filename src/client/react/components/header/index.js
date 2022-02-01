@@ -11,9 +11,10 @@ import Scroll from "../scroll"
 
 import Account from "../icons/account"
 import LogoMobile from "../icons/logo_mobile"
+import LogoDesktop from "../icons/logo_desktop"
 import Powered from "../icons/powered"
 
-import NavLinks  from "../../components/navLinks"
+import NavLinks from "../../components/navLinks"
 
 import { showDrawer } from "../../../redux/actions/appActions"
 
@@ -129,8 +130,8 @@ class Header extends Component {
                             >
                                 <path d="M39.50625,9.5 C30.8788547,9.5 28.642962,9.5 20.003125,9.5 C11.363288,9.5 8.88972652,9.5 0.5,9.5"></path>
                             </Anime>
-						)
-						</g>
+                            )
+                        </g>
                     </svg>
 
                 </div>
@@ -386,9 +387,9 @@ class Header extends Component {
                                 "words-list-container": true,
                             })}
                         >
-                            <NavLinks hideMenu={() => this.hideMenu()}/>
+                            <NavLinks hideMenu={() => this.hideMenu()} />
                             <dic className="powered">
-                                <Powered/>
+                                <Powered />
                             </dic>
                         </div>
 
@@ -422,24 +423,24 @@ class Header extends Component {
 
     renderStatus() {
         let status = null
-        if(this.props.blocks.status == "saving") {
+        if (this.props.blocks.status == "saving") {
             status = "Saving..."
         }
 
-        if(this.props.blocks.status == "uploading") {
+        if (this.props.blocks.status == "uploading") {
             status = "Uploading..."
         }
 
-        if(status) {
+        if (status) {
             return (
                 <div className="upload-status">
                     {status}
                 </div>
             )
         } else {
-            return(<div></div>)
+            return (<div></div>)
         }
-        
+
     }
 
 
@@ -468,23 +469,38 @@ class Header extends Component {
                                 if (this.state.menuOpen) {
                                     this.hideMenu()
                                 }
-                        }}>
+                            }}>
                             <LogoMobile />
                         </Link>
 
                         {/* {this.renderStatus()} */}
 
-                        
+
                     </div>
 
                     <div className="header-account" onClick={() => this.props.showDrawer("word-settings")}>
-                        <Account/>
+                        <Account />
                     </div>
-
-                   
 
                 </div>
                 {this.renderMenu()}
+
+                <div className="app-header-wrapper-desktop">
+                    <div className="desktop-logo">
+
+                        <Link
+                            to="/"
+                            onClick={() => {
+                                if (this.state.menuOpen) {
+                                    this.hideMenu()
+                                }
+                            }}>
+                            <LogoDesktop />
+                        </Link>
+                    </div>
+                    <NavLinks hideMenu={() => this.hideMenu()} />
+                    <div className="desktop-account"><div className="desktop-account">Account</div></div>
+                </div>
             </div>
         );
     }

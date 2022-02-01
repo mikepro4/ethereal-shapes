@@ -19,7 +19,51 @@
       display: flex;
       justify-content: space-between;
       padding: 20px 20px;
+
+
+        @media only screen and (min-width: $mobile) {
+            display: none;
+        }
+
     }
+
+    .app-header-wrapper-desktop {
+        width: 100%;
+        margin: 0 auto;
+        display: none;
+        justify-content: space-between;
+        padding: 60px 60px;
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            ul {
+              display: flex;
+
+                li {
+                  margin: 0 25px 0 25px;
+
+                  &.nav-link-active {
+                      .nav-link {
+                        &:before {
+                            // transition: all 0.2s 0.2s;
+                            transform: translateX(0);
+                            opacity: 1;
+                          }
+                      }
+                    }
+                }
+            }
+        }
+  
+  
+        @media only screen and (min-width: $mobile) {
+              display: flex;
+        }
+  
+      }
   
     .header-left {
       display: flex;
@@ -311,4 +355,18 @@
     margin-top: 135px;
     left: 0;
     right:0;
+}
+
+.desktop-logo {
+    width: 222px;
+    cursor: pointer;
+}
+
+.desktop-account {
+    width: 222px;
+    display: flex;
+    justify-content: right;
+    font-size: 30px;
+    font-weight: 200;
+    align-items: center;
 }
