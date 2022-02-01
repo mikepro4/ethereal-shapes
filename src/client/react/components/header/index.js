@@ -499,7 +499,7 @@ class Header extends Component {
                         </Link>
                     </div>
                     <NavLinks hideMenu={() => this.hideMenu()} />
-                    <div className="desktop-account"><div className="desktop-account">Account</div></div>
+                    <div className="desktop-account"><div className="desktop-account">Login</div></div>
                 </div>
             </div>
         );

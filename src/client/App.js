@@ -194,11 +194,13 @@ class App extends Component {
                 {this.props.drawerOpen && <Drawer type={this.props.drawerType} />}
                 <Header balance={this.state.balance}/>
 
-                {/* <div className="main-section">
+                <div className="main-section">
                     <div className="app-route-container">
                         {renderRoutes(this.props.route.routes)}
                     </div>
                 </div>
+
+                {/* 
 
                 <div className="main-settings" onClick={() =>  this.props.showDrawer("word-settings")}>
                     <SettingsIcon />
