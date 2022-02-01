@@ -13,11 +13,12 @@
         display: none;
     }
   
-    .app-header-wrapper {
+    .app-header-wrapper-mobile {
       width: 100%;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
+      padding: 20px 20px;
     }
   
     .header-left {
@@ -97,7 +98,7 @@
     width: 40px;
     height: 10px;
     position: relative;
-    margin: 25px 20px 0 0 ;
+    margin: 20 0 0 0 ;
     cursor: pointer;
     z-index: 5;
   
@@ -121,6 +122,27 @@
       z-index: 5;
     }
   }
+
+  .header-account {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 222;
+  }
+
+
+  .header-logo-mobile {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 1px;
+    z-index: 222;
+}
   
   .menu_container {
     display: block;
@@ -130,7 +152,7 @@
     left:0;
     width: 100%;
     height: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(9, 9, 9, 1);
     overflow: scroll;
     backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px);
@@ -190,7 +212,6 @@
       &.show-bars {
           opacity: 1;
           visibility: visible;
-          display: none;
       }
   }
 

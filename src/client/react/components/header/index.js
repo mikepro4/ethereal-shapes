@@ -9,6 +9,9 @@ import WordsList from "./words_list"
 
 import Scroll from "../scroll"
 
+import Account from "../icons/account"
+import LogoMobile from "../icons/logo_mobile"
+
 class Header extends Component {
 
     constructor(props) {
@@ -27,7 +30,7 @@ class Header extends Component {
             this.setState({
                 showMenuBars: true,
             })
-        }, 1)
+        }, 1000)
 
         // this.setState({
         //     showMenuBars: true,
@@ -435,23 +438,7 @@ class Header extends Component {
                     "demo-mode": this.props.demoMode
                 })}
             >
-                <div className="app-header-wrapper">
-
-                    <div className="header-left">
-                        <Link
-                            to="/"
-                            onClick={() => {
-                                if (this.state.menuOpen) {
-                                    this.hideMenu()
-                                }
-                        }}>
-                            生日快乐宝贝
-                        </Link>
-
-                        {this.renderStatus()}
-
-                        
-                    </div>
+                <div className="app-header-wrapper-mobile">
 
                     <div className="menu_icon" onClick={() => {
                         this.handleClick()
@@ -460,6 +447,28 @@ class Header extends Component {
                         {this.renderLines()}
 
                     </div>
+
+                    <div className="header-logo-mobile">
+                        <Link
+                            to="/"
+                            onClick={() => {
+                                if (this.state.menuOpen) {
+                                    this.hideMenu()
+                                }
+                        }}>
+                            <LogoMobile />
+                        </Link>
+
+                        {/* {this.renderStatus()} */}
+
+                        
+                    </div>
+
+                    <div className="header-account">
+                        <Account/>
+                    </div>
+
+                   
 
                 </div>
                 {this.renderMenu()}
