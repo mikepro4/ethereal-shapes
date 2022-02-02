@@ -390,7 +390,7 @@ class Header extends Component {
                                 "words-list-container": true,
                             })}
                         >
-                            <NavLinks hideMenu={() => this.hideMenu()} />
+                            <NavLinks hideMenu={() => this.hideMenu()} linksType="mainLinks"  />
                             <div className="powered">
                                 <Powered />
                             </div>
@@ -499,7 +499,7 @@ class Header extends Component {
                             <LogoDesktop />
                         </Link>
                     </div>
-                    <NavLinks hideMenu={() => this.hideMenu()} />
+                    <NavLinks hideMenu={() => this.hideMenu()} linksType="mainLinks" />
                     <AccountDisplay/>
                     {/* <div className="desktop-account"><div className="desktop-account">Login</div></div> */}
                 </div>

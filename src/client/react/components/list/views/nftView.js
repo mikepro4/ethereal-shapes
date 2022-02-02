@@ -54,8 +54,11 @@ class nftView extends Component {
                         "active": false
                     })}
                 >
-                   <img src={this.props.item.nft.fileUrl}/>
-                   {this.props.item.nft.name}
+                    <div className="nft-media-container" height={this.props.app.clientWidth}>
+                        <img src={this.props.item.nft.fileUrl}/>
+                    {this.props.item.nft.name}
+                    </div>
+                   
                   
                </Link>
                {/* <div className= onClick={() => this.props.deleteWord(this.props.item._id, this.props.item, () => {

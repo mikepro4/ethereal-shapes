@@ -12,6 +12,7 @@ import Word from "./word"
 import { searchNFTs} from "../../../redux/actions/nftActions"
 
 import ListResults  from "../../components/list"
+import NavLinks  from "../../components/navLinks"
 
 class Home extends Component {
 
@@ -24,11 +25,23 @@ class Home extends Component {
 		</Helmet>
     )
 
+    getOpacity() {
+        if(this.props.app.totalScrolledPixels < 500) {
+            return 100 - this.props.app.totalScrolledPixels/1.5
+        }
+        else {
+            return 0
+        }
+    }
+
 	render() {
+
 		return (
      		<div className="nft-container">
                 {this.renderHead()}
-
+                <div className="mobile-tabs" style={{opacity: this.getOpacity() + "%"}}>
+                    {this.props.app.totalScrolledPixels < 222 && <NavLinks linksType="mobileTabs" hideMenu={() => {}}/> }
+                </div>
                 <ListResults
                     type="recent_nfts"
                     resultType="nft"
@@ -48,6 +61,7 @@ class Home extends Component {
 
 function mapStateToProps(state) {
 	return {
+        app: state.app
 	};
 }
 

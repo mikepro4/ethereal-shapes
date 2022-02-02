@@ -436,6 +436,8 @@
 }
 
 .header-account-icon {
+    position: relative;
+    // right: -15px;
 
     @media only screen and (min-width: $mobile) {
         display: none;
@@ -445,7 +447,6 @@
 .header-account {
     display: flex;
     justify-content: right;
-    
 }
 
 .header-account-wrapper {

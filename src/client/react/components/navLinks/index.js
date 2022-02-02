@@ -10,11 +10,31 @@ class Nav extends Component {
 
 	render() {
 
-        let mobileLinks = [
+        let mobileTabs = [
 			{
 			  	url: "/",
-				name: "All NFTs",
+				name: "Featured",
 			},
+            {
+                url: "/all",
+                name: "All NFTs",
+            },
+			{
+			  	url: "/sale",
+				name: "On Sale",
+                active: true
+			}
+		]
+
+        let mainLinks = [
+			{
+			  	url: "/",
+				name: "Featured",
+			},
+            {
+                url: "/all",
+                name: "All NFTs",
+            },
 			{
 			  	url: "/sale",
 				name: "On Sale",
@@ -34,11 +54,19 @@ class Nav extends Component {
 			}
 		]
 
+        let links
+
+        if(this.props.linksType == "mainLinks") {
+            links = mainLinks
+        } else if(this.props.linksType == "mobileTabs") {
+            links = mobileTabs
+        }
+
 		return (
 			<div className={"nav-container theme-" + this.props.theme}>
 
                 <NavLinks
-                    links={mobileLinks}
+                    links={links}
                     hideMenu={() => this.props.hideMenu()}
                 />
 
