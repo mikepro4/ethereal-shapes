@@ -4,9 +4,68 @@ import qs from "qs";
 import axios from "axios";
 import update from "immutability-helper";
 
+import Web3Modal from "web3modal";
+
+import {
+    nftAddress, nftMarketAddress
+} from "../../../../config";
+
+import NFT from "../../../../artifacts/contracts/NFT.sol/NFT.json";
+import ESMarket from "../../../../artifacts/contracts/ESMarket.sol/ESMarket.json";
+import { ethers } from "ethers";
+
+
 import {
 
 } from "./types";
+
+import { updateMarketTokens } from "./appActions"
+
+/////////////////////////////////////////////////
+
+
+export const buyNFT = (fileUrl, passedNft) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    let marketTokens = getState().app.marketTokens;
+    let filteredNfts = _.filter(marketTokens, { image: fileUrl})
+
+    let nft = filteredNfts[0]
+
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(nftMarketAddress, ESMarket.abi, signer)
+    const nftContract = new ethers.Contract(nftAddress, NFT.abi, signer)
+
+    const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
+    console.log(nft, nft.tokenId, price)
+    const transaction = await contract.createMarketSale(nftAddress, nft.tokenId, {
+        value: price
+    });
+    console.log(nftContract.baseTokenURI())
+
+    await transaction.wait();
+    dispatch(updateMarketTokens(() => {
+        console.log("here")
+        let marketTokens = getState().app.marketTokens;
+        let filteredNfts = _.filter(marketTokens, { image: fileUrl})
+    
+        let nft = filteredNfts[0]
+
+    }));
+
+    dispatch(updateNFT(passedNft, {
+        owner: getState().app.account.address
+    }));
+   
+};
+
+/////////////////////////////////////////////////
 
 // ===========================================================================
 
@@ -124,6 +183,7 @@ export const updateNFT = (NFT, data, success) => async (
 	getState,
 	api
 ) => {
+    console.log("NFT UPDATE", data)
 
     let date
 

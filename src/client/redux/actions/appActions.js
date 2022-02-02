@@ -32,7 +32,7 @@ import { ethers } from "ethers";
 
 /////////////////////////////////////////////////
 
-export const updateMarketTokens = (tokens) => async (
+export const updateMarketTokens = (success) => async (
     dispatch,
 	getState,
 	api
@@ -62,6 +62,10 @@ export const updateMarketTokens = (tokens) => async (
     }))
 
     console.log(items)
+
+    if(items.length > 0 && success) {
+		success();
+	}
     dispatch({
         type: UPDATE_MARKET_TOKENS,
         payload: items
