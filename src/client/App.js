@@ -26,7 +26,7 @@ import NFT from "../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
 
-import { showDrawer, updateAccount, updateMarketTokens} from "../client/redux/actions/appActions"
+import { showDrawer, updateAccount, updateMarketTokens, updateCollection} from "../client/redux/actions/appActions"
 import { loadWord, updateBlocks } from "../client/redux/actions/wordsActions"
 import { loadShape } from "../client/redux/actions/shapesActions"
 import { initSave } from "../client/redux/actions/blocksActions"
@@ -192,6 +192,8 @@ class App extends Component {
                 address: data[0],
             })
 
+            this.props.updateCollection(true)
+
             // if (typeof provider !== 'undefined') {
             //     console.log('MetaMask is installed!');
             //     this.props.updateAccount({
@@ -300,6 +302,7 @@ export default {
         initSave,
         updateBlocks,
         updateAccount,
-        updateMarketTokens
+        updateMarketTokens,
+        updateCollection
     })(App))
 };
