@@ -40,7 +40,7 @@ class NavLinks extends Component {
                                             }
                                         }
                                     >
-                                        <div className="nav-link line-hover"> 
+                                        <div className="nav-link"> 
                                             <div className="nav-link-left">
                                                 <span className="nav-link-label">{link.name}</span>
 

@@ -52,42 +52,21 @@ class App extends Component {
         this.auth()
         this.loadWeb3()
         this.props.updateMarketTokens()
+
+        setTimeout(() => {
+            this.getBalance()
+        }, 100)
+
         setInterval(() => {
-            // this.checkSigner()
             this.getBalance()
         }, 2222)
 
-        setInterval(() => {
-            if(!this.props.account.address) {
-                this.loadWeb3()
-            }
-        }, 2222)
-
+        // setInterval(() => {
+        //     if(!this.props.account.address) {
+        //         this.loadWeb3()
+        //     }
+        // }, 2222)
         
-    }
-
-    checkSigner = async()  =>{
-        const provider = new  ethers.providers.Web3Provider(window.ethereum);
-        // await provider.send('eth_requestAccounts', []);
-        // const signer = await provider.getSigner(0);
-
-        // if (signer === undefined) this.userIsNotConnected();
-        // else this.userIsConnected();
-
-        const addresses = await provider.listAccounts(); 
-        // it doesn't create metamask popup
-        if (addresses.length) {
-            this.userIsConnected()
-        }
-        // permission already granted so request account address from metamask
-        else {this.userIsNotConnected(); }
-    }
-
-    userIsConnected() {
-        console.log("connected")
-    }
-    userIsNotConnected() {
-        console.log("not connected")
     }
 
     async getBalance() {

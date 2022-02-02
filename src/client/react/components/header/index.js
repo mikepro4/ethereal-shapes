@@ -13,10 +13,13 @@ import Account from "../icons/account"
 import LogoMobile from "../icons/logo_mobile"
 import LogoDesktop from "../icons/logo_desktop"
 import Powered from "../icons/powered"
+import Polygon from "../icons/polygon"
 
 import NavLinks from "../../components/navLinks"
 
 import { showDrawer } from "../../../redux/actions/appActions"
+
+import AccountDisplay from "./account"
 
 class Header extends Component {
 
@@ -381,7 +384,7 @@ class Header extends Component {
                     id="menu-container"
                 >
 
-                    {this.state.showContent && <div className="menu_content">
+                    {this.state.showContent && <div className="menu_content" style={{height: this.props.clientHeight + "px"}}>
                         <div
                             className={classNames({
                                 "words-list-container": true,
@@ -443,7 +446,6 @@ class Header extends Component {
 
     }
 
-
     render() {
         return (
             <div
@@ -478,9 +480,8 @@ class Header extends Component {
 
                     </div>
 
-                    <div className="header-account" onClick={() => this.props.showDrawer("word-settings")}>
-                        <Account />
-                    </div>
+                    {/* {this.renderAccount()} */}
+                    <AccountDisplay/>
 
                 </div>
                 {this.renderMenu()}
@@ -499,7 +500,8 @@ class Header extends Component {
                         </Link>
                     </div>
                     <NavLinks hideMenu={() => this.hideMenu()} />
-                    <div className="desktop-account"><div className="desktop-account">Login</div></div>
+                    <AccountDisplay/>
+                    {/* <div className="desktop-account"><div className="desktop-account">Login</div></div> */}
                 </div>
             </div>
         );
@@ -511,7 +513,8 @@ function mapStateToProps(state) {
         location: state.router.location,
         demoMode: false,
         user: state.app.user,
-        blocks: state.blocks
+        blocks: state.blocks,
+        clientHeight: state.app.clientHeight
     };
 }
 

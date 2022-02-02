@@ -1,14 +1,23 @@
 .nav-links-container {
+    position: absolute;
+    top: 0;
+    lefT: 0;
+    right: 0;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     a {
-        font-size: 30px;
+        font-size: 40px;
         font-weight: 300;
     }
 
     .nav-link-container {
         margin: 0 0 20px 0;
         transition: all 0.5s;
-        opacity: 0.5;
+        padding-bottom: 7px;
+        // opacity: 0.5;
         ul {
             li{
                 
@@ -18,6 +27,7 @@
 
         &.nav-link-active {
             opacity: 1;
+            border-bottom: 1px solid white;
 
             a {
                 font-weight: 300;
@@ -34,4 +44,20 @@
     display: inline-block;
     position: absolute;
     border-radius: 50px;
+    top: 5px;
+    right: -10px;
+}
+
+.link-wrapper {
+    position: relative;
+}
+
+.nav-links{
+    @media only screen and (max-width: $mobile) {
+        position: absolute;
+        left: 18px;
+        top: 94px;
+        bottom: 0;
+    }
+
 }
