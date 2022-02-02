@@ -9,6 +9,10 @@ import * as _ from "lodash"
 
 import Word from "./word"
 
+import { searchNFTs} from "../../../redux/actions/nftActions"
+
+import ListResults  from "../../components/list"
+
 class Home extends Component {
 
     state = {
@@ -25,7 +29,17 @@ class Home extends Component {
      		<div className="word-container">
                 {this.renderHead()}
 
-                <Word/>
+                <ListResults
+                    type="recent_nfts"
+                    resultType="nft"
+                    searchCollection={this.props.searchNFTs}
+                    updateTotal={(count) => {
+                        this.setState({
+                            count: count
+                        })
+                    }}
+                    handleClick={() => this.props.handleClick()}
+                />
             </div>
 				
 		);
@@ -40,5 +54,6 @@ function mapStateToProps(state) {
 
 export default {
 	component: withRouter(connect(mapStateToProps, {
+        searchNFTs
 	})(Home))
 }

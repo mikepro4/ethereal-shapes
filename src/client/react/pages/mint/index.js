@@ -26,7 +26,8 @@ import { Buffer } from 'buffer';
 var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': '/api/v0/', protocol: "https" })
 // const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-import { updateMarketTokens } from "../../../redux//actions/appActions"
+import { updateMarketTokens } from "../../../redux/actions/appActions"
+import { createNFT } from "../../../redux/actions/nftActions"
 
 
 class Mint extends Component {
@@ -121,9 +122,27 @@ class Mint extends Component {
             }
         )
 
+
         await transaction.wait()
-        this.props.history.push("/");
-        this.props.updateMarketTokens()
+        
+
+        let res = ethers.utils.formatEther(price);
+        res = Math.round(res * 1e4) / 1e4;
+
+        this.props.createNFT( { 
+            nft: {
+                price: res,
+                name: this.state.name,
+                description: this.state.description,
+                fileUrl: this.state.fileUrl,
+            },
+            metadata: {
+                shapeId: "61f854c2858f150021ef714c"
+            }
+        }, () => {
+            this.props.history.push("/");
+            this.props.updateMarketTokens()
+        });
         // router.push("./")
     }
 
@@ -165,12 +184,15 @@ class Mint extends Component {
 
 function mapStateToProps(state) {
 	return {
+        app: state.app,
+        account: state.app.account
 	};
 }
 
 
 export default {
 	component: withRouter(connect(mapStateToProps, {
-        updateMarketTokens
+        updateMarketTokens,
+        createNFT
 	})(Mint))
 }

@@ -384,13 +384,26 @@
     z-index: 223;
     justify-content: right;
 
+    @media only screen and (min-width: $mobile) {
+        min-height: 51px;
+    }
+
     .header-polygon {
         position: relative;
         top: 2px;
 
+        @media only screen and (min-width: $mobile) {
+            top: 5px;
+        }
+
         svg {
             width: 7px;
             height: 11px;
+
+            @media only screen and (min-width: $mobile) {
+                width: 26px;
+                height: 42px;
+            }
         }
     }
 
@@ -399,6 +412,12 @@
         font-weight: 400;
         padding-left: 3px;
         text-align: right;
+
+        @media only screen and (min-width: $mobile) {
+            font-size: 40px;
+            font-weight: 400;
+            padding-left: 10px;
+        }
     }
     
 }
@@ -410,6 +429,17 @@
     opacity: 0.5;
     position: relative;
     z-index: 223;
+
+    @media only screen and (min-width: $mobile) {
+        font-size: 13px;
+    }
+}
+
+.header-account-icon {
+
+    @media only screen and (min-width: $mobile) {
+        display: none;
+    }
 }
 
 .header-account {
@@ -425,10 +455,18 @@
     // justify-content: right;
     // flex-direction: column;
     // height: 100%;
+
+    @media only screen and (min-width: $mobile) {
+        margin-top: -19px;
+    }
 }
 
 .login-link {
     display: none;
+    font-size: 40px;
+    font-weight: 300;
+    position: relative;
+    top: -13px;
 
     @media only screen and (min-width: $mobile) {
         display: block;

@@ -49,12 +49,13 @@ class AccountDisplay extends Component {
 
 
     render() {
-        if(this.props.account.address) {
+        if(this.props.account.address && this.props.account.balance !== null) {
             let account = this.props.account.address.substr(this.props.account.address.length - 4)
             return(<div className="header-account-wrapper">
                 <div className="header-account-balance-container">
                     <div className="header-polygon"><Polygon/></div>
                     <div className="header-account-balance">{this.props.account.balance}</div>
+                    
                 </div>
                 <div className="header-account-addresss">0x...{account}</div>
             </div>)
