@@ -26,6 +26,8 @@ import { Buffer } from 'buffer';
 var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': '/api/v0/', protocol: "https" })
 // const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
+import { updateMarketTokens } from "../../../redux//actions/appActions"
+
 
 class Mint extends Component {
 
@@ -121,6 +123,7 @@ class Mint extends Component {
 
         await transaction.wait()
         this.props.history.push("/");
+        this.props.updateMarketTokens()
         // router.push("./")
     }
 
@@ -168,5 +171,6 @@ function mapStateToProps(state) {
 
 export default {
 	component: withRouter(connect(mapStateToProps, {
+        updateMarketTokens
 	})(Mint))
 }

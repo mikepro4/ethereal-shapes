@@ -26,7 +26,7 @@ import NFT from "../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
 
-import { showDrawer, updateAccount } from "../client/redux/actions/appActions"
+import { showDrawer, updateAccount, updateMarketTokens} from "../client/redux/actions/appActions"
 import { loadWord, updateBlocks } from "../client/redux/actions/wordsActions"
 import { loadShape } from "../client/redux/actions/shapesActions"
 import { initSave } from "../client/redux/actions/blocksActions"
@@ -34,6 +34,9 @@ import { authUser, fetchCurrentUser, clearCurrentUser } from "../client/redux/ac
 
 import Player from "./react/components/player"
 import AudioPlayer from "./react/components/audioplayer"
+
+import detectEthereumProvider from '@metamask/detect-provider'
+
 
 // if(prevprops.blocks.uploadDone !== this.props.blocks.uploadDone && this.props.blocks.uploadDone == true) {
 //             this.props.initSave()
@@ -48,37 +51,43 @@ class App extends Component {
     async componentDidMount() {
         this.auth()
         this.loadWeb3()
-        const provider = new ethers.providers.JsonRpcProvider("");
-        const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
-        const marketContract = new ethers.Contract(nftMarketAddress, ESMarket.abi, provider);
-        const data = await marketContract.fetchMarketTokens();
-       
-
-        const items = await Promise.all(data.map(async i => {
-            const tokenURI = await tokenContract.tokenURI(i.tokenId);
-
-            const meta = await axios.get(tokenURI);
-            let price = ethers.utils.formatUnits(i.price.toString(), "ether");
-            let item = {
-                price,
-                tokenId: i.tokenId.toNumber(),
-                seller: i.seller,
-                owner: i.owner,
-                image: meta.data.image,
-                name: meta.data.name,
-                description: meta.data.description,
-            }
-            return item;
-        }))
-
-        console.log(items)
-        // this.props.updateAccount({
-        //     balance: this.getBalance(),
-        // })
+        this.props.updateMarketTokens()
         setInterval(() => {
+            // this.checkSigner()
             this.getBalance()
         }, 2222)
 
+        setInterval(() => {
+            if(!this.props.account.address) {
+                this.loadWeb3()
+            }
+        }, 2222)
+
+        
+    }
+
+    checkSigner = async()  =>{
+        const provider = new  ethers.providers.Web3Provider(window.ethereum);
+        // await provider.send('eth_requestAccounts', []);
+        // const signer = await provider.getSigner(0);
+
+        // if (signer === undefined) this.userIsNotConnected();
+        // else this.userIsConnected();
+
+        const addresses = await provider.listAccounts(); 
+        // it doesn't create metamask popup
+        if (addresses.length) {
+            this.userIsConnected()
+        }
+        // permission already granted so request account address from metamask
+        else {this.userIsNotConnected(); }
+    }
+
+    userIsConnected() {
+        console.log("connected")
+    }
+    userIsNotConnected() {
+        console.log("not connected")
     }
 
     async getBalance() {
@@ -94,11 +103,15 @@ class App extends Component {
         // let ether = ethers.utils.formatUnits(ethbalance.toString(), "ether")
         let res = ethers.utils.formatEther(ethbalance);
         res = Math.round(res * 1e4) / 1e4;
+        console.log("balance: ", res)
+        const detectProvider = await detectEthereumProvider()
 
-        console.log(res);
         this.props.updateAccount({
             balance: res,
+            ownedTokens: parseInt(balance, 16),
         })
+        
+       
     }
 
     auth() {
@@ -113,7 +126,13 @@ class App extends Component {
 
     componentDidUpdate(prevprops) {
         if(!_.isEqual(prevprops.location.search, this.props.location.search)) {
-            this.loadWord()
+            this.loadWeb3()
+        }
+
+        if(this.props.word && this.props.word.metadata) {
+            if(!_.isEqual(prevprops.word, this.props.word)) {
+                this.props.loadShape(this.props.word.metadata.shapeId)
+            }
         }
         if(this.props.word && this.props.word.metadata) {
             if(!_.isEqual(prevprops.word, this.props.word)) {
@@ -133,6 +152,8 @@ class App extends Component {
                 })
             }
         }
+
+        
         
     }
 
@@ -181,16 +202,29 @@ class App extends Component {
             this.getBalance()
     
             console.log("reload")
-            alert("yes")
+            alert("chain changed")
         })
 
-        provider.on('accountsChanged', async () => {
-            const accounts = await provider.request({ method: "eth_requestAccounts"});
-            const account = accounts[0]
+        
+
+        provider.on('accountsChanged', async (data) => {
     
             this.props.updateAccount({
-                address: account,
+                address: data[0],
             })
+
+            // if (typeof provider !== 'undefined') {
+            //     console.log('MetaMask is installed!');
+            //     this.props.updateAccount({
+            //         metamask: true,
+            //     })
+            // } else{
+            //     this.props.updateAccount({
+            //         metamask: false,
+            //     })
+            // }
+
+            // this.loadWeb3()
     
         })
 
@@ -199,8 +233,19 @@ class App extends Component {
             this.setState({
                 networkId: networkId
             })
-            alert("yes3")
+            alert("network chainged")
         });
+
+        provider.on('connect', async(networkId) => {
+            console.log("CONNECT")
+            location.reload();
+            // alert("connect")
+        });
+
+        // provider.on('disconnect', async(networkId) => {
+        //     alert("disconnect")
+        //     console.log("DISCONNECT")
+        // });
 
     }
 
@@ -275,6 +320,7 @@ export default {
         loadShape,
         initSave,
         updateBlocks,
-        updateAccount
+        updateAccount,
+        updateMarketTokens
     })(App))
 };

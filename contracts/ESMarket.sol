@@ -127,6 +127,20 @@ contract ESMarket is ReentrancyGuard {
         return items;
     }
 
+    function fetchAllTokens() public view returns(MarketToken[] memory) {
+        uint itemCount = _tokenIds.current();
+        uint currentIndex = 0;
+        MarketToken[] memory items = new MarketToken[](itemCount);
+        for(uint i = 0; i< itemCount; i++) {
+            uint currentId = i + 1;
+            MarketToken storage currentItem = idToMarketToken[currentId];
+            items[currentIndex] = currentItem;
+            currentIndex += 1;
+        }
+        return items;
+    }
+
+
     function fetchMyNFTs() public view returns(MarketToken[] memory) {
         uint totalItemCount = _tokenIds.current();
         uint itemCount = 0;

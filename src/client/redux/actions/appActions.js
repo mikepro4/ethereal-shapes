@@ -12,11 +12,61 @@ import {
     HIDE_DRAWER,
     ACTIVATE_KEY,
     DEACTIVATE_KEY,
-    UPDATE_ACCOUNT
+    UPDATE_ACCOUNT,
+    UPDATE_MARKET_TOKENS
 } from "./types";
 
 import * as _ from "lodash";
 import qs from "qs";
+import axios from "axios";
+
+import Web3Modal from "web3modal";
+
+import {
+    nftAddress, nftMarketAddress
+} from "../../../../config";
+
+import NFT from "../../../../artifacts/contracts/NFT.sol/NFT.json";
+import ESMarket from "../../../../artifacts/contracts/ESMarket.sol/ESMarket.json";
+import { ethers } from "ethers";
+
+/////////////////////////////////////////////////
+
+export const updateMarketTokens = (tokens) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    const provider = new ethers.providers.JsonRpcProvider("");
+    const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
+    const marketContract = new ethers.Contract(nftMarketAddress, ESMarket.abi, provider);
+    const data = await marketContract.fetchAllTokens();
+    
+
+    const items = await Promise.all(data.map(async i => {
+        const tokenURI = await tokenContract.tokenURI(i.tokenId);
+
+        const meta = await axios.get(tokenURI);
+        let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+        let item = {
+            price,
+            tokenId: i.tokenId.toNumber(),
+            seller: i.seller,
+            owner: i.owner,
+            image: meta.data.image,
+            name: meta.data.name,
+            description: meta.data.description,
+        }
+        return item;
+    }))
+
+    console.log(items)
+    dispatch({
+        type: UPDATE_MARKET_TOKENS,
+        payload: items
+    });
+};
 
 /////////////////////////////////////////////////
 

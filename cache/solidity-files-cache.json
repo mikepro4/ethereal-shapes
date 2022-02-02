@@ -513,8 +513,8 @@
       ]
     },
     "/Users/mikhail/Desktop/NEWCODE/nft/ethereal-shapes/contracts/ESMarket.sol": {
-      "lastModificationDate": 1643720382982,
-      "contentHash": "9cc830ebf5c971f0a8236f0d335854ab",
+      "lastModificationDate": 1643782721759,
+      "contentHash": "f2cbbcef1047036f7b82c1ac54c674a1",
       "sourceName": "contracts/ESMarket.sol",
       "solcConfig": {
         "version": "0.8.4",

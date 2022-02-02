@@ -19,7 +19,8 @@ import {
     LOAD_SHAPE,
     LOAD_SORTED_BLOCKS,
     CLEAR_SORTED_BLOCKS,
-    UPDATE_ACCOUNT
+    UPDATE_ACCOUNT,
+    UPDATE_MARKET_TOKENS
 } from "../actions/types";
 
 export const initialState = {
@@ -29,6 +30,8 @@ export const initialState = {
         balance: null,
         address: null,
     },
+    marketTokens: [],
+
 
     demoMode: false,
     totalPixels: 0,
@@ -51,11 +54,15 @@ export const initialState = {
     
 
     nftTokens: [],
-    marketTokens: [],
 };
 
 export const appReducer = (state = initialState, action) => {
 	switch (action.type) {
+        case UPDATE_MARKET_TOKENS:
+            return {
+                ...state,
+                marketTokens: action.payload
+            }
         case UPDATE_ACCOUNT:
             return {
                 ...state,
