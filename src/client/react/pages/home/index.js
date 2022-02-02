@@ -26,7 +26,7 @@ class Home extends Component {
 
 	render() {
 		return (
-     		<div className="word-container">
+     		<div className="nft-container">
                 {this.renderHead()}
 
                 <ListResults

@@ -17,7 +17,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 150px 0 0 0;
+    padding: 80px 0 0 0;
+
+    @media only screen and (min-width: $mobile) {
+        padding-top: 200px;
+    }
 }
 
 .viz-wrapper {

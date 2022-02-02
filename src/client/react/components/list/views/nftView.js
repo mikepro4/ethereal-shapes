@@ -19,16 +19,17 @@ class nftView extends Component {
 
     render() {
         return(
-            <div className="word-view" >
+            <div className="nft-view" >
                <Link 
                     to={"/?word=" + this.props.item._id}
                     onClick={() =>this.props.handleClick()}
                     className={classNames({
-                        "word-title": true,
+                        "nft-title": true,
                         "active": false
                     })}
                 >
                    {this.props.item.nft.name}
+                   <img src={this.props.item.nft.fileUrl}/>
                </Link>
                {/* <div className= onClick={() => this.props.deleteWord(this.props.item._id, this.props.item, () => {
                         this.props.updateCollection(true)
