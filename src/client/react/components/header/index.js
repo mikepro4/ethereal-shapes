@@ -388,9 +388,9 @@ class Header extends Component {
                             })}
                         >
                             <NavLinks hideMenu={() => this.hideMenu()} />
-                            <dic className="powered">
+                            <div className="powered">
                                 <Powered />
-                            </dic>
+                            </div>
                         </div>
 
                         {/* {this.renderBottom()} */}

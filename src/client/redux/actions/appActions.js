@@ -11,11 +11,26 @@ import {
     SHOW_DRAWER,
     HIDE_DRAWER,
     ACTIVATE_KEY,
-    DEACTIVATE_KEY
+    DEACTIVATE_KEY,
+    UPDATE_ACCOUNT
 } from "./types";
 
 import * as _ from "lodash";
 import qs from "qs";
+
+/////////////////////////////////////////////////
+
+export const updateAccount = (account) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: UPDATE_ACCOUNT,
+        payload: account
+    });
+};
+
 
 /////////////////////////////////////////////////
 

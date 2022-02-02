@@ -120,7 +120,7 @@ class Mint extends Component {
         )
 
         await transaction.wait()
-
+        this.props.history.push("/");
         // router.push("./")
     }
 

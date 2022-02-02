@@ -18,10 +18,18 @@ import {
     LOAD_WORD,
     LOAD_SHAPE,
     LOAD_SORTED_BLOCKS,
-    CLEAR_SORTED_BLOCKS
+    CLEAR_SORTED_BLOCKS,
+    UPDATE_ACCOUNT
 } from "../actions/types";
 
 export const initialState = {
+    account: {
+        metamask: false,
+        ownedTokens: null,
+        balance: null,
+        address: null,
+    },
+
     demoMode: false,
     totalPixels: 0,
 	clientWidth: 0,
@@ -35,13 +43,27 @@ export const initialState = {
     drawerType: null,
     drawerData: {},
     activeKeys: [],
+    
     activeWord: {},
     activeShape: {},
-    sortedBlocks: []
+    sortedBlocks: [],
+
+    
+
+    nftTokens: [],
+    marketTokens: [],
 };
 
 export const appReducer = (state = initialState, action) => {
 	switch (action.type) {
+        case UPDATE_ACCOUNT:
+            return {
+                ...state,
+                account: {
+                    ...state.account,
+                    ...action.payload
+                }
+            }
         case LOAD_WORD:
             return {
                 ...state,

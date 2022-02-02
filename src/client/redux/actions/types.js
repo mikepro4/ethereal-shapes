@@ -65,3 +65,11 @@ export const LOAD_SORTED_BLOCKS = "app/LOAD_SORTED_BLOCKS"
 export const CLEAR_SORTED_BLOCKS = "app/CLEAR_SORTED_BLOCKS"
 
 // =============================================================================
+
+// =============================================================================
+
+// Account
+
+export const UPDATE_ACCOUNT = "app/UPDATE_ACCOUNT"
+
+// =============================================================================

@@ -26,7 +26,7 @@ import NFT from "../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
 
-import { showDrawer } from "../client/redux/actions/appActions"
+import { showDrawer, updateAccount } from "../client/redux/actions/appActions"
 import { loadWord, updateBlocks } from "../client/redux/actions/wordsActions"
 import { loadShape } from "../client/redux/actions/shapesActions"
 import { initSave } from "../client/redux/actions/blocksActions"
@@ -72,9 +72,12 @@ class App extends Component {
         }))
 
         console.log(items)
-        setTimeout(() => {
+        // this.props.updateAccount({
+        //     balance: this.getBalance(),
+        // })
+        setInterval(() => {
             this.getBalance()
-        }, 1000)
+        }, 2222)
 
     }
 
@@ -83,12 +86,19 @@ class App extends Component {
         const signer = provider.getSigner()
 
         let contract = new ethers.Contract(nftAddress, NFT.abi, signer)
-        console.log(this.state.account)
-        let balance = await contract.balanceOf(this.state.account);
+        console.log(this.props.account.address)
+        let balance = await contract.balanceOf(this.props.account.address);
         console.log("owned token: " + parseInt(balance, 16))
 
-        const ethbalance = await provider.getBalance(this.state.account)
-        console.log(ethers.utils.formatUnits(ethbalance.toString(), "ether"))
+        const ethbalance = await provider.getBalance(this.props.account.address)
+        // let ether = ethers.utils.formatUnits(ethbalance.toString(), "ether")
+        let res = ethers.utils.formatEther(ethbalance);
+        res = Math.round(res * 1e4) / 1e4;
+
+        console.log(res);
+        this.props.updateAccount({
+            balance: res,
+        })
     }
 
     auth() {
@@ -154,30 +164,42 @@ class App extends Component {
 
         if (typeof provider !== 'undefined') {
             console.log('MetaMask is installed!');
+            this.props.updateAccount({
+                metamask: true,
+            })
         }
 
         const accounts = await provider.request({ method: "eth_requestAccounts"});
         const account = accounts[0]
         console.log(account)
-        this.setState({
-            account: account
+
+        this.props.updateAccount({
+            address: account,
         })
 
-        provider.on('chainChanged', () => {
-            window.location.reload();
+        provider.on('chainChanged', async () => {
+            this.getBalance()
+    
             console.log("reload")
+            alert("yes")
         })
 
-        provider.on('accountsChanged', () => {
-            // window.location.reload();
-            console.log("reload")
+        provider.on('accountsChanged', async () => {
+            const accounts = await provider.request({ method: "eth_requestAccounts"});
+            const account = accounts[0]
+    
+            this.props.updateAccount({
+                address: account,
+            })
+    
         })
 
-        provider.on('networkChanged', function(networkId){
-            console.log('networkChanged',networkId);
+        provider.on('networkChanged', async(networkId) => {
+            this.getBalance()
             this.setState({
                 networkId: networkId
             })
+            alert("yes3")
         });
 
     }
@@ -238,7 +260,8 @@ function mapStateToProps(state) {
         drawerType: state.app.drawerType,
         drawerOpen: state.app.drawerOpen,
         word: state.app.activeWord,
-        blocks: state.blocks
+        blocks: state.blocks,
+        account: state.app.account
     };
 }
 
@@ -251,6 +274,7 @@ export default {
         showDrawer,
         loadShape,
         initSave,
-        updateBlocks
+        updateBlocks,
+        updateAccount
     })(App))
 };
