@@ -42,17 +42,21 @@ class Home extends Component {
                 <div className="mobile-tabs" style={{opacity: this.getOpacity() + "%"}}>
                     {this.props.app.totalScrolledPixels < 222 && <NavLinks linksType="mobileTabs" hideMenu={() => {}}/> }
                 </div>
-                <ListResults
-                    type="recent_nfts"
-                    resultType="nft"
-                    searchCollection={this.props.searchNFTs}
-                    updateTotal={(count) => {
-                        this.setState({
-                            count: count
-                        })
-                    }}
-                    handleClick={() => this.props.handleClick()}
-                />
+                
+                <div className="nft-grid">
+                    <ListResults
+                        type="recent_nfts"
+                        resultType="nft"
+                        searchCollection={this.props.searchNFTs}
+                        updateTotal={(count) => {
+                            this.setState({
+                                count: count
+                            })
+                        }}
+                        handleClick={() => this.props.handleClick()}
+                    />
+                </div>
+                
             </div>
 				
 		);

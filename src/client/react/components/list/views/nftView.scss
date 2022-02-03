@@ -1,9 +1,94 @@
 .nft-view {
     display: block;
+    border-bottom: 5px solid #141414;
 }
 
 .nft-media-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     img {
         max-width: 100%;
+    }
+}
+
+.nft-details-container {
+    margin: 20px;
+    height: 40px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    max-width: 1100px;
+    padding: 20px;
+    margin: 0 auto 20px auto;
+
+    .nft-details-left {
+        display: flex;
+        align-items: center;
+
+    }
+
+    .play-container {
+        margin-right: 10px;
+    }
+
+    .metadata-name {
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+
+    .metadata-status-bar {
+        display: flex;
+        font-size: 10px;
+        font-weight: 500;
+
+        
+
+        .status {
+            &.green {
+                color: #29FF7F;
+            }
+        }
+
+        .price {
+            display: flex;
+            margin-left: 8px;
+
+            svg {
+                width: 7px;
+                height: 11px;
+                margin-right: 3px;
+            }
+        }
+    }
+}
+
+.nft-grid {
+    @media only screen and (min-width: $mobile) {
+        margin: 0 auto;
+        max-width: 1700px;
+    }
+}
+
+.nft-grid .list-results {
+    @media only screen and (min-width: $mobile) {
+        display: grid;
+        grid-template-columns: 30% 30% 30%;
+        column-gap: 150px;
+        row-gap: 150px;
+        justify-content: center;
+        
+        .list-results {
+            display: flex;
+        }
+
+        .nft-view {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nft-details-container {
+            padding: 0
+        }
     }
 }

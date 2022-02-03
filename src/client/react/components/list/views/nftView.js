@@ -15,7 +15,17 @@ import {
     buyNFT
 } from "../../../../redux/actions/nftActions"
 
+import Play from "../../icons/play"
+import Polygon from "../../icons/polygon"
+
 class nftView extends Component {
+
+
+    constructor (props) {
+        super(props)
+
+        this.nftView =  this.innerRef = React.createRef();
+    }
 
     renderNftDetails() {
         let nft = _.filter(this.props.marketTokens, { image: this.props.item.nft.fileUrl})
@@ -45,26 +55,63 @@ class nftView extends Component {
         
     }
     render() {
+        let height = 0
+
+        if(this.nftView && this.nftView.current) {
+            height = this.nftView.current.clientWidth
+        }
         return(
-            <div className="nft-view" >
-               <Link 
+            <div className="nft-view" ref={this.nftView} >
+               {/* <Link 
                     to={"/?word=" + this.props.item._id}
                     className={classNames({
                         "nft-title": true,
                         "active": false
                     })}
                 >
-                    <div className="nft-media-container" height={this.props.app.clientWidth}>
-                        <img src={this.props.item.nft.fileUrl}/>
-                    {this.props.item.nft.name}
-                    </div>
+                    
                    
                   
-               </Link>
+               </Link> */}
                {/* <div className= onClick={() => this.props.deleteWord(this.props.item._id, this.props.item, () => {
                         this.props.updateCollection(true)
                    })}>Delete</div> */}
-                {this.renderNftDetails()}
+                {/* {this.renderNftDetails()} */}
+
+                <div className="nft-media-container" height={height + "px"}>
+                        <img src={this.props.item.nft.fileUrl}/>
+                </div>
+
+                <div className="nft-details-container">
+                    <div className="nft-details-left">
+
+                        <div className="play-container">
+                            <Play/>
+                        </div>
+
+                        <div className="metadata-container">
+                            <div className="metadata-name">
+                                {this.props.item.nft.name}
+                            </div>
+
+                            <div className="metadata-status-bar">
+                                <div className="status green">
+                                    On Sale
+                                </div>
+
+                                <div className="price green">
+                                    <Polygon/>
+                                    {this.props.item.nft.price}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div className="nft-details-left">
+                        Right
+                    </div>
+                </div>
                
             </div>
         )
