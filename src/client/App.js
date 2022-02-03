@@ -51,7 +51,7 @@ class App extends Component {
     async componentDidMount() {
         this.auth()
         this.loadWeb3()
-        // this.props.updateMarketTokens()
+        this.props.updateMarketTokens()
 
         // setTimeout(() => {
         //     this.getBalance()
