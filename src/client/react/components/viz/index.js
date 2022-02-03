@@ -53,7 +53,7 @@ class Viz extends Component {
             this.setState({
                 shape: data.defaultViz
             }, () => {
-                console.log(this.state.shape)
+                // console.log(this.state.shape)
                 this.startViz()
 
                 this.setState({
@@ -109,7 +109,6 @@ class Viz extends Component {
         // }
 
         if(rect.y > this.props.app.clientHeight/1.4) {
-            console.log("pause!!!!!!!!!!!")
             if(!this.state.paused) {
                 this.setState({
                     paused: true
@@ -158,7 +157,6 @@ class Viz extends Component {
     }
 
     updateColors = () => {
-        console.log("update colors")
         let colors = this.getViz().colors
         let pointCount =  this.state.pointCount
         let ranges = []
@@ -319,7 +317,7 @@ class Viz extends Component {
         }, () => {
                 if(!this.state.requestAnimationFrame) {
                     this.paint()
-                    console.log("Initial state: ", this.state)
+                    // console.log("Initial state: ", this.state)
                 }
         })
     }

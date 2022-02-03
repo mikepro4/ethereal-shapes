@@ -74,15 +74,15 @@ class App extends Component {
         let signer = provider.getSigner()
 
         let contract = new ethers.Contract(nftAddress, NFT.abi, signer)
-        console.log(this.props.account.address)
+        // console.log(this.props.account.address)
         let balance = await contract.balanceOf(this.props.account.address);
-        console.log("owned token: " + parseInt(balance, 16))
+        // console.log("owned token: " + parseInt(balance, 16))
 
         let ethbalance = await provider.getBalance(this.props.account.address)
         // let ether = ethers.utils.formatUnits(ethbalance.toString(), "ether")
         let res = ethers.utils.formatEther(ethbalance);
         res = Math.round(res * 1e4) / 1e4;
-        console.log("balance: ", res)
+        // console.log("balance: ", res)
 
         this.props.updateAccount({
             balance: res,
