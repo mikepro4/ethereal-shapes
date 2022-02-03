@@ -21,6 +21,8 @@ import More from "../../icons/more"
 
 import { showDrawer } from "../../../../redux/actions/appActions"
 
+import Viz from "../../viz"
+
 class nftView extends Component {
 
 
@@ -64,7 +66,6 @@ class nftView extends Component {
         if(this.nftView && this.nftView.current) {
             height = this.nftView.current.clientWidth
         }
-        console.log(this.nftMore)
         return(
             <div className="nft-view" ref={this.nftView} >
                {/* <Link 
@@ -83,8 +84,9 @@ class nftView extends Component {
                    })}>Delete</div> */}
                 {/* {this.renderNftDetails()} */}
 
-                <div className="nft-media-container" height={height + "px"}>
-                        <img src={this.props.item.nft.fileUrl}/>
+                <div className="nft-media-container" style={{height: height + "px"}}>
+                        {/* <img src={this.props.item.nft.fileUrl}/> */}
+                        <Viz shapeId={this.props.item.metadata.shapeId}/>
                 </div>
 
                 <div className="nft-details-container">
