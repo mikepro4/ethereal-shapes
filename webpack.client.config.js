@@ -76,7 +76,8 @@ if (process.env.NODE_ENV === "production") {
 					keep_fnames: true,
 					},
 					compress: {
-					warnings: false,
+                        inline:false,
+					    warnings: false,
 					},
 					output: {
 					beautify: false,
