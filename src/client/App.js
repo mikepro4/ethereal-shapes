@@ -70,20 +70,19 @@ class App extends Component {
     }
 
     async getBalance() {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = provider.getSigner()
+        let provider = new ethers.providers.Web3Provider(window.ethereum)
+        let signer = provider.getSigner()
 
         let contract = new ethers.Contract(nftAddress, NFT.abi, signer)
         console.log(this.props.account.address)
         let balance = await contract.balanceOf(this.props.account.address);
         console.log("owned token: " + parseInt(balance, 16))
 
-        const ethbalance = await provider.getBalance(this.props.account.address)
+        let ethbalance = await provider.getBalance(this.props.account.address)
         // let ether = ethers.utils.formatUnits(ethbalance.toString(), "ether")
         let res = ethers.utils.formatEther(ethbalance);
         res = Math.round(res * 1e4) / 1e4;
         console.log("balance: ", res)
-        const detectProvider = await detectEthereumProvider()
 
         this.props.updateAccount({
             balance: res,
@@ -160,7 +159,7 @@ class App extends Component {
     }
 
     async loadWeb3() {
-        const provider = window.ethereum;
+        let provider = window.ethereum;
 
         if (typeof provider !== 'undefined') {
             console.log('MetaMask is installed!');
@@ -169,8 +168,8 @@ class App extends Component {
             })
         }
 
-        const accounts = await provider.request({ method: "eth_requestAccounts"});
-        const account = accounts[0]
+        let accounts = await provider.request({ method: "eth_requestAccounts"});
+        let account = accounts[0]
         console.log(account)
 
         this.props.updateAccount({
