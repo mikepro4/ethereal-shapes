@@ -34,6 +34,7 @@ class Viz extends Component {
             pointCount: 0,
             timeInterval: null,
             totalPointCount: 400,
+            static: false,
             points: []
         };
 
@@ -107,7 +108,7 @@ class Viz extends Component {
         //     }
         // }
 
-        if(rect.y > this.props.app.clientHeight/1.2) {
+        if(rect.y > this.props.app.clientHeight/1.4) {
             console.log("pause!!!!!!!!!!!")
             if(!this.state.paused) {
                 this.setState({
@@ -116,15 +117,16 @@ class Viz extends Component {
             }
         }
 
-        if(rect.y < -350) {
+        if(rect.y < -150) {
             if(!this.state.paused) {
                 this.setState({
-                    paused: true
+                    paused: true,
+                    static: true
                 })
             }
         }
-        if(rect.y < this.props.app.clientHeight/1.2 && rect.y > -349) {
-            if(this.state.paused) {
+        if(rect.y < this.props.app.clientHeight/1.4 && rect.y > -149) {
+            if(this.state.paused && !this.state.static) {
               this.setState({
                   paused: false
               }, () => {
