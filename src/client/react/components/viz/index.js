@@ -29,11 +29,11 @@ class Viz extends Component {
             pointOpacity: 0,
             x: 0,
             y: 0,
-            paused: false,
+            paused: true,
             shape: {},
             pointCount: 0,
             timeInterval: null,
-            totalPointCount: 1024,
+            totalPointCount: 400,
             points: []
         };
 
@@ -79,7 +79,72 @@ class Viz extends Component {
                 this.updateColors()
             }, 1)
         }
+
+        let rect = this.vizContainer.current.getBoundingClientRect();
+        // console.log(rect)
+
+        // if((rect.y + rect.height) < 2000) {
+        //     // console.log("paused")
+        //     this.setState({
+        //         paused: false
+        //     }, () => {
+        //         this.update()
+        //     })
+        // }
+
+        // if(rect.y > this.props.app.clientHeight/3) {
+        //     if(!this.state.paused) {
+        //       this.setState({
+        //           paused: true
+        //       })
+        // }
+
+        // if(rect.y < -350) {
+        //       if(!this.state.paused) {
+        //         this.setState({
+        //             paused: true
+        //         })
+        //     }
+        // }
+
+        if(rect.y > this.props.app.clientHeight/1.2) {
+            console.log("pause!!!!!!!!!!!")
+            if(!this.state.paused) {
+                this.setState({
+                    paused: true
+                })
+            }
+        }
+
+        if(rect.y < -350) {
+            if(!this.state.paused) {
+                this.setState({
+                    paused: true
+                })
+            }
+        }
+        if(rect.y < this.props.app.clientHeight/1.2 && rect.y > -349) {
+            if(this.state.paused) {
+              this.setState({
+                  paused: false
+              }, () => {
+                this.update()
+            })
+        } else {
+            // if(!this.state.paused) {
+            //     this.setState({
+            //         paused: true
+            //     })
+            // }
+
+           
+        }
+
+        
+      }
     }
+
+    
 
     handleResize = () => {
         this.updateDimensions()
@@ -308,22 +373,22 @@ class Viz extends Component {
             let freqData = []
             let soundModifier = 1
     
-            if(this.props.player.analyser) {
-                freqData = new Uint8Array(this.props.player.analyser.frequencyBinCount)
-                this.props.player.analyser.getByteFrequencyData(freqData)
-            }
+            // if(this.props.player.analyser) {
+            //     freqData = new Uint8Array(this.props.player.analyser.frequencyBinCount)
+            //     this.props.player.analyser.getByteFrequencyData(freqData)
+            // }
     
             
     
             for (let i = 0; i < points.length; i++) {
     
-                if(this.props.player.analyser && soundModifier) {
-                    soundModifier = freqData[this.getPointIterator(i)]/1000
+                // if(this.props.player.analyser && soundModifier) {
+                //     soundModifier = freqData[this.getPointIterator(i)]/1000
             
-                    if(soundModifier == 0) {
-                      soundModifier = 1
-                    }
-                }
+                //     if(soundModifier == 0) {
+                //       soundModifier = 1
+                //     }
+                // }
     
                 let point = points[i];
 
@@ -418,6 +483,7 @@ class Viz extends Component {
                 requestAnimationFrame: null
             });
         }
+
     }
 
     renderOverlay = () => {

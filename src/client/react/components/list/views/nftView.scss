@@ -8,7 +8,8 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    
+    margin-bottom: 10px;
+
     img {
         max-width: 100%;
     }
@@ -23,6 +24,12 @@
     max-width: 1100px;
     padding: 20px 0 20px 20px;
     margin: 0 auto 20px auto;
+
+    @media only screen and (min-width: $mobile) {
+        opacity: 0;
+        animation: fadeIn forwards 1s 1s ease-in-out; 
+    }
+   
 
     .nft-details-left {
         display: flex;
@@ -86,11 +93,14 @@
         }
 
         .nft-view {
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: none
         }
 
         .nft-details-container {
-            padding: 0
+            height: inherit;
+            padding: 0 0 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+
         }
     }
 }
