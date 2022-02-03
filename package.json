@@ -15,8 +15,7 @@
 		"start": "node build/bundle.js"
 	},
 	"engines": {
-		"node": "12.22.0",
-		"npm": "6.4.1"
+		"node": "12.22.0"
 	},
 	"license": "ISC",
 	"devDependencies": {
