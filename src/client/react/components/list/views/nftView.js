@@ -17,6 +17,7 @@ import {
 
 import Play from "../../icons/play"
 import Polygon from "../../icons/polygon"
+import More from "../../icons/more"
 
 class nftView extends Component {
 
@@ -109,7 +110,20 @@ class nftView extends Component {
                     </div>
 
                     <div className="nft-details-left">
-                        Right
+                        <div className="left">
+                        <Button
+                            className={"buy-button"}
+                            type="submit"
+                            text="Buy NFT"
+                            large="true"
+                        />
+                        </div>
+
+                        <div className="right">
+                            <div className="more-container">
+                                <More />
+                            </div>
+                        </div>
                     </div>
                 </div>
                

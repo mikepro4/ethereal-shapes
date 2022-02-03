@@ -92,3 +92,30 @@
         }
     }
 }
+
+.buy-button {
+}
+
+.nft-details-container {
+    .left {
+        margin-right: 5px;
+    }
+
+    .right {
+        opacity: 30%;
+        transition: all 0.2s ease;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 100%;
+        }
+
+        .more-container {
+            padding: 20px 0 20px 15px;
+
+            @media only screen and (min-width: $mobile) {
+                padding-right: 15px;
+            }
+        }
+    }
+}

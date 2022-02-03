@@ -2,14 +2,22 @@
     width: 100%;
     border-radius: 0;
     font-family: "A";
-    font-weight: 600;
+    font-weight: 400;
     font-size: 16px;
     border-radius: 3px;
 
     &:not([class*="bp3-intent-"]) {
         border: none;
         box-shadow: none;
-        padding: 13px 10px;
+        padding: 13px 30px;
+        border-radius: 0;
+
+        @media only screen and (max-width: $mobile) {
+            padding: 7px 15px;
+            font-weight: 400;
+            font-size: 14px;
+        }
+    
 
         .bp3-button-text {
             position: relative;
@@ -17,28 +25,11 @@
             letter-spacing: 0.5px;
         }
 
-        &.small-button {
-            padding: 10px 20px;
-            font-weight: 600;
-            font-size: 13px;
-        }
-
         &:not([class*="control"]) {
-            background: $white;
-            color: $black;
+            background: $black;
+            border: 1px solid $white;
+            color: $white;
 
-            &.bp3-minimal {
-                background: $white;
-                color: $black;
-            }
-        }
-    }
-
-    &.theme-dark {
-        .bp3-icon {
-            svg {
-                fill: $white;
-            }
         }
     }
 
