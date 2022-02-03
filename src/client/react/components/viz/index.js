@@ -280,7 +280,6 @@ class Viz extends Component {
         this.setState({
             points: points
         })
-        console.log(points)
     
         return points
     }
