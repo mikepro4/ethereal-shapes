@@ -51,15 +51,15 @@ class App extends Component {
     async componentDidMount() {
         this.auth()
         this.loadWeb3()
-        this.props.updateMarketTokens()
+        // this.props.updateMarketTokens()
 
-        setTimeout(() => {
-            this.getBalance()
-        }, 100)
+        // setTimeout(() => {
+        //     this.getBalance()
+        // }, 100)
 
-        setInterval(() => {
-            this.getBalance()
-        }, 2222)
+        // setInterval(() => {
+        //     this.getBalance()
+        // }, 2222)
 
         // setInterval(() => {
         //     if(!this.props.account.address) {
