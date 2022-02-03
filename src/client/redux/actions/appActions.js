@@ -230,7 +230,7 @@ export const resetScrollTo = (px) => async (dispatch) => {
 
 /////////////////////////////////////////////////
 
-export const showDrawer = (type, drawerData, success) => async (
+export const showDrawer = (type, drawerData, element, drawerLocation) => async (
     dispatch,
 	getState,
 	api
@@ -239,19 +239,19 @@ export const showDrawer = (type, drawerData, success) => async (
         dispatch({
             type: SHOW_DRAWER,
             payload: type,
-            drawerData: drawerData
+            drawerData: drawerData,
+            element: element,
+            drawerLocation: drawerLocation
         });
     } else {
         dispatch({
             type: SHOW_DRAWER,
             payload: type,
+            element: element,
+            drawerLocation: drawerLocation
         });
     }
     
-
-	if (success) {
-		success();
-	}
 	document.body.classList.add("no-scroll");
 };
 

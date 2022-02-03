@@ -45,6 +45,9 @@ export const initialState = {
     drawerOpen: false,
     drawerType: null,
     drawerData: {},
+    position: {},
+    drawerLocation: {},
+
     activeKeys: [],
     
     activeWord: {},
@@ -136,11 +139,25 @@ export const appReducer = (state = initialState, action) => {
             } else {
                 drawer = state.drawerData
             }
+
+            let position
+
+            if(action.element) {
+                position =  {
+                    x: action.element.current.offsetTop + 55,
+                    y: action.element.current.offsetLeft - 250,
+                }
+
+            } else {
+                position = {}
+            }
             return {
                 ...state,
                 drawerOpen: true,
                 drawerType: action.payload,
-                drawerData: drawer
+                drawerData: drawer,
+                position:  position,
+                drawerLocation: action.drawerLocation
             }
         case HIDE_DRAWER:
             return {
@@ -148,7 +165,9 @@ export const appReducer = (state = initialState, action) => {
                 drawerOpen: false,
                 drawerType: null,
                 drawerData: null,
-                suggestions: []
+                suggestions: [],
+                position:  {},
+                drawerLocation: null
             }
         case ACTIVATE_KEY:
             let activeKeys = []

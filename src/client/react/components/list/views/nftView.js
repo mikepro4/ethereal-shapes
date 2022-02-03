@@ -19,13 +19,16 @@ import Play from "../../icons/play"
 import Polygon from "../../icons/polygon"
 import More from "../../icons/more"
 
+import { showDrawer } from "../../../../redux/actions/appActions"
+
 class nftView extends Component {
 
 
     constructor (props) {
         super(props)
 
-        this.nftView =  this.innerRef = React.createRef();
+        this.nftView =  this.nftView = React.createRef();
+        this.nftMore =  this.nftMore = React.createRef();
     }
 
     renderNftDetails() {
@@ -61,6 +64,7 @@ class nftView extends Component {
         if(this.nftView && this.nftView.current) {
             height = this.nftView.current.clientWidth
         }
+        console.log(this.nftMore)
         return(
             <div className="nft-view" ref={this.nftView} >
                {/* <Link 
@@ -120,7 +124,7 @@ class nftView extends Component {
                         </div>
 
                         <div className="right">
-                            <div className="more-container">
+                            <div className="more-container" ref={this.nftMore} onClick={() => this.props.showDrawer("nft", {}, this.nftMore, "bottom")}>
                                 <More />
                             </div>
                         </div>
@@ -146,5 +150,6 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(mapStateToProps, {
     buyNFT,
-    updateCollection
+    updateCollection,
+    showDrawer
 })(nftView));

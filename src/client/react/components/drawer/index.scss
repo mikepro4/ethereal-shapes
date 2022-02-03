@@ -16,11 +16,20 @@
         right: 0;
         z-index: 1;
         background: rgba($black, 0.2);
+
+        @media only screen and (min-width: $mobile) {
+            background: none;
+        }
+
+       
+
+        
         @extend .animation-fadeIn;
 
         &.hide {
             @extend .animation-fadeOut;
         }
+
 
         
     }
@@ -41,6 +50,15 @@
 
         &.hide {
             @extend .animation-hideDrawer;
+        }
+
+
+        @media only screen and (min-width: $mobile) {
+            animation: none;
+
+            &.hide {
+                animation: none;
+            }
         }
     }
 

@@ -11,6 +11,7 @@ import {
 } from '../../../redux/actions/appActions'
 
 import WordSettings from "./type/word_settings"
+import NFTDrawer from "./type/nft"
 
 class Drawer extends Component {
 
@@ -31,6 +32,8 @@ class Drawer extends Component {
         switch (type) {
             case "word-settings":
                 return (<WordSettings hideDrawer={() => this.hideDrawer()} enablePortal/>)
+            case "nft":
+                return (<NFTDrawer hideDrawer={() => this.hideDrawer()} enablePortal/>)
             default:
                 return ;
         }
@@ -38,10 +41,15 @@ class Drawer extends Component {
 
 	render() {
 
+        let style
+        if(this.props.app.clientWidth > 500) {
+            style = {position: "absolute", left: this.props.app.position.y + "px", top: this.props.app.position.x + "px", bottom: "inherit", width: 300 + "px"}
+        }
+
         return (
             <div className={"app-drawer theme-" + this.props.theme + " " + classNames({
                 "full-screen": this.props.fullScreen
-            })}>
+            })} style={style}>
                 <div 
                     className={"app-drawer-background theme-" + this.props.theme + " " + classNames({
                         "hide": this.state.hide
@@ -56,7 +64,7 @@ class Drawer extends Component {
 
                 <div className={"app-drawer-content theme-" + this.props.theme + " " + classNames({
                         "hide": this.state.hide
-                    })}>
+                    })} >
                     {this.renderDrawer(this.props.type)}
                 </div>
             </div>
@@ -71,7 +79,8 @@ function mapStateToProps(state) {
         theme: state.app.theme,
         user: state.app.user,
         authenticated: state.auth.authenticated,
-        drawerData: state.app.drawerData
+        drawerData: state.app.drawerData,
+        app: state.app
 	};
 }
 

@@ -19,7 +19,7 @@
     display: flex;
     align-items: center;
     max-width: 1100px;
-    padding: 20px;
+    padding: 20px 0 20px 20px;
     margin: 0 auto 20px auto;
 
     .nft-details-left {
@@ -111,10 +111,10 @@
         }
 
         .more-container {
-            padding: 20px 0 20px 15px;
+            padding: 20px 20px 20px 15px;
 
             @media only screen and (min-width: $mobile) {
-                padding-right: 15px;
+                // padding-right: 15px;
             }
         }
     }
