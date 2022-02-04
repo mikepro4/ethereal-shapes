@@ -14,65 +14,6 @@
         max-width: 100%;
     }
 }
-
-.nft-details-container {
-    margin: 20px;
-    height: 40px;
-    justify-content: space-between;
-    display: flex;
-    align-items: center;
-    max-width: 1100px;
-    padding: 20px 0 20px 20px;
-    margin: 0 auto 20px auto;
-
-    @media only screen and (min-width: $mobile) {
-        opacity: 0;
-        animation: fadeIn forwards 1s 1s ease-in-out; 
-    }
-   
-
-    .nft-details-left {
-        display: flex;
-        align-items: center;
-
-    }
-
-    .play-container {
-        margin-right: 10px;
-    }
-
-    .metadata-name {
-        font-weight: 500;
-        font-size: 18px;
-        margin-bottom: 2px;
-    }
-
-    .metadata-status-bar {
-        display: flex;
-        font-size: 10px;
-        font-weight: 500;
-
-        
-
-        .status {
-            &.green {
-                color: #29FF7F;
-            }
-        }
-
-        .price {
-            display: flex;
-            margin-left: 8px;
-
-            svg {
-                width: 7px;
-                height: 11px;
-                margin-right: 3px;
-            }
-        }
-    }
-}
-
 .nft-grid {
     @media only screen and (min-width: $mobile) {
         margin: 100px auto;
@@ -101,33 +42,6 @@
             padding: 0 0 20px 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
 
-        }
-    }
-}
-
-.buy-button {
-}
-
-.nft-details-container {
-    .left {
-        margin-right: 5px;
-    }
-
-    .right {
-        opacity: 30%;
-        transition: all 0.2s ease;
-        cursor: pointer;
-
-        &:hover {
-            opacity: 100%;
-        }
-
-        .more-container {
-            padding: 20px 20px 20px 15px;
-
-            @media only screen and (min-width: $mobile) {
-                // padding-right: 15px;
-            }
         }
     }
 }

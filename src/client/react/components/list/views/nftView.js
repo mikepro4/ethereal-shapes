@@ -15,13 +15,12 @@ import {
     buyNFT
 } from "../../../../redux/actions/nftActions"
 
-import Play from "../../icons/play"
-import Polygon from "../../icons/polygon"
-import More from "../../icons/more"
 
 import { showDrawer } from "../../../../redux/actions/appActions"
 
 import Viz from "../../viz"
+
+import NFTDetails from "../../nft_details"
 
 class nftView extends Component {
 
@@ -30,7 +29,6 @@ class nftView extends Component {
         super(props)
 
         this.nftView =  this.nftView = React.createRef();
-        this.nftMore =  this.nftMore = React.createRef();
     }
 
     renderNftDetails() {
@@ -89,49 +87,7 @@ class nftView extends Component {
                         <Viz shapeId={this.props.item.metadata.shapeId} pointCount={1024}/>
                 </div>
 
-                <div className="nft-details-container">
-                    <div className="nft-details-left">
-
-                        <div className="play-container">
-                            <Play/>
-                        </div>
-
-                        <div className="metadata-container">
-                            <div className="metadata-name">
-                                {this.props.item.nft.name}
-                            </div>
-
-                            <div className="metadata-status-bar">
-                                <div className="status green">
-                                    On Sale
-                                </div>
-
-                                <div className="price green">
-                                    <Polygon/>
-                                    {this.props.item.nft.price}
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className="nft-details-left">
-                        <div className="left">
-                        <Button
-                            className={"buy-button"}
-                            type="submit"
-                            text="Buy NFT"
-                            large="true"
-                        />
-                        </div>
-
-                        <div className="right">
-                            <div className="more-container" ref={this.nftMore} onClick={() => this.props.showDrawer("nft", {}, this.nftMore, "bottom")}>
-                                <More />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <NFTDetails item={this.props.item}/>
                
             </div>
         )

@@ -76,7 +76,7 @@ class Timeline extends Component {
 		}
 
         const progressBarWidth = {
-            width: 200
+            width: 0
         }
 
         const progressBarHoverWidth = {

@@ -20,6 +20,8 @@ import {
 
 import Timeline from "../../components/player/Timeline"
 
+import NFTDetails from "../../../react/components/nft_details"
+
 
 class NFTPage extends Component {
 
@@ -69,6 +71,17 @@ class NFTPage extends Component {
 		return (
      		<div className="route-content nft-route">
                 {this.renderHead()}
+
+                <div className="nft-details-container">
+                    <NFTDetails item={
+                        {
+                            nft: {
+                                price: 2.22,
+                                name: "Ethereal" 
+                            }
+                        }
+                    } large={true} />
+                </div>
 
                 <div 
                     className="main-shape" 

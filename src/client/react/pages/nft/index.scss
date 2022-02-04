@@ -19,6 +19,20 @@
         z-index: 2;
     }
 
+    .nft-details-container {
+        position: fixed;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        z-index: 3;
+
+        @media only screen and (min-width: $mobile) {
+            bottom: 100px;
+            left: 70px;
+            right: 60px;
+        }
+    }
+
     
 }
 
