@@ -84,20 +84,19 @@ class Viz extends Component {
                 }
             }
     
-            if(rect.y < -150) {
+            if(rect.y < -350) {
                 if(!this.state.paused) {
                     this.setState({
-                        paused: true,
-                        static: true
+                        paused: true
                     })
                 }
             }
-            if(rect.y < this.props.app.clientHeight/1.4 && rect.y > -149) {
-                if(this.state.paused && !this.state.static) {
+            if(rect.y < this.props.app.clientHeight/1.4 && rect.y > -349) {
+                if(this.state.paused){
                     this.setState({
                         paused: false
                     }, () => {
-                        this.update()
+                        this.renderFrame(this.canvas.current.getContext('2d'), this.state.points)
                     })
                 }
             }
