@@ -86,7 +86,7 @@ class nftView extends Component {
 
                 <div className="nft-media-container" style={{height: height + "px"}}>
                         {/* <img src={this.props.item.nft.fileUrl}/> */}
-                        <Viz shapeId={this.props.item.metadata.shapeId}/>
+                        <Viz shapeId={this.props.item.metadata.shapeId} pointCount={1024}/>
                 </div>
 
                 <div className="nft-details-container">

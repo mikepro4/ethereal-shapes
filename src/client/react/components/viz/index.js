@@ -33,7 +33,7 @@ class Viz extends Component {
             shape: {},
             pointCount: 0,
             timeInterval: null,
-            totalPointCount: 400,
+            totalPointCount: 1024,
             static: false,
             points: []
         };
@@ -57,7 +57,7 @@ class Viz extends Component {
                 this.startViz()
 
                 this.setState({
-                    pointCount: this.state.shape.point.pointCount
+                    pointCount: this.props.pointCount
                 })
         
                 this.updateColors()
@@ -245,7 +245,7 @@ class Viz extends Component {
 
             let scaleValue
             if(this.props.app.clientWidth > 1000) {
-                scaleValue = (rect.width * 2) / 7 * scale;
+                scaleValue = (rect.width * 2) / 11 * scale;
             } else {
                 scaleValue = (rect.width * 2) / 4 * scale;
             }
@@ -300,6 +300,17 @@ class Viz extends Component {
             pointColor
         } = this.state.shape.point
 
+        //here 
+
+        let finalPointSize
+
+        if(this.props.app.clientWidth > 1000) {
+            finalPointSize = pointSize + 0.5
+        } else {
+            finalPointSize = pointSize
+        }
+
+
         this.setState({
             rotate_speed: rotateSpeed * 0.1 + 0.001,
             friction: friction * 0.8 + 0.1,
@@ -308,7 +319,7 @@ class Viz extends Component {
             freq: frequency * 0.09 + 0.01,
             bold_rate: boldRate * 0.3 + 0.1,
             math: math,
-            pointSize: pointSize,
+            pointSize: finalPointSize,
             pointOpacity: pointOpacity,
             pointColor: "#ffffff",
             backgroundColor: "",

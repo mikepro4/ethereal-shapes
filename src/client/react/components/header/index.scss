@@ -385,7 +385,7 @@
     justify-content: right;
 
     @media only screen and (min-width: $mobile) {
-        min-height: 51px;
+        min-height: 33px;
     }
 
     .header-polygon {
@@ -401,8 +401,8 @@
             height: 11px;
 
             @media only screen and (min-width: $mobile) {
-                width: 26px;
-                height: 42px;
+                width: 16px;
+                height: 30px;
             }
         }
     }
@@ -414,9 +414,9 @@
         text-align: right;
 
         @media only screen and (min-width: $mobile) {
-            font-size: 40px;
+            font-size: 27px;
             font-weight: 400;
-            padding-left: 10px;
+            padding-left: 7px;
         }
     }
     

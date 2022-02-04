@@ -9,7 +9,7 @@
     justify-content: center;
 
     a {
-        font-size: 40px;
+        font-size: 20px;
         font-weight: 300;
     }
 
@@ -38,14 +38,14 @@
 }
 
 .nav-link-status {
-    width: 8px;
-    height: 8px;
+    width: 5px;
+    height: 5px;
     background-color: #29FF7F;
     display: inline-block;
     position: absolute;
     border-radius: 50px;
-    top: 5px;
-    right: -10px;
+    top: 1px;
+    right: -6px;
 }
 
 .link-wrapper {

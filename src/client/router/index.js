@@ -5,6 +5,7 @@ import Login from "../react/pages/auth/login"
 import Signup from "../react/pages/auth/signup"
 import Logout from "../react/pages/auth/logout"
 import Mint from "../react/pages/mint"
+import NFT from "../react/pages/nft"
 
 export default [
     {
@@ -16,6 +17,14 @@ export default [
                 exact: true,
                 params: {
                     name: "home"
+                }
+            },
+            {
+                ...NFT,
+                path: "/nft",
+                exact: true,
+                params: {
+                    name: "New NFT"
                 }
             },
 			{
@@ -46,6 +55,14 @@ export default [
 					name: "mint"
 				}
 			},
+            {
+                ...NFT,
+                path: "/:tokenId",
+                exact: true,
+                params: {
+                    name: "Market NFT"
+                }
+            },
         ]
     }
 ];
