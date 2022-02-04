@@ -30,7 +30,7 @@
         }
 
         &:not([class*="control"]) {
-            background: $black;
+            background: transparent;
             border: 1px solid $white;
             color: $white;
 

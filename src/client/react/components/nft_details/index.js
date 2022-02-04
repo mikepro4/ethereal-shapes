@@ -7,6 +7,7 @@ import { Icon, Button, Classes, Intent, Position, Toaster } from "@blueprintjs/c
 import Play from "../icons/play"
 import Polygon from "../icons/polygon"
 import More from "../icons/more"
+import Settings from "../icons/settings"
 
 import { showDrawer } from "../../../redux/actions/appActions"
 
@@ -59,13 +60,13 @@ class NFTDetails extends Component {
                     <Button
                         className={"buy-button"}
                         type="submit"
-                        text="Buy NFT"
+                        text="Buy"
                         large="true"
                     />
                     </div>
                     {this.props.more && <div className="right">
                         <div className="more-container" ref={this.nftMore} onClick={() => this.props.showDrawer("nft", {}, this.nftMore, "bottom")}>
-                            <More />
+                            <Settings/>
                         </div>
                     </div>}
                     

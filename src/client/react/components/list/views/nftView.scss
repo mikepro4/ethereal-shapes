@@ -1,7 +1,14 @@
 .nft-view {
     display: block;
-    border-bottom: 5px solid #141414;
+    // border-bottom: 5px solid #141414;
     transition: all 1s;
+    background: $black;
+
+    @media only screen and (max-width: $mobile) {
+        margin: 20px;
+        border-radius: 40px;
+        overflow: hidden;
+    }
 }
 
 .nft-media-container {
@@ -9,15 +16,26 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
 
     img {
         max-width: 100%;
     }
+
+    .nft-details-container {
+        // height: inherit;
+        position: absolute;
+        bottom: 25px;
+        left: 25px;
+        right: 25px;
+        z-index: 2;
+        // border-bottom: 1px solid rgba(255,255,255,0.1);
+
+    }
 }
 .nft-grid {
     @media only screen and (min-width: $mobile) {
-        margin: 100px auto;
+        margin: 20px auto;
         max-width: 1600px;
     }
 }
@@ -35,22 +53,18 @@
         }
 
         .nft-view {
-            border: 2px solid rgba($white, 0.1);
+            // border: 2px solid rgba($white, 0.1);
             border-radius: 40px;
             overflow: hidden;
             box-sizing: border-box;
             cursor: pointer;
+            border-bottom: 0;
 
-            &:hover {
-                border: 2px solid rgba($white, 0.2);
-            }
+            // &:hover {
+            //     border: 2px solid rgba($white, 0.2);
+            // }
         }
 
-        .nft-details-container {
-            height: inherit;
-            padding: 0 0 20px 20px;
-            // border-bottom: 1px solid rgba(255,255,255,0.1);
-
-        }
+        
     }
 }

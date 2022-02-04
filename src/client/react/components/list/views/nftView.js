@@ -96,12 +96,14 @@ class nftView extends Component {
                    })}>Delete</div> */}
                 {/* {this.renderNftDetails()} */}
 
-                <div className="nft-media-container" style={{height: height + 100 + "px"}}>
+                <div className="nft-media-container" style={{height: height + 150 + "px"}}>
                         {/* <img src={this.props.item.nft.fileUrl}/> */}
                         {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } pointCount={600}  /> }
+
+                        <NFTDetails item={this.props.item} more={false}/>
+
                 </div>
 
-                <NFTDetails item={this.props.item} more={false}/>
                
             </div>
         )

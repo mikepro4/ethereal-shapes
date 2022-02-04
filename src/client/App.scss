@@ -1,6 +1,11 @@
 .app {
 	display: block;
 	position: relative;
+    background: #090909;
+    min-height: 100%;
+    @media only screen and (min-width: $mobile) {
+        background: #0D0D0D;
+    }
 }
 
 .main-settings {

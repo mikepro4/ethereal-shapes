@@ -1,6 +1,6 @@
 .nft-details-container {
     .left {
-        margin-right: 20px;
+        // margin-right: 20px;
     }
 
    
@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     // max-width: 1100px;
-    padding: 20px 0 20px 20px;
+    // padding: 20px 00 20px;
     margin: 0 auto 0px auto;
     opacity: 0;
     animation: fadeIn forwards 1s 1s ease-in-out; 
@@ -63,8 +63,12 @@
         }
     }
 
+    .bp3-button.bp3-large {
+        padding: 0 25px;
+    }
+
     .right {
-        opacity: 30%;
+        // opacity: 30%;
         transition: all 0.2s ease;
         cursor: pointer;
 
@@ -131,7 +135,7 @@
             }
 
             .right {
-                opacity: 30%;
+                // opacity: 30%;
                 transition: all 0.2s ease;
                 cursor: pointer;
         
@@ -143,7 +147,7 @@
                     padding: 20px 20px 20px 15px;
         
                    svg {
-                       width: 10px;
+                       width: 30px;
                        height: 30px;
                    }
                 }
