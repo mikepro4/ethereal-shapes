@@ -5,6 +5,7 @@ import { appReducer } from "./appReducer";
 import { authReducer } from "./authReducer";
 import { playerReducer } from "./playerReducer";
 import { blocksReducer } from "./blocksReducer";
+import { shapeReducer } from "./shapeReducer";
 
 export default (history) => combineReducers({
     router: connectRouter(history),
@@ -12,5 +13,6 @@ export default (history) => combineReducers({
     app: appReducer,
     auth: authReducer,
     player: playerReducer,
-    blocks: blocksReducer
+    blocks: blocksReducer,
+    shape: shapeReducer
 })

@@ -5,7 +5,7 @@ import classNames from "classnames"
 import * as _ from "lodash";
 import update from "immutability-helper";
 
-import { loadShape } from "../../../redux/actions/shapesActions"
+import { loadShape } from "../../../redux/actions/shapeActions"
 import { themesList } from "web3modal";
 
 class Viz extends Component {

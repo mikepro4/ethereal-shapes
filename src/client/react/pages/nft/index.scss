@@ -57,6 +57,18 @@
        
     }
 
+    .media-controls {
+        display: none;
+
+        @media only screen and (min-width: $mobile) {
+            display: block;
+            top: 170px;
+            right: 70px;
+            position: absolute;
+            z-index: 5;
+        }
+    }
+
     
 }
 

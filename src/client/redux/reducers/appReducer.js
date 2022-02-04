@@ -54,8 +54,6 @@ export const initialState = {
     activeShape: {},
     sortedBlocks: [],
 
-    
-
     nftTokens: [],
 };
 

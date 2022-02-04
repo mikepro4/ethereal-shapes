@@ -26,9 +26,16 @@ import NFT from "../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
 
-import { showDrawer, updateAccount, updateMarketTokens, updateCollection} from "../client/redux/actions/appActions"
+import { 
+    showDrawer, 
+    updateAccount, 
+    updateMarketTokens, 
+    updateCollection,  
+    activateKey,
+    deactivateKey
+} from "../client/redux/actions/appActions"
 import { loadWord, updateBlocks } from "../client/redux/actions/wordsActions"
-import { loadShape } from "../client/redux/actions/shapesActions"
+import { loadShape } from "../client/redux/actions/shapeActions"
 import { initSave } from "../client/redux/actions/blocksActions"
 import { authUser, fetchCurrentUser, clearCurrentUser } from "../client/redux/actions/authActions"
 
@@ -61,12 +68,30 @@ class App extends Component {
             this.getBalance()
         }, 2222)
 
+        document.addEventListener("keydown", this.onKeyDownPressed.bind(this))
+        document.addEventListener("keyup", this.onKeyUpPressed.bind(this))
+
         // setInterval(() => {
         //     if(!this.props.account.address) {
         //         this.loadWeb3()
         //     }
         // }, 2222)
         
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.onKeyDownPressed.bind(this));
+        document.removeEventListener("keyup", this.onKeyUpPressed.bind(this));
+    }     
+    
+    onKeyDownPressed(e) {
+        // console.log("down", e.keyCode);
+        this.props.activateKey(e.keyCode)
+    }
+
+    onKeyUpPressed(e) {
+        // console.log("up", e.keyCode);
+        this.props.deactivateKey(e.keyCode)
     }
 
     async getBalance() {
@@ -300,6 +325,8 @@ export default {
         updateBlocks,
         updateAccount,
         updateMarketTokens,
-        updateCollection
+        updateCollection,
+        activateKey,
+        deactivateKey
     })(App))
 };
