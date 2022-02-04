@@ -5,47 +5,73 @@ import classNames from "classnames"
 import * as _ from "lodash";
 import update from "immutability-helper";
 
-import { loadShape } from "../../../redux/actions/shapeActions"
-import { themesList } from "web3modal";
-
 class Viz extends Component {
+	state = {
+        width: 0,
+        height: 0,
+        radius: 0,
+        rotate: 0,
+        rotate_speed: 0,
+        friction: 0,
+        speed: 0,
+        step: 0,
+        freq: 0,
+        bold_rate: 0,
+        math: "sin",
+        pointSize: 0,
+        pointOpacity: 0,
+        x: 0,
+        y: 0,
+        paused: false,
+        visible: false,
+        timeInterval: null,
+        totalPointCount: 1024,
+        points: []
+    };
 
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            width: 0,
-            height: 0,
-            radius: 0,
-            rotate: 0,
-            rotate_speed: 0,
-            friction: 0,
-            speed: 0,
-            step: 0,
-            freq: 0,
-            bold_rate: 0,
-            math: "sin",
-            pointSize: 0,
-            pointOpacity: 0,
-            x: 0,
-            y: 0,
-            paused: true,
-            shape: {},
-            pointCount: 0,
-            timeInterval: null,
-            totalPointCount: 1024,
-            static: false,
-            points: []
-        };
-
-        this.vizContainer =  this.vizContainer = React.createRef();
-        this.canvas =  this.canvas = React.createRef();
-
-    }
-
-    componentDidMount = () => {
-        this.loadShape()
+	componentDidMount = () => {
+        if(this.props.shape.defaultViz || this.props.defaultViz) {
+            if( this.props.defaultViz &&  this.props.defaultViz.point &&  this.props.defaultViz.point.pointCount) {
+                this.startViz() 
+                this.setState({
+                    pointCount: this.props.defaultViz.point.pointCount
+                })
+                this.updateColors()
+                // this.loadShape()
+            }
+        }
         window.addEventListener("resize", this.handleResize);
+
+        if(this.props.defaultViz) {
+            this.setState({
+                paused: true,
+            })
+        }
+
+        // if(this.props.defaultViz) {
+        //     setTimeout(() => {
+        //         this.setState({
+        //             paused: true
+        //         });
+        //     },10000)
+        // }
+       
+
+        // if(this.props.defaultViz) {
+        //     console.log("here")
+        // }
+
+        if(this.props.location.pathname == "/") {
+
+            const timeInterval = setInterval(() => {
+                window.dispatchEvent(new Event('resize'));
+                 
+            }, 1000);
+    
+            this.setState({ timeInterval });
+        }
+
+        
     }
 
     loadShape = () => {
@@ -67,13 +93,42 @@ class Viz extends Component {
         })
     }
 
-    componentWillUnmount = () => {
-        window.removeEventListener("resize", this.handleResize);
+	componentWillUnmount = () => {
+		window.removeEventListener("resize", this.handleResize);
         window.cancelAnimationFrame(this.state.requestAnimationFrame);
         clearInterval(this.state.timeInterval);
     }
+    
+    handleResize = () => {
+		    this.updateDimensions()
+    }
 
     componentDidUpdate = (prevprops, prevState) => {
+        if(this.props.shape.currentShape ) {
+            if(prevprops.shape.currentShape._id !== this.props.shape.currentShape._id) {
+                this.startViz() 
+                this.setState({
+                    pointCount: this.props.shape.currentShape.defaultViz.point.pointCount
+                })
+                this.updateColors()
+            }
+        }
+
+        if(!_.isEqual(prevprops.shape.newShape.defaultViz, this.props.shape.newShape.defaultViz)) {
+            this.updateViz()
+            this.setState({
+                pointCount: this.props.shape.newShape.defaultViz.point.pointCount
+            })
+
+            if(prevprops.shape.newShape.defaultViz && this.props.shape.newShape.defaultViz) {
+                if(!_.isEqual(prevprops.shape.newShape.defaultViz.colors, this.props.shape.newShape.defaultViz.colors)) {
+                    this.updateColors()
+                }
+            }
+        }
+
+        
+
         if(prevState.pointCount !== this.state.pointCount) {
             this.generatePoints()
             setTimeout(() => {
@@ -81,82 +136,108 @@ class Viz extends Component {
             }, 1)
         }
 
-        let rect = this.vizContainer.current.getBoundingClientRect();
-        // console.log(rect)
+        let rect = this.refs.viz_container.getBoundingClientRect();
 
-        // if((rect.y + rect.height) < 2000) {
-        //     // console.log("paused")
+        // if(this.props.app.totalScrolledPixels > rect.y - 500 && !this.state.visible) {
         //     this.setState({
-        //         paused: false
-        //     }, () => {
-        //         this.update()
+        //         visible: true
         //     })
-        // }
+        // } 
 
-        // if(rect.y > this.props.app.clientHeight/3) {
+        if(this.props.defaultViz) {
+           
+            // console.log(this.props.app.totalScrolledPixels, rect.y, rect.height)
+            if((rect.y + rect.height) < 2000) {
+                // console.log("paused")
+                if(!this.state.visible) {
+                    this.setState({
+                        visible: true,
+                        paused: false
+                    }, () => {
+                        this.update()
+                    })
+                }
+            }
+    
+            if(rect.y < -350) {
+                  if(!this.state.paused) {
+                    this.setState({
+                        paused: true
+                    })
+                }
+            }
+        }
+
+        
+        // if((rect.y + rect.height) < 400) {
+        //     // if(!this.state.paused) {
+        //     //     this.setState({
+        //     //         paused: true
+        //     //     })
+        //     // }
+        //     if(!this.state.visible) {
+        //         this.setState({
+        //             visible: true,
+        //             paused: false
+        //         }, () => {
+        //             this.update()
+        //         })
+        //     }
+            
+        // } else {
+        //     // if(this.state.paused) {
+        //     //     this.setState({
+        //     //         paused: false
+        //     //     }, () => {
+        //     //         this.update()
+        //     //     })
+        //     // }
+        //     if(this.state.visible) {
+        //         this.setState({
+        //             visible: false,
+        //             paused: false
+        //         })
+        //     }
+        // }
+        // if((this.props.app.totalScrolledPixels + this.props.app.clientHeight) < rect.y) {
+        //     console.log("visible")
+        //     // this.setState({
+        //     //     visible: true
+        //     // })
+        //     if(this.state.paused) {
+        //         this.setState({
+        //             paused: false
+        //         })
+        //         this.startViz()
+        //         // this.updateViz()
+        //         // this.update()
+        //     }
+        // } else {
+        //     console.log("hidden")
         //     if(!this.state.paused) {
-        //       this.setState({
-        //           paused: true
-        //       })
-        // }
-
-        // if(rect.y < -350) {
-        //       if(!this.state.paused) {
         //         this.setState({
         //             paused: true
         //         })
         //     }
+            
         // }
 
-        if(rect.y > this.props.app.clientHeight/1.4) {
-            if(!this.state.paused) {
-                this.setState({
-                    paused: true
-                })
-            }
-        }
+        // if(this.props.app.totalScrolledPixels > rect.y + 300 && this.state.visible) {
+        //     this.setState({
+        //         visible: false
+        //     })
+        // } 
 
-        if(rect.y < -150) {
-            if(!this.state.paused) {
-                this.setState({
-                    paused: true,
-                    static: true
-                })
-            }
-        }
-        if(rect.y < this.props.app.clientHeight/1.4 && rect.y > -149) {
-            if(this.state.paused && !this.state.static) {
-              this.setState({
-                  paused: false
-              }, () => {
-                this.update()
-            })
-        } else {
-            // if(!this.state.paused) {
-            //     this.setState({
-            //         paused: true
-            //     })
-            // }
+        // if(this.props.app.totalScrolledPixels > rect.y + 1000 && !this.state.visible) {
+        //     this.setState({
+        //         visible: false
+        //     })
+        // } 
 
-           
-        }
-
-        
-      }
-    }
-
-    
-
-    handleResize = () => {
-        this.updateDimensions()
-    }
-
-    startViz = () => {
-        this.generatePoints()
-        this.updateDimensions(this.updateViz)
     }
 
     updateColors = () => {
+        console.log("update colors")
         let colors = this.getViz().colors
         let pointCount =  this.state.pointCount
         let ranges = []
@@ -233,27 +314,39 @@ class Viz extends Component {
         
     }
 
+
+	startViz = () => {
+        this.generatePoints()
+        this.updateDimensions(this.updateViz)
+    }
+
+    
     updateDimensions = (callback) => {
-        let rect = this.vizContainer.current.getBoundingClientRect();
+        let rect = this.refs.viz_container.getBoundingClientRect();
 
-        if(rect) {
-            let scale = 1
+        let scale = 1
 
-            // if(this.props.defaultViz) {
-            //     scale = 0.6
-            // }
-
-            let scaleValue
-            if(this.props.app.clientWidth > 1000) {
-                scaleValue = (rect.width * 2) / 11 * scale;
-            } else {
-                scaleValue = (rect.width * 2) / 4 * scale;
-            }
-
+        if(this.props.defaultViz) {
+            scale = 0.6
+        }
+        if(this.props.app.clientWidth > 1000) {
             this.setState({
                 width: rect.width * 2,
                 height: rect.height * 2,
-                radius: scaleValue,
+                radius: (rect.width * 2) / 7 * scale,
+                x: (rect.width * 2) / 2,
+                y: (rect.height * 2) / 2
+            }, () => {
+                if(callback) {
+                    callback()
+                }
+            })
+        } else {
+
+                this.setState({
+                width: rect.width * 2,
+                height: rect.height * 2,
+                radius: (rect.width * 2) / 4 * scale,
                 x: (rect.width * 2) / 2,
                 y: (rect.height * 2) / 2
             }, () => {
@@ -262,9 +355,183 @@ class Viz extends Component {
                 }
             })
         }
+    
+        
+		
+    }
+
+    updateViz = (callback) => {
+
+        let rect = this.refs.viz_container.getBoundingClientRect();
+
+        let finalViz = {}
+
+        // if(this.props.defaultViz) {
+        //     finalViz = this.props.defaultViz
+        // } else {
+        //      if (this.props.shape.newShape.defaultViz) {
+        //         vizSource = 'newShape'
+        //     } else {
+        //         vizSource = 'currentShape'
+        //     }
+        // }
+
+        if(this.props.defaultViz) {
+            finalViz = this.props.defaultViz
+
+            const {
+                rotateSpeed,
+                friction,
+                rotatePointSpeed,
+                step,
+                frequency,
+                boldRate,
+                math
+            } = finalViz.shape
+            
+            const {
+                pointSize,
+                pointOpacity,
+                pointCount,
+                pointColor
+            } = finalViz.point
+
+            this.setState({
+                rotate_speed: rotateSpeed * 0.1 + 0.001,
+                friction: friction * 0.8 + 0.1,
+                rotate_point_speed: rotatePointSpeed * 0.2 + 0.03,
+                step: step * 0.5 + 0.0001,
+                freq: frequency * 0.09 + 0.01,
+                bold_rate: boldRate * 0.3 + 0.1,
+                math: math,
+                pointSize: pointSize,
+                pointOpacity: pointOpacity,
+                pointColor: "#ffffff",
+                backgroundColor: "",
+                backgroundEnabled: false,
+                backgroundOpacity: 1
+            }, () => {
+                    if(!this.state.requestAnimationFrame) {
+                        this.paint()
+                        console.log("Initial state: ", this.state)
+                    }
+            })
+        } else {
+
+            let vizSource
+
+            if (this.props.shape.newShape.defaultViz) {
+                vizSource = 'newShape'
+            } else {
+                vizSource = 'currentShape'
+            }
+            const {
+                rotateSpeed,
+                friction,
+                rotatePointSpeed,
+                step,
+                frequency,
+                boldRate,
+                math
+            } = this.props.shape[vizSource].defaultViz.shape
+            
+            const {
+                pointSize,
+                pointOpacity,
+                pointCount,
+                pointColor
+            } = this.props.shape[vizSource].defaultViz.point
+
+            // let finalPointSize
+
+            // if(this.props.app.clientWidth < 500) {
+            //     finalPointSize = 1.3
+            // } else {
+            //     finalPointSize = pointSize
+            // }
+            
+            this.setState({
+                rotate_speed: rotateSpeed * 0.1 + 0.001,
+                friction: friction * 0.8 + 0.1,
+                rotate_point_speed: rotatePointSpeed * 0.2 + 0.03,
+                step: step * 0.5 + 0.0001,
+                freq: frequency * 0.09 + 0.01,
+                bold_rate: boldRate * 0.3 + 0.1,
+                math: math,
+                pointSize: pointSize,
+                pointOpacity: pointOpacity,
+                pointColor: "#ffffff",
+                backgroundColor: "",
+                backgroundEnabled: false,
+                backgroundOpacity: 1
+            }, () => {
+                    if(!this.state.requestAnimationFrame) {
+                        this.paint()
+                        console.log("Initial state: ", this.state)
+                    }
+            })
+        }
+
+        // let vizSource
+
+        // if (this.props.shape.newShape.defaultViz) {
+        //     vizSource = 'newShape'
+        // } else {
+        //     vizSource = 'currentShape'
+        // }
+
+
+        // const {
+        //   rotateSpeed,
+        //   friction,
+        //   rotatePointSpeed,
+        //   step,
+        //   frequency,
+        //   boldRate,
+        //   math
+        // } = this.props.shape[vizSource].defaultViz.shape
+    
+        // const {
+        //   pointSize,
+        //   pointOpacity,
+        //   pointCount,
+        //   pointColor
+        // } = this.props.shape[vizSource].defaultViz.point
+    
+        // this.setState({
+        //     rotate_speed: rotateSpeed * 0.1 + 0.001,
+        //     friction: friction * 0.8 + 0.1,
+        //     rotate_point_speed: rotatePointSpeed * 0.2 + 0.03,
+        //     step: step * 0.5 + 0.0001,
+        //     freq: frequency * 0.09 + 0.01,
+        //     bold_rate: boldRate * 0.3 + 0.1,
+        //     math: math,
+        //     pointSize: pointSize,
+        //     pointCount: pointCount,
+        //     pointOpacity: pointOpacity,
+        //     pointColor: "#ffffff",
+        //     backgroundColor: "",
+        //     backgroundEnabled: false,
+        //     backgroundOpacity: 1
+        // }, () => {
+        //         if(!this.state.requestAnimationFrame) {
+        //             this.paint()
+        //             console.log("Initial state: ", this.state)
+        //         }
+        // })
+    }
+
+    paint = () => {
+        let canvas = this.refs.canvas;
+        let ctx = canvas.getContext('2d')
+        ctx.width = this.state.width;
+        ctx.height = this.state.height;
+        this.update();
     }
 
     generatePoints = () => {
+        let vizSource
+
         let points = []
         for (var i = 0; i < this.state.totalPointCount; i++) {
           var pt = this.createPoint(
@@ -282,65 +549,6 @@ class Viz extends Component {
         return points
     }
 
-    updateViz = (callback) => {
-        const {
-            rotateSpeed,
-            friction,
-            rotatePointSpeed,
-            step,
-            frequency,
-            boldRate,
-            math
-        } = this.state.shape.shape
-        
-        const {
-            pointSize,
-            pointOpacity,
-            pointCount,
-            pointColor
-        } = this.state.shape.point
-
-        //here 
-
-        let finalPointSize
-
-        if(this.props.app.clientWidth > 1000) {
-            finalPointSize = pointSize + 0.5
-        } else {
-            finalPointSize = pointSize
-        }
-
-
-        this.setState({
-            rotate_speed: rotateSpeed * 0.1 + 0.001,
-            friction: friction * 0.8 + 0.1,
-            rotate_point_speed: rotatePointSpeed * 0.2 + 0.03,
-            step: step * 0.5 + 0.0001,
-            freq: frequency * 0.09 + 0.01,
-            bold_rate: boldRate * 0.3 + 0.1,
-            math: math,
-            pointSize: finalPointSize,
-            pointOpacity: pointOpacity,
-            pointColor: "#ffffff",
-            backgroundColor: "",
-            backgroundEnabled: false,
-            backgroundOpacity: 1
-        }, () => {
-                if(!this.state.requestAnimationFrame) {
-                    this.paint()
-                    // console.log("Initial state: ", this.state)
-                }
-        })
-    }
-
-    paint = () => {
-        let canvas = this.canvas.current;
-        let ctx = canvas.getContext('2d')
-        ctx.width = this.state.width;
-        ctx.height = this.state.height;
-        this.update();
-    }
-
     createPoint(x, y, i) {
 
         let finalHidden = false
@@ -350,6 +558,9 @@ class Viz extends Component {
         } else {
             finalHidden = true
         }
+
+        let vizSource
+        let finalViz
 
         let point = {
           x: x,
@@ -364,7 +575,7 @@ class Viz extends Component {
 
     update = () => {
 		let points = this.generatePoints()
-        this.renderFrame(this.canvas.current.getContext('2d'), points)
+        this.renderFrame(this.refs.canvas.getContext('2d'), points)
         // setInterval(() => {
         //     this.setupSVGCanvas(points)
         // }, 1000)
@@ -383,22 +594,22 @@ class Viz extends Component {
             let freqData = []
             let soundModifier = 1
     
-            // if(this.props.player.analyser) {
-            //     freqData = new Uint8Array(this.props.player.analyser.frequencyBinCount)
-            //     this.props.player.analyser.getByteFrequencyData(freqData)
-            // }
+            if(this.props.player.analyser) {
+                freqData = new Uint8Array(this.props.player.analyser.frequencyBinCount)
+                this.props.player.analyser.getByteFrequencyData(freqData)
+            }
     
             
     
             for (let i = 0; i < points.length; i++) {
     
-                // if(this.props.player.analyser && soundModifier) {
-                //     soundModifier = freqData[this.getPointIterator(i)]/1000
+                if(this.props.player.analyser && soundModifier) {
+                    soundModifier = freqData[this.getPointIterator(i)]/1000
             
-                //     if(soundModifier == 0) {
-                //       soundModifier = 1
-                //     }
-                // }
+                    if(soundModifier == 0) {
+                      soundModifier = 1
+                    }
+                }
     
                 let point = points[i];
 
@@ -493,17 +704,41 @@ class Viz extends Component {
                 requestAnimationFrame: null
             });
         }
+    }
 
+    setupSVGCanvas = (points) => {
+        var container = document.querySelector("#centered");
+        var svgkitContext = new SVGCanvas(this.state.width,this.state.height);
+
+        let element = document.getElementById("svgcanvas");
+        if(element) {
+            element.parentNode.removeChild(element);
+        }
+        svgkitContext.svg.svgElement.setAttribute("class", "example"); // just for styling
+        svgkitContext.svg.svgElement.setAttribute("id", "svgcanvas");
+        container.appendChild(svgkitContext.svg.svgElement);
+        this.renderOnce(svgkitContext, points)
     }
 
     renderOverlay = () => {
+        let vizSource
         let finalViz
         let finalColor
         let finalOpacity
         let finalBlur
 
        
-        finalViz = this.state.shape
+
+        if(this.props.defaultViz) {
+            finalViz = this.props.defaultViz
+        } else {
+            if (this.props.shape.newShape.defaultViz) {
+                vizSource = 'newShape'
+            } else {
+                vizSource = 'currentShape'
+            }
+            finalViz = this.props.shape[vizSource].defaultViz
+        }
 
         if(finalViz && finalViz.overlay) {
             const {
@@ -549,51 +784,71 @@ class Viz extends Component {
     }
 
     getViz = () => {
-        let finalViz = this.state.shape
-        
+        let finalViz
+        let vizSource
+
+        if(this.props.defaultViz) {
+            finalViz = this.props.defaultViz
+        } else {
+            if (this.props.shape.newShape.defaultViz) {
+                vizSource = 'newShape'
+            } else {
+                vizSource = 'currentShape'
+            }
+            finalViz = this.props.shape[vizSource].defaultViz
+        }
         return finalViz
     }
 
+        
+	render() {
 
-    render() {
-        // console.log(this.state)
-        if (this.state.shape) {
-            let finalViz = this.state.shape
+        let finalViz
+        let vizSource
 
-            return (
-                <div
-                    className={classNames({ "full": this.props.app.fullScreen }, "viz-container")}
-                    ref={this.vizContainer}
-                    style={{
-                        backgroundColor: finalViz && finalViz.shape && finalViz.shape.backgroundColor
-                    }}
-                >
-                    <canvas
-                        ref={this.canvas}
-                        className="viz"
-                        id="viz"
-                        width={this.state.width}
-                        height={this.state.height}
-                    />
-                    <div id="centered" style={{ display: "none" }}></div>
-                    {this.renderOverlay()}
-                </div>
-            );
+        if(this.props.defaultViz) {
+            finalViz = this.props.defaultViz
         } else {
-            return (<div></div>)
+            if (this.props.shape.newShape.defaultViz) {
+                vizSource = 'newShape'
+            } else {
+                vizSource = 'currentShape'
+            }
+            finalViz = this.props.shape[vizSource].defaultViz
         }
 
-    }
+		return (
+            <div 
+                className={classNames({"full": this.props.app.fullScreen}, "viz-container")}
+                ref="viz_container" 
+                style={{
+                    backgroundColor: finalViz && finalViz.shape && finalViz.shape.backgroundColor
+                }}
+            >
+                <canvas
+                    ref="canvas"
+                    className="viz"
+                    id="viz"
+                    width={this.state.width}
+                    height={this.state.height}
+                />
+                <div id="centered" style={{display: "none"}}></div>
+                {/* {this.state.visible ? <div>visible</div> : <div>hidden</div>} */}
+                {this.renderOverlay()}
+            </div>
+		);
+	}
 }
 
 function mapStateToProps(state) {
-    return {
-        location: state.router.location,
+	return {
+		location: state.router.location,
         app: state.app,
-        player: state.player,
-    };
+        shape: state.shape,
+        player: state.player
+	};
 }
 
 export default connect(mapStateToProps, {
-    loadShape
-})(Viz);
+
+ })(Viz);
