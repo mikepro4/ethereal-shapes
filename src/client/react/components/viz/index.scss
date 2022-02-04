@@ -7,7 +7,7 @@
     transition: all 0.2s;
     z-index: 1;
     opacity: 0;
-    animation: fadeIn forwards 1s ease-in-out; 
+    animation: fadeIn forwards 0.5s ease-in-out; 
   
     &.full {
       bottom: 0;

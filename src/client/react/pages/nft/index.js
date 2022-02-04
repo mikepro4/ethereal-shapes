@@ -503,7 +503,7 @@ class NFTPage extends Component {
                                 name: "Ethereal" 
                             }
                         }
-                    } large={true} />
+                    } large={true} more={true} />
                 </div>
 
                 <div className="description-editor">

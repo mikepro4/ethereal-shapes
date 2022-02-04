@@ -1,6 +1,6 @@
 .nft-details-container {
     .left {
-        margin-right: 5px;
+        margin-right: 20px;
     }
 
    
@@ -20,8 +20,8 @@
 
     @media only screen and (min-width: $mobile) {
         padding: 0;
-        // opacity: 1;
-        // animation: none
+        opacity: 1;
+        animation: none
     }
    
 
@@ -71,6 +71,8 @@
         &:hover {
             opacity: 100%;
         }
+
+       
 
         .more-container {
             padding: 20px 20px 20px 15px;
