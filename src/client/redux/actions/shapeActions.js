@@ -6,7 +6,8 @@ import axios from "axios";
 import {
     LOAD_SHAPE,
     LOAD_NEW_SHAPE,
-    CLEAR_NEW_SHAPE
+    CLEAR_NEW_SHAPE,
+    CLEAR_SHAPE
 } from "./types";
 
 export const getMainShape = (success) => async (
@@ -57,7 +58,7 @@ export const createShape = (shapeItem, success) => async (
 
 
 
-export const loadShape = (id, success) => async (
+export const loadShape = (id, single, success) => async (
     dispatch,
 	getState,
 	api
@@ -70,10 +71,12 @@ export const loadShape = (id, success) => async (
                 success(response.data);
             }
 
-            dispatch({
-                type: LOAD_SHAPE,
-                payload: response.data
-            });
+            if(!single) {
+                dispatch({
+                    type: LOAD_SHAPE,
+                    payload: response.data
+                });
+            }
         })
         .catch(() => {
             // dispatch(authError('Account with this email already exists'));
@@ -106,6 +109,17 @@ export const clearNewShape = (success) => async (
     });
 }
 
+
+export const clearShape = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    dispatch({
+        type: CLEAR_SHAPE
+    });
+}
 
 // ===========================================================================
 

@@ -42,11 +42,11 @@ class Viz extends Component {
         }
         window.addEventListener("resize", this.handleResize);
 
-        // if(this.props.defaultViz) {
-        //     this.setState({
-        //         paused: true,
-        //     })
-        // }
+        if(this.props.defaultViz) {
+            this.setState({
+                paused: true,
+            })
+        }
 
         // if(this.props.defaultViz) {
         //     setTimeout(() => {
@@ -74,23 +74,29 @@ class Viz extends Component {
         
     }
 
+    loadShape = () => {
+        this.props.loadShape(this.props.shapeId, (data) => {
+            this.setState({
+                shape: data.defaultViz
+            }, () => {
+                // console.log(this.state.shape)
+                this.startViz()
+
+                this.setState({
+                    pointCount: this.props.pointCount
+                })
+        
+                this.updateColors()
+            })
+
+           
+        })
+    }
+
 	componentWillUnmount = () => {
-        // this.setState({
-        //     requestAnimationFrame: null
-        // })
-        // console.log(this.state.requestAnimationFrame, "UNMOOOUNT",  cancelAnimationFrame(this.state.requestAnimationFrame))
 		window.removeEventListener("resize", this.handleResize);
         window.cancelAnimationFrame(this.state.requestAnimationFrame);
         clearInterval(this.state.timeInterval);
-        // this.setState = (state,callback)=>{
-        //     return;
-        // };
-
-        var id = window.requestAnimationFrame(function(){});
-        while(id--){
-            window.cancelAnimationFrame(id);
-        }
-        
     }
     
     handleResize = () => {
@@ -158,7 +164,6 @@ class Viz extends Component {
                     this.setState({
                         paused: true
                     })
-                    window.cancelAnimationFrame(this.state.requestAnimationFrame);
                 }
             }
         }
@@ -692,7 +697,7 @@ class Viz extends Component {
         if(!this.state.paused ) {
             this.renderOnce(ctx, points);
             this.setState({
-                requestAnimationFrame: window.requestAnimationFrame(() => this.renderFrame(ctx, points))
+                requestAnimationFrame: requestAnimationFrame(() => this.renderFrame(ctx, points))
             });
         } else {
             this.setState({

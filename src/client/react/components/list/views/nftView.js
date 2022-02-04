@@ -18,6 +18,8 @@ import {
 
 import { showDrawer } from "../../../../redux/actions/appActions"
 
+import { loadShape } from "../../../../redux/actions/shapeActions"
+
 import Viz from "../../viz"
 
 import NFTDetails from "../../nft_details"
@@ -28,7 +30,19 @@ class nftView extends Component {
     constructor (props) {
         super(props)
 
+        this.state = {
+            shape: {}
+        }
+
         this.nftView =  this.nftView = React.createRef();
+    }
+
+    componentDidMount = () => {
+        this.props.loadShape(this.props.item.metadata.shapeId, true, (data) => {
+            this.setState({
+                shape: data
+            })
+        })
     }
 
     renderNftDetails() {
@@ -84,7 +98,7 @@ class nftView extends Component {
 
                 <div className="nft-media-container" style={{height: height + "px"}}>
                         {/* <img src={this.props.item.nft.fileUrl}/> */}
-                        <Viz shapeId={this.props.item.metadata.shapeId} pointCount={1024}/>
+                        {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } /> }
                 </div>
 
                 <NFTDetails item={this.props.item}/>
@@ -109,5 +123,6 @@ function mapStateToProps(state) {
 export default withRouter(connect(mapStateToProps, {
     buyNFT,
     updateCollection,
-    showDrawer
+    showDrawer,
+    loadShape
 })(nftView));

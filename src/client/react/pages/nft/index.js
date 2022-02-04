@@ -25,7 +25,7 @@ import NFTDetails from "../../../react/components/nft_details"
 import EditorEditableField from "../../components/editor/editorEditableField"
 
 import { 
-    createShape, loadShape, searchShapes, deleteShape, updateShape, loadNewShape, clearNewShape, getMainShape
+    createShape, loadShape, clearShape, searchShapes, deleteShape, updateShape, loadNewShape, clearNewShape, getMainShape
 } from "../../../redux/actions/shapeActions"
 
 
@@ -56,6 +56,7 @@ class NFTPage extends Component {
     }
 
     componentWillUnmount() {
+        this.props.clearShape()
         this.props.clearNewShape()
     }
 
@@ -535,7 +536,7 @@ class NFTPage extends Component {
 function mapStateToProps(state) {
 	return {
         app: state.app,
-        shape: state.shape
+        shape: state.shape,
 	};
 }
 
@@ -543,6 +544,6 @@ function mapStateToProps(state) {
 export default {
 	component: withRouter(connect(mapStateToProps, {
         showDrawer,
-        createShape, loadShape, searchShapes, deleteShape, updateShape, loadNewShape, clearNewShape, getMainShape
+        createShape, loadShape, clearShape, searchShapes, deleteShape, updateShape, loadNewShape, clearNewShape, getMainShape
 	})(NFTPage))
 }
