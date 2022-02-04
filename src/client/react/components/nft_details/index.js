@@ -20,6 +20,27 @@ class NFTDetails extends Component {
         this.nftMore =  this.nftMore = React.createRef();
     }
 
+    renderButton(type) {
+        switch (type) {
+            case "buy":
+                return (<Button
+                    className={"buy-button"}
+                    type="submit"
+                    text="Buy"
+                    large="true"
+                />)
+            case "create":
+                return (<Button
+                    className={"create-button"}
+                    onClick={() => this.props.showDrawer("nft-settings")}
+                    text="Create"
+                    large="true"
+                />)
+            default:
+                return;
+        }
+    }
+
 	render() {
 
 		return (
@@ -36,7 +57,7 @@ class NFTDetails extends Component {
                         <Play/>
                     </div>
 
-                    <div className="metadata-container">
+                    <div className="metadata-container" onClick={() => this.props.showDrawer("nft-settings")}>
                         <div className="metadata-name">
                             {this.props.item.nft.name}
                         </div>
@@ -57,12 +78,7 @@ class NFTDetails extends Component {
 
                 <div className="nft-details-left">
                     <div className="left">
-                    <Button
-                        className={"buy-button"}
-                        type="submit"
-                        text="Buy"
-                        large="true"
-                    />
+                    {this.renderButton(this.props.type)}
                     </div>
                     {this.props.more && <div className="right">
                         <div className="more-container" ref={this.nftMore} onClick={() => this.props.showDrawer("nft")}>

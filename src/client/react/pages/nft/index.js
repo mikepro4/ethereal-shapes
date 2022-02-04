@@ -28,6 +28,11 @@ import {
     createShape, loadShape, clearShape, searchShapes, deleteShape, updateShape, loadNewShape, clearNewShape, getMainShape
 } from "../../../redux/actions/shapeActions"
 
+import { 
+    loadNFT,
+    loadNewNFT
+} from "../../../redux/actions/nftActions"
+
 
 class NFTPage extends Component {
 
@@ -44,6 +49,16 @@ class NFTPage extends Component {
 
 	componentDidMount() {
         this.props.loadShape("61fc4d5c9c7c440021028b5b")
+
+        this.props.loadNewNFT({
+            nft: {
+                price: 222,
+                name:  "Dystopia"
+            },
+            metadata: {
+                shapeId: "61fc4d5c9c7c440021028b5b"
+            }
+        })
         if (this.props.location.search) {
             console.log("here")
             console.log(this.getQueryParams().id)
@@ -490,20 +505,14 @@ class NFTPage extends Component {
     }
 
 	render() {
-        
+        console.log(this.props.nft)
 		return (
      		<div className="route-content nft-route">
                 {this.renderHead()}
 
                 <div className="nft-details-container">
-                    <NFTDetails item={
-                        {
-                            nft: {
-                                price: 2.22,
-                                name: "Ethereal" 
-                            }
-                        }
-                    } large={true} more={true} />
+                    {this.props.nft && this.props.nft.nft && this.props.nft.nft.name && <NFTDetails item={this.props.nft
+                    } large={true} more={true} type="create" /> }
                 </div>
 
                 <div className="description-editor">
@@ -537,6 +546,7 @@ function mapStateToProps(state) {
 	return {
         app: state.app,
         shape: state.shape,
+        nft: state.activeNFT.newNFT
 	};
 }
 
@@ -544,6 +554,8 @@ function mapStateToProps(state) {
 export default {
 	component: withRouter(connect(mapStateToProps, {
         showDrawer,
-        createShape, loadShape, clearShape, searchShapes, deleteShape, updateShape, loadNewShape, clearNewShape, getMainShape
+        createShape, loadShape, clearShape, searchShapes, deleteShape, updateShape, loadNewShape, clearNewShape, getMainShape,
+        loadNewNFT,
+        loadNFT
 	})(NFTPage))
 }

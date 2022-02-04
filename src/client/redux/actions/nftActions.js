@@ -16,7 +16,8 @@ import { ethers } from "ethers";
 
 
 import {
-
+    LOAD_NFT,
+    LOAD_NEW_NFT
 } from "./types";
 
 import { updateMarketTokens } from "./appActions"
@@ -106,10 +107,10 @@ export const loadNFT = (id, success) => async (
                 success(response.data);
             }
 
-            // dispatch({
-            //     type: LOAD_NFT,
-            //     payload: response.data
-            // });
+            dispatch({
+                type: LOAD_NFT,
+                payload: response.data
+            });
 
         })
         .catch(() => {
@@ -220,3 +221,44 @@ export const updateNFT = (NFT, data, success) => async (
         .catch(() => {
         });
 }
+
+
+// ===========================================================================
+
+
+export const loadNewNFT = (data, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    dispatch({
+        type: LOAD_NEW_NFT,
+        payload: data
+    });
+}
+
+export const clearNewNFT = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    dispatch({
+        type: CLEAR_NEW_NFT
+    });
+}
+
+
+export const clearNFT = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    dispatch({
+        type: CLEAR_NFT
+    });
+}
+
+// ===========================================================================

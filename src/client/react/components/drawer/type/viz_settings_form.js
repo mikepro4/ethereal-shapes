@@ -237,13 +237,13 @@ class VizSettingsForm extends Component {
 
                
 
-                {this.props.user &&  <Button
-                    className={"submit-button theme-" + this.props.theme}
+                <Button
+                    className={"submit-button update-shape"}
                     loading={this.props.loading}
                     type="submit"
                     text="Update"
                     large="true"
-                />}
+                />
 
                
             </Form>

@@ -12,6 +12,7 @@ import {
 
 import WordSettings from "./type/word_settings"
 import VizSettings from "./type/viz_settings"
+import NFTSettings from "./type/nft_settings"
 
 class Drawer extends Component {
 
@@ -34,6 +35,8 @@ class Drawer extends Component {
                 return (<WordSettings hideDrawer={() => this.hideDrawer()} enablePortal/>)
             case "nft":
                 return (<VizSettings hideDrawer={() => this.hideDrawer()} enablePortal/>)
+            case "nft-settings":
+                return (<NFTSettings hideDrawer={() => this.hideDrawer()} enablePortal/>)
             default:
                 return ;
         }

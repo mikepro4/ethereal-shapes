@@ -6,6 +6,7 @@ import { authReducer } from "./authReducer";
 import { playerReducer } from "./playerReducer";
 import { blocksReducer } from "./blocksReducer";
 import { shapeReducer } from "./shapeReducer";
+import { nftReducer } from "./nftReducer";
 
 export default (history) => combineReducers({
     router: connectRouter(history),
@@ -14,5 +15,6 @@ export default (history) => combineReducers({
     auth: authReducer,
     player: playerReducer,
     blocks: blocksReducer,
-    shape: shapeReducer
+    shape: shapeReducer,
+    activeNFT: nftReducer
 })

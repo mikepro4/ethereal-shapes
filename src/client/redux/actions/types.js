@@ -38,6 +38,12 @@ export const LOAD_NEW_SHAPE = "app/LOAD_NEW_SHAPE"
 export const CLEAR_NEW_SHAPE = "app/CLEAR_NEW_SHAPE"
 export const CLEAR_SHAPE = "app/CLEAR_SHAPE"
 
+export const LOAD_NFT = "app/LOAD_NFT"
+export const LOAD_NEW_NFT = "app/LOAD_NEW_NFT"
+export const CLEAR_NEW_NFT = "app/CLEAR_NEW_NFT"
+export const CLEAR_NFT = "app/CLEAR_NFT"
+
+
 
 export const SHOW_DRAWER = "app/SHOW_DRAWER"
 export const HIDE_DRAWER = "app/HIDE_DRAWER"
