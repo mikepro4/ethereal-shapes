@@ -98,7 +98,7 @@ class nftView extends Component {
 
                 <div className="nft-media-container" style={{height: height + "px"}}>
                         {/* <img src={this.props.item.nft.fileUrl}/> */}
-                        {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } /> }
+                        {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } pointCount={400} /> }
                 </div>
 
                 <NFTDetails item={this.props.item}/>

@@ -34,7 +34,7 @@ class Viz extends Component {
             if( this.props.defaultViz &&  this.props.defaultViz.point &&  this.props.defaultViz.point.pointCount) {
                 this.startViz() 
                 this.setState({
-                    pointCount: this.props.defaultViz.point.pointCount
+                    pointCount: this.props.pointCount
                 })
                 this.updateColors()
                 // this.loadShape()
