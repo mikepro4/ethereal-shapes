@@ -65,7 +65,7 @@ class NFTDetails extends Component {
                     />
                     </div>
                     {this.props.more && <div className="right">
-                        <div className="more-container" ref={this.nftMore} onClick={() => this.props.showDrawer("nft", {}, this.nftMore, "bottom")}>
+                        <div className="more-container" ref={this.nftMore} onClick={() => this.props.showDrawer("nft")}>
                             <Settings/>
                         </div>
                     </div>}

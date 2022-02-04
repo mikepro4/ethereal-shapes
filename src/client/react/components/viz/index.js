@@ -119,9 +119,18 @@ class Viz extends Component {
     }
 
     loadShape = () => {
+        let pointCount 
+
+        if(this.props.pointCount) {
+            pointCount = this.props.pointCount
+        } else {
+            if(this.getViz()) {
+                pointCount =  this.getViz().point.pointCount
+            }
+        }
         this.startViz() 
         this.setState({
-            pointCount: this.props.pointCount
+            pointCount: pointCount
         })
         this.updateColors()
     }

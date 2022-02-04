@@ -11,7 +11,7 @@ import {
 } from '../../../redux/actions/appActions'
 
 import WordSettings from "./type/word_settings"
-import NFTDrawer from "./type/nft"
+import VizSettings from "./type/viz_settings"
 
 class Drawer extends Component {
 
@@ -33,7 +33,7 @@ class Drawer extends Component {
             case "word-settings":
                 return (<WordSettings hideDrawer={() => this.hideDrawer()} enablePortal/>)
             case "nft":
-                return (<NFTDrawer hideDrawer={() => this.hideDrawer()} enablePortal/>)
+                return (<VizSettings hideDrawer={() => this.hideDrawer()} enablePortal/>)
             default:
                 return ;
         }
@@ -42,7 +42,7 @@ class Drawer extends Component {
 	render() {
 
         let style
-        if(this.props.app.clientWidth > 500) {
+        if(this.props.app.clientWidth > 5000) {
             style = {position: "absolute", left: this.props.app.position.y + "px", top: this.props.app.position.x + "px", bottom: "inherit", width: 300 + "px"}
         }
 

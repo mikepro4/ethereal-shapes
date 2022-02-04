@@ -516,7 +516,7 @@ class NFTPage extends Component {
                 <div 
                     className="main-shape" 
                 >
-                    <Viz shapeId="61fc4d5c9c7c440021028b5b" pointCount={1024}/>
+                    <Viz shapeId="61fc4d5c9c7c440021028b5b" pointCount={null}/>
                     
                 </div>
 

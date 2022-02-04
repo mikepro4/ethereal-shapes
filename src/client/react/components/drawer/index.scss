@@ -8,6 +8,10 @@
     display: flex;
     align-items: flex-end;
 
+    @media only screen and (min-width: $mobile) {
+       left: inherit
+    }
+
     .app-drawer-background {
         position: fixed;
         top: 0;
@@ -54,11 +58,11 @@
 
 
         @media only screen and (min-width: $mobile) {
-            animation: none;
+            // animation: none;
 
-            &.hide {
-                animation: none;
-            }
+            // &.hide {
+            //     animation: none;
+            // }
         }
     }
 
@@ -285,4 +289,11 @@
 .details-container {
     width: 100%;
     overflow: hidden;
+}
+
+.viz-settings-drawer {
+    height: 50%;
+    @media only screen and (min-width: $mobile) {
+        width: 600px;
+    }
 }
