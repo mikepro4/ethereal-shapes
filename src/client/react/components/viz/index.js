@@ -76,7 +76,7 @@ class Viz extends Component {
 
         if(this.props.defaultViz) {
 
-            if(rect.y > this.props.app.clientHeight/1.4) {
+            if(rect.y > this.props.app.clientHeight/1.2) {
                 if(!this.state.paused) {
                     this.setState({
                         paused: true
@@ -201,7 +201,7 @@ class Viz extends Component {
         let scale = 1
 
         if(this.props.defaultViz) {
-            scale = 0.6
+            scale = 0.8
         }
 
         let scaleValue
