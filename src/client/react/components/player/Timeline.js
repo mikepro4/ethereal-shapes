@@ -40,7 +40,6 @@ class Timeline extends Component {
 
     getTimeline() {
 		if (this.timeline.current) {
-            console.log("here")
 			const containerWIdth = this.timeline.current.getBoundingClientRect().width;
 			const timesAmount = containerWIdth / 50;
 			const timeInterval = this.props.duration / timesAmount;

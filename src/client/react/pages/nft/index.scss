@@ -28,11 +28,40 @@
 
         @media only screen and (min-width: $mobile) {
             bottom: 100px;
-            left: 70px;
+            left: 60px;
             right: 60px;
         }
     }
 
+    .description-editor {
+
+        position: fixed;
+        top: 80px;
+        left: 20px;
+        right: 0;
+        z-index: 4;
+
+        @media only screen and (min-width: $mobile) {
+            top: 170px;
+            left: 70px;
+            font-size: 20px;
+            font-weight: 300;
+            opacity: 0.4;
+            transition: all 0.5s;
+            max-width: 370px;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+       
+    }
+
     
+}
+
+[contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
 }
 

@@ -22,10 +22,13 @@ import Timeline from "../../components/player/Timeline"
 
 import NFTDetails from "../../../react/components/nft_details"
 
+import EditorEditableField from "../../components/editor/editorEditableField"
+
 
 class NFTPage extends Component {
 
     state = {
+        description: "",
         touched: false,
         timeInterval: null,
         time: 0,
@@ -66,6 +69,12 @@ class NFTPage extends Component {
 		</Helmet>
     )
 
+    handleChange = (value) => {
+        this.setState({
+            description: value
+        })
+    }
+
 	render() {
         
 		return (
@@ -81,6 +90,13 @@ class NFTPage extends Component {
                             }
                         }
                     } large={true} />
+                </div>
+
+                <div className="description-editor">
+                    <EditorEditableField
+                        value={this.state.description ? this.state.description : ""}
+                        updateField={(value) => this.handleChange(value)}
+                    />
                 </div>
 
                 <div 
