@@ -25,6 +25,7 @@ import NFTSettingsForm from "./nft_settings_form"
 
 import {
     hideDrawer,
+    updateCollectionItem
 } from "../../../../redux/actions/appActions"
 
 import {
@@ -54,30 +55,37 @@ class NFTSettings extends Component {
     };
     
     handleFormSubmit(data) {
+ 
+        // if(this.getQueryParams().id) {
+        //     this.props.updateNFT(this.props.nft.newNFT, data, () => {
+        //         this.props.loadNewNFT(data)
+        //         if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
+        //             this.props.loadShape(data.metadata.shapeId, false, (data) => {
+        //                 console.log(data)
+        //                 this.props.loadNewShape(data)
+        //             })
+        //         }
+        //     })
 
-        if(this.getQueryParams().id) {
-            this.props.updateNFT(this.props.nft.newNFT, data, () => {
-                this.props.loadNewNFT(data)
-                if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
-                    this.props.loadShape(data.metadata.shapeId, false, (data) => {
-                        console.log(data)
-                        this.props.loadNewShape(data)
-                    })
-                }
-            })
+        // } else {
+        //     console.log(data)
+        //     this.props.loadNewNFT(data)
+        //     if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
+        //         this.props.loadShape(data.metadata.shapeId, false, (data) => {
+        //             console.log(data)
+        //             this.props.loadNewShape(data)
+        //         })
+        //     }
+        // }
 
-        } else {
-            console.log(data)
+        this.props.updateNFT(this.props.drawerData, data, () => {
             this.props.loadNewNFT(data)
-            if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
-                this.props.loadShape(data.metadata.shapeId, false, (data) => {
-                    console.log(data)
-                    this.props.loadNewShape(data)
-                })
-            }
-        }
+            this.props.updateCollectionItem(this.props.drawerData)
+        })
 
         this.props.hideDrawer()
+
+       
 
 
        
@@ -104,6 +112,7 @@ class NFTSettings extends Component {
 
 
 	render() {
+
         return (
             <div className={"app-drawer-content-container standard-drawer nft-settings-drawer theme-" + this.props.theme}>
                 
@@ -115,7 +124,7 @@ class NFTSettings extends Component {
                     <NFTSettingsForm 
                         enableReinitialize="true"
                         initialValues={
-                            this.props.nft.newNFT
+                            this.props.drawerData
                         }
                         loading={this.state.loading}
                         onSubmit={this.handleFormSubmit.bind(this)}
@@ -138,6 +147,7 @@ function mapStateToProps(state) {
         user: state.app.user,
         authenticated: state.auth.authenticated,
         nft: state.activeNFT,
+        drawerData: state.app.drawerData
 	};
 }
 
@@ -149,5 +159,6 @@ export default withRouter(connect(mapStateToProps, {
     loadNewNFT,
     hideDrawer,
     loadShape,
-    loadNewShape
+    loadNewShape,
+    updateCollectionItem
 })(NFTSettings));

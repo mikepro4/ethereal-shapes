@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Field, reduxForm, FieldArray, formValueSelector } from "redux-form";
+import { Field, reduxForm, FieldArray, formValueSelector, change} from "redux-form";
 import classnames from "classnames";
 import { Form } from "redux-form";
 import { connect } from "react-redux";
@@ -82,6 +82,7 @@ class NFTSettingsForm extends Component {
             this.setState({
                 fileUrl: url.toString()
             })
+            this.props.dispatch(change('nftSettings', 'nft.fileUrl', url.toString()));
         } catch(error) {
             console.log("error: ", error);
         }

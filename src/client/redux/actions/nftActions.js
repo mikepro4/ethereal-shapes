@@ -258,7 +258,7 @@ export const updateNFT = (NFT, data, success) => async (
     console.log(id, getState())
     await api
         .post("/NFT/update", { 
-            nftId: id, 
+            nftId: NFT._id, 
             metadata: {
                 ...NFT.metadata,
                 ...data.metadata

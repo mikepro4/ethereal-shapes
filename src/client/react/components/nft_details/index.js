@@ -209,7 +209,7 @@ class NFTDetails extends Component {
                         <Play/>
                     </div>
 
-                    <div className="metadata-container" onClick={() => this.props.showDrawer("nft-settings")}>
+                    <div className="metadata-container" onClick={() => this.props.showDrawer("nft-settings", this.props.item)}>
                         <div className="metadata-name">
                             {this.props.item.nft.name}
                         </div>
