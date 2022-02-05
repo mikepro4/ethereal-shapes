@@ -23,8 +23,7 @@ import {
 } from "../../../../redux/actions/shapeActions"
 
 import {
-    updateNFTShape,
-
+    updateNFTShape
 }from "../../../../redux/actions/nftActions"
 
 class VizSettings extends Component {
@@ -124,8 +123,8 @@ class VizSettings extends Component {
                                         colors: colors
                                     }
                                 }, (data) => {
-                                    console.log(data)
-                                    this.props.updateNFTShape(data._id)
+                                    console.log(data._id)
+                                    this.props.updateNFTShape(data._id, this.getQueryParams().id)
                                     // this.props.history.push("/?shape="+data._id)
                                     this.props.hideDrawer()
                                     this.setState({
@@ -150,7 +149,8 @@ function mapStateToProps(state) {
         user: state.app.user,
         authenticated: state.auth.authenticated,
         shape: state.shape.currentShape,
-        newShape: state.shape.newShape
+        newShape: state.shape.newShape,
+        nft: state.activeNFT.mewNFT
 	};
 }
 
@@ -159,5 +159,5 @@ export default withRouter(connect(mapStateToProps, {
     loadShape,
     loadNewShape,
     createShape,
-    updateNFTShape
+    updateNFTShape,
 })(VizSettings));

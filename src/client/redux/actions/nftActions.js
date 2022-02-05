@@ -37,16 +37,32 @@ export const updateNFTImage = (url) => async (
     });
 }
 
-export const updateNFTShape = (id) => async (
+export const updateNFTShape = (shapeId, nftId, success) => async (
     dispatch,
 	getState,
 	api
 ) => {
+        await api
+            .post("/NFT/updateShape", { 
+                nftId: nftId, 
+                shapeId: shapeId
+            })
+            .then(response => {
+                dispatch(loadNFT(nftId, (data) => {
+                    dispatch(loadNewNFT(data))
+                }));
+                if (success) {
+                    success(response.data);
+                }
+            })
+            .catch(() => {
+            });
 
-    dispatch({
-        type: UPDATE_NFT_SHAPE,
-        payload: id
-    });
+//     dispatch({
+//         type: UPDATE_NFT_SHAPE,
+//         payload: id
+//     });
+// }
 }
 
 

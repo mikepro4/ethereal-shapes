@@ -33,7 +33,8 @@ var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': 
 import {
     createNFT,
     deleteNFT,
-    updateNFTImage
+    updateNFTImage,
+    updateNFTShape
 } from "../../../../redux/actions/nftActions"
 
 class NFTSettingsForm extends Component {
@@ -325,7 +326,8 @@ export default connect(mapStateToProps, {
     deleteNFT,
     hideDrawer,
     createNFT,
-    updateNFTImage
+    updateNFTImage,
+    updateNFTShape
 })(withRouter(NFTSettingsForm));
 
   
