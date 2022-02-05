@@ -33,14 +33,14 @@ class Viz extends Component {
             points: []
         };
 
-        this.vizContainer =  this.vizContainer = React.createRef();
-        this.canvas =  this.canvas = React.createRef();
+        this.vizContainer = this.vizContainer = React.createRef();
+        this.canvas = this.canvas = React.createRef();
 
     }
 
-	componentDidMount = () => { 
-        if(this.props.shape.defaultViz || this.props.defaultViz) {
-            if( this.props.defaultViz &&  this.props.defaultViz.point && this.props.defaultViz.point.pointCount) {
+    componentDidMount = () => {
+        if (this.props.shape.defaultViz || this.props.defaultViz) {
+            if (this.props.defaultViz && this.props.defaultViz.point && this.props.defaultViz.point.pointCount) {
                 this.loadShape()
             }
         }
@@ -48,25 +48,25 @@ class Viz extends Component {
     }
 
     componentDidUpdate = (prevprops, prevState) => {
-       
-        if(this.props.shape.currentShape ) {
-            if(prevprops.shape.currentShape._id !== this.props.shape.currentShape._id) {
+
+        if (this.props.shape.currentShape) {
+            if (prevprops.shape.currentShape._id !== this.props.shape.currentShape._id) {
                 this.loadShape()
             }
         }
 
-        if(!_.isEqual(prevprops.shape.newShape.defaultViz, this.props.shape.newShape.defaultViz)) {
+        if (!_.isEqual(prevprops.shape.newShape.defaultViz, this.props.shape.newShape.defaultViz)) {
             this.loadShape()
 
-            if(prevprops.shape.newShape.defaultViz && this.props.shape.newShape.defaultViz) {
-                if(!_.isEqual(prevprops.shape.newShape.defaultViz.colors, this.props.shape.newShape.defaultViz.colors)) {
+            if (prevprops.shape.newShape.defaultViz && this.props.shape.newShape.defaultViz) {
+                if (!_.isEqual(prevprops.shape.newShape.defaultViz.colors, this.props.shape.newShape.defaultViz.colors)) {
                     this.updateColors()
                 }
             }
         }
-        
 
-        if(prevState.pointCount !== this.state.pointCount) {
+
+        if (prevState.pointCount !== this.state.pointCount) {
             this.generatePoints()
             setTimeout(() => {
                 this.updateColors()
@@ -75,25 +75,25 @@ class Viz extends Component {
 
         let rect = this.vizContainer.current.getBoundingClientRect();
 
-        if(this.props.defaultViz) {
+        if (this.props.defaultViz) {
 
-            if(rect.y > this.props.app.clientHeight/1.2) {
-                if(!this.state.paused) {
+            if (rect.y > this.props.app.clientHeight / 1.2) {
+                if (!this.state.paused) {
                     this.setState({
                         paused: true
                     })
                 }
             }
-    
-            if(rect.y < -350) {
-                if(!this.state.paused) {
+
+            if (rect.y < -350) {
+                if (!this.state.paused) {
                     this.setState({
                         paused: true
                     })
                 }
             }
-            if(rect.y < this.props.app.clientHeight/1.4 && rect.y > -349) {
-                if(this.state.paused){
+            if (rect.y < this.props.app.clientHeight / 1.4 && rect.y > -349) {
+                if (this.state.paused) {
                     this.setState({
                         paused: false
                     }, () => {
@@ -105,12 +105,12 @@ class Viz extends Component {
     }
 
     componentWillUnmount = () => {
-		window.removeEventListener("resize", this.handleResize);
+        window.removeEventListener("resize", this.handleResize);
         window.cancelAnimationFrame(this.state.requestAnimationFrame);
         clearInterval(this.state.timeInterval);
 
-        var id = window.requestAnimationFrame(function(){});
-        while(id--){
+        var id = window.requestAnimationFrame(function () { });
+        while (id--) {
             window.cancelAnimationFrame(id);
         }
     }
@@ -120,16 +120,16 @@ class Viz extends Component {
     }
 
     loadShape = () => {
-        let pointCount 
+        let pointCount
 
-        if(this.props.pointCount) {
+        if (this.props.pointCount) {
             pointCount = this.props.pointCount
         } else {
-            if(this.getViz()) {
-                pointCount =  this.getViz().point.pointCount
+            if (this.getViz()) {
+                pointCount = this.getViz().point.pointCount
             }
         }
-        this.startViz() 
+        this.startViz()
         this.setState({
             pointCount: pointCount
         })
@@ -145,7 +145,7 @@ class Viz extends Component {
 
         let finalViz = {}
 
-        if(this.props.defaultViz) {
+        if (this.props.defaultViz) {
             finalViz = this.props.defaultViz
         } else {
 
@@ -175,7 +175,7 @@ class Viz extends Component {
             boldRate,
             math
         } = defaultViz.shape
-        
+
         const {
             pointSize,
             pointOpacity,
@@ -198,10 +198,10 @@ class Viz extends Component {
             backgroundEnabled: false,
             backgroundOpacity: 1
         }, () => {
-                if(!this.state.requestAnimationFrame) {
-                    this.paint()
-                    console.log("Initial state: ", this.state)
-                }
+            if (!this.state.requestAnimationFrame) {
+                this.paint()
+                console.log("Initial state: ", this.state)
+            }
         })
     }
 
@@ -210,18 +210,18 @@ class Viz extends Component {
 
         let scale = 1
 
-        if(this.props.defaultViz) {
+        if (this.props.defaultViz) {
             scale = 0.8
         }
 
         let scaleValue
-        if(this.props.app.clientWidth > 1000) {
+        if (this.props.app.clientWidth > 1000) {
             scaleValue = (rect.width * 2) / 11 * scale;
         } else {
             scaleValue = (rect.width * 2) / 4 * scale;
         }
 
-        if(this.props.app.clientWidth > 1000) {
+        if (this.props.app.clientWidth > 1000) {
             this.setState({
                 width: rect.width * 2,
                 height: rect.height * 2,
@@ -229,19 +229,19 @@ class Viz extends Component {
                 x: (rect.width * 2) / 2,
                 y: (rect.height * 2) / 2
             }, () => {
-                if(callback) {
+                if (callback) {
                     callback()
                 }
             })
         } else {
-                this.setState({
+            this.setState({
                 width: rect.width * 2,
                 height: rect.height * 2,
                 radius: scaleValue,
                 x: (rect.width * 2) / 2,
                 y: (rect.height * 2) / 2
             }, () => {
-                if(callback) {
+                if (callback) {
                     callback()
                 }
             })
@@ -259,18 +259,18 @@ class Viz extends Component {
     generatePoints = () => {
         let points = []
         for (var i = 0; i < this.state.pointCount; i++) {
-          var pt = this.createPoint(
-            Math.random(1) * this.state.width,
-            Math.random(1) * this.state.height,
-            i
-          );
-          points.push(pt)
+            var pt = this.createPoint(
+                Math.random(1) * this.state.width,
+                Math.random(1) * this.state.height,
+                i
+            );
+            points.push(pt)
         }
 
         this.setState({
             points: points
         })
-    
+
         return points
     }
 
@@ -278,89 +278,89 @@ class Viz extends Component {
 
         let finalHidden = false
 
-        if(i < Math.floor(this.state.pointCount)) {
+        if (i < Math.floor(this.state.pointCount)) {
             finalHidden = false
         } else {
             finalHidden = true
         }
 
         let point = {
-          x: x,
-          y: y,
-          vx: 0,
-          vy: 0,
-          hidden: finalHidden,
-          color:"#000000"
+            x: x,
+            y: y,
+            vx: 0,
+            vy: 0,
+            hidden: finalHidden,
+            color: "#000000"
         }
         return point
     }
 
     update = () => {
-		let points = this.generatePoints()
+        let points = this.generatePoints()
         this.renderFrame(this.canvas.current.getContext('2d'), points)
     }
 
     renderOnce = (ctx) => {
 
         let points = this.state.points
-        if(points.length > 0)  {
+        if (points.length > 0) {
             ctx.clearRect(0, 0, this.state.width, this.state.height);
 
             this.setState({
-              rotate: this.state.rotate + this.state.rotate_speed
+                rotate: this.state.rotate + this.state.rotate_speed
             })
-    
+
             let freqData = []
             let soundModifier = 1
-    
-            if(this.props.player.analyser) {
+
+            if (this.props.player.analyser) {
                 freqData = new Uint8Array(this.props.player.analyser.frequencyBinCount)
                 this.props.player.analyser.getByteFrequencyData(freqData)
             }
-            
-    
+
+
             for (let i = 0; i < points.length; i++) {
-    
-                if(this.props.player.analyser && soundModifier) {
-                    soundModifier = freqData[this.getPointIterator(i)]/1000
-            
-                    if(soundModifier == 0) {
-                      soundModifier = 1
+
+                if (this.props.player.analyser && soundModifier) {
+                    soundModifier = freqData[this.getPointIterator(i)] / 1000
+
+                    if (soundModifier == 0) {
+                        soundModifier = 1
                     }
                 }
-    
+
                 let point = points[i];
 
-                if(point) {
+                if (point) {
                     let t_radius = this.calculateRadius(soundModifier, i)
-    
-                    let tx = this.state.x + Math.cos(this.state.rotate + this.state.step * i  + soundModifier) * t_radius;
-                    let ty = this.state.y + Math.sin(this.state.rotate + this.state.step * i  + soundModifier) * t_radius;
-        
-                    point.vx += (tx - point.x) * this.state.rotate_point_speed  ;
-                    point.vy += (ty - point.y) * this.state.rotate_point_speed ;
-        
+
+                    let tx = this.state.x + Math.cos(this.state.rotate + this.state.step * i + soundModifier) * t_radius;
+                    let ty = this.state.y + Math.sin(this.state.rotate + this.state.step * i + soundModifier) * t_radius;
+
+                    point.vx += (tx - point.x) * this.state.rotate_point_speed;
+                    point.vy += (ty - point.y) * this.state.rotate_point_speed;
+
                     point.x += point.vx;
                     point.y += point.vy;
-        
+
                     point.vx *= this.state.friction;
                     point.vy *= this.state.friction;
-        
+
                     if (point.x >= 0 && point.x <= this.state.width && point.y >= 0 && point.y <= this.state.height) {
-        
-                        if(point.hidden) {
+
+                        if (point.hidden) {
                             ctx.beginPath();
-                            ctx.arc(point.x,point.y,0,0,2*Math.PI);
+                            ctx.arc(point.x, point.y, 0, 0, 2 * Math.PI);
                             ctx.fillStyle = `rgba(
                                 ${this.hexToRgb(this.state.pointColor).r},
                                 ${this.hexToRgb(this.state.pointColor).g},
                                 ${this.hexToRgb(this.state.pointColor).b},
                                 0}
                             )`;
-                            ctx.fill(); 
+                            ctx.fill();
                         } else {
                             ctx.beginPath();
-                            ctx.arc(point.x,point.y,this.state.pointSize,0,2*Math.PI);
+                            ctx.arc(point.x, point.y, this.state.pointSize, 0, 2 * Math.PI);
                             ctx.fillStyle = `rgba(
                                 ${this.hexToRgb(point.color).r},
                                 ${this.hexToRgb(point.color).g},
@@ -369,11 +369,11 @@ class Viz extends Component {
                             )`;
                             ctx.fill();
                         }
-        
+
                     }
                 }
-    
-                
+
+
             }
         }
 
@@ -389,8 +389,8 @@ class Viz extends Component {
     }
 
     calculateRadius = (soundModifier, i) => {
-        let radius = Math[this.state.math](this.state.rotate + this.state.freq * i ) * this.state.radius * this.state.bold_rate  +
-                this.state.radius;
+        let radius = Math[this.state.math](this.state.rotate + this.state.freq * i) * this.state.radius * this.state.bold_rate +
+            this.state.radius;
 
         return radius
     }
@@ -399,20 +399,20 @@ class Viz extends Component {
         if (i <= this.state.totalPointCount) {
             return i
         } else {
-            return i-this.state.totalPointCount
+            return i - this.state.totalPointCount
         }
     }
 
     getPointOpacity = (value, point) => {
-        if(value > 0) {
-            return value/256*100
+        if (value > 0) {
+            return value / 256 * 100
         } else {
             return point.opacity / 50
         }
     }
 
     renderFrame = (ctx, points) => {
-        if(!this.state.paused ) {
+        if (!this.state.paused) {
             this.renderOnce(ctx, points);
             this.setState({
                 requestAnimationFrame: window.requestAnimationFrame(() => this.renderFrame(ctx, points))
@@ -431,9 +431,9 @@ class Viz extends Component {
         let finalOpacity
         let finalBlur
 
-       
 
-        if(this.props.defaultViz) {
+
+        if (this.props.defaultViz) {
             finalViz = this.props.defaultViz
         } else {
             if (this.props.shape.newShape.defaultViz) {
@@ -444,17 +444,17 @@ class Viz extends Component {
             finalViz = this.props.shape[vizSource].defaultViz
         }
 
-        if(finalViz && finalViz.overlay) {
+        if (finalViz && finalViz.overlay) {
             const {
                 visible,
                 blur,
                 color,
                 colorOpacity,
             } = finalViz.overlay
-            if(visible) {
+            if (visible) {
                 finalBlur = blur
                 finalColor = color
-                finalOpacity =colorOpacity
+                finalOpacity = colorOpacity
             } else {
                 finalBlur = 0
                 finalColor = "#000000"
@@ -463,16 +463,16 @@ class Viz extends Component {
 
         } else {
             finalBlur = 0,
-            finalColor = "#000000"
+                finalColor = "#000000"
             finalOpacity = 0
         }
 
         // console.log(`rgba(${this.hexToRgb(finalColor).r}, ${this.hexToRgb(finalColor).g}, ${this.hexToRgb(finalColor).b}, 0.6)`)
-        return(
+        return (
             <div>
 
                 <div className="goo"></div>
-                <div 
+                <div
                     className="glass"
                     style={{
                         background: `rgba(${this.hexToRgb(finalColor).r}, ${this.hexToRgb(finalColor).g}, ${this.hexToRgb(finalColor).b}, ${finalOpacity})`,
@@ -484,14 +484,14 @@ class Viz extends Component {
                 </div>
             </div>
         )
-        
+
     }
 
     getViz = () => {
         let finalViz
         let vizSource
 
-        if(this.props.defaultViz) {
+        if (this.props.defaultViz) {
             finalViz = this.props.defaultViz
         } else {
             if (this.props.shape.newShape.defaultViz) {
@@ -505,89 +505,91 @@ class Viz extends Component {
     }
 
     updateColors = () => {
-        let colors = this.getViz().colors
-        let pointCount =  this.state.pointCount
-        let ranges = []
+        if (this.getViz()) {
 
-        if(colors.length > 0) {
-            let newRanges = _.map(colors, (point, i) => {
-                return({
-                    count: point.amount * pointCount / 100
+            let colors = this.getViz().colors
+            let pointCount = this.state.pointCount
+            let ranges = []
+
+            if (colors.length > 0) {
+                let newRanges = _.map(colors, (point, i) => {
+                    return ({
+                        count: point.amount * pointCount / 100
+                    })
                 })
-            })
-    
-            let points = []
-    
-            _.map(newRanges, (range, colorCount) => {
-                let filteredPoints = _.filter(this.state.points, (point, i) => {
-                    if(i < range.count) {
-                        return true 
-                    } 
+
+                let points = []
+
+                _.map(newRanges, (range, colorCount) => {
+                    let filteredPoints = _.filter(this.state.points, (point, i) => {
+                        if (i < range.count) {
+                            return true
+                        }
+                    })
+                    let coloredPoints = _.map(filteredPoints, (point, i) => {
+                        if (i < range.count) {
+                            return ({
+                                ...point,
+                                color: colors[colorCount].hex,
+                                opacity: colors[colorCount].opacity
+                            })
+                        }
+                    })
+                    points = _.concat(points, coloredPoints)
+                    return
                 })
-                let coloredPoints = _.map(filteredPoints, (point, i) => {
-                    if(i < range.count) {
-                        return ({
-                            ...point,
-                            color: colors[colorCount].hex,
-                            opacity: colors[colorCount].opacity
-                        })
+
+                let difference = this.state.pointCount - points.length
+
+                let filteredDifference = _.filter(this.state.points, (point, i) => {
+                    if (i >= (this.state.pointCount - difference)) {
+                        return true
                     }
                 })
-                points = _.concat(points, coloredPoints)
-                return
-            })
-    
-            let difference = this.state.pointCount - points.length
-    
-            let filteredDifference = _.filter(this.state.points, (point, i) => {
-                if(i >= (this.state.pointCount - difference)) {
-                    return true 
-                } 
-            })
-    
-            let remainingPoints = _.map(filteredDifference, (point, i) => {
-                return ({
-                    ...point,
-                    hidden: true
+
+                let remainingPoints = _.map(filteredDifference, (point, i) => {
+                    return ({
+                        ...point,
+                        hidden: true
+                    })
                 })
-            })
-            points = _.concat(points, remainingPoints)
-    
-            this.setState({
-                points: points
-            })
-    
-            if(points.length == this.state.totalPointCount) {
+                points = _.concat(points, remainingPoints)
+
                 this.setState({
                     points: points
                 })
-            } else {
-    
-            }
-        } else {
-            let allWhitePoints = _.map(this.state.points, (point, i) => {
-                return ({
-                    ...point,
-                    color: "#ffffff",
-                    opacity: 100
-                })
-            })
 
-            this.setState({
-                points: allWhitePoints
-            })
+                if (points.length == this.state.totalPointCount) {
+                    this.setState({
+                        points: points
+                    })
+                } else {
+
+                }
+            } else {
+                let allWhitePoints = _.map(this.state.points, (point, i) => {
+                    return ({
+                        ...point,
+                        color: "#ffffff",
+                        opacity: 100
+                    })
+                })
+
+                this.setState({
+                    points: allWhitePoints
+                })
+            }
         }
 
-        
     }
 
-        
-	render() {
+
+    render() {
 
         let finalViz
         let vizSource
 
-        if(this.props.defaultViz) {
+        if (this.props.defaultViz) {
             finalViz = this.props.defaultViz
         } else {
             if (this.props.shape.newShape.defaultViz) {
@@ -598,10 +600,10 @@ class Viz extends Component {
             finalViz = this.props.shape[vizSource].defaultViz
         }
 
-		return (
-            <div 
-                className={classNames({"full": this.props.app.fullScreen}, "viz-container")}
-                ref={this.vizContainer} 
+        return (
+            <div
+                className={classNames({ "full": this.props.app.fullScreen }, "viz-container")}
+                ref={this.vizContainer}
                 style={{
                     backgroundColor: finalViz && finalViz.shape && finalViz.shape.backgroundColor
                 }}
@@ -613,23 +615,23 @@ class Viz extends Component {
                     width={this.state.width}
                     height={this.state.height}
                 />
-                <div id="centered" style={{display: "none"}}></div>
+                <div id="centered" style={{ display: "none" }}></div>
                 {/* {this.state.visible ? <div>visible</div> : <div>hidden</div>} */}
                 {this.renderOverlay()}
             </div>
-		);
-	}
+        );
+    }
 }
 
 function mapStateToProps(state) {
-	return {
-		location: state.router.location,
+    return {
+        location: state.router.location,
         app: state.app,
         shape: state.shape,
         player: state.player
-	};
+    };
 }
 
 export default connect(mapStateToProps, {
 
- })(Viz);
+})(Viz);

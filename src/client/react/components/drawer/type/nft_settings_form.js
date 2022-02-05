@@ -283,8 +283,8 @@ class NFTSettingsForm extends Component {
                     onClick={() => {
                         this.props.createNFT( 
                             this.props.nft.newNFT
-                        , () => {
-                            this.props.history.push("/");
+                        , (data) => {
+                            this.props.history.push("/nft?id="+ data._id);
                         });
                     }}
                     text="Create"

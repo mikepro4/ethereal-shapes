@@ -94,8 +94,8 @@ class NFTPage extends Component {
     componentWillUnmount() {
         this.props.clearShape()
         this.props.clearNewShape()
-        this.props.clearNFT()
-        this.props.clearNewNFT()
+        // this.props.clearNFT()
+        // this.props.clearNewNFT()
     }
 
     
@@ -104,6 +104,13 @@ class NFTPage extends Component {
             setTimeout(() => {
                 this.checkIntervals()
             }, 1)
+        }
+
+        if(this.getQueryParams().id !== this.props.nft._id) {
+            this.props.loadNFT(this.getQueryParams().id, (data) => {
+                this.props.loadNewNFT(data)
+                this.props.loadShape(data.metadata.shapeId)
+            })
         }
 
         // if(this.props.nft && this.props.nft.metadata && prevprops.nft && prevprops.nft.metadata) {
