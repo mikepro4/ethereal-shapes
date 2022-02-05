@@ -226,6 +226,20 @@ class NFTSettingsForm extends Component {
                     className={"submit-button theme-" + this.props.theme}
                     loading={this.state.loading}
                     type="submit"
+                    text="Update"
+                    large="true"
+                />
+
+                <Button
+                    className={"submit-button theme-" + this.props.theme}
+                    loading={this.state.loading}
+                    onClick={() => {
+                        this.props.createNFT( 
+                            this.props.nft.newNFT
+                        , () => {
+                            this.props.history.push("/");
+                        });
+                    }}
                     text="Create"
                     large="true"
                 />

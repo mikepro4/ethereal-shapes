@@ -43,6 +43,8 @@ export const LOAD_NEW_NFT = "app/LOAD_NEW_NFT"
 export const CLEAR_NEW_NFT = "app/CLEAR_NEW_NFT"
 export const CLEAR_NFT = "app/CLEAR_NFT"
 
+export const UPDATE_NFT_SHAPE = "app/UPDATE_NFT_SHAPE"
+
 
 
 export const SHOW_DRAWER = "app/SHOW_DRAWER"

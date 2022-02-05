@@ -24,6 +24,10 @@ import {
 
 import NFTSettingsForm from "./nft_settings_form"
 
+import {
+    hideDrawer,
+} from "../../../../redux/actions/appActions"
+
 class NFTSettings extends Component {
 
     
@@ -44,6 +48,7 @@ class NFTSettings extends Component {
         console.log(data)
 
         this.props.loadNewNFT(data)
+        this.props.hideDrawer()
 
         // this.setState({
 		// 	loading: true
@@ -83,7 +88,7 @@ class NFTSettings extends Component {
                         loading={this.state.loading}
                         onSubmit={this.handleFormSubmit.bind(this)}
                         theme={this.props.theme}
-                        onChange={this.debouncedOnChange.bind(this)}
+                        // onChange={this.debouncedOnChange.bind(this)}
                     />
 
                 </div>
@@ -109,5 +114,6 @@ export default withRouter(connect(mapStateToProps, {
     loadNFT,
     createNFT,
     deleteNFT,
-    loadNewNFT
+    loadNewNFT,
+    hideDrawer
 })(NFTSettings));

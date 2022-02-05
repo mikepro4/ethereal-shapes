@@ -22,6 +22,11 @@ import {
     createShape
 } from "../../../../redux/actions/shapeActions"
 
+import {
+    updateNFTShape,
+
+}from "../../../../redux/actions/nftActions"
+
 class VizSettings extends Component {
 
     state = {
@@ -120,7 +125,8 @@ class VizSettings extends Component {
                                     }
                                 }, (data) => {
                                     console.log(data)
-                                    this.props.history.push("/?shape="+data._id)
+                                    this.props.updateNFTShape(data._id)
+                                    // this.props.history.push("/?shape="+data._id)
                                     this.props.hideDrawer()
                                     this.setState({
                                         loading: false
@@ -152,5 +158,6 @@ export default withRouter(connect(mapStateToProps, {
     updateShape,
     loadShape,
     loadNewShape,
-    createShape
+    createShape,
+    updateNFTShape
 })(VizSettings));

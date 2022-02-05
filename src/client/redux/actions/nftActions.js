@@ -17,10 +17,24 @@ import { ethers } from "ethers";
 
 import {
     LOAD_NFT,
-    LOAD_NEW_NFT
+    LOAD_NEW_NFT,
+    UPDATE_NFT_SHAPE
 } from "./types";
 
 import { updateMarketTokens } from "./appActions"
+
+export const updateNFTShape = (id) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    dispatch({
+        type: UPDATE_NFT_SHAPE,
+        payload: id
+    });
+}
+
 
 /////////////////////////////////////////////////
 
