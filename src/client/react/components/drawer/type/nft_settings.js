@@ -28,6 +28,11 @@ import {
     hideDrawer,
 } from "../../../../redux/actions/appActions"
 
+import {
+    loadShape,
+    loadNewShape
+} from "../../../../redux/actions/shapeActions"
+
 class NFTSettings extends Component {
 
     
@@ -48,6 +53,15 @@ class NFTSettings extends Component {
         console.log(data)
 
         this.props.loadNewNFT(data)
+        this.props.hideDrawer()
+        if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
+            this.props.loadShape(data.metadata.shapeId, false, (data) => {
+                console.log(data)
+                this.props.loadNewShape(data)
+            })
+        }
+       
+
         this.props.hideDrawer()
 
         // this.setState({
@@ -115,5 +129,7 @@ export default withRouter(connect(mapStateToProps, {
     createNFT,
     deleteNFT,
     loadNewNFT,
-    hideDrawer
+    hideDrawer,
+    loadShape,
+    loadNewShape
 })(NFTSettings));

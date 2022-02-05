@@ -231,7 +231,7 @@ class NFTSettingsForm extends Component {
                 />
 
                 <Button
-                    className={"submit-button theme-" + this.props.theme}
+                    className={"submit-button control theme-" + this.props.theme}
                     loading={this.state.loading}
                     onClick={() => {
                         this.props.createNFT( 

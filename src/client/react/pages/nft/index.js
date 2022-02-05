@@ -82,6 +82,14 @@ class NFTPage extends Component {
                 this.checkIntervals()
             }, 1)
         }
+
+        // if(this.props.nft && this.props.nft.metadata && prevprops.nft && prevprops.nft.metadata) {
+        //     if(this.props.nft.metadata.shapeId !== prevprops.nft.metadata.shapeId) {
+        //         this.props.loadShape(this.props.nft.metadata.shapeId)
+        //     }
+        // }
+
+       
     }
 
     checkIntervals () {
@@ -506,6 +514,11 @@ class NFTPage extends Component {
 
 	render() {
         console.log(this.props.nft)
+
+        let vizId
+
+        if(!this.props.nft.currentNFT) {
+        }
 		return (
      		<div className="route-content nft-route">
                 {this.renderHead()}
@@ -525,7 +538,7 @@ class NFTPage extends Component {
                 <div 
                     className="main-shape" 
                 >
-                    <Viz shapeId="61fc4d5c9c7c440021028b5b" pointCount={null}/>
+                    {this.props.nft &&  this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId}pointCount={null}/> }
                     
                 </div>
 

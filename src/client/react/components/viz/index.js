@@ -48,6 +48,7 @@ class Viz extends Component {
     }
 
     componentDidUpdate = (prevprops, prevState) => {
+       
         if(this.props.shape.currentShape ) {
             if(prevprops.shape.currentShape._id !== this.props.shape.currentShape._id) {
                 this.loadShape()
