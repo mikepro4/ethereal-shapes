@@ -81,7 +81,8 @@ class NFTPage extends Component {
             this.props.loadNewNFT({
                 nft: {
                     price: 222,
-                    name:  "Ethereal"
+                    name:  "Ethereal",
+                    description: "1"
                 },
                 metadata: {
                     shapeId: "61fc4d5c9c7c440021028b5b"
@@ -106,7 +107,7 @@ class NFTPage extends Component {
             }, 1)
         }
 
-        if(this.getQueryParams().id !== this.props.nft._id) {
+        if(this.getQueryParams().id !== this.props.nft._id && this.getQueryParams().id) {
             this.props.loadNFT(this.getQueryParams().id, (data) => {
                 this.props.loadNewNFT(data)
                 this.props.loadShape(data.metadata.shapeId)
@@ -544,14 +545,18 @@ class NFTPage extends Component {
 
     renderButtonStatus() {
         if(this.getQueryParams().id) {
-            return("buy")
+            if(this.props.nft.metadata.minted) {
+                return("buy")
+            } else {
+                return("mint")
+            }
+            
         } else {
             return("create")
         }
     }
 
 	render() {
-        console.log(this.props.nft)
 
         let vizId
 

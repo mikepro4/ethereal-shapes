@@ -72,6 +72,21 @@ class nftView extends Component {
 
         
     }
+
+    renderButtonStatus() {
+        if(this.props.item._id) {
+            if(this.props.item.metadata.minted) {
+                return("buy")
+                
+            } else {
+                return("mint")
+            }
+            
+        } else {
+            return("create")
+        }
+    }
+
     render() {
         let height = 0
 

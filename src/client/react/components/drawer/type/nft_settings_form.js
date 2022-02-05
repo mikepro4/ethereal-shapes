@@ -236,6 +236,12 @@ class NFTSettingsForm extends Component {
                 />
 
                 <Field
+                    name="nft.description"
+                    component={Textarea}
+                    title="Description" placeholder="Description"
+                />  
+
+                <Field
                     name="metadata.shapeId"
                     component={Input}
                     title="Shape ID" placeholder="Shape ID"
@@ -247,16 +253,12 @@ class NFTSettingsForm extends Component {
                     title="Audio URL" placeholder="Audio URL"
                 />
 
-                <Field
-                    name="nft.description"
-                    component={Textarea}
-                    title="Name" placeholder="Description"
-                />
+               
 
                 <Field
                     name="nft.fileUrl"
                     component={Input}
-                    title="File URL" placeholder="Price"
+                    title="File URL" placeholder="File URL"
                 />
 
                 <input
@@ -277,7 +279,7 @@ class NFTSettingsForm extends Component {
                     large="true"
                 />
 
-                <Button
+                {/* <Button
                     className={"submit-button control theme-" + this.props.theme}
                     loading={this.state.loading}
                     onClick={() => {
@@ -285,11 +287,12 @@ class NFTSettingsForm extends Component {
                             this.props.nft.newNFT
                         , (data) => {
                             this.props.history.push("/nft?id="+ data._id);
+                            this.props.hideDrawer()
                         });
                     }}
                     text="Create"
                     large="true"
-                />
+                /> */}
 
                
             </Form>

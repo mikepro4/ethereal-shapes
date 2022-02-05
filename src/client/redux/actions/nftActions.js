@@ -72,6 +72,7 @@ export const buyNFT = (fileUrl, passedNft) => async (
 
     const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
     console.log(nft, nft.tokenId, price)
+    console.log(nftAddress, nft.tokenId, signer, nft, price.toString())
     const transaction = await contract.createMarketSale(nftAddress, nft.tokenId, {
         value: price
     });
@@ -79,17 +80,23 @@ export const buyNFT = (fileUrl, passedNft) => async (
 
     await transaction.wait();
     dispatch(updateMarketTokens(() => {
-        console.log("here")
-        let marketTokens = getState().app.marketTokens;
-        let filteredNfts = _.filter(marketTokens, { image: fileUrl})
+        // console.log("here")
+        // let marketTokens = getState().app.marketTokens;
+        // let filteredNfts = _.filter(marketTokens, { image: fileUrl})
     
-        let nft = filteredNfts[0]
+        // let nft = filteredNfts[0]
 
     }));
 
     dispatch(updateNFT(passedNft, {
-        owner: getState().app.account.address
+        metadata: {
+            owner: getState().app.account.address
+        }
     }));
+
+    // dispatch(loadNFT(passedNft._id, (data) => {
+    //     dispatch(loadNewNFT(data))
+    // }));
    
 };
 
@@ -211,7 +218,7 @@ export const updateNFT = (NFT, data, success) => async (
 	getState,
 	api
 ) => {
-    console.log("NFT UPDATE", data)
+    console.log("NFT UPDATE", NFT, data)
 
 
     // let newMetadata = _.merge({}, NFT.metadata, {
@@ -222,11 +229,14 @@ export const updateNFT = (NFT, data, success) => async (
     //     audioUrl: data.audioUrl
     // })
 
-
+    // if(NFT && NFT._id) {
     console.log("NFT._id: ", NFT._id)
+
+    let id = getState().activeNFT.newNFT._id
+    console.log(id, getState())
     await api
         .post("/NFT/update", { 
-            nftId: NFT._id, 
+            nftId: id, 
             metadata: {
                 ...NFT.metadata,
                 ...data.metadata
@@ -237,12 +247,17 @@ export const updateNFT = (NFT, data, success) => async (
             },
         })
         .then(response => {
+            dispatch(loadNFT(id, (data) => {
+                dispatch(loadNewNFT(data))
+            }));
             if (success) {
                 success(response.data);
             }
         })
         .catch(() => {
         });
+    // }
+   
 }
 
 
