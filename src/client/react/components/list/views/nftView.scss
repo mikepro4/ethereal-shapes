@@ -36,16 +36,17 @@
 .nft-grid {
     @media only screen and (min-width: $mobile) {
         margin: 20px auto;
-        max-width: 1600px;
+        max-width: 1500px;
     }
 }
 
 .nft-grid .list-results {
     @media only screen and (min-width: $mobile) {
         display: grid;
-        grid-template-columns: 30% 30% 30%;
-        column-gap: 100px;
-        row-gap: 100px;
+        // grid-template-columns: 30% 30% 30%;
+        grid-template-columns: 50% 50%;
+        column-gap: 120px;
+        row-gap: 120px;
         justify-content: center;
         
         .list-results {

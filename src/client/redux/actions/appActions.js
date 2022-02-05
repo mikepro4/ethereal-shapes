@@ -8,6 +8,7 @@ import {
 	SCROLL_TO,
     SCROLL_TO_RESET,
     UPDATE_COLLECTION,
+    UPDATE_COLLECTION_ITEM,
     SHOW_DRAWER,
     HIDE_DRAWER,
     ACTIVATE_KEY,
@@ -144,6 +145,19 @@ export const updateCollection = (update, success) => async (
     dispatch({
         type: UPDATE_COLLECTION,
         payload: update
+    });
+};
+
+/////////////////////////////////////////////////
+
+export const updateCollectionItem = (item, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: UPDATE_COLLECTION_ITEM,
+        payload: item
     });
 };
 

@@ -5,8 +5,10 @@ import classNames from "classnames"
 import moment from 'moment'
 import { Button } from "@blueprintjs/core";
 
+import update from "immutability-helper";
+
 import {
-    updateCollection
+    updateCollection,
 } from "../../../redux/actions/appActions"
 
 
@@ -81,6 +83,30 @@ class ListResults extends Component {
             }
             
         }
+
+        if(!_.isEqual(prevprops.app.updateCollectionItem, this.props.app.updateCollectionItem)) {
+           console.log("UPDATE COLLECTION ITEM ", this.props.app.updateCollectionItem)
+            this.updateItem(this.props.app.updateCollectionItem)
+        }
+    }
+
+    updateItem = (item) => {
+
+        this.props.updateCollectionItem( item._id, (data) => {
+              let keyToDeactivateIndex = _.findIndex(this.state.collection, item);
+              console.log(data, keyToDeactivateIndex, this.state.collection)
+
+
+            // if(keyToDeactivateIndex) {
+            // return update(this.state.collection, { $splice: [[keyToDeactivateIndex, 1, data]] 
+            // });
+            let newCollection = update(this.state.collection, { $splice: [[keyToDeactivateIndex, 1, data]] })
+            this.setState({
+                collection: newCollection
+            })
+        // }
+        })
+      
     }
     
 

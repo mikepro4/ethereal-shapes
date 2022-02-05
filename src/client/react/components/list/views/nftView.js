@@ -118,7 +118,7 @@ class nftView extends Component {
                             
                         </div>
                         {/* <img src={this.props.item.nft.fileUrl}/> */}
-                        {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } pointCount={600}  /> }
+                        {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } pointCount={1000}  /> }
 
                         <NFTDetails item={this.props.item} more={false} type={this.renderButtonStatus()} />
 

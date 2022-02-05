@@ -20,7 +20,8 @@ import {
     LOAD_SORTED_BLOCKS,
     CLEAR_SORTED_BLOCKS,
     UPDATE_ACCOUNT,
-    UPDATE_MARKET_TOKENS
+    UPDATE_MARKET_TOKENS,
+    UPDATE_COLLECTION_ITEM
 } from "../actions/types";
 
 export const initialState = {
@@ -42,6 +43,7 @@ export const initialState = {
     menuOpen: false,
     user: null,
     updateCollection: false,
+    updateCollectionItem: null,
     drawerOpen: false,
     drawerType: null,
     drawerData: {},
@@ -128,6 +130,11 @@ export const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 updateCollection: action.payload
+            };
+        case UPDATE_COLLECTION_ITEM:
+            return {
+                ...state,
+                updateCollectionItem: action.payload
             };
         case SHOW_DRAWER:
             let drawer

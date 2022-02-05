@@ -22,7 +22,7 @@ import {
     UPDATE_NFT_SHAPE
 } from "./types";
 
-import { updateMarketTokens } from "./appActions"
+import { updateMarketTokens, updateCollectionItem } from "./appActions"
 
 
 export const updateNFTImage = (url) => async (
@@ -93,6 +93,8 @@ export const buyNFT = (fileUrl, passedNft) => async (
         metadata: {
             owner: getState().app.account.address
         }
+    }, () => {
+        dispatch(updateCollectionItem(passedNft))
     }));
 
     // dispatch(loadNFT(passedNft._id, (data) => {
@@ -152,6 +154,25 @@ export const loadNFT = (id, success) => async (
             // dispatch(authError('Account with this email already exists'));
         });
 }
+
+export const loadNFTDetails = (id, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/NFTs/item", { NFTId: id })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+            // dispatch(authError('Account with this email already exists'));
+        });
+}
+
 
 // ===========================================================================
 

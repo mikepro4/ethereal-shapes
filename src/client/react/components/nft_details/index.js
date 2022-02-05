@@ -32,7 +32,7 @@ import { Buffer } from 'buffer';
 var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': '/api/v0/', protocol: "https" })
 // const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-import { updateMarketTokens } from "../../../redux/actions/appActions"
+import { updateMarketTokens, updateCollectionItem} from "../../../redux/actions/appActions"
 import { createNFT, loadNFT, loadNewNFT, updateNFT, buyNFT } from "../../../redux/actions/nftActions"
 import { StaticJsonRpcProvider } from "@ethersproject/providers";
 
@@ -50,11 +50,11 @@ class NFTDetails extends Component {
     }
 
     buyNFT =() => {
-        this.props.buyNFT(this.props.nft.nft.fileUrl, this.props.nft)
+        this.props.buyNFT(this.props.item.nft.fileUrl, this.props.item)
     }
 
     createMarket = async() => {
-        const {name, description, price, fileUrl} = this.props.nft.nft;
+        const {name, description, price, fileUrl} = this.props.item.nft;
         console.log(name, description, price, fileUrl)
 
         if(!name || !description || !price || !fileUrl) return 
@@ -94,7 +94,7 @@ class NFTDetails extends Component {
         let event = tx.events[0]
         let value = event.args[2]
         let tokenId = value.toNumber()
-        const price = ethers.utils.parseUnits(this.props.nft.nft.price, "ether");
+        const price = ethers.utils.parseUnits(this.props.item.nft.price, "ether");
 
         // list the item for sale
 
@@ -117,14 +117,16 @@ class NFTDetails extends Component {
         let res = ethers.utils.formatEther(price);
         res = Math.round(res * 1e4) / 1e4;
 
-        this.props.updateNFT(this.props.nft, {
+
+        this.props.updateNFT(this.props.item, {
             metadata: {
                 minted: true
             }
         }, () => {
-            this.props.loadNFT(this.props.nft._id, (data) => {
+            this.props.loadNFT(this.props.item._id, (data) => {
                 this.props.loadNewNFT(data)
                 this.props.updateMarketTokens()
+                this.props.updateCollectionItem(this.props.item)
             })
         })
 
@@ -253,5 +255,6 @@ export default withRouter(connect(mapStateToProps, {
     showDrawer,
     updateMarketTokens,
     createNFT, loadNFT, loadNewNFT, updateNFT,
-    buyNFT
+    buyNFT,
+    updateCollectionItem
 })(NFTDetails));

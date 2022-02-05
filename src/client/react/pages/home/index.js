@@ -9,7 +9,7 @@ import * as _ from "lodash"
 
 import Word from "./word"
 
-import { searchNFTs} from "../../../redux/actions/nftActions"
+import { searchNFTs, loadNFTDetails} from "../../../redux/actions/nftActions"
 
 import ListResults  from "../../components/list"
 import NavLinks  from "../../components/navLinks"
@@ -53,6 +53,7 @@ class Home extends Component {
                                 count: count
                             })
                         }}
+                        updateCollectionItem={this.props.loadNFTDetails}
                         handleClick={() => this.props.handleClick()}
                     />
                 </div>
@@ -72,6 +73,7 @@ function mapStateToProps(state) {
 
 export default {
 	component: withRouter(connect(mapStateToProps, {
-        searchNFTs
+        searchNFTs,
+        loadNFTDetails
 	})(Home))
 }

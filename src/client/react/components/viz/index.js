@@ -45,6 +45,14 @@ class Viz extends Component {
             }
         }
         window.addEventListener("resize", this.handleResize);
+
+        // setTimeout(() => {
+        //     if(!this.props.fullScreen && this.props.app.clientWidth > 1000) {
+        //         this.setState({
+        //             paused: true
+        //         })
+        //     }
+        // }, 10000)
     }
 
     componentDidUpdate = (prevprops, prevState) => {
@@ -77,7 +85,7 @@ class Viz extends Component {
 
         if (this.props.defaultViz) {
 
-            if (rect.y > this.props.app.clientHeight / 1.2) {
+            if (rect.y > this.props.app.clientHeight / 1.4) {
                 if (!this.state.paused) {
                     this.setState({
                         paused: true
@@ -85,14 +93,14 @@ class Viz extends Component {
                 }
             }
 
-            if (rect.y < -350) {
+            if (rect.y < -250) {
                 if (!this.state.paused) {
                     this.setState({
                         paused: true
                     })
                 }
             }
-            if (rect.y < this.props.app.clientHeight / 1.4 && rect.y > -349) {
+            if (rect.y < this.props.app.clientHeight / 1.4 && rect.y > -249) {
                 if (this.state.paused) {
                     this.setState({
                         paused: false
@@ -166,43 +174,45 @@ class Viz extends Component {
     updateVizState = (defaultViz) => {
         console.log(defaultViz)
 
-        const {
-            rotateSpeed,
-            friction,
-            rotatePointSpeed,
-            step,
-            frequency,
-            boldRate,
-            math
-        } = defaultViz.shape
-
-        const {
-            pointSize,
-            pointOpacity,
-            pointCount,
-            pointColor
-        } = defaultViz.point
-
-        this.setState({
-            rotate_speed: rotateSpeed * 0.1 + 0.001,
-            friction: friction * 0.8 + 0.1,
-            rotate_point_speed: rotatePointSpeed * 0.2 + 0.03,
-            step: step * 0.5 + 0.0001,
-            freq: frequency * 0.09 + 0.01,
-            bold_rate: boldRate * 0.3 + 0.1,
-            math: math,
-            pointSize: pointSize,
-            pointOpacity: pointOpacity,
-            pointColor: "#ffffff",
-            backgroundColor: "",
-            backgroundEnabled: false,
-            backgroundOpacity: 1
-        }, () => {
-            if (!this.state.requestAnimationFrame) {
-                this.paint()
-                console.log("Initial state: ", this.state)
-            }
-        })
+        if(defaultViz) {
+            const {
+                rotateSpeed,
+                friction,
+                rotatePointSpeed,
+                step,
+                frequency,
+                boldRate,
+                math
+            } = defaultViz.shape
+    
+            const {
+                pointSize,
+                pointOpacity,
+                pointCount,
+                pointColor
+            } = defaultViz.point
+    
+            this.setState({
+                rotate_speed: rotateSpeed * 0.1 + 0.001,
+                friction: friction * 0.8 + 0.1,
+                rotate_point_speed: rotatePointSpeed * 0.2 + 0.03,
+                step: step * 0.5 + 0.0001,
+                freq: frequency * 0.09 + 0.01,
+                bold_rate: boldRate * 0.3 + 0.1,
+                math: math,
+                pointSize: pointSize,
+                pointOpacity: pointOpacity,
+                pointColor: "#ffffff",
+                backgroundColor: "",
+                backgroundEnabled: false,
+                backgroundOpacity: 1
+            }, () => {
+                if (!this.state.requestAnimationFrame) {
+                    this.paint()
+                    console.log("Initial state: ", this.state)
+                }
+            })
+        }
     }
 
     updateDimensions = (callback) => {
