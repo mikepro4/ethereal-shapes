@@ -4,7 +4,6 @@ import { withRouter, Link } from "react-router-dom";
 import classNames from "classnames"
 import { Icon, Button, Classes, Intent, Position, Toaster  } from "@blueprintjs/core";
 
-import qs from "qs";
 import * as _ from "lodash"
 
 // import { 
@@ -33,6 +32,8 @@ import {
     loadNewShape
 } from "../../../../redux/actions/shapeActions"
 
+import qs from "qs";
+
 class NFTSettings extends Component {
 
     
@@ -47,22 +48,39 @@ class NFTSettings extends Component {
     
         this.debouncedOnChange = _.debounce(this.handleFormSubmit, 1000);
     }
+
+    getQueryParams = () => {
+		return qs.parse(this.props.location.search.substring(1));
+    };
     
-
     handleFormSubmit(data) {
-        console.log(data)
 
-        this.props.loadNewNFT(data)
-        this.props.hideDrawer()
-        if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
-            this.props.loadShape(data.metadata.shapeId, false, (data) => {
-                console.log(data)
-                this.props.loadNewShape(data)
+        if(this.getQueryParams().id) {
+            this.props.updateNFT(this.props.nft.newNFT, data, () => {
+                this.props.loadNewNFT(data)
+                if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
+                    this.props.loadShape(data.metadata.shapeId, false, (data) => {
+                        console.log(data)
+                        this.props.loadNewShape(data)
+                    })
+                }
             })
+
+        } else {
+            console.log(data)
+            this.props.loadNewNFT(data)
+            if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
+                this.props.loadShape(data.metadata.shapeId, false, (data) => {
+                    console.log(data)
+                    this.props.loadNewShape(data)
+                })
+            }
         }
-       
 
         this.props.hideDrawer()
+
+
+       
 
         // this.setState({
 		// 	loading: true

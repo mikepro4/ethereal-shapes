@@ -79,7 +79,7 @@ class nftView extends Component {
             height = this.nftView.current.clientWidth
         }
         return(
-            <div className="nft-view" ref={this.nftView} >
+            <div className="nft-view" ref={this.nftView} onClick={() => this.props.history.push("/nft?id="+ this.props.item._id)}>
                {/* <Link 
                     to={"/?word=" + this.props.item._id}
                     className={classNames({

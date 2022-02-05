@@ -30,7 +30,9 @@ import {
 
 import { 
     loadNFT,
-    loadNewNFT
+    loadNewNFT,
+    clearNFT,
+    clearNewNFT
 } from "../../../redux/actions/nftActions"
 
 
@@ -48,24 +50,43 @@ class NFTPage extends Component {
 	}
 
 	componentDidMount() {
-        this.props.loadShape("61fc4d5c9c7c440021028b5b")
+        // this.props.loadShape("61fc4d5c9c7c440021028b5b")
 
-        this.props.loadNewNFT({
-            nft: {
-                price: 222,
-                name:  "Dystopia"
-            },
-            metadata: {
-                shapeId: "61fc4d5c9c7c440021028b5b"
-            }
-        })
+        // this.props.loadNewNFT({
+        //     nft: {
+        //         price: 222,
+        //         name:  "Dystopia"
+        //     },
+        //     metadata: {
+        //         shapeId: "61fc4d5c9c7c440021028b5b"
+        //     }
+        // })
+
+        
         if (this.props.location.search) {
             console.log("here")
             console.log(this.getQueryParams().id)
+
+            this.props.loadNFT(this.getQueryParams().id, (data) => {
+                this.props.loadNewNFT(data)
+                this.props.loadShape(data.metadata.shapeId)
+            })
             // this.props.loadNft(this.getQueryParams().id, (data) => {
             //     console.log(data)
             // })
         } else {
+
+            this.props.loadShape("61fc4d5c9c7c440021028b5b")
+
+            this.props.loadNewNFT({
+                nft: {
+                    price: 222,
+                    name:  "Ethereal"
+                },
+                metadata: {
+                    shapeId: "61fc4d5c9c7c440021028b5b"
+                }
+            })
 
         }
     }
@@ -73,6 +94,8 @@ class NFTPage extends Component {
     componentWillUnmount() {
         this.props.clearShape()
         this.props.clearNewShape()
+        this.props.clearNFT()
+        this.props.clearNewNFT()
     }
 
     
@@ -512,6 +535,14 @@ class NFTPage extends Component {
         }
     }
 
+    renderButtonStatus() {
+        if(this.getQueryParams().id) {
+            return("buy")
+        } else {
+            return("create")
+        }
+    }
+
 	render() {
         console.log(this.props.nft)
 
@@ -525,7 +556,7 @@ class NFTPage extends Component {
 
                 <div className="nft-details-container">
                     {this.props.nft && this.props.nft.nft && this.props.nft.nft.name && <NFTDetails item={this.props.nft
-                    } large={true} more={true} type="create" /> }
+                    } large={true} more={true} type={this.renderButtonStatus()} /> }
                 </div>
 
                 <div className="description-editor">
@@ -569,6 +600,8 @@ export default {
         showDrawer,
         createShape, loadShape, clearShape, searchShapes, deleteShape, updateShape, loadNewShape, clearNewShape, getMainShape,
         loadNewNFT,
-        loadNFT
+        loadNFT,
+        clearNFT,
+        clearNewNFT
 	})(NFTPage))
 }

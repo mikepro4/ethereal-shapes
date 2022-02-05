@@ -200,13 +200,6 @@ export const updateNFT = (NFT, data, success) => async (
 ) => {
     console.log("NFT UPDATE", data)
 
-    let date
-
-    if(data.main) {
-        date = new Date()
-    } else {
-        date = null
-    }
 
     // let newMetadata = _.merge({}, NFT.metadata, {
     //     title: data.title,
@@ -217,15 +210,18 @@ export const updateNFT = (NFT, data, success) => async (
     // })
 
 
-    let newMetadata = {
-        ...NFT.metadata,
-        ...data
-    }
-
+    console.log("NFT._id: ", NFT._id)
     await api
         .post("/NFT/update", { 
-            NFTId: NFT._id, 
-            metadata: newMetadata,
+            nftId: NFT._id, 
+            metadata: {
+                ...NFT.metadata,
+                ...data.metadata
+            },
+            nft: {
+                ...NFT.nft,
+                ...data.nft
+            },
         })
         .then(response => {
             if (success) {

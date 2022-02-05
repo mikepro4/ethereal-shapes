@@ -33,6 +33,8 @@ class NFTSettingsForm extends Component {
         loading: false
     }
 
+   
+
     renderBlock(i) {
         return(
             <div key={i} className="single-block"><Block position={i}/></div>
