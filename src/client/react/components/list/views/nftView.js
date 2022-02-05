@@ -73,19 +73,21 @@ class nftView extends Component {
         
     }
 
-    // renderButtonStatus() {
-    //     if(this.props.item._id) {
-    //         if(this.props.item.metadata.minted) {
-    //             return("buy")
-                
-    //         } else {
-    //             return("mint")
-    //         }
-            
-    //     } else {
-    //         return("create")
-    //     }
-    // }
+    renderButtonStatus() {
+        if(this.props.item.metadata.minted) {
+            if(this.props.item.metadata.owner) {
+                if(this.props.item.metadata.owner == this.props.app.account.address) {
+                    return("own")
+                } else {
+                    return("sold")
+                }
+            } else {
+                return("buy")
+            }
+        } else {
+            return("mint")
+        }
+    }
 
     render() {
         let height = 0
@@ -94,7 +96,7 @@ class nftView extends Component {
             height = this.nftView.current.clientWidth
         }
         return(
-            <div className="nft-view" ref={this.nftView} onClick={() => this.props.history.push("/nft?id="+ this.props.item._id)}>
+            <div className="nft-view" ref={this.nftView} >
                {/* <Link 
                     to={"/?word=" + this.props.item._id}
                     className={classNames({
@@ -112,10 +114,13 @@ class nftView extends Component {
                 {/* {this.renderNftDetails()} */}
 
                 <div className="nft-media-container" style={{height: height + 150 + "px"}}>
+                        <div className="nft-click-area" onClick={() => this.props.history.push("/nft?id="+ this.props.item._id)}>
+                            
+                        </div>
                         {/* <img src={this.props.item.nft.fileUrl}/> */}
                         {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } pointCount={600}  /> }
 
-                        <NFTDetails item={this.props.item} more={false} />
+                        <NFTDetails item={this.props.item} more={false} type={this.renderButtonStatus()} />
 
                 </div>
 

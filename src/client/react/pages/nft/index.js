@@ -546,11 +546,18 @@ class NFTPage extends Component {
     renderButtonStatus() {
         if(this.getQueryParams().id) {
             if(this.props.nft.metadata.minted) {
-                return("buy")
+                if(this.props.nft.metadata.owner) {
+                    if(this.props.nft.metadata.owner == this.props.app.account.address) {
+                        return("own")
+                    } else {
+                        return("sold")
+                    }
+                } else {
+                    return("buy")
+                }
             } else {
                 return("mint")
             }
-            
         } else {
             return("create")
         }
