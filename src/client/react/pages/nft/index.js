@@ -588,7 +588,7 @@ class NFTPage extends Component {
                 <div 
                     className="main-shape" 
                 >
-                    {this.props.nft &&  this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId}pointCount={null}/> }
+                    {this.props.nft &&  this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId}pointCount={null} fullScreen={true}/> }
                     
                 </div>
 

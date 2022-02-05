@@ -216,7 +216,11 @@ class Viz extends Component {
 
         let scaleValue
         if (this.props.app.clientWidth > 1000) {
-            scaleValue = (rect.width * 2) / 11 * scale;
+            if(this.props.fullScreen == true) {
+                scaleValue = (rect.width * 2) / 10 * scale;
+            } else {
+                scaleValue = (rect.width * 2) / 4 * scale;
+            }
         } else {
             scaleValue = (rect.width * 2) / 4 * scale;
         }
