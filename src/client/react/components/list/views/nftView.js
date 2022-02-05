@@ -73,19 +73,19 @@ class nftView extends Component {
         
     }
 
-    renderButtonStatus() {
-        if(this.props.item._id) {
-            if(this.props.item.metadata.minted) {
-                return("buy")
+    // renderButtonStatus() {
+    //     if(this.props.item._id) {
+    //         if(this.props.item.metadata.minted) {
+    //             return("buy")
                 
-            } else {
-                return("mint")
-            }
+    //         } else {
+    //             return("mint")
+    //         }
             
-        } else {
-            return("create")
-        }
-    }
+    //     } else {
+    //         return("create")
+    //     }
+    // }
 
     render() {
         let height = 0
@@ -115,7 +115,7 @@ class nftView extends Component {
                         {/* <img src={this.props.item.nft.fileUrl}/> */}
                         {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } pointCount={600}  /> }
 
-                        <NFTDetails item={this.props.item} more={false} type="buy"/>
+                        <NFTDetails item={this.props.item} more={false} />
 
                 </div>
 

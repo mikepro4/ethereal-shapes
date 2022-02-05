@@ -148,28 +148,41 @@ class NFTDetails extends Component {
     renderButton(type) {
         
         switch (type) {
-            case "buy":
-                if( this.props.nft && this.props.nft.metadata) {
+            // case "buy":
+            //     if( this.props.nft && this.props.nft.metadata) {
     
-                    if(this.props.nft.metadata.owner == this.props.app.account.address) {
-                        return(<div>Own</div>)
-                    } else {
-                        if(this.props.nft.metadata.owner) {
-                            return (<div>Sold</div>)
-                        } else {
-                            return (<Button
-                                className={"buy-button"}
-                                type="submit"
-                                text="Buy"
-                                large="true"
-                                onClick={() => this.buyNFT()}
-                            />)
-                        }
-                    }
-                } else {
-                    return(<div></div>)
-                }
-                
+            //         if(this.props.nft.metadata.owner == this.props.app.account.address) {
+            //             return(<div>Own</div>)
+            //         } else {
+            //             if(this.props.nft.metadata.owner) {
+            //                 return (<div>Sold</div>)
+            //             } else {
+            //                 return (<Button
+            //                     className={"buy-button"}
+            //                     type="submit"
+            //                     text="Buy"
+            //                     large="true"
+            //                     onClick={() => this.buyNFT()}
+            //                 />)
+            //             }
+            //         }
+            //     } else {
+            //         return(<div></div>)
+            //     }
+
+            case "own": 
+                return (<div>Own</div>)
+            case "sold": 
+                return (<div>sold</div>)
+
+            case "buy": 
+                return (<Button
+                    className={"buy-button"}
+                    type="submit"
+                    text="Buy"
+                    large="true"
+                    onClick={() => this.buyNFT()}
+                />)
                
             case "mint":
                 return (<Button
