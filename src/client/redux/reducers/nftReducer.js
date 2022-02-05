@@ -3,7 +3,8 @@ import {
     CLEAR_NFT,
     LOAD_NEW_NFT,
     CLEAR_NEW_NFT,
-    UPDATE_NFT_SHAPE
+    UPDATE_NFT_SHAPE,
+    UPDATE_NFT_IMAGE
 } from '../actions/types';
 
 export const initialState = {
@@ -38,6 +39,17 @@ export const nftReducer = function(state = initialState, action) {
                     metadata: {
                         ...state.newNFT.metadata,
                         shapeId: action.payload
+                    }
+                }
+            }
+        case UPDATE_NFT_IMAGE:
+            return {
+                ...state,
+                newNFT: {
+                    ...state.newNFT,
+                    nft: {
+                        ...state.newNFT.nft,
+                        fileUrl: action.payload
                     }
                 }
             }

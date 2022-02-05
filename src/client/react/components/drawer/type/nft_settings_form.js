@@ -21,16 +21,26 @@ import {
     hideDrawer,
 } from "../../../../redux/actions/appActions"
 
+import ipfsHttpClient from "ipfs-http-client";
+
+import { Buffer } from 'buffer';
+
+// var client = ipfsHttpClient('ipfs.infura.io:5001/api/v0', "", { protocol: "https"}) // leaving out the arguments will default to these values
+
+var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': '/api/v0/', protocol: "https" })
+
 
 import {
     createNFT,
     deleteNFT,
+    updateNFTImage
 } from "../../../../redux/actions/nftActions"
 
 class NFTSettingsForm extends Component {
     
     state = {
-        loading: false
+        loading: false,
+        fileUrl: ""
     }
 
    
@@ -53,6 +63,28 @@ class NFTSettingsForm extends Component {
         return(<div className="blocks-container">
             {blocks}
         </div>)
+    }
+
+    onChange = async(e) => {
+        const file = e.target.files[0];
+        console.log(file)
+
+        try {
+            const added = await client.add(
+                file, {
+                    progress: (prog) => console.log("received: ", prog)
+                }
+            )
+            console.log(added)
+            const url = `https://ipfs.infura.io/ipfs/${added[0].path}`;
+            console.log(url)
+            this.props.updateNFTImage(url.toString())
+            this.setState({
+                fileUrl: url.toString()
+            })
+        } catch(error) {
+            console.log("error: ", error);
+        }
     }
 
     renderButton() {
@@ -221,6 +253,19 @@ class NFTSettingsForm extends Component {
                     title="Name" placeholder="Description"
                 />
 
+                <Field
+                    name="nft.fileUrl"
+                    component={Input}
+                    title="File URL" placeholder="Price"
+                />
+
+                <input
+                    type="file"
+                    name="Asset"
+                    onChange={this.onChange}
+                />
+                {this.state.fileUrl && <img src={this.state.fileUrl}></img>}
+
 
                 {/* {this.renderButton()} */}
 
@@ -276,6 +321,7 @@ export default connect(mapStateToProps, {
     deleteNFT,
     hideDrawer,
     createNFT,
+    updateNFTImage
 })(withRouter(NFTSettingsForm));
 
   
