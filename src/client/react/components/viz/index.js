@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import classNames from "classnames"
 import * as _ from "lodash";
 import update from "immutability-helper";
+import { fromPairs } from "lodash";
+
+import TouchZones from "./touchZones"
 
 class Viz extends Component {
     constructor(props) {
@@ -681,6 +684,18 @@ class Viz extends Component {
 
     }
 
+    renderTouchZones = () => {
+
+        let TouchZones = [
+            {
+
+            }
+        ]
+
+        
+
+    }
+
 
     render() {
 
@@ -706,6 +721,7 @@ class Viz extends Component {
                     backgroundColor: finalViz && finalViz.shape && finalViz.shape.backgroundColor
                 }}
             >
+                <TouchZones/>
                 <canvas
                     ref={this.canvas}
                     className="viz"

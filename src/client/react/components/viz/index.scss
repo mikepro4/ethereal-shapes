@@ -66,3 +66,41 @@
     z-index: 3;
 }
   
+
+.touch-zones {
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 80px;
+    z-index: 10000;
+
+    .touch-zones-row {
+        height: 25%;
+        display: flex;
+        margin-bottom: 20px;
+
+        .touch-zone {
+            background: rgba($white, 0.00);
+            height: 100%;
+            flex-grow: 1;
+            flex-shrink: 1;
+            transition: all 1.5s;
+
+            &.touch-zone-active {
+                // background: rgba($white, 0.02);
+            }
+
+             &:first-child {
+                margin-right: 10px;
+         }
+
+            &:last-child {
+                margin-left: 10px;
+            }
+        }
+
+       
+    }
+}
