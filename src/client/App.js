@@ -205,7 +205,7 @@ class App extends Component {
             this.getBalance()
     
             console.log("reload")
-            alert("chain changed")
+            // alert("chain changed")
         })
 
         
@@ -238,7 +238,7 @@ class App extends Component {
             this.setState({
                 networkId: networkId
             })
-            alert("network chainged")
+            // alert("network chainged")
         });
 
         provider.on('connect', async(networkId) => {
