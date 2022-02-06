@@ -9,6 +9,12 @@ import {updateLocale } from "moment"
 
 import { formatTime } from "../../../utils/timeFormatter"
 
+import {
+    trackSeek,
+    trackPlay,
+    updateHoverTime
+} from "../../../redux/actions/playerActions"
+
 
 class Timeline extends Component {
 
@@ -54,6 +60,71 @@ class Timeline extends Component {
 		}
 	}
 
+    handlePorgressBarClick(event) {
+		let box = document.getElementById("progressBar").getBoundingClientRect();
+		const relX =
+			event.pageX - box.left;
+		const progressBarPercent =
+			relX *
+			100 /
+			box.width;
+		const seekSeconds = progressBarPercent * this.props.nft.metadata.duration/ 100;
+        this.props.trackPlay(
+            {
+                _id: this.props.nft._id,
+                audioUrl: this.props.nft.metadata.audioUrl
+            }
+			
+		); 
+
+        setTimeout(() => {
+            this.props.trackSeek(
+                seekSeconds,
+                {
+                    _id: this.props.nft._id,
+                    audioUrl: this.props.nft.metadata.audioUrl
+                }
+                
+            )
+        , 1})
+		
+	}
+
+    calculateWidth(event) {
+        // console.log(this.refs.progress_bar_container.offsetLeft)
+        let box = document.getElementById("progressBar").getBoundingClientRect();
+		const relX =
+			event.pageX - box.left;
+		const progressBarPercent =
+			relX *
+			100 /
+			box.width;
+		const seekSeconds = progressBarPercent * this.props.nft.metadata.duration / 100;
+		return seekSeconds;
+	}
+
+    onMouseMove(event) {
+		this.props.updateHoverTime(this.calculateWidth(event));
+		this.setState({
+            hoverSeconds: this.calculateWidth(event),
+			hoverWidth: this.calculateWidth(event) * 100 / this.props.nft.metadata.duration + "%"
+		});
+
+		// Update hover time in analysis reducer
+		// this.props.updateHoverTime(this.calculateWidth(event))
+	}
+
+	onMouseLeave(event) {
+		this.props.updateHoverTime(null);
+		this.setState({
+            hoverSeconds: 0,
+			hoverWidth: 0
+		});
+		// Update hover time in analysis reducer
+		// this.props.dispatch(updateHoverTime(null))
+	}
+
+
         
     render() {
         let times = "";
@@ -86,8 +157,19 @@ class Timeline extends Component {
 			width: this.state.hoverWidth
 		};
 
+        // const cursorHover = {
+		// 	left: this.props.player.hoverTime * 100 / this.props.nft.duration + "%"
+		// };
+
 		return (
-			<div className="timeline-container" ref={this.timeline}>
+			<div 
+                className="timeline-container" 
+                ref={this.timeline}
+                id="progressBar"
+                onClick={this.handlePorgressBarClick.bind(this)}
+                onMouseMove={this.onMouseMove.bind(this)}
+                onMouseLeave={this.onMouseLeave.bind(this)}
+            >
                 <div className="progress-bar-wrapper">
                     <div className="progress-bar" style={progressBarWidth} />
                     <div className="progress-bar-hover" style={progressBarHoverWidth} />
@@ -106,4 +188,7 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps, {
+    trackSeek,
+    trackPlay,
+    updateHoverTime
 })(Timeline));

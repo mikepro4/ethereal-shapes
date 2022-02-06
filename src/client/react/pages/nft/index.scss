@@ -74,10 +74,15 @@
         // height: 40px;
         // border-top: 1px solid rgba(255,255,255,0.1);
         position: fixed;
-        bottom: 0;
+        bottom: -36px;
         left:0;
         right: 0;
         z-index: 2;
+        transition: all 0.5s ease;
+
+        &:hover {
+            bottom: 0
+        }
     }
 
     .nft-details-container {
