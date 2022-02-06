@@ -39,6 +39,8 @@ class Viz extends Component {
     }
 
     componentDidMount = () => {
+        console.log("VIZ MOUNT")
+        this.loadShape()
         if (this.props.shape.defaultViz || this.props.defaultViz) {
             if (this.props.defaultViz && this.props.defaultViz.point && this.props.defaultViz.point.pointCount) {
                 this.loadShape()
@@ -108,6 +110,20 @@ class Viz extends Component {
                         this.renderFrame(this.canvas.current.getContext('2d'), this.state.points)
                     })
                 }
+            }
+        }
+
+        if(this.props.app.pauseAnimation !== prevprops.app.pauseAnimation) {
+            if(this.props.app.pauseAnimation) {
+                this.setState({
+                    paused: true
+                })
+            } else {
+                this.setState({
+                    paused: false
+                }, () => {
+                    this.renderFrame(this.canvas.current.getContext('2d'), this.state.points)
+                })
             }
         }
     }
@@ -191,6 +207,14 @@ class Viz extends Component {
                 pointCount,
                 pointColor
             } = defaultViz.point
+
+            let finalPointSise
+
+            if(this.props.highDensity) {
+                finalPointSise = pointSize + 1.5
+            } else {
+                finalPointSise = pointSize
+            }
     
             this.setState({
                 rotate_speed: rotateSpeed * 0.1 + 0.001,
@@ -200,7 +224,7 @@ class Viz extends Component {
                 freq: frequency * 0.09 + 0.01,
                 bold_rate: boldRate * 0.3 + 0.1,
                 math: math,
-                pointSize: pointSize,
+                pointSize: finalPointSise,
                 pointOpacity: pointOpacity,
                 pointColor: "#ffffff",
                 backgroundColor: "",
@@ -216,50 +240,98 @@ class Viz extends Component {
     }
 
     updateDimensions = (callback) => {
-        let rect = this.vizContainer.current.getBoundingClientRect();
+        if(this.props.highDensity) {
+            let rect = this.vizContainer.current.getBoundingClientRect();
 
-        let scale = 1
-
-        if (this.props.defaultViz) {
-            scale = 0.8
-        }
-
-        let scaleValue
-        if (this.props.app.clientWidth > 1000) {
-            if(this.props.fullScreen == true) {
-                scaleValue = (rect.width * 2) / 10 * scale;
+            let scale = 1
+    
+            if (this.props.defaultViz) {
+                scale = 0.8
+            }
+    
+            let scaleValue
+            if (this.props.app.clientWidth > 1000) {
+                if(this.props.fullScreen == true) {
+                    scaleValue = (rect.width * 2) / 10 * scale;
+                } else {
+                    scaleValue = (rect.width * 2) / 4 * scale;
+                }
             } else {
                 scaleValue = (rect.width * 2) / 4 * scale;
             }
+    
+            if (this.props.app.clientWidth > 1000) {
+                this.setState({
+                    width: rect.width * 4,
+                    height: rect.height * 4,
+                    radius: scaleValue*2,
+                    x: (rect.width * 4) / 2,
+                    y: (rect.height * 4) / 2
+                }, () => {
+                    if (callback) {
+                        callback()
+                    }
+                })
+            } else {
+                this.setState({
+                    width: rect.width * 4,
+                    height: rect.height * 4,
+                    radius: scaleValue*2,
+                    x: (rect.width * 4) / 2,
+                    y: (rect.height * 4) / 2
+                }, () => {
+                    if (callback) {
+                        callback()
+                    }
+                })
+            }
         } else {
-            scaleValue = (rect.width * 2) / 4 * scale;
-        }
+            let rect = this.vizContainer.current.getBoundingClientRect();
 
-        if (this.props.app.clientWidth > 1000) {
-            this.setState({
-                width: rect.width * 2,
-                height: rect.height * 2,
-                radius: scaleValue,
-                x: (rect.width * 2) / 2,
-                y: (rect.height * 2) / 2
-            }, () => {
-                if (callback) {
-                    callback()
+            let scale = 1
+    
+            if (this.props.defaultViz) {
+                scale = 0.8
+            }
+    
+            let scaleValue
+            if (this.props.app.clientWidth > 1000) {
+                if(this.props.fullScreen == true) {
+                    scaleValue = (rect.width * 2) / 10 * scale;
+                } else {
+                    scaleValue = (rect.width * 2) / 4 * scale;
                 }
-            })
-        } else {
-            this.setState({
-                width: rect.width * 2,
-                height: rect.height * 2,
-                radius: scaleValue,
-                x: (rect.width * 2) / 2,
-                y: (rect.height * 2) / 2
-            }, () => {
-                if (callback) {
-                    callback()
-                }
-            })
+            } else {
+                scaleValue = (rect.width * 2) / 4 * scale;
+            }
+    
+            if (this.props.app.clientWidth > 1000) {
+                this.setState({
+                    width: rect.width * 2,
+                    height: rect.height * 2,
+                    radius: scaleValue,
+                    x: (rect.width * 2) / 2,
+                    y: (rect.height * 2) / 2
+                }, () => {
+                    if (callback) {
+                        callback()
+                    }
+                })
+            } else {
+                this.setState({
+                    width: rect.width * 2,
+                    height: rect.height * 2,
+                    radius: scaleValue,
+                    x: (rect.width * 2) / 2,
+                    y: (rect.height * 2) / 2
+                }, () => {
+                    if (callback) {
+                        callback()
+                    }
+                })
+            }
         }
+        
     }
 
     paint = () => {
@@ -267,6 +339,7 @@ class Viz extends Component {
         let ctx = canvas.current.getContext('2d')
         ctx.width = this.state.width;
         ctx.height = this.state.height;
+        
         this.update();
     }
 
@@ -324,6 +397,10 @@ class Viz extends Component {
                 rotate: this.state.rotate + this.state.rotate_speed
             })
 
+            // ctx.globalCompositeOperation = 'destination-over'
+            // ctx.fillStyle = "black";
+            // ctx.fillRect(0, 0, ctx.width, ctx.height)
+
             let freqData = []
             let soundModifier = 1
 
@@ -331,6 +408,9 @@ class Viz extends Component {
                 freqData = new Uint8Array(this.props.player.analyser.frequencyBinCount)
                 this.props.player.analyser.getByteFrequencyData(freqData)
             }
+
+            ctx.fillStyle = "rgba(0,0, 0, 255)";
+            ctx.fillRect(0, 0, ctx.width * 2, ctx.height * 2);
 
 
             for (let i = 0; i < points.length; i++) {
@@ -360,6 +440,8 @@ class Viz extends Component {
                     point.vx *= this.state.friction;
                     point.vy *= this.state.friction;
 
+                   
+
                     if (point.x >= 0 && point.x <= this.state.width && point.y >= 0 && point.y <= this.state.height) {
 
                         if (point.hidden) {
@@ -385,6 +467,8 @@ class Viz extends Component {
                         }
 
                     }
+
+                   
                 }
 
 

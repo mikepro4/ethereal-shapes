@@ -15,7 +15,9 @@ import Viz from "../../components/viz"
 import SettingsIcon from "../../components/icons/settings"
 
 import {
-    showDrawer
+    showDrawer,
+    updateQueryString,
+    pauseAnimation
 } from '../../../redux/actions/appActions'
 
 import Timeline from "../../components/player/Timeline"
@@ -34,6 +36,15 @@ import {
     clearNFT,
     clearNewNFT
 } from "../../../redux/actions/nftActions"
+
+import ipfsHttpClient from "ipfs-http-client";
+
+import { Buffer } from 'buffer';
+
+// var client = ipfsHttpClient('ipfs.infura.io:5001/api/v0', "", { protocol: "https"}) // leaving out the arguments will default to these values
+
+var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': '/api/v0/', protocol: "https" })
+
 
 
 class NFTPage extends Component {
@@ -543,6 +554,119 @@ class NFTPage extends Component {
         }
     }
 
+    hideEditor = () => {
+        this.props.updateQueryString(
+            { imageEditor: false },
+            this.props.location,
+            this.props.history
+        );
+    }
+
+    captureImage = () => {
+        var canvas = document.getElementById("viz");
+        var dataURL = canvas.toDataURL("image/png");
+        // var newTab = window.open('about:blank','image from canvas');
+        // newTab.document.write("<img src='" + dataURL + "' alt='from canvas'/>");
+        console.log(dataURL)
+
+        this.urltoFile(dataURL)
+            .then((file) => {
+                console.log(file);
+                this.onChange(file)
+            })
+    }
+
+    onChange = async(file) => {
+
+        // const file = {content: Buffer.from(data)}
+
+        try {
+            const added = await client.add(
+                file, {
+                    progress: (prog) => console.log("received: ", prog)
+                }
+            )
+            console.log(added)
+            const url = `https://ipfs.infura.io/ipfs/${added[0].path}`;
+            console.log(url)
+            this.setState({
+                fileUrl: url.toString()
+            })
+            // this.props.dispatch(change('nftSettings', 'nft.fileUrl', url.toString()));
+        } catch(error) {
+            console.log("error: ", error);
+        }
+    }
+
+    urltoFile = (url, filename, mimeType) => {
+        mimeType = mimeType || (url.match(/^data:([^;]+);/)||'')[1];
+        return (fetch(url)
+            .then(function(res){return res.arrayBuffer();})
+            .then(function(buf){return new File([buf], filename, {type:mimeType});})
+        );
+    }
+
+    renderTransportControls = () => {
+        if(this.props.app.pauseAnimation == true) {
+            return(<div onClick={() => this.props.pauseAnimation(false)}>Play</div>)
+        } else {
+            return(<div onClick={() => this.props.pauseAnimation(true)}>Pause</div>)
+        }
+    }
+    
+
+    renderScreen = () => {
+        if(this.getQueryParams().imageEditor == "true") {
+
+            let vertical  =false
+
+            let height = 0
+
+            if( this.props.app.clientHeight > this.props.app.clientWidth) {
+                vertical = true
+            }
+
+            if(vertical) {
+                height = this.props.app.clientWidth
+            } else {
+                height = 1000
+            }
+            return(<div>
+                <div 
+                className="preview-shape" 
+                style = {{height: height + "px", top: 50 + "%", marginTop: - height/2 + "px"}}
+            >
+                <div className="nft-generated">{this.state.fileUrl && <img src={this.state.fileUrl}></img>}</div>
+                {this.props.nft &&  this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId}pointCount={null} highDensity={true} /> }
+                <div className="cancel-editor" onClick={() => this.hideEditor()}>Cancel</div>
+                <div className="save-editor" onClick={() => this.hideEditor()}>Save</div>
+                <div className="capture-editor" onClick={() => this.captureImage()}>Capture image</div>
+                <div 
+                    className={classNames({
+                        "clear-editor": true,
+                        "active": this.state.fileUrl
+                    })}
+                    onClick={() => this.setState({
+                        fileUrl: null
+                    })}
+                >Clear</div>
+
+                <div className="transport-editor">
+                    {this.renderTransportControls()}
+                </div>
+                
+            </div>
+            </div>)
+        } else {
+            return(<div 
+                className="main-shape" 
+            >
+                {this.props.nft &&  this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId}pointCount={null} fullScreen={true}/> }
+                
+            </div>)
+        }
+    }
+
     renderButtonStatus() {
         if(this.getQueryParams().id) {
             if(this.props.nft.metadata.minted) {
@@ -569,6 +693,14 @@ class NFTPage extends Component {
 
         if(!this.props.nft.currentNFT) {
         }
+
+        let style = {}
+
+        // if(this.getQueryParams().imageEditor == "true") {
+        //     style = {height: this.props.app.clientWidth + "px", top: 50 + "%", marginTop: -this.props.app.clientWidth / 2 +"px" }
+        // } else {
+        //     style = {}
+        // }
 		return (
      		<div className="route-content nft-route">
                 {this.renderHead()}
@@ -585,12 +717,17 @@ class NFTPage extends Component {
                     />
                 </div>
 
-                <div 
+                {this.renderScreen()}
+
+                {/* <div 
                     className="main-shape" 
+                    style={style}
                 >
                     {this.props.nft &&  this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId}pointCount={null} fullScreen={true}/> }
                     
-                </div>
+                </div> */}
+
+                
 
                 <div className="media-controls">
                     media controls
@@ -621,6 +758,8 @@ export default {
         loadNewNFT,
         loadNFT,
         clearNFT,
-        clearNewNFT
+        clearNewNFT,
+        updateQueryString,
+        pauseAnimation
 	})(NFTPage))
 }

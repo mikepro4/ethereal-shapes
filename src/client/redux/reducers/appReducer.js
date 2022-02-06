@@ -21,7 +21,8 @@ import {
     CLEAR_SORTED_BLOCKS,
     UPDATE_ACCOUNT,
     UPDATE_MARKET_TOKENS,
-    UPDATE_COLLECTION_ITEM
+    UPDATE_COLLECTION_ITEM,
+    PAUSE_ANIMATION
 } from "../actions/types";
 
 export const initialState = {
@@ -49,6 +50,7 @@ export const initialState = {
     drawerData: {},
     position: {},
     drawerLocation: {},
+    pauseAnimation: false,
 
     activeKeys: [],
     
@@ -61,6 +63,11 @@ export const initialState = {
 
 export const appReducer = (state = initialState, action) => {
 	switch (action.type) {
+        case PAUSE_ANIMATION:
+            return {
+                ...state,
+                pauseAnimation: action.payload
+            }
         case UPDATE_MARKET_TOKENS:
             return {
                 ...state,

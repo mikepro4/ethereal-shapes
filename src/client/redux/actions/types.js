@@ -55,6 +55,8 @@ export const HIDE_DRAWER = "app/HIDE_DRAWER"
 export const ACTIVATE_KEY = "app/ACTIVATE_KEY"
 export const DEACTIVATE_KEY = "app/DEACTIVATE_KEY"
 
+export const PAUSE_ANIMATION = "app/PAUSE_ANIMATION"
+
 // =============================================================================
 
 

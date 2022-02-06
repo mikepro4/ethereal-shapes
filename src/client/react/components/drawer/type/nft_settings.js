@@ -25,7 +25,8 @@ import NFTSettingsForm from "./nft_settings_form"
 
 import {
     hideDrawer,
-    updateCollectionItem
+    updateCollectionItem,
+    updateQueryString
 } from "../../../../redux/actions/appActions"
 
 import {
@@ -110,6 +111,51 @@ class NFTSettings extends Component {
 		return qs.parse(this.props.location.search.substring(1));
     };
 
+    launchImageEditor = () => {
+        this.props.updateQueryString(
+			{ imageEditor: true },
+			this.props.location,
+			this.props.history
+        );
+        this.props.hideDrawer()
+
+        // var canvas = document.getElementById("viz");
+        // var dataURL = canvas.toDataURL("image/png");
+        // var newTab = window.open('about:blank','image from canvas');
+        // newTab.document.write("<img src='" + dataURL + "' alt='from canvas'/>");
+        // console.log(dataURL)
+    }
+
+    renderImagePreview = () => {
+
+        let nft = this.props.drawerData
+
+        if(nft.nft.fileUrl) {
+            return(
+                <div className="nft-image-wrapper">
+                    <div className="nft-image-header">
+                        <div className="nft-image-left">
+                            Main image
+                        </div>
+
+                        <div className="nft-image-right">
+                            <div className="update-image" onClick={() => this.launchImageEditor()}>Update</div>
+                        </div>
+                        
+                    </div>
+                    <div className="nft-image-preview">
+                        <img src={nft.nft.fileUrl}></img>
+                    </div>
+                </div>
+            )
+        } else {
+            return(
+                <div className="nft-image-preview">No Image</div>
+            )
+        }
+        
+    }
+
 
 	render() {
 
@@ -121,6 +167,8 @@ class NFTSettings extends Component {
                         Title: {this.props.nft.metadata.title}
                     </div> */}
 
+                    {this.renderImagePreview()}
+                    
                     <NFTSettingsForm 
                         enableReinitialize="true"
                         initialValues={
@@ -160,5 +208,6 @@ export default withRouter(connect(mapStateToProps, {
     hideDrawer,
     loadShape,
     loadNewShape,
-    updateCollectionItem
+    updateCollectionItem,
+    updateQueryString
 })(NFTSettings));

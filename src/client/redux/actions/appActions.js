@@ -14,7 +14,8 @@ import {
     ACTIVATE_KEY,
     DEACTIVATE_KEY,
     UPDATE_ACCOUNT,
-    UPDATE_MARKET_TOKENS
+    UPDATE_MARKET_TOKENS,
+    PAUSE_ANIMATION
 } from "./types";
 
 import * as _ from "lodash";
@@ -30,6 +31,19 @@ import {
 import NFT from "../../../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
+
+/////////////////////////////////////////////////
+
+export const pauseAnimation = (value) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: PAUSE_ANIMATION,
+        payload: value
+    });
+};
 
 /////////////////////////////////////////////////
 

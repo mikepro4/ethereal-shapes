@@ -9,6 +9,67 @@
         z-index: 1;
     }
 
+    .preview-shape {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        // bottom: 0;
+        z-index: 1;
+        border: 1px solid white;
+        max-width: 1000px;
+        max-height: 1000px;
+        margin: 0 auto;
+        z-index: 2222;
+
+        .transport-editor {
+            position: absolute;
+            bottom: -30px;
+            left: 150px;
+        }
+
+        .nft-generated {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right:0;
+            bottom:0;
+            z-index: 2;
+            img {
+                max-width: 100%;
+            }
+        }
+
+        .cancel-editor {
+            position: absolute;
+            top: -30px;
+        }
+
+        .save-editor {
+            position: absolute;
+            top: -30px;
+            right: 0;
+        }
+
+        .capture-editor {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+        }
+
+        .clear-editor {
+            position: absolute;
+            bottom: -30px;
+            right: 0;
+            opacity: 0.2;
+            transition:  all 0.5s;
+
+            &.active {
+                opacity: 1;
+            }
+        }
+    }
+
     .nft-player-container {
         // height: 40px;
         // border-top: 1px solid rgba(255,255,255,0.1);

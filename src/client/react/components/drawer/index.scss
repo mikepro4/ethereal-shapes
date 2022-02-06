@@ -301,3 +301,33 @@
         margin-bottom: 30px;
     }
 }
+
+.nft-settings-drawer {
+    height: 80%;
+    @media only screen and (min-width: $mobile) {
+        width: 600px;
+    }
+
+    .nft-image-header {
+        margin: 0 0 10px;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        z-index: 10;
+    }
+
+    .nft-image-preview {
+        max-height: 500px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin-bottom: 20px;
+
+        img {
+            // max-height: 500px;
+            max-width: 100%;
+        }
+    }
+}
