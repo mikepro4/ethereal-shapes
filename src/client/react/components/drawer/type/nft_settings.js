@@ -78,13 +78,31 @@ class NFTSettings extends Component {
         //         })
         //     }
         // }
+        if(this.getQueryParams().id) {
+            this.props.updateNFT(this.props.drawerData, data, () => {
+                this.props.loadNewNFT(data)
+                this.props.updateCollectionItem(this.props.drawerData)
 
-        this.props.updateNFT(this.props.drawerData, data, () => {
+                if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
+                        this.props.loadShape(data.metadata.shapeId, false, (data) => {
+                            console.log(data)
+                            this.props.loadNewShape(data)
+                        })
+                    }
+            })
+    
+            this.props.hideDrawer()
+        } else {
+            if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
+                this.props.loadShape(data.metadata.shapeId, false, (data) => {
+                    console.log(data)
+                    this.props.loadNewShape(data)
+                })
+            }
             this.props.loadNewNFT(data)
-            this.props.updateCollectionItem(this.props.drawerData)
-        })
-
-        this.props.hideDrawer()
+            this.props.hideDrawer()
+        }
+       
 
        
 

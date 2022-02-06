@@ -84,6 +84,8 @@
     left: -6px;
     right: 0;
     z-index: 2222;
+    // opacity: 0;
+    // animation: fadeIn 1s linear forwards;
 
     @media only screen and (max-width: $mobile) {
         display: flex;
