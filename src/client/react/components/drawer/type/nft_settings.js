@@ -187,7 +187,7 @@ class NFTSettings extends Component {
 
                     {this.renderImagePreview()}
                     {this.props.nft.newNFT && this.props.nft.newNFT.metadata && this.props.nft.newNFT.metadata.tokenId && <div className="short-url">
-                        <a href={"https://etherealshapes.com/" + this.props.nft.newNFT.metadata.tokenId} target="_blank">https://etherealshapes.com/{this.props.nft.newNFT.metadata.tokenId}</a>
+                        <a href={"https://www.etherealshapes.com/" + this.props.nft.newNFT.metadata.tokenId} target="_blank">https://www.etherealshapes.com/{this.props.nft.newNFT.metadata.tokenId}</a>
                     </div>}
                     
                     
