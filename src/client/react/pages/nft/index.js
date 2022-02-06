@@ -27,11 +27,11 @@ import NFTDetails from "../../../react/components/nft_details"
 
 import EditorEditableField from "../../components/editor/editorEditableField"
 
-import { 
+import {
     createShape, loadShape, clearShape, searchShapes, deleteShape, updateShape, loadNewShape, clearNewShape, getMainShape
 } from "../../../redux/actions/shapeActions"
 
-import { 
+import {
     loadNFT,
     loadNewNFT,
     clearNFT,
@@ -64,9 +64,9 @@ class NFTPage extends Component {
         activeZone: null,
         startedIntervals: [],
         mathValues: ["sin", "cos", "tan", "atan", "log"]
-	}
+    }
 
-	componentDidMount() {
+    componentDidMount() {
         // this.props.loadShape("61fc4d5c9c7c440021028b5b")
 
         // this.props.loadNewNFT({
@@ -78,17 +78,17 @@ class NFTPage extends Component {
         //         shapeId: "61fc4d5c9c7c440021028b5b"
         //     }
         // })
-        if(this.props.player && this.props.player.trackId) {
-            if(this.props.player.trackId !==this.getQueryParams().id) {
+        if (this.props.player && this.props.player.trackId) {
+            if (this.props.player.trackId !== this.getQueryParams().id) {
                 this.props.trackStop({
                     _id: this.props.player.trackId,
                     audioUrl: this.props.player.trackMetadata.audioUrl,
                 })
             }
         }
-       
 
-        
+
+
         if (this.props.location.search) {
             console.log("here")
             console.log(this.getQueryParams().id)
@@ -107,7 +107,7 @@ class NFTPage extends Component {
             this.props.loadNewNFT({
                 nft: {
                     price: 222,
-                    name:  "Ethereal",
+                    name: "Ethereal",
                     description: "1"
                 },
                 metadata: {
@@ -130,15 +130,15 @@ class NFTPage extends Component {
         this.props.clearNewNFT()
     }
 
-    
-	componentDidUpdate(prevprops) {
-        if(!_.isEqual(prevprops.app.activeKeys, this.props.app.activeKeys)) {
+
+    componentDidUpdate(prevprops) {
+        if (!_.isEqual(prevprops.app.activeKeys, this.props.app.activeKeys)) {
             setTimeout(() => {
                 this.checkIntervals()
             }, 1)
         }
 
-        if(this.getQueryParams().id !== this.props.nft._id && this.getQueryParams().id) {
+        if (this.getQueryParams().id !== this.props.nft._id && this.getQueryParams().id) {
             this.props.loadNFT(this.getQueryParams().id, (data) => {
                 this.props.loadNewNFT(data)
                 this.props.loadShape(data.metadata.shapeId)
@@ -151,15 +151,15 @@ class NFTPage extends Component {
         //     }
         // }
 
-       
+
     }
 
-    checkIntervals () {
+    checkIntervals() {
 
         _.map(this.props.app.activeKeys, (key) => {
 
             let startedItervalKey = _.includes(this.state.startedIntervals, key);
-            if(!startedItervalKey) {
+            if (!startedItervalKey) {
                 this.setState({
                     startedIntervals: _.union(this.state.startedIntervals, [key])
                 }, () => {
@@ -172,7 +172,7 @@ class NFTPage extends Component {
 
             let startedItervalKey = _.includes(this.props.app.activeKeys, key);
 
-            if(!startedItervalKey) {
+            if (!startedItervalKey) {
                 this.launchInterval(key, "stop")
 
                 this.setState({
@@ -216,155 +216,174 @@ class NFTPage extends Component {
             }
         }
 
-        let includesShift = _.includes(this.props.app.activeKeys, 16) 
+        let includesShift = _.includes(this.props.app.activeKeys, 16)
+        if (!_.includes(this.state.startedIntervals, 17)) {
+            if (key == 16) {
 
-        if(key == 16) {
-
-            // rotate speed
-            if(_.includes(this.state.startedIntervals, 82)) {
-                if(action == "start") {
-                    this.runPropertyChange(includesShift, "start", "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
-                } else if(action == "stop") {
-                    this.runPropertyChange(false, "start", "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                // rotate speed
+                if (_.includes(this.state.startedIntervals, 82)) {
+                    if (action == "start") {
+                        this.runPropertyChange(includesShift, "start", "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                    } else if (action == "stop") {
+                        this.runPropertyChange(false, "start", "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                    }
                 }
-            } 
 
-            if(_.includes(this.state.startedIntervals, 69)) {
-                if(action == "start") {
-                    this.runPropertyChange(includesShift, "start", "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
-                } else if(action == "stop") {
-                    this.runPropertyChange(false, "start", "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                if (_.includes(this.state.startedIntervals, 69)) {
+                    if (action == "start") {
+                        this.runPropertyChange(includesShift, "start", "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                    } else if (action == "stop") {
+                        this.runPropertyChange(false, "start", "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                    }
                 }
-            } 
 
-            // bold rate
-            if(_.includes(this.state.startedIntervals, 66)) {
-                if(action == "start") {
-                    this.runPropertyChange(includesShift, "start", "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
-                } else if(action == "stop") {
-                    this.runPropertyChange(false, "start", "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                // bold rate
+                if (_.includes(this.state.startedIntervals, 66)) {
+                    if (action == "start") {
+                        this.runPropertyChange(includesShift, "start", "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                    } else if (action == "stop") {
+                        this.runPropertyChange(false, "start", "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                    }
                 }
-            } 
 
-            if(_.includes(this.state.startedIntervals, 86)) {
-                if(action == "start") {
-                    this.runPropertyChange(includesShift, "start", "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
-                } else if(action == "stop") {
-                    this.runPropertyChange(false, "start", "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                if (_.includes(this.state.startedIntervals, 86)) {
+                    if (action == "start") {
+                        this.runPropertyChange(includesShift, "start", "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                    } else if (action == "stop") {
+                        this.runPropertyChange(false, "start", "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                    }
                 }
-            } 
 
-            // frequency
-            if(_.includes(this.state.startedIntervals, 70)) {
-                if(action == "start") {
-                    this.runPropertyChange(includesShift, "start", "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
-                } else if(action == "stop") {
-                    this.runPropertyChange(false, "start", "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                // frequency
+                if (_.includes(this.state.startedIntervals, 70)) {
+                    if (action == "start") {
+                        this.runPropertyChange(includesShift, "start", "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                    } else if (action == "stop") {
+                        this.runPropertyChange(false, "start", "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                    }
                 }
-            } 
 
-            if(_.includes(this.state.startedIntervals, 86)) {
-                if(action == "start") {
-                    this.runPropertyChange(includesShift, "start", "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
-                } else if(action == "stop") {
-                    this.runPropertyChange(false, "start", "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                if (_.includes(this.state.startedIntervals, 86)) {
+                    if (action == "start") {
+                        this.runPropertyChange(includesShift, "start", "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                    } else if (action == "stop") {
+                        this.runPropertyChange(false, "start", "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                    }
                 }
-            } 
 
-            // step
-            if(_.includes(this.state.startedIntervals, 83)) {
-                if(action == "start") {
-                    this.runPropertyChange(includesShift, "start", "more", "step", changeValues.step.standard, changeValues.step.extended)
-                } else if(action == "stop") {
-                    this.runPropertyChange(false, "start", "more", "step", changeValues.step.standard, changeValues.step.extended)
+                // step
+                if (_.includes(this.state.startedIntervals, 83)) {
+                    if (action == "start") {
+                        this.runPropertyChange(includesShift, "start", "more", "step", changeValues.step.standard, changeValues.step.extended)
+                    } else if (action == "stop") {
+                        this.runPropertyChange(false, "start", "more", "step", changeValues.step.standard, changeValues.step.extended)
+                    }
                 }
-            } 
 
-            if(_.includes(this.state.startedIntervals, 65)) {
-                if(action == "start") {
-                    this.runPropertyChange(includesShift, "start", "less", "step", changeValues.step.standard, changeValues.step.extended)
-                } else if(action == "stop") {
-                    this.runPropertyChange(false, "start", "less", "step", changeValues.step.standard, changeValues.step.extended)
+                if (_.includes(this.state.startedIntervals, 65)) {
+                    if (action == "start") {
+                        this.runPropertyChange(includesShift, "start", "less", "step", changeValues.step.standard, changeValues.step.extended)
+                    } else if (action == "stop") {
+                        this.runPropertyChange(false, "start", "less", "step", changeValues.step.standard, changeValues.step.extended)
+                    }
                 }
-            } 
 
-            // pointSize
-            if(_.includes(this.state.startedIntervals, 80)) {
-                if(action == "start") {
-                    this.runPropertyChange(includesShift, "start", "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
-                } else if(action == "stop") {
-                    this.runPropertyChange(false, "start", "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                // pointSize
+                if (_.includes(this.state.startedIntervals, 80)) {
+                    if (action == "start") {
+                        this.runPropertyChange(includesShift, "start", "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                    } else if (action == "stop") {
+                        this.runPropertyChange(false, "start", "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                    }
                 }
-            } 
 
-            if(_.includes(this.state.startedIntervals, 79)) {
-                if(action == "start") {
-                    this.runPropertyChange(includesShift, "start", "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
-                } else if(action == "stop") {
-                    this.runPropertyChange(false, "start", "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                if (_.includes(this.state.startedIntervals, 79)) {
+                    if (action == "start") {
+                        this.runPropertyChange(includesShift, "start", "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                    } else if (action == "stop") {
+                        this.runPropertyChange(false, "start", "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                    }
                 }
-            } 
 
-            
-        }
 
-        if(key == 82) {
-            this.runPropertyChange(includesShift, action, "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
-        }
+            }
 
-        if(key == 69) {
-            this.runPropertyChange(includesShift, action, "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
-        }
+            if (key == 82) {
+                this.runPropertyChange(includesShift, action, "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+            }
 
-        if(key == 66) {
-            this.runPropertyChange(includesShift, action, "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
-        }
+            if (key == 69) {
+                this.runPropertyChange(includesShift, action, "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+            }
 
-        if(key == 86) {
-            this.runPropertyChange(includesShift, action, "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
-        }
+            if (key == 66) {
+                this.runPropertyChange(includesShift, action, "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+            }
 
-        if(key == 70) {
-            this.runPropertyChange(includesShift, action, "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
-        }
+            if (key == 86) {
+                this.runPropertyChange(includesShift, action, "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+            }
 
-        if(key == 68) {
-            this.runPropertyChange(includesShift, action, "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
-        }
+            if (key == 70) {
+                this.runPropertyChange(includesShift, action, "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+            }
 
-        if(key == 83) {
-            this.runPropertyChange(includesShift, action, "more", "step", changeValues.step.standard, changeValues.step.extended)
-        }
+            if (key == 68) {
+                this.runPropertyChange(includesShift, action, "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+            }
 
-        if(key == 65) {
-            this.runPropertyChange(includesShift, action, "less", "step", changeValues.step.standard, changeValues.step.extended)
-        }
+            if (key == 83) {
+                this.runPropertyChange(includesShift, action, "more", "step", changeValues.step.standard, changeValues.step.extended)
+            }
 
-        if(key == 80) {
-            this.runPropertyChange(includesShift, action, "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
-        }
+            if (key == 65) {
+                this.runPropertyChange(includesShift, action, "less", "step", changeValues.step.standard, changeValues.step.extended)
+            }
 
-        if(key == 79) {
-            this.runPropertyChange(includesShift, action, "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
-        }
+            if (key == 80) {
+                this.runPropertyChange(includesShift, action, "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+            }
 
-        if(key == 76) {
-            this.runPropertyChange(includesShift, action, "more", "pointOpacity", changeValues.pointOpacity.standard, changeValues.pointOpacity.extended, "point", changeValues.pointOpacity.minValue, changeValues.pointOpacity.maxValue)
-        }
+            if (key == 79) {
+                this.runPropertyChange(includesShift, action, "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+            }
 
-        if(key == 75) {
-            this.runPropertyChange(includesShift, action, "less", "pointOpacity", changeValues.pointOpacity.standard, changeValues.pointOpacity.extended, "point", changeValues.pointOpacity.minValue, changeValues.pointOpacity.maxValue)
-        }
+            if (key == 76) {
+                this.runPropertyChange(includesShift, action, "more", "pointOpacity", changeValues.pointOpacity.standard, changeValues.pointOpacity.extended, "point", changeValues.pointOpacity.minValue, changeValues.pointOpacity.maxValue)
+            }
 
-        if(key == 87) {
-            if(action == "start") {
-                this.updateMath("next")
+            if (key == 75) {
+                this.runPropertyChange(includesShift, action, "less", "pointOpacity", changeValues.pointOpacity.standard, changeValues.pointOpacity.extended, "point", changeValues.pointOpacity.minValue, changeValues.pointOpacity.maxValue)
+            }
+
+            if (key == 87) {
+                if (action == "start") {
+                    this.updateMath("next")
+                }
+            }
+
+            if (key == 81) {
+                if (action == "start") {
+                    this.updateMath("prev")
+                }
             }
         }
 
-        if(key == 81) {
-            if(action == "start") {
-                this.updateMath("prev")
+        if (key == 67) {
+            if (action == "start") {
+                this.captureImage()
+            }
+        }
+
+        if (key == 88) {
+            if (action == "start") {
+                this.clear()
+            }
+        }
+
+        if (key == 83) {
+            if (action == "start") {
+                this.save()
             }
         }
 
@@ -373,43 +392,43 @@ class NFTPage extends Component {
     updateProperty(property, amount, destination, minValue, maxValue) {
         let selectedShape
 
-        if(this.props.shape.newShape.defaultViz) {
+        if (this.props.shape.newShape.defaultViz) {
             selectedShape = this.props.shape.newShape
         } else {
             selectedShape = this.props.shape.currentShape
         }
 
         // console.log(selectedShape)
-        if(selectedShape && selectedShape.defaultViz) {
+        if (selectedShape && selectedShape.defaultViz) {
             let finalshape
 
-            if(!destination || destination == "shape") {
+            if (!destination || destination == "shape") {
                 finalshape = {
                     ...selectedShape,
                     defaultViz: {
                         ...selectedShape.defaultViz,
                         shape: {
                             ...selectedShape.defaultViz.shape,
-                            [property]: selectedShape.defaultViz.shape[property]  + amount
+                            [property]: selectedShape.defaultViz.shape[property] + amount
                         }
                     }
                 }
             }
 
-            if(destination == "point") {
+            if (destination == "point") {
                 let finalAmount
-                let pointAmount = selectedShape.defaultViz.point[property]  + amount
+                let pointAmount = selectedShape.defaultViz.point[property] + amount
 
-                if(maxValue) {
-                    if(pointAmount < minValue) {
+                if (maxValue) {
+                    if (pointAmount < minValue) {
                         finalAmount = minValue
-                    } else if(pointAmount > maxValue) {
+                    } else if (pointAmount > maxValue) {
                         finalAmount = maxValue
-                    } else if(pointAmount >= minValue && pointAmount <= maxValue) {
+                    } else if (pointAmount >= minValue && pointAmount <= maxValue) {
                         finalAmount = pointAmount
                     }
                 } else {
-                    if(pointAmount < 0) {
+                    if (pointAmount < 0) {
                         finalAmount = 0
                     } else {
                         finalAmount = pointAmount
@@ -427,7 +446,7 @@ class NFTPage extends Component {
                     }
                 }
             }
-            
+
             this.props.loadNewShape(finalshape)
         }
     }
@@ -435,19 +454,19 @@ class NFTPage extends Component {
     updateMath(direction) {
         let selectedShape
 
-        if(this.props.shape.newShape.defaultViz) {
+        if (this.props.shape.newShape.defaultViz) {
             selectedShape = this.props.shape.newShape
         } else {
             selectedShape = this.props.shape.currentShape
         }
 
-        if(selectedShape && selectedShape.defaultViz) {
-            
+        if (selectedShape && selectedShape.defaultViz) {
+
             let indexOfCurrent = _.indexOf(this.state.mathValues, selectedShape.defaultViz.shape.math)
             let finalIndex
 
-            if(direction == "next") {
-                if((indexOfCurrent + 1) > this.state.mathValues.length -1) {
+            if (direction == "next") {
+                if ((indexOfCurrent + 1) > this.state.mathValues.length - 1) {
                     finalIndex = 0
                 } else {
                     finalIndex = indexOfCurrent + 1
@@ -467,7 +486,7 @@ class NFTPage extends Component {
                 this.props.loadNewShape(finalshape)
             } else if (direction == "prev") {
 
-                if((indexOfCurrent - 1) < 0) {
+                if ((indexOfCurrent - 1) < 0) {
                     finalIndex = this.state.mathValues.length - 1
                 } else {
                     finalIndex = indexOfCurrent - 1
@@ -494,9 +513,9 @@ class NFTPage extends Component {
 
 
     getQueryParams = () => {
-		return qs.parse(this.props.location.search.substring(1));
+        return qs.parse(this.props.location.search.substring(1));
     };
-    
+
     handleDescriptionChange = (value) => {
         this.setState({
             description: value
@@ -504,70 +523,70 @@ class NFTPage extends Component {
     }
 
     renderHead = () => (
-		<Helmet>
-			<title>Ethereal Shapes</title>
-			<meta property="og:title" content="Homepage" />
-		</Helmet>
+        <Helmet>
+            <title>Ethereal Shapes</title>
+            <meta property="og:title" content="Homepage" />
+        </Helmet>
     )
 
-    runPropertyChange (includesShift, action, direction, property, standardAmount, extendedAmount, destination, minValue, maxValue) {
-        if(action == "start") {
-            if(direction == "more") {
-                clearInterval(this.state[property+"More"]);
+    runPropertyChange(includesShift, action, direction, property, standardAmount, extendedAmount, destination, minValue, maxValue) {
+        if (action == "start") {
+            if (direction == "more") {
+                clearInterval(this.state[property + "More"]);
             }
 
-            if(direction == "less") {
-                clearInterval(this.state[property+"Less"]);
+            if (direction == "less") {
+                clearInterval(this.state[property + "Less"]);
             }
 
             let amount
 
-            if(includesShift) {
+            if (includesShift) {
                 amount = extendedAmount
             } else {
                 amount = standardAmount
             }
 
-            if(direction == "less") {
+            if (direction == "less") {
                 amount = amount * -1
-            } 
+            }
 
-            if(direction == "more") {
+            if (direction == "more") {
                 const intervalMore = setInterval(() => {
                     this.updateProperty(property, amount, destination, minValue, maxValue)
                 }, 1);
-        
-                this.setState({ 
-                    [property+"More"]: intervalMore 
-                });
-            } 
 
-            if(direction == "less") {
+                this.setState({
+                    [property + "More"]: intervalMore
+                });
+            }
+
+            if (direction == "less") {
                 const intervalLess = setInterval(() => {
                     this.updateProperty(property, amount, destination, minValue, maxValue)
                 }, 1);
-        
-                this.setState({ 
-                    [property+"Less"]: intervalLess 
+
+                this.setState({
+                    [property + "Less"]: intervalLess
                 });
-            } 
+            }
 
         } else if (action == "stop") {
             let timeoutValue = 50
-            
+
             if (includesShift) {
                 timeoutValue = 100
             }
 
-            if(direction == "more") {
+            if (direction == "more") {
                 setTimeout(() => {
-                    clearInterval(this.state[property+"More"]);
+                    clearInterval(this.state[property + "More"]);
                 }, timeoutValue)
             }
 
-            if(direction == "less") {
+            if (direction == "less") {
                 setTimeout(() => {
-                    clearInterval(this.state[property+"Less"]);
+                    clearInterval(this.state[property + "Less"]);
                 }, timeoutValue)
             }
 
@@ -600,7 +619,7 @@ class NFTPage extends Component {
     handleDrop = file => {
         // Progress
         var config = {
-            onUploadProgress: function(progressEvent) {
+            onUploadProgress: function (progressEvent) {
                 let percentCompleted = Math.round(
                     progressEvent.loaded * 100 / progressEvent.total
                 );
@@ -631,15 +650,15 @@ class NFTPage extends Component {
                 let palette = ""
                 console.log("cloudinary url: ", fileURL)
             });
-	};
+    };
 
-    onChange = async(file) => {
+    onChange = async (file) => {
 
         try {
             const added = await client.add(
                 file, {
-                    progress: (prog) => console.log("received: ", prog)
-                }
+                progress: (prog) => console.log("received: ", prog)
+            }
             )
             console.log(added)
             const url = `https://ipfs.infura.io/ipfs/${added[0].path}`;
@@ -648,24 +667,24 @@ class NFTPage extends Component {
                 fileUrl: url.toString()
             })
             // this.props.dispatch(change('nftSettings', 'nft.fileUrl', url.toString()));
-        } catch(error) {
+        } catch (error) {
             console.log("error: ", error);
         }
     }
 
     urltoFile = (url, filename, mimeType) => {
-        mimeType = mimeType || (url.match(/^data:([^;]+);/)||'')[1];
+        mimeType = mimeType || (url.match(/^data:([^;]+);/) || '')[1];
         return (fetch(url)
-            .then(function(res){return res.arrayBuffer();})
-            .then(function(buf){return new File([buf], filename, {type:mimeType});})
+            .then(function (res) { return res.arrayBuffer(); })
+            .then(function (buf) { return new File([buf], filename, { type: mimeType }); })
         );
     }
 
     renderTransportControls = () => {
-        if(this.props.app.pauseAnimation == true) {
-            return(<div onClick={() => this.props.pauseAnimation(false)}>Play</div>)
+        if (this.props.app.pauseAnimation == true) {
+            return (<div onClick={() => this.props.pauseAnimation(false)}>Play</div>)
         } else {
-            return(<div onClick={() => this.props.pauseAnimation(true)}>Pause</div>)
+            return (<div onClick={() => this.props.pauseAnimation(true)}>Pause</div>)
         }
     }
 
@@ -675,91 +694,95 @@ class NFTPage extends Component {
     }
 
     save = () => {
-        this.props.updateNFTImage(this.props.nft._id,this.state.fileUrl, () => {
+        this.props.updateNFTImage(this.props.nft._id, this.state.fileUrl, () => {
             this.hideEditor()
         })
-        
+
     }
-    
+
+    clear = () => {
+        this.setState({
+            fileUrl: null
+        })
+    }
+
 
     renderScreen = () => {
-        if(this.getQueryParams().imageEditor == "true") {
+        if (this.getQueryParams().imageEditor == "true") {
             // this.props.pauseAnimation(false)
 
-            let vertical  =false
+            let vertical = false
 
             let height = 0
 
-            if( this.props.app.clientHeight > this.props.app.clientWidth) {
+            if (this.props.app.clientHeight > this.props.app.clientWidth) {
                 vertical = true
             }
 
-            if(vertical) {
+            if (vertical) {
                 height = this.props.app.clientWidth
             } else {
                 height = 800
             }
-            return(<div>
-                <div 
-                className="preview-shape" 
-                style = {{height: height + "px", top: 50 + "%", marginTop: - height/2 + "px"}}
-            >
-                <div className="nft-generated">{this.state.fileUrl && <img src={this.state.fileUrl}></img>}</div>
-                {this.props.nft &&  this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId}pointCount={null} highDensity={true} /> }
-                <div className="cancel-editor" onClick={() => this.cancel()}>Cancel</div>
-                <div className="save-editor" onClick={() => this.save()}>Save</div>
-                <div className="capture-editor" onClick={() => this.captureImage()}>Capture image</div>
-                <div 
-                    className={classNames({
-                        "clear-editor": true,
-                        "active": this.state.fileUrl
-                    })}
-                    onClick={() => this.setState({
-                        fileUrl: null
-                    })}
-                >Clear</div>
+            return (<div>
+                <div
+                    className="preview-shape"
+                    style={{ height: height + "px", top: 50 + "%", marginTop: - height / 2 + "px" }}
+                >
+                    <div className="nft-generated">{this.state.fileUrl && <img src={this.state.fileUrl}></img>}</div>
+                    {this.props.nft && this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId} pointCount={null} highDensity={true} />}
+                    <div className="cancel-editor" onClick={() => this.cancel()}>Cancel</div>
+                    <div className="save-editor" onClick={() => this.save()}>Save</div>
+                    <div className="capture-editor" onClick={() => this.captureImage()}>Capture image</div>
+                    <div
+                        className={classNames({
+                            "clear-editor": true,
+                            "active": this.state.fileUrl
+                        })}
+                        onClick={() => this.clear()}
+                    >Clear</div>
 
-                <div className="transport-editor">
-                    {this.renderTransportControls()}
+                    <div className="transport-editor">
+                        {this.renderTransportControls()}
+                    </div>
+
                 </div>
-                
-            </div>
             </div>)
         } else {
-            return(<div 
-                className="main-shape" 
+            return (<div
+                className="main-shape"
             >
-                {this.props.nft &&  this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId}pointCount={null} fullScreen={true} nftId={this.props.nft._id} /> }
-                
+                {this.props.nft && this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId} pointCount={null} fullScreen={true} nftId={this.props.nft._id} />}
+
             </div>)
         }
     }
 
     renderButtonStatus() {
-        if(this.getQueryParams().id) {
-            if(this.props.nft.metadata.minted) {
-                if(this.props.nft.metadata.owner) {
-                    if(this.props.nft.metadata.owner == this.props.app.account.address) {
-                        return("own")
+        if (this.getQueryParams().id) {
+            if (this.props.nft.metadata.minted) {
+                if (this.props.nft.metadata.owner) {
+                    if (this.props.nft.metadata.owner == this.props.app.account.address) {
+                        return ("own")
                     } else {
-                        return("sold")
+                        return ("sold")
                     }
                 } else {
-                    return("buy")
+                    return ("buy")
                 }
             } else {
-                return("mint")
+                return ("mint")
             }
         } else {
-            return("create")
+            return ("create")
         }
     }
 
-	render() {
+    render() {
 
         let vizId
 
-        if(!this.props.nft.currentNFT) {
+        if (!this.props.nft.currentNFT) {
         }
 
         let style = {}
@@ -769,13 +792,13 @@ class NFTPage extends Component {
         // } else {
         //     style = {}
         // }
-		return (
-     		<div className="route-content nft-route">
+        return (
+            <div className="route-content nft-route">
                 {this.renderHead()}
 
                 <div className="nft-details-container">
                     {this.props.nft && this.props.nft.nft && this.props.nft.nft.name && <NFTDetails item={this.props.nft
-                    } large={true} more={true} type={this.renderButtonStatus()} /> }
+                    } large={true} more={true} type={this.renderButtonStatus()} />}
                 </div>
 
                 <div className="description-editor">
@@ -795,36 +818,36 @@ class NFTPage extends Component {
                     
                 </div> */}
 
-                
+
 
                 <div className="media-controls">
                     media controls
                 </div>
 
                 <div className="nft-player-container">
-                    <Timeline 
+                    <Timeline
                         duration={this.props.nft && this.props.nft.metadata ? this.props.nft.metadata.duration : 0}
                         nft={this.props.nft}
                     />
                 </div>
-			</div>
-				
-		);
-	}
+            </div>
+
+        );
+    }
 }
 
 function mapStateToProps(state) {
-	return {
+    return {
         app: state.app,
         shape: state.shape,
         nft: state.activeNFT.newNFT,
         player: state.player
-	};
+    };
 }
 
 
 export default {
-	component: withRouter(connect(mapStateToProps, {
+    component: withRouter(connect(mapStateToProps, {
         showDrawer,
         createShape, loadShape, clearShape, searchShapes, deleteShape, updateShape, loadNewShape, clearNewShape, getMainShape,
         loadNewNFT,
@@ -835,5 +858,5 @@ export default {
         pauseAnimation,
         updateNFTImage,
         trackStop
-	})(NFTPage))
+    })(NFTPage))
 }

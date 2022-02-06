@@ -221,9 +221,17 @@ class Viz extends Component {
             let finalPointSise
 
             if(this.props.highDensity) {
-                finalPointSise = pointSize + 1.5
+                if(this.props.app.clientWidth > 1000) {
+                    finalPointSise = pointSize + 4.5
+                } else {
+                    finalPointSise = pointSize + 1.5
+                }
             } else {
-                finalPointSise = pointSize
+                if(this.props.app.clientWidth > 1000) {
+                    finalPointSise = pointSize + 0.5
+                } else {
+                    finalPointSise = pointSize
+                }
             }
     
             this.setState({

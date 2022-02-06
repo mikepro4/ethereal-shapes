@@ -32,7 +32,9 @@ import {
     updateMarketTokens, 
     updateCollection,  
     activateKey,
-    deactivateKey
+    deactivateKey,
+    updateQueryString,
+    pauseAnimation
 } from "../client/redux/actions/appActions"
 import { loadWord, updateBlocks } from "../client/redux/actions/wordsActions"
 import { loadShape } from "../client/redux/actions/shapeActions"
@@ -83,6 +85,35 @@ class App extends Component {
         document.removeEventListener("keydown", this.onKeyDownPressed.bind(this));
         document.removeEventListener("keyup", this.onKeyUpPressed.bind(this));
     }     
+
+    @keydown("ctrl + e")
+	toggleEditor() {
+		console.log("toggle editor")
+        if(this.getQueryParams().imageEditor == "true") {
+            this.props.updateQueryString(
+                { imageEditor: false },
+                this.props.location,
+                this.props.history
+            );
+        } else {
+            this.props.updateQueryString(
+                { imageEditor: true },
+                this.props.location,
+                this.props.history
+            );
+        }
+        
+    }
+
+    @keydown("ctrl + space")
+	togglePauseAnimation() {
+		console.log("toggle editor")
+        if(this.props.app.pauseAnimation) {
+            this.props.pauseAnimation(false)
+        } else {
+            this.props.pauseAnimation(true)
+        }
+    }
     
     onKeyDownPressed(e) {
         // console.log("down", e.keyCode);
@@ -310,7 +341,8 @@ function mapStateToProps(state) {
         drawerOpen: state.app.drawerOpen,
         word: state.app.activeWord,
         blocks: state.blocks,
-        account: state.app.account
+        account: state.app.account,
+        app: state.app
     };
 }
 
@@ -328,6 +360,8 @@ export default {
         updateMarketTokens,
         updateCollection,
         activateKey,
-        deactivateKey
+        deactivateKey,
+        updateQueryString,
+        pauseAnimation
     })(App))
 };
