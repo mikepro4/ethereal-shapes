@@ -9,6 +9,7 @@ import NFT from "../react/pages/nft"
 import All from "../react/pages/all"
 import Sale from "../react/pages/sale"
 import MyNFTs from "../react/pages/mynfts"
+import About from "../react/pages/about"
 
 export default [
     {
@@ -52,6 +53,15 @@ export default [
 
                 ...MyNFTs,
                 path: "/my-nfts",
+                exact: true,
+                params: {
+                    name: "My Nfts"
+                }
+            },
+            {
+
+                ...About,
+                path: "/about",
                 exact: true,
                 params: {
                     name: "My Nfts"

@@ -56,6 +56,7 @@ export const ACTIVATE_KEY = "app/ACTIVATE_KEY"
 export const DEACTIVATE_KEY = "app/DEACTIVATE_KEY"
 
 export const PAUSE_ANIMATION = "app/PAUSE_ANIMATION"
+export const SALES_ACTIVE = "app/SALES_ACTIVE"
 
 // =============================================================================
 

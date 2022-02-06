@@ -17,6 +17,7 @@
     margin: 0 auto 0px auto;
     opacity: 0;
     animation: fadeIn forwards 1s 1s ease-in-out; 
+    cursor: pointer;
 
     @media only screen and (min-width: $mobile) {
         padding: 0;
@@ -48,6 +49,19 @@
         .status {
             &.green {
                 color: #29FF7F;
+            }
+
+            &.orange {
+                color: #FFAA29;
+            }
+
+            &.grey {
+                opacity: 0.5;
+            }
+
+            &.owned {
+                font-weight: 300;
+                opacity: 0.5;
             }
         }
 
@@ -179,4 +193,15 @@
 
 .play-container {
     cursor: pointer;
+}
+
+.arrow-container {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    top: 3px;
+
+    svg {
+        width: 30px
+    }
 }

@@ -19,7 +19,8 @@ import {
     LOAD_NFT,
     LOAD_NEW_NFT,
     UPDATE_NFT_IMAGE,
-    UPDATE_NFT_SHAPE
+    UPDATE_NFT_SHAPE,
+    SALES_ACTIVE
 } from "./types";
 
 import { updateMarketTokens, updateCollectionItem } from "./appActions"
@@ -297,6 +298,48 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
         })
         .then(response => {
             if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
+// ===========================================================================
+
+
+export const searchSales = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/NFTs/search", {
+            criteria: {
+                sale: true
+            },
+            sortProperty: "createdAt",
+            offset: 0,
+            limit: 1,
+            order: "-1"
+        })
+
+        
+        .then(response => {
+            if (success) {
+                if(response.data.count > 0) {
+                    dispatch({
+                        type: SALES_ACTIVE,
+                        payload: true
+                    });
+                } else {
+                    dispatch({
+                        type: SALES_ACTIVE,
+                        payload: false
+                    });
+                }
+                
                 success(response.data);
             }
         })

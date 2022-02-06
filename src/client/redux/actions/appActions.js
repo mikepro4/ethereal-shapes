@@ -15,7 +15,8 @@ import {
     DEACTIVATE_KEY,
     UPDATE_ACCOUNT,
     UPDATE_MARKET_TOKENS,
-    PAUSE_ANIMATION
+    PAUSE_ANIMATION,
+    SALES_ACTIVE
 } from "./types";
 
 import * as _ from "lodash";

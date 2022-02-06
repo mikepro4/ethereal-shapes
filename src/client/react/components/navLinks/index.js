@@ -5,8 +5,23 @@ import classNames from "classnames"
 
 import NavLinks from "./nav_links"
 
+import {searchSales} from "../../../redux/actions/nftActions"
 
 class Nav extends Component {
+
+    state = {
+        salesActive: true
+    }
+
+    componentDidMount = () => {
+        this.props.searchSales((data => {
+            if(data.count > 0) {
+                this.setState({
+                    salesActive: true
+                })
+            }
+        }))
+    }
 
 	render() {
 
@@ -22,7 +37,7 @@ class Nav extends Component {
 			{
 			  	url: "/sale",
 				name: "On Sale",
-                active: true
+                active: this.props.app.salesActive
 			}
 		]
 
@@ -38,15 +53,11 @@ class Nav extends Component {
 			{
 			  	url: "/sale",
 				name: "On Sale",
-                active: true
+                active: this.props.app.salesActive
 			},
 			{
 			  	url: "/my-nfts",
 				name: "My NFTs",
-			},
-			{
-			  	url: "/mint",
-				name: "Mint",
 			},
 			{
 			  	url: "/about",
@@ -77,9 +88,11 @@ class Nav extends Component {
 
 function mapStateToProps(state) {
 	return {
-        theme: state.app.theme
+        theme: state.app.theme,
+        app: state.app
 	};
 }
 
 export default connect(mapStateToProps, {
+    searchSales
 })(Nav);

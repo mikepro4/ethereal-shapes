@@ -10,6 +10,7 @@ import Play from "../icons/play"
 import Polygon from "../icons/polygon"
 import More from "../icons/more"
 import Settings from "../icons/settings"
+import Arrow from "../icons/arrow"
 
 import { showDrawer } from "../../../redux/actions/appActions"
 
@@ -32,35 +33,35 @@ import { Buffer } from 'buffer';
 var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': '/api/v0/', protocol: "https" })
 // const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-import { updateMarketTokens, updateCollectionItem} from "../../../redux/actions/appActions"
+import { updateMarketTokens, updateCollectionItem } from "../../../redux/actions/appActions"
 import { createNFT, loadNFT, loadNewNFT, updateNFT, buyNFT } from "../../../redux/actions/nftActions"
 import { StaticJsonRpcProvider } from "@ethersproject/providers";
 
-import Player from"../player"
+import Player from "../player"
 
 
 class NFTDetails extends Component {
 
-    constructor (props) {
+    constructor(props) {
         super(props)
 
-        this.nftMore =  this.nftMore = React.createRef();
+        this.nftMore = this.nftMore = React.createRef();
     }
 
-    mintNFT() { 
+    mintNFT() {
         this.createMarket()
     }
 
-    buyNFT =() => {
+    buyNFT = () => {
         this.props.buyNFT(this.props.item.nft.fileUrl, this.props.item)
     }
 
-    createMarket = async() => {
-        const {name, description, price, fileUrl} = this.props.item.nft;
+    createMarket = async () => {
+        const { name, description, price, fileUrl } = this.props.item.nft;
         console.log(name, description, price, fileUrl)
 
-        if(!name || !description || !price || !fileUrl) return 
-        
+        if (!name || !description || !price || !fileUrl) return
+
         const data = JSON.stringify({
             name, description, image: fileUrl
         })
@@ -72,13 +73,13 @@ class NFTDetails extends Component {
             // run create sell and pass url
             console.log(data)
 
-            const file = {content: Buffer.from(data)}
+            const file = { content: Buffer.from(data) }
             const added = await client.add(file)
-            console.log(added) 
+            console.log(added)
             const url = `https://ipfs.infura.io/ipfs/${added[0].path}`;
             console.log(url)
             this.createSale(url);
-        } catch(error) {
+        } catch (error) {
             console.log("error: ", error);
         }
     }
@@ -108,13 +109,13 @@ class NFTDetails extends Component {
             nftAddress,
             tokenId,
             price, {
-                value: listingPrice
-            }
+            value: listingPrice
+        }
         )
 
 
         await transaction.wait()
-        
+
 
         let res = ethers.utils.formatEther(price);
         res = Math.round(res * 1e4) / 1e4;
@@ -149,15 +150,23 @@ class NFTDetails extends Component {
         // router.push("./")
     }
 
-    renderButton(type) {
-        
-        switch (type) {
-            case "own": 
-                return (<div>Own</div>)
-            case "sold": 
-                return (<div>Sold</div>)
+    renderArrow = () => {
+        return(
+            <div className="arrow-container" onClick={() => this.props.history.push("/nft?id=" + this.props.item._id)}>
+                <Arrow/>
+            </div>
+        )
+    }
 
-            case "buy": 
+    renderButton(type) {
+
+        switch (type) {
+            case "own":
+                return (<div> {!this.props.more && this.renderArrow()}</div>)
+            case "sold":
+                return (<div> {!this.props.more && this.renderArrow()}</div>)
+
+            case "buy":
                 return (<Button
                     className={"buy-button"}
                     type="submit"
@@ -165,7 +174,7 @@ class NFTDetails extends Component {
                     large="true"
                     onClick={() => this.buyNFT()}
                 />)
-               
+
             case "mint":
                 return (<Button
                     className={"mint-button"}
@@ -187,18 +196,64 @@ class NFTDetails extends Component {
     }
 
     createNFT = () => {
-        this.props.createNFT( 
+        this.props.createNFT(
             this.props.nft
-        , (data) => {
-            this.props.history.push("/nft?id="+ data._id);
-            this.props.hideDrawer()
-        });
+            , (data) => {
+                this.props.history.push("/nft?id=" + data._id);
+                this.props.hideDrawer()
+            });
     }
 
-	render() {
+    getStatus = () => {
+        let status = ""
+        let color = ""
+        if (this.props.item && this.props.item.metadata) {
+            if (this.props.item.metadata.minted) {
 
-		return (
-			<div 
+                if (this.props.item.metadata.owner) {
+                    if (this.props.type == "own") {
+                        status = "Owned by you"
+                        color = "owned"
+                    } else {
+                        status = "Sold"
+                        color = "grey"
+                    }
+
+                } else {
+                    status = "On Sale"
+                    color = "green"
+                }
+
+            } else {
+                status = "Draft"
+                color = "orange"
+            }
+        }
+
+        return (
+            <div className={"status " + color}>
+                {status}
+            </div>
+        )
+
+    }
+
+    renderPrice = () => {
+        if (this.props.type == "own") {
+            return (<div></div>)
+        } else {
+            return (<div className="price green">
+                <Polygon />
+                {this.props.item.nft.price}
+            </div>)
+
+        }
+    }
+
+    render() {
+
+        return (
+            <div
                 className="nft-details-container"
                 className={classNames({
                     "nft-details-container": true,
@@ -208,7 +263,7 @@ class NFTDetails extends Component {
                 <div className="nft-details-left">
 
                     <div className="play-container">
-                        <Player nft={this.props.item}/>
+                        <Player nft={this.props.item} />
                     </div>
 
                     <div className="metadata-container" onClick={() => this.props.showDrawer("nft-settings", this.props.item)}>
@@ -217,40 +272,37 @@ class NFTDetails extends Component {
                         </div>
 
                         <div className="metadata-status-bar">
-                            <div className="status green">
-                                On Sale
-                            </div>
+                            {this.getStatus()}
 
-                            <div className="price green">
-                                <Polygon/>
-                                {this.props.item.nft.price}
-                            </div>
+                            {this.renderPrice()}
                         </div>
                     </div>
 
                 </div>
+
+               
 
                 <div className="nft-details-left">
                     <div className="left">
-                    {this.renderButton(this.props.type)}
+                        {this.renderButton(this.props.type)}
                     </div>
                     {this.props.more && <div className="right">
                         <div className="more-container" ref={this.nftMore} onClick={() => this.props.showDrawer("nft")}>
-                            <Settings/>
+                            <Settings />
                         </div>
                     </div>}
-                    
+
                 </div>
             </div>
         )
-	}
+    }
 }
 
 function mapStateToProps(state) {
-	return {
+    return {
         app: state.app,
         nft: state.activeNFT.newNFT
-	};
+    };
 }
 
 export default withRouter(connect(mapStateToProps, {

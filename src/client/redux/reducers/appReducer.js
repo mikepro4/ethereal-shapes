@@ -22,7 +22,8 @@ import {
     UPDATE_ACCOUNT,
     UPDATE_MARKET_TOKENS,
     UPDATE_COLLECTION_ITEM,
-    PAUSE_ANIMATION
+    PAUSE_ANIMATION,
+    SALES_ACTIVE
 } from "../actions/types";
 
 export const initialState = {
@@ -59,10 +60,17 @@ export const initialState = {
     sortedBlocks: [],
 
     nftTokens: [],
+
+    salesActive: false
 };
 
 export const appReducer = (state = initialState, action) => {
 	switch (action.type) {
+        case SALES_ACTIVE:
+            return {
+                ...state,
+                salesActive: action.payload
+            }
         case PAUSE_ANIMATION:
             return {
                 ...state,

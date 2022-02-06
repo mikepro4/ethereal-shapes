@@ -90,19 +90,23 @@ class nftView extends Component {
     }
 
     verifyOwnership = () => {
-        if(this.props.item && this.props.item.metadata && this.props.app.marketTokens.length > 0) {
-            let filteredTokens = _.filter(this.props.app.marketTokens, {
-                image: this.props.item.nft.fileUrl
-            })
-            let token = filteredTokens[0]
-    
-            if(this.props.item.metadata.owner.toLowerCase() == token.owner.toLowerCase()) {
-                return true
+        if(this.props.verify) {
+            if(this.props.item && this.props.item.metadata && this.props.app.marketTokens.length > 0) {
+                let filteredTokens = _.filter(this.props.app.marketTokens, {
+                    image: this.props.item.nft.fileUrl
+                })
+                let token = filteredTokens[0]
+        
+                if(this.props.item.metadata.owner.toLowerCase() == token.owner.toLowerCase()) {
+                    return true
+                } else {
+                    return false
+                }
             } else {
                 return false
             }
         } else {
-            return false
+            return true
         }
         
     }
