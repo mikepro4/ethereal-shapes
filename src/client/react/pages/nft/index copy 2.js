@@ -36,8 +36,7 @@ import {
     loadNewNFT,
     clearNFT,
     clearNewNFT,
-    updateNFTImage,
-    loadNFTByTokenId
+    updateNFTImage
 } from "../../../redux/actions/nftActions"
 
 import ipfsHttpClient from "ipfs-http-client";
@@ -71,11 +70,6 @@ class NFTPage extends Component {
         if(this.props.match.params.tokenId) {
             this.setState({
                 tokenId: this.props.match.params.tokenId
-            })
-
-            this.props.loadNFTByTokenId(this.props.match.params.tokenId, (data) => {
-                this.props.loadNewNFT(data)
-                this.props.loadShape(data.metadata.shapeId)
             })
             // this.props.loadNFT(this.getQueryParams().id, (data) => {
             //     this.props.loadNewNFT(data)
@@ -117,21 +111,20 @@ class NFTPage extends Component {
             //     console.log(data)
             // })
         } else {
-            if(!this.props.match.params.tokenId) {
-                this.props.loadShape("61fc4d5c9c7c440021028b5b")
 
-                this.props.loadNewNFT({
-                    nft: {
-                        price: 222,
-                        name: "Ethereal",
-                        description: "1"
-                    },
-                    metadata: {
-                        shapeId: "61fc4d5c9c7c440021028b5b"
-                    }
-                })
-                
-            }
+            this.props.loadShape("61fc4d5c9c7c440021028b5b")
+
+            this.props.loadNewNFT({
+                nft: {
+                    price: 222,
+                    name: "Ethereal",
+                    description: "1"
+                },
+                metadata: {
+                    shapeId: "61fc4d5c9c7c440021028b5b"
+                }
+            })
+
         }
     }
 
@@ -776,7 +769,7 @@ class NFTPage extends Component {
     }
 
     renderButtonStatus() {
-        if (this.getQueryParams().id || this.props.match.params.tokenId) {
+        if (this.getQueryParams().id) {
             if (this.props.nft.metadata.minted) {
                 if (this.props.nft.metadata.owner) {
                     if (this.props.nft.metadata.owner == this.props.app.account.address) {
@@ -874,7 +867,6 @@ export default {
         updateQueryString,
         pauseAnimation,
         updateNFTImage,
-        trackStop,
-        loadNFTByTokenId
+        trackStop
     })(NFTPage))
 }

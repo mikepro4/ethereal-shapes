@@ -146,7 +146,7 @@ class Timeline extends Component {
 		}
 
         if(this.props.nft && this.props.nft.metadata) {
-            console.log(this.props.player.currentTime, this.props.nft.metadata.duration)
+            // console.log(this.props.player.currentTime, this.props.nft.metadata.duration)
         }
 
         const progressBarWidth = {
@@ -167,8 +167,8 @@ class Timeline extends Component {
                 ref={this.timeline}
                 id="progressBar"
                 onClick={this.handlePorgressBarClick.bind(this)}
-                onMouseMove={this.onMouseMove.bind(this)}
-                onMouseLeave={this.onMouseLeave.bind(this)}
+                // onMouseMove={this.onMouseMove.bind(this)}
+                // onMouseLeave={this.onMouseLeave.bind(this)}
             >
                 <div className="progress-bar-wrapper">
                     <div className="progress-bar" style={progressBarWidth} />

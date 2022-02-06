@@ -78,7 +78,7 @@ class NFTSettings extends Component {
         //         })
         //     }
         // }
-        if(this.getQueryParams().id) {
+        // if(this.getQueryParams().id || this.props.match.params.tokenId) {
             this.props.updateNFT(this.props.drawerData, data, () => {
                 this.props.loadNewNFT(data)
                 this.props.updateCollectionItem(this.props.drawerData)
@@ -92,16 +92,16 @@ class NFTSettings extends Component {
             })
     
             this.props.hideDrawer()
-        } else {
-            if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
-                this.props.loadShape(data.metadata.shapeId, false, (data) => {
-                    console.log(data)
-                    this.props.loadNewShape(data)
-                })
-            }
-            this.props.loadNewNFT(data)
-            this.props.hideDrawer()
-        }
+        // } else {
+        //     if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
+        //         this.props.loadShape(data.metadata.shapeId, false, (data) => {
+        //             console.log(data)
+        //             this.props.loadNewShape(data)
+        //         })
+        //     }
+        //     this.props.loadNewNFT(data)
+        //     this.props.hideDrawer()
+        // }
        
 
        

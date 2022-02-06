@@ -229,6 +229,36 @@ export const loadNFT = (id, success) => async (
         });
 }
 
+// ===========================================================================
+
+
+
+export const loadNFTByTokenId = (id, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+   
+
+    await api
+        .post("/NFTs/itemByTokenId", { tokenId: id })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+
+            dispatch({
+                type: LOAD_NFT,
+                payload: response.data
+            });
+
+        })
+        .catch(() => {
+            // dispatch(authError('Account with this email already exists'));
+        });
+}
+
 export const loadNFTDetails = (id, success) => async (
     dispatch,
 	getState,

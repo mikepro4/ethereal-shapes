@@ -123,7 +123,8 @@ class NFTDetails extends Component {
 
         this.props.updateNFT(this.props.item, {
             metadata: {
-                minted: true
+                minted: true,
+                tokenId: tokenId
             }
         }, () => {
             this.props.loadNFT(this.props.item._id, (data) => {
@@ -131,6 +132,7 @@ class NFTDetails extends Component {
                 this.props.updateMarketTokens()
                 this.props.updateCollectionItem(this.props.item)
             })
+           
         })
 
         // this.props.createNFT( { 
