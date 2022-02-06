@@ -296,6 +296,7 @@ class App extends Component {
 
 
                 <Scroll/>
+                <AudioPlayer/>
                 
             </div>
         )

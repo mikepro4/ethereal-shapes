@@ -8,6 +8,8 @@ import {
 	setAnalyser
 } from '../../../redux/actions/playerActions'
 
+import { updateNFTDuration }  from '../../../redux/actions/nftActions'
+
 class AudioPlayer extends Component {
   state = {
     status: null,
@@ -91,8 +93,12 @@ class AudioPlayer extends Component {
         // }, 1000)
 
         // this.play()
+
+        // var audio = document.getElementById('audio');
    
-   
+        // audio.onloadedmetadata = function() {
+        //     console.log(audio.duration);
+        //   };
   }
 
   componentDidUpdate = (prevprops, prevparams) => {
@@ -113,7 +119,15 @@ class AudioPlayer extends Component {
 
     if(prevprops.player.status !== this.props.player.status) {
       this.changeStatus(this.props.player.status)
+
     }
+    // if(this.refs.audio) {
+    //     console.log( this.refs.audio.duration)
+    // }
+    // audio = document.getElementById('audio');
+    // if(audio) {
+    //     console.log(audio.duration)
+    // }
   }
 
   changeStatus = (status) => {
@@ -189,6 +203,8 @@ class AudioPlayer extends Component {
                             this.playing()
                         }}
                         onLoadedData={() => {
+                            let duration = this.refs.audio.duration
+                            this.props.updateNFTDuration(this.props.nft._id, duration)
                         }}
                     >
             </audio>
@@ -203,11 +219,13 @@ function mapStateToProps(state) {
 	return {
 		auth: state.app.user,
 		location: state.router.location,
-        player: state.player
+        player: state.player,
+        nft: state.activeNFT.newNFT
 	};
 }
 
 export default connect(mapStateToProps, {
 	trackPlaying,
-	setAnalyser
+	setAnalyser,
+    updateNFTDuration
 })(AudioPlayer);

@@ -36,6 +36,8 @@ import { updateMarketTokens, updateCollectionItem} from "../../../redux/actions/
 import { createNFT, loadNFT, loadNewNFT, updateNFT, buyNFT } from "../../../redux/actions/nftActions"
 import { StaticJsonRpcProvider } from "@ethersproject/providers";
 
+import Player from"../player"
+
 
 class NFTDetails extends Component {
 
@@ -206,7 +208,7 @@ class NFTDetails extends Component {
                 <div className="nft-details-left">
 
                     <div className="play-container">
-                        <Play/>
+                        <Player nft={this.props.item}/>
                     </div>
 
                     <div className="metadata-container" onClick={() => this.props.showDrawer("nft-settings", this.props.item)}>

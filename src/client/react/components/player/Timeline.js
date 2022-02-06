@@ -74,9 +74,13 @@ class Timeline extends Component {
 			});
 		}
 
-        const progressBarWidth = {
-            width: 0
+        if(this.props.nft && this.props.nft.metadata) {
+            console.log(this.props.player.currentTime, this.props.nft.metadata.duration)
         }
+
+        const progressBarWidth = {
+			width: this.props.player.currentTime * 100 / this.props.duration + "%"
+		};
 
         const progressBarHoverWidth = {
 			width: this.state.hoverWidth
@@ -96,7 +100,8 @@ class Timeline extends Component {
 
 function mapStateToProps(state) {
     return {
-        app: state.app
+        app: state.app,
+        player: state.player
     };
 }
 

@@ -37,6 +37,34 @@ import { updateMarketTokens, updateCollectionItem } from "./appActions"
 //     });
 // }
 
+export const updateNFTDuration = (nftId, duration, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+        await api
+            .post("/NFT/updateDuration", { 
+                nftId: nftId, 
+                duration: duration
+            })
+            .then(response => {
+                dispatch(loadNFT(nftId, (data) => {
+                    dispatch(loadNewNFT(data))
+                }));
+                if (success) {
+                    success(response.data);
+                }
+            })
+            .catch(() => {
+            });
+
+//     dispatch({
+//         type: UPDATE_NFT_SHAPE,
+//         payload: id
+//     });
+// }
+}
+
 export const updateNFTImage = (nftId, fileUrl, success) => async (
     dispatch,
 	getState,

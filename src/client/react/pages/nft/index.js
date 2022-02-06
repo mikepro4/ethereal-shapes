@@ -45,6 +45,10 @@ import { Buffer } from 'buffer';
 
 // var client = ipfsHttpClient('ipfs.infura.io:5001/api/v0', "", { protocol: "https"}) // leaving out the arguments will default to these values
 
+import {
+    trackPause
+} from '../../../redux/actions/playerActions'
+
 var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': '/api/v0/', protocol: "https" })
 
 
@@ -106,6 +110,11 @@ class NFTPage extends Component {
     }
 
     componentWillUnmount() {
+        // this.props.trackPause({
+        //     _id: this.props.nft._id,
+        //     audioUrl: this.props.nft.metadata.audioUrl,
+        // })
+
         this.props.clearShape()
         this.props.clearNewShape()
         this.props.clearNFT()
@@ -784,7 +793,10 @@ class NFTPage extends Component {
                 </div>
 
                 <div className="nft-player-container">
-                    <Timeline duration={1000}/>
+                    <Timeline 
+                        duration={this.props.nft && this.props.nft.metadata ? this.props.nft.metadata.duration : 0}
+                        nft={this.props.nft}
+                    />
                 </div>
 			</div>
 				
@@ -811,6 +823,7 @@ export default {
         clearNewNFT,
         updateQueryString,
         pauseAnimation,
-        updateNFTImage
+        updateNFTImage,
+        trackPause
 	})(NFTPage))
 }

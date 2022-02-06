@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import classNames from "classnames"
+import classNames from "classnames";
 import { Icon } from "@blueprintjs/core";
 
 import {
 	trackPlay,
 	trackPause,
-	trackSeek
+	trackSeek,
+    trackLoad
 } from '../../../redux/actions/playerActions'
 
 import Play from "../icons/play"
@@ -15,16 +16,46 @@ import Pause from "../icons/pause"
 
 class Timeline extends Component {
 
+    componentDidMount = () => {
+        if(this.props.nft) {
+            this.props.trackLoad({
+                _id: this.props.nft._id,
+                audioUrl: this.props.nft.metadata.audioUrl,
+            })
+    
+        }
+      
+    }
+
+    componentDidUpdate(prevprops) {
+        if(this.props.nft.metadata.audioUrl !== prevprops.nft.metadata.audioUrl) {
+            this.props.trackLoad({
+                _id: this.props.nft._id,
+                audioUrl: this.props.nft.metadata.audioUrl,
+            })
+
+           
+
+            // this.props.trackPlay({
+            //     _id: this.props.nft._id,
+            //     audioUrl: this.props.nft.metadata.audioUrl,
+            // })
+            // this.props.trackPause({
+            //     _id: this.props.nft._id,
+            //     audioUrl: this.props.nft.metadata.audioUrl,
+            // })
+
+
+        }
+    }
+
 	renderPlayPauseButton = () => {
 
             
 
         let track = {
-            _id: 1,
-            audioUrl: this.props.word.metadata.audioUrl,
-            title: "Iteration 1",
-            subtitle: "Octatrack, DFAM, Digitakt, Digitone, Analog Rytm",
-            duration: 700
+            _id: this.props.nft._id,
+            audioUrl: this.props.nft.metadata.audioUrl,
         }
 
 		if(this.props.player.status == "pause" || this.props.player.status == "stop") {
@@ -44,46 +75,25 @@ class Timeline extends Component {
 
 	render() {
 
-		if(this.props.player.trackId) {
-			return (
-	      <div className="jam-main-timeline-container">
-	        <div className="timeline-left">
-						{this.props.word && this.props.word.metadata && this.props.word.metadata.audioUrl && this.renderPlayPauseButton()}
-{/* 
-						<div className="jam-title-container">
-							<div className="track-title">
-								{this.props.player.trackMetadata.title}
-							</div>
-
-							<div className="track-subtitle">
-								{this.props.player.trackMetadata.subtitle}
-							</div>
-						</div> */}
-	        </div>
-
-	        <div className="timeline-right">
-	            {/* timeline right: {this.props.player.trackMetadata.duration}
-			    currentTime: {this.props.player.currentTime} */}
-	        </div>
-	      </div>
-			);
-		} else {
-			return ""
-		}
-	}
+        return (
+        <div className="nft-transport">
+            {this.props.nft && this.props.nft.metadata && this.props.nft.metadata.audioUrl && this.renderPlayPauseButton()}
+        </div>
+        );
+}
 }
 
 function mapStateToProps(state) {
 	return {
 		user: state.app.user,
 		location: state.router.location,
-		player: state.player,
-        word: state.app.activeWord
+		player: state.player
 	};
 }
 
 export default connect(mapStateToProps, {
 	trackPlay,
 	trackPause,
-	trackSeek
+	trackSeek,
+    trackLoad
 })(withRouter(Timeline));
