@@ -89,44 +89,68 @@ class nftView extends Component {
         }
     }
 
+    verifyOwnership = () => {
+        if(this.props.item && this.props.item.metadata && this.props.app.marketTokens.length > 0) {
+            let filteredTokens = _.filter(this.props.app.marketTokens, {
+                image: this.props.item.nft.fileUrl
+            })
+            let token = filteredTokens[0]
+    
+            if(this.props.item.metadata.owner.toLowerCase() == token.owner.toLowerCase()) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+        
+    }
+
     render() {
         let height = 0
 
         if(this.nftView && this.nftView.current) {
             height = this.nftView.current.clientWidth
         }
-        return(
-            <div className="nft-view" ref={this.nftView} >
-               {/* <Link 
-                    to={"/?word=" + this.props.item._id}
-                    className={classNames({
-                        "nft-title": true,
-                        "active": false
-                    })}
-                >
-                    
+
+        if(this.verifyOwnership()) {
+            return(
+                <div className="nft-view" ref={this.nftView} >
+                   {/* <Link 
+                        to={"/?word=" + this.props.item._id}
+                        className={classNames({
+                            "nft-title": true,
+                            "active": false
+                        })}
+                    >
+                        
+                       
+                      
+                   </Link> */}
+                   {/* <div className= onClick={() => this.props.deleteWord(this.props.item._id, this.props.item, () => {
+                            this.props.updateCollection(true)
+                       })}>Delete</div> */}
+                    {/* {this.renderNftDetails()} */}
+    
+                    <div className="nft-media-container" style={{height: height + 150 + "px"}}>
+                            <div className="nft-click-area" onClick={() => this.props.history.push("/nft?id="+ this.props.item._id)}>
+                                
+                            </div>
+                            {/* <img src={this.props.item.nft.fileUrl}/> */}
+                            {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } pointCount={1000} nftId={this.props.item._id}  /> }
+    
+                            <NFTDetails item={this.props.item} more={false} type={this.renderButtonStatus()} />
+    
+                    </div>
+    
                    
-                  
-               </Link> */}
-               {/* <div className= onClick={() => this.props.deleteWord(this.props.item._id, this.props.item, () => {
-                        this.props.updateCollection(true)
-                   })}>Delete</div> */}
-                {/* {this.renderNftDetails()} */}
-
-                <div className="nft-media-container" style={{height: height + 150 + "px"}}>
-                        <div className="nft-click-area" onClick={() => this.props.history.push("/nft?id="+ this.props.item._id)}>
-                            
-                        </div>
-                        {/* <img src={this.props.item.nft.fileUrl}/> */}
-                        {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } pointCount={1000} nftId={this.props.item._id}  /> }
-
-                        <NFTDetails item={this.props.item} more={false} type={this.renderButtonStatus()} />
-
                 </div>
+            )
+        } else {
+            return (<div></div>)
+        }
 
-               
-            </div>
-        )
         
     }
 }

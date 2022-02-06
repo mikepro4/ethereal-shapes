@@ -7,6 +7,8 @@ import Logout from "../react/pages/auth/logout"
 import Mint from "../react/pages/mint"
 import NFT from "../react/pages/nft"
 import All from "../react/pages/all"
+import Sale from "../react/pages/sale"
+import MyNFTs from "../react/pages/mynfts"
 
 export default [
     {
@@ -35,6 +37,24 @@ export default [
                 exact: true,
                 params: {
                     name: "All NFTs"
+                }
+            },
+            {
+
+                ...Sale,
+                path: "/sale",
+                exact: true,
+                params: {
+                    name: "on Sale"
+                }
+            },
+            {
+
+                ...MyNFTs,
+                path: "/my-nfts",
+                exact: true,
+                params: {
+                    name: "My Nfts"
                 }
             },
 			{

@@ -304,7 +304,10 @@ class NFTSettingsForm extends Component {
                             metadata: {
                                 ...this.props.nft.newNFT.metadata,
                                 owner: "",
-                                minted: false
+                                minted: false,
+                                featured: false,
+                                featuredOrder: 0,
+                                createdAt: new Date()
                             },
                             nft: {
                                 ...this.props.nft.newNFT.name,

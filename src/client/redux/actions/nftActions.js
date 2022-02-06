@@ -275,6 +275,18 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
         sortDirection = "1"
     }
 
+    if(type == "sale") {
+        criteria = {
+            sale: true
+        }
+    }
+
+    if(type == "my-nfts") {
+        criteria = {
+            owner: identifier
+        }
+    }
+
     await api
         .post("/NFTs/search", {
             criteria: criteria,

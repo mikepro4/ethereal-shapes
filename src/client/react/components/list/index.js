@@ -203,6 +203,17 @@ class ListResults extends Component {
                 } else {
                     return(<div key={item._id}/>)
                 }
+            case "nft-verified":
+                if(!this.state.updateCollection) {
+                    return (<NFTView
+                        item={item}
+                        key={item._id}
+                        verified={true}
+                        handleClick={() => this.props.handleClick()}
+                    />)
+                } else {
+                    return(<div key={item._id}/>)
+                }
 			default:
 				return(
 					<div></div>
