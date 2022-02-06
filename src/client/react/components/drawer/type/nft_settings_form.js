@@ -139,12 +139,11 @@ class NFTSettingsForm extends Component {
 
                         let newNFT = {
                             ...this.props.nft,
-                            metadata: {
-                                ...this.props.nft.metadata,
-                                title: this.props.nft.metadata.title + " copy"
+                            nft: {
+                                ...this.props.nft.name,
+                                name: this.props.nft.metadata.title + " copy"
                                 // createdAt: new Date()
-                            },
-                            blocks: this.props.sortedBlocks
+                            }
                         }
                         this.setState({
                             loading: true
@@ -278,6 +277,61 @@ class NFTSettingsForm extends Component {
                     loading={this.state.loading}
                     type="submit"
                     text="Update"
+                    large="true"
+                />
+
+                <Button
+                    className={"submit-button theme-" + this.props.theme}
+                    loading={this.state.loading}
+                    onClick={() => {
+
+                        let newNFT = {
+                            ...this.props.nft.newNFT,
+                            metadata: {
+                                ...this.props.nft.newNFT.metadata,
+                                owner: "",
+                                minted: false
+                            },
+                            nft: {
+                                ...this.props.nft.newNFT.name,
+                                name: this.props.nft.newNFT.nft.name + " copy"
+                                // createdAt: new Date()
+                            }
+                        }
+                        this.setState({
+                            loading: true
+                        })
+                            this.props.createNFT(newNFT, (nft) => {
+                            this.props.hideDrawer()
+                            this.setState({
+                                loading: false
+                            })
+
+                            this.props.history.push("/nft?id="+ nft._id);
+                        })
+                    }}
+                        text="Duplicate"
+                    large="true"
+                />
+
+                <Button
+                    className={"submit-button theme-" + this.props.theme}
+                    loading={this.state.loading}
+                    onClick={() => {
+                        this.setState({
+                            loading: true
+                        })
+                           
+                            this.props.deleteNFT(this.props.nft.newNFT._id, () => {
+                            this.props.hideDrawer()
+                            this.setState({
+                                loading: false
+                            })
+
+                            this.props.history.push("/");
+                        })
+                    }}
+                        text="Delete"
                     large="true"
                 />
 

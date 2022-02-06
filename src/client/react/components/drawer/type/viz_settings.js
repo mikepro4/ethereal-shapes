@@ -124,7 +124,9 @@ class VizSettings extends Component {
                                     }
                                 }, (data) => {
                                     console.log(data._id)
-                                    this.props.updateNFTShape(data._id, this.getQueryParams().id)
+                                    this.props.updateNFTShape(data._id, this.getQueryParams().id, () => {
+                                        this.props.loadShape(data._id)
+                                    })
                                     // this.props.history.push("/?shape="+data._id)
                                     this.props.hideDrawer()
                                     this.setState({
