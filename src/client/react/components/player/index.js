@@ -18,10 +18,10 @@ class Timeline extends Component {
 
     componentDidMount = () => {
         if(this.props.nft) {
-            this.props.trackLoad({
-                _id: this.props.nft._id,
-                audioUrl: this.props.nft.metadata.audioUrl,
-            })
+            // this.props.trackLoad({
+            //     _id: this.props.nft._id,
+            //     audioUrl: this.props.nft.metadata.audioUrl,
+            // })
     
         }
       
@@ -48,7 +48,18 @@ class Timeline extends Component {
 
         }
     }
+    
+    play = (track) => {
+        this.props.trackPause({
+            _id: this.props.nft._id,
+            audioUrl: this.props.nft.metadata.audioUrl,
+        })
+        
 
+        setTimeout(() => {
+            this.props.trackPlay(track)
+        }, 100)
+    }
 	renderPlayPauseButton = () => {
 
             
@@ -57,20 +68,28 @@ class Timeline extends Component {
             _id: this.props.nft._id,
             audioUrl: this.props.nft.metadata.audioUrl,
         }
-
-		if(this.props.player.status == "pause" || this.props.player.status == "stop") {
-			return (
-				<div className="play-button" onClick={() => this.props.trackPlay(track)}>
-					<Play/>
-				</div>
-			)
-		} else if (this.props.player.status == "play") {
-			return (
-				<div className="play-button" onClick={() => this.props.trackPause(track)}>
-                    <Pause/>
-				</div>
-			)
-		}
+        if(this.props.nft._id == this.props.player.trackId) {
+            if(this.props.player.status == "pause" || this.props.player.status == "stop") {
+                return (
+                    <div className="play-button" onClick={() => this.props.trackPlay(track)}>
+                        <Play/>
+                    </div>
+                )
+            } else if (this.props.player.status == "play") {
+                return (
+                    <div className="play-button" onClick={() => this.props.trackPause(track)}>
+                        <Pause/>
+                    </div>
+                )
+            }
+        } else {
+            return (
+                <div className="play-button" onClick={() => this.play(track)}>
+                    <Play/>
+                </div>
+            )
+        }
+		
 	}
 
 	render() {

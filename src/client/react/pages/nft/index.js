@@ -46,7 +46,7 @@ import { Buffer } from 'buffer';
 // var client = ipfsHttpClient('ipfs.infura.io:5001/api/v0', "", { protocol: "https"}) // leaving out the arguments will default to these values
 
 import {
-    trackPause
+    trackStop
 } from '../../../redux/actions/playerActions'
 
 var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': '/api/v0/', protocol: "https" })
@@ -78,6 +78,15 @@ class NFTPage extends Component {
         //         shapeId: "61fc4d5c9c7c440021028b5b"
         //     }
         // })
+        if(this.props.player && this.props.player.trackId) {
+            if(this.props.player.trackId !==this.getQueryParams().id) {
+                this.props.trackStop({
+                    _id: this.props.player.trackId,
+                    audioUrl: this.props.player.trackMetadata.audioUrl,
+                })
+            }
+        }
+       
 
         
         if (this.props.location.search) {
@@ -720,7 +729,7 @@ class NFTPage extends Component {
             return(<div 
                 className="main-shape" 
             >
-                {this.props.nft &&  this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId}pointCount={null} fullScreen={true}/> }
+                {this.props.nft &&  this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId}pointCount={null} fullScreen={true} nftId={this.props.nft._id} /> }
                 
             </div>)
         }
@@ -808,7 +817,8 @@ function mapStateToProps(state) {
 	return {
         app: state.app,
         shape: state.shape,
-        nft: state.activeNFT.newNFT
+        nft: state.activeNFT.newNFT,
+        player: state.player
 	};
 }
 
@@ -824,6 +834,6 @@ export default {
         updateQueryString,
         pauseAnimation,
         updateNFTImage,
-        trackPause
+        trackStop
 	})(NFTPage))
 }

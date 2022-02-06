@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import classNames from "classnames"
 import * as _ from "lodash";
 import update from "immutability-helper";
-import { fromPairs } from "lodash";
+import { fromPairs, upperFirst } from "lodash";
 
 import TouchZones from "./touchZones"
 
@@ -406,10 +406,11 @@ class Viz extends Component {
 
             let freqData = []
             let soundModifier = 1
-
-            if (this.props.player.analyser) {
-                freqData = new Uint8Array(this.props.player.analyser.frequencyBinCount)
-                this.props.player.analyser.getByteFrequencyData(freqData)
+            if(this.props.nftId == this.props.player.trackId  ) {
+                if (this.props.player.analyser) {
+                    freqData = new Uint8Array(this.props.player.analyser.frequencyBinCount)
+                    this.props.player.analyser.getByteFrequencyData(freqData)
+                }
             }
 
             ctx.fillStyle = "rgba(0,0, 0, 255)";
@@ -418,11 +419,13 @@ class Viz extends Component {
 
             for (let i = 0; i < points.length; i++) {
 
-                if (this.props.player.analyser && soundModifier) {
-                    soundModifier = freqData[this.getPointIterator(i)] / 1000
+                if(this.props.nftId == this.props.player.trackId  ) {
+                    if (this.props.player.analyser && soundModifier) {
+                        soundModifier = freqData[this.getPointIterator(i)] / 1000
 
-                    if (soundModifier == 0) {
-                        soundModifier = 1
+                        if (soundModifier == 0) {
+                            soundModifier = 1
+                        }
                     }
                 }
 
