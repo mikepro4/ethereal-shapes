@@ -48,7 +48,7 @@ class TouchZones extends Component {
     }
 
     componentWillUnmount() {
-        this.props.clearNewShape()
+        // this.props.clearNewShape()
     }
 
     getQueryParams = () => {

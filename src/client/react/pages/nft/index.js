@@ -107,7 +107,7 @@ class NFTPage extends Component {
 
     componentWillUnmount() {
         this.props.clearShape()
-        this.props.clearNewShape()
+        // this.props.clearNewShape()
         // this.props.clearNFT()
         // this.props.clearNewNFT()
     }
