@@ -33,7 +33,12 @@ import { Buffer } from 'buffer';
 var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': '/api/v0/', protocol: "https" })
 // const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-import { updateMarketTokens, updateCollectionItem } from "../../../redux/actions/appActions"
+import { 
+    updateMarketTokens, 
+    updateCollectionItem,
+    updateStatusBuying,
+    updateStatusMinting
+} from "../../../redux/actions/appActions"
 import { createNFT, loadNFT, loadNewNFT, updateNFT, buyNFT } from "../../../redux/actions/nftActions"
 import { StaticJsonRpcProvider } from "@ethersproject/providers";
 
@@ -53,10 +58,15 @@ class NFTDetails extends Component {
     }
 
     buyNFT = () => {
-        this.props.buyNFT(this.props.item.nft.fileUrl, this.props.item)
+        this.props.updateStatusBuying(true)
+        this.props.buyNFT(this.props.item.nft.fileUrl, this.props.item, () => {
+            this.props.updateStatusBuying(false)
+            this.showToast("NFT succcesfully purchased ")
+        })
     }
 
     createMarket = async () => {
+        this.props.updateStatusMinting(true)
         const { name, description, price, fileUrl } = this.props.item.nft;
         console.log(name, description, price, fileUrl)
 
@@ -120,6 +130,7 @@ class NFTDetails extends Component {
         let res = ethers.utils.formatEther(price);
         res = Math.round(res * 1e4) / 1e4;
 
+        this.showToast("NFT successfully minted on Polygon Network")
 
         this.props.updateNFT(this.props.item, {
             metadata: {
@@ -127,6 +138,7 @@ class NFTDetails extends Component {
                 tokenId: tokenId
             }
         }, () => {
+            this.props.updateStatusMinting(false)
             this.props.loadNFT(this.props.item._id, (data) => {
                 this.props.loadNewNFT(data)
                 this.props.updateMarketTokens()
@@ -160,6 +172,14 @@ class NFTDetails extends Component {
         )
     }
 
+    showToast = (message, id) => {
+		this.refs.toaster.show({
+			message: message,
+			intent: Intent.SUCCESS,
+		});
+    }
+		
+
     renderButton(type) {
 
         switch (type) {
@@ -170,8 +190,9 @@ class NFTDetails extends Component {
 
             case "buy":
                 return (<Button
-                    className={"buy-button"}
+                    className={"buy-button main-button"}
                     type="submit"
+                    loading={this.props.app.buying}
                     text="Buy"
                     large="true"
                     onClick={() => this.buyNFT()}
@@ -179,15 +200,16 @@ class NFTDetails extends Component {
 
             case "mint":
                 return (<Button
-                    className={"mint-button"}
+                    className={"mint-button main-button"}
                     type="submit"
                     text="Mint"
                     large="true"
+                    loading={this.props.app.minting}
                     onClick={() => this.mintNFT()}
                 />)
             case "create":
                 return (<Button
-                    className={"create-button"}
+                    className={"create-button main-button"}
                     onClick={() => this.createNFT()}
                     text="Create"
                     large="true"
@@ -295,6 +317,8 @@ class NFTDetails extends Component {
                     </div>}
 
                 </div>
+
+                <Toaster position={Position.BOTTOM_RIGHT} ref="toaster" />
             </div>
         )
     }
@@ -312,5 +336,7 @@ export default withRouter(connect(mapStateToProps, {
     updateMarketTokens,
     createNFT, loadNFT, loadNewNFT, updateNFT,
     buyNFT,
-    updateCollectionItem
+    updateCollectionItem,
+    updateStatusBuying,
+    updateStatusMinting
 })(NFTDetails));

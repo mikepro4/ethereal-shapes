@@ -68,7 +68,7 @@ class NFTPage extends Component {
     }
 
     componentDidMount() {
-        if(this.props.match.params.tokenId) {
+        if (this.props.match.params.tokenId) {
             this.setState({
                 tokenId: this.props.match.params.tokenId
             })
@@ -117,7 +117,7 @@ class NFTPage extends Component {
             //     console.log(data)
             // })
         } else {
-            if(!this.props.match.params.tokenId) {
+            if (!this.props.match.params.tokenId) {
                 this.props.loadShape("61fc4d5c9c7c440021028b5b")
 
                 this.props.loadNewNFT({
@@ -130,7 +130,7 @@ class NFTPage extends Component {
                         shapeId: "61fc4d5c9c7c440021028b5b"
                     }
                 })
-                
+
             }
         }
     }
@@ -200,207 +200,210 @@ class NFTPage extends Component {
     }
 
     launchInterval(key, action) {
-        console.log(key, action)
+        if (!this.props.app.drawerOpen) {
 
-        let changeValues = {
-            boldRate: {
-                standard: 0.01,
-                extended: 0.1
-            },
-            rotateSpeed: {
-                standard: 0.001,
-                extended: 0.01
-            },
-            frequency: {
-                standard: 0.00005,
-                extended: 0.0001
-            },
-            step: {
-                standard: 0.00001,
-                extended: 0.0001
-            },
-            pointSize: {
-                standard: 0.01,
-                extended: 0.5,
-                minValue: 0,
-                maxValue: 80
-            },
-            pointOpacity: {
-                standard: 0.01,
-                extended: 0.1,
-                minValue: 0,
-                maxValue: 1
+            console.log(key, action)
+
+            let changeValues = {
+                boldRate: {
+                    standard: 0.01,
+                    extended: 0.1
+                },
+                rotateSpeed: {
+                    standard: 0.001,
+                    extended: 0.01
+                },
+                frequency: {
+                    standard: 0.00005,
+                    extended: 0.0001
+                },
+                step: {
+                    standard: 0.00001,
+                    extended: 0.0001
+                },
+                pointSize: {
+                    standard: 0.01,
+                    extended: 0.5,
+                    minValue: 0,
+                    maxValue: 80
+                },
+                pointOpacity: {
+                    standard: 0.01,
+                    extended: 0.1,
+                    minValue: 0,
+                    maxValue: 1
+                }
             }
-        }
 
-        let includesShift = _.includes(this.props.app.activeKeys, 16)
-        if (!_.includes(this.state.startedIntervals, 17)) {
-            if (key == 16) {
+            let includesShift = _.includes(this.props.app.activeKeys, 16)
+            if (!_.includes(this.state.startedIntervals, 17)) {
+                if (key == 16) {
 
-                // rotate speed
-                if (_.includes(this.state.startedIntervals, 82)) {
+                    // rotate speed
+                    if (_.includes(this.state.startedIntervals, 82)) {
+                        if (action == "start") {
+                            this.runPropertyChange(includesShift, "start", "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                        } else if (action == "stop") {
+                            this.runPropertyChange(false, "start", "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                        }
+                    }
+
+                    if (_.includes(this.state.startedIntervals, 69)) {
+                        if (action == "start") {
+                            this.runPropertyChange(includesShift, "start", "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                        } else if (action == "stop") {
+                            this.runPropertyChange(false, "start", "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                        }
+                    }
+
+                    // bold rate
+                    if (_.includes(this.state.startedIntervals, 66)) {
+                        if (action == "start") {
+                            this.runPropertyChange(includesShift, "start", "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                        } else if (action == "stop") {
+                            this.runPropertyChange(false, "start", "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                        }
+                    }
+
+                    if (_.includes(this.state.startedIntervals, 86)) {
+                        if (action == "start") {
+                            this.runPropertyChange(includesShift, "start", "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                        } else if (action == "stop") {
+                            this.runPropertyChange(false, "start", "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                        }
+                    }
+
+                    // frequency
+                    if (_.includes(this.state.startedIntervals, 70)) {
+                        if (action == "start") {
+                            this.runPropertyChange(includesShift, "start", "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                        } else if (action == "stop") {
+                            this.runPropertyChange(false, "start", "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                        }
+                    }
+
+                    if (_.includes(this.state.startedIntervals, 86)) {
+                        if (action == "start") {
+                            this.runPropertyChange(includesShift, "start", "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                        } else if (action == "stop") {
+                            this.runPropertyChange(false, "start", "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                        }
+                    }
+
+                    // step
+                    if (_.includes(this.state.startedIntervals, 83)) {
+                        if (action == "start") {
+                            this.runPropertyChange(includesShift, "start", "more", "step", changeValues.step.standard, changeValues.step.extended)
+                        } else if (action == "stop") {
+                            this.runPropertyChange(false, "start", "more", "step", changeValues.step.standard, changeValues.step.extended)
+                        }
+                    }
+
+                    if (_.includes(this.state.startedIntervals, 65)) {
+                        if (action == "start") {
+                            this.runPropertyChange(includesShift, "start", "less", "step", changeValues.step.standard, changeValues.step.extended)
+                        } else if (action == "stop") {
+                            this.runPropertyChange(false, "start", "less", "step", changeValues.step.standard, changeValues.step.extended)
+                        }
+                    }
+
+                    // pointSize
+                    if (_.includes(this.state.startedIntervals, 80)) {
+                        if (action == "start") {
+                            this.runPropertyChange(includesShift, "start", "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                        } else if (action == "stop") {
+                            this.runPropertyChange(false, "start", "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                        }
+                    }
+
+                    if (_.includes(this.state.startedIntervals, 79)) {
+                        if (action == "start") {
+                            this.runPropertyChange(includesShift, "start", "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                        } else if (action == "stop") {
+                            this.runPropertyChange(false, "start", "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                        }
+                    }
+
+
+                }
+
+                if (key == 82) {
+                    this.runPropertyChange(includesShift, action, "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                }
+
+                if (key == 69) {
+                    this.runPropertyChange(includesShift, action, "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                }
+
+                if (key == 66) {
+                    this.runPropertyChange(includesShift, action, "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                }
+
+                if (key == 86) {
+                    this.runPropertyChange(includesShift, action, "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
+                }
+
+                if (key == 70) {
+                    this.runPropertyChange(includesShift, action, "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                }
+
+                if (key == 68) {
+                    this.runPropertyChange(includesShift, action, "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
+                }
+
+                if (key == 83) {
+                    this.runPropertyChange(includesShift, action, "more", "step", changeValues.step.standard, changeValues.step.extended)
+                }
+
+                if (key == 65) {
+                    this.runPropertyChange(includesShift, action, "less", "step", changeValues.step.standard, changeValues.step.extended)
+                }
+
+                if (key == 80) {
+                    this.runPropertyChange(includesShift, action, "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                }
+
+                if (key == 79) {
+                    this.runPropertyChange(includesShift, action, "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
+                }
+
+                if (key == 76) {
+                    this.runPropertyChange(includesShift, action, "more", "pointOpacity", changeValues.pointOpacity.standard, changeValues.pointOpacity.extended, "point", changeValues.pointOpacity.minValue, changeValues.pointOpacity.maxValue)
+                }
+
+                if (key == 75) {
+                    this.runPropertyChange(includesShift, action, "less", "pointOpacity", changeValues.pointOpacity.standard, changeValues.pointOpacity.extended, "point", changeValues.pointOpacity.minValue, changeValues.pointOpacity.maxValue)
+                }
+
+                if (key == 87) {
                     if (action == "start") {
-                        this.runPropertyChange(includesShift, "start", "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
-                    } else if (action == "stop") {
-                        this.runPropertyChange(false, "start", "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                        this.updateMath("next")
                     }
                 }
 
-                if (_.includes(this.state.startedIntervals, 69)) {
+                if (key == 81) {
                     if (action == "start") {
-                        this.runPropertyChange(includesShift, "start", "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
-                    } else if (action == "stop") {
-                        this.runPropertyChange(false, "start", "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
+                        this.updateMath("prev")
                     }
                 }
-
-                // bold rate
-                if (_.includes(this.state.startedIntervals, 66)) {
-                    if (action == "start") {
-                        this.runPropertyChange(includesShift, "start", "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
-                    } else if (action == "stop") {
-                        this.runPropertyChange(false, "start", "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
-                    }
-                }
-
-                if (_.includes(this.state.startedIntervals, 86)) {
-                    if (action == "start") {
-                        this.runPropertyChange(includesShift, "start", "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
-                    } else if (action == "stop") {
-                        this.runPropertyChange(false, "start", "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
-                    }
-                }
-
-                // frequency
-                if (_.includes(this.state.startedIntervals, 70)) {
-                    if (action == "start") {
-                        this.runPropertyChange(includesShift, "start", "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
-                    } else if (action == "stop") {
-                        this.runPropertyChange(false, "start", "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
-                    }
-                }
-
-                if (_.includes(this.state.startedIntervals, 86)) {
-                    if (action == "start") {
-                        this.runPropertyChange(includesShift, "start", "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
-                    } else if (action == "stop") {
-                        this.runPropertyChange(false, "start", "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
-                    }
-                }
-
-                // step
-                if (_.includes(this.state.startedIntervals, 83)) {
-                    if (action == "start") {
-                        this.runPropertyChange(includesShift, "start", "more", "step", changeValues.step.standard, changeValues.step.extended)
-                    } else if (action == "stop") {
-                        this.runPropertyChange(false, "start", "more", "step", changeValues.step.standard, changeValues.step.extended)
-                    }
-                }
-
-                if (_.includes(this.state.startedIntervals, 65)) {
-                    if (action == "start") {
-                        this.runPropertyChange(includesShift, "start", "less", "step", changeValues.step.standard, changeValues.step.extended)
-                    } else if (action == "stop") {
-                        this.runPropertyChange(false, "start", "less", "step", changeValues.step.standard, changeValues.step.extended)
-                    }
-                }
-
-                // pointSize
-                if (_.includes(this.state.startedIntervals, 80)) {
-                    if (action == "start") {
-                        this.runPropertyChange(includesShift, "start", "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
-                    } else if (action == "stop") {
-                        this.runPropertyChange(false, "start", "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
-                    }
-                }
-
-                if (_.includes(this.state.startedIntervals, 79)) {
-                    if (action == "start") {
-                        this.runPropertyChange(includesShift, "start", "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
-                    } else if (action == "stop") {
-                        this.runPropertyChange(false, "start", "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
-                    }
-                }
-
-
             }
 
-            if (key == 82) {
-                this.runPropertyChange(includesShift, action, "more", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
-            }
-
-            if (key == 69) {
-                this.runPropertyChange(includesShift, action, "less", "rotateSpeed", changeValues.rotateSpeed.standard, changeValues.rotateSpeed.extended)
-            }
-
-            if (key == 66) {
-                this.runPropertyChange(includesShift, action, "more", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
-            }
-
-            if (key == 86) {
-                this.runPropertyChange(includesShift, action, "less", "boldRate", changeValues.boldRate.standard, changeValues.boldRate.extended)
-            }
-
-            if (key == 70) {
-                this.runPropertyChange(includesShift, action, "more", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
-            }
-
-            if (key == 68) {
-                this.runPropertyChange(includesShift, action, "less", "frequency", changeValues.frequency.standard, changeValues.frequency.extended)
-            }
-
-            if (key == 83) {
-                this.runPropertyChange(includesShift, action, "more", "step", changeValues.step.standard, changeValues.step.extended)
-            }
-
-            if (key == 65) {
-                this.runPropertyChange(includesShift, action, "less", "step", changeValues.step.standard, changeValues.step.extended)
-            }
-
-            if (key == 80) {
-                this.runPropertyChange(includesShift, action, "more", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
-            }
-
-            if (key == 79) {
-                this.runPropertyChange(includesShift, action, "less", "pointSize", changeValues.pointSize.standard, changeValues.pointSize.extended, "point", changeValues.pointSize.minValue, changeValues.pointSize.maxValue)
-            }
-
-            if (key == 76) {
-                this.runPropertyChange(includesShift, action, "more", "pointOpacity", changeValues.pointOpacity.standard, changeValues.pointOpacity.extended, "point", changeValues.pointOpacity.minValue, changeValues.pointOpacity.maxValue)
-            }
-
-            if (key == 75) {
-                this.runPropertyChange(includesShift, action, "less", "pointOpacity", changeValues.pointOpacity.standard, changeValues.pointOpacity.extended, "point", changeValues.pointOpacity.minValue, changeValues.pointOpacity.maxValue)
-            }
-
-            if (key == 87) {
+            if (key == 67 && _.includes(this.state.startedIntervals, 17)) {
                 if (action == "start") {
-                    this.updateMath("next")
+                    this.captureImage()
                 }
             }
 
-            if (key == 81) {
+            if (key == 88 && _.includes(this.state.startedIntervals, 17)) {
                 if (action == "start") {
-                    this.updateMath("prev")
+                    this.clear()
                 }
             }
-        }
 
-        if (key == 67 && _.includes(this.state.startedIntervals, 17)) {
-            if (action == "start") {
-                this.captureImage()
-            }
-        }
-
-        if (key == 88 && _.includes(this.state.startedIntervals, 17)) {
-            if (action == "start") {
-                this.clear()
-            }
-        }
-
-        if (key == 83 && _.includes(this.state.startedIntervals, 17)) {
-            if (action == "start") {
-                this.save()
+            if (key == 83 && _.includes(this.state.startedIntervals, 17)) {
+                if (action == "start") {
+                    this.save()
+                }
             }
         }
 
@@ -838,15 +841,15 @@ class NFTPage extends Component {
 
 
                 <div className="media-controls">
-                    media controls
+                    {/* media controls */}
                 </div>
-
-                <div className="nft-player-container">
+                {this.props.nft && this.props.nft.metadata && this.props.nft.metadata.duration && <div className="nft-player-container">
                     <Timeline
                         duration={this.props.nft && this.props.nft.metadata ? this.props.nft.metadata.duration : 0}
                         nft={this.props.nft}
                     />
-                </div>
+                </div>}
+
             </div>
 
         );

@@ -831,7 +831,7 @@ class NFTPage extends Component {
 
 
                 <div className="media-controls">
-                    media controls
+                    {/* media controls */}
                 </div>
 
                 <div className="nft-player-container">

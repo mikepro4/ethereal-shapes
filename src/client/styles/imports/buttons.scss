@@ -6,60 +6,71 @@
     font-size: 14px;
     border-radius: 3px;
 
-    &:not([class*="bp3-intent-"]) {
-        border: none;
-        box-shadow: none;
-        padding:  0 25px;
-        border-radius: 50px;
-        height: 41px;
-        transition: all 0.2s ease;
+    &.main-button {
+        &:not([class*="bp3-intent-"]) {
+            border: none;
+            box-shadow: none;
+            padding:  0 25px;
+            border-radius: 50px;
+            height: 41px;
+            transition: all 0.2s ease;
+    
+    
+            @media only screen and (max-width: $mobile) {
+                padding: 7px 15px;
+                font-weight: 400;
+                font-size: 14px;
+               
+            }
 
-
-        @media only screen and (max-width: $mobile) {
-            padding: 7px 15px;
-            font-weight: 400;
-            font-size: 14px;
-           
+            .bp3-spinner-animation {
+                svg {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        
+    
+            .bp3-button-text {
+                position: relative;
+                top: -2px;
+                letter-spacing: 0.5px;
+            }
+    
+            &:not([class*="control"]) {
+                background: transparent;
+                border: 1px solid $white;
+                color: $white;
+    
+            }
+    
+            &:active,
+            &:hover {
+                background: $white;
+                color: $black;
+                border: 1px solid $white;
+            }
         }
     
-
-        .bp3-button-text {
-            position: relative;
-            top: -2px;
-            letter-spacing: 0.5px;
-        }
-
-        &:not([class*="control"]) {
-            background: transparent;
-            border: 1px solid $white;
-            color: $white;
-
-        }
-
         &:active,
         &:hover {
             background: $white;
             color: $black;
-            border: 1px solid $white;
+            &.control {
+                @media only screen and (max-width: $mobile) {
+                    background: none !important;
+                }
+            }
         }
-    }
-
-    &:active,
-    &:hover {
-        background: $white;
-        color: $black;
-        &.control {
+    
+        &:active {
             @media only screen and (max-width: $mobile) {
-                background: none !important;
+                // transform: scale(0.8);
             }
         }
     }
 
-    &:active {
-        @media only screen and (max-width: $mobile) {
-            // transform: scale(0.8);
-        }
-    }
+   
 }
 
 .bp3-button.bp3-minimal {

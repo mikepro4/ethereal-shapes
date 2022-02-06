@@ -127,7 +127,7 @@ export const updateNFTShape = (shapeId, nftId, success) => async (
 /////////////////////////////////////////////////
 
 
-export const buyNFT = (fileUrl, passedNft) => async (
+export const buyNFT = (fileUrl, passedNft, success) => async (
     dispatch,
 	getState,
 	api
@@ -169,6 +169,9 @@ export const buyNFT = (fileUrl, passedNft) => async (
         }
     }, () => {
         dispatch(updateCollectionItem(passedNft))
+        if (success) {
+            success();
+        }
     }));
 
     // dispatch(loadNFT(passedNft._id, (data) => {
