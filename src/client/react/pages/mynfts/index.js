@@ -37,9 +37,7 @@ class Home extends Component {
 		return (
      		<div className="nft-container">
                 {this.renderHead()}
-                <div className="mobile-tabs" style={{opacity: this.getOpacity() + "%"}}>
-                    {this.props.app.totalScrolledPixels < 222 && <NavLinks linksType="mobileTabs" hideMenu={() => {}}/> }
-                </div>
+                
                 
                 <div className="nft-grid">
                     <ListResults

@@ -310,7 +310,7 @@ class NFTSettingsForm extends Component {
                                 createdAt: new Date()
                             },
                             nft: {
-                                ...this.props.nft.newNFT.name,
+                                ...this.props.nft.newNFT.nft,
                                 name: this.props.nft.newNFT.nft.name + " copy"
                                 // createdAt: new Date()
                             }
