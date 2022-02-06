@@ -26,9 +26,9 @@ const Checkbox = ({
 			)}
 
 			<div className="input-group-right">
-				<label className="pt-checkbox pt-control">
+				<label className="bp3-checkbox bp3-control">
 					<input {...input} type="checkbox" />
-					<span className="pt-control-indicator" />
+					<span className="bp3-control-indicator" />
 					{inline && label ? <div className="input-label">{label}</div> : ""}
 				</label>
 

@@ -6,6 +6,7 @@ import Signup from "../react/pages/auth/signup"
 import Logout from "../react/pages/auth/logout"
 import Mint from "../react/pages/mint"
 import NFT from "../react/pages/nft"
+import All from "../react/pages/all"
 
 export default [
     {
@@ -25,6 +26,15 @@ export default [
                 exact: true,
                 params: {
                     name: "New NFT"
+                }
+            },
+            {
+
+                ...All,
+                path: "/all",
+                exact: true,
+                params: {
+                    name: "All NFTs"
                 }
             },
 			{

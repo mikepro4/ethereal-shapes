@@ -19,7 +19,7 @@ class Input extends Component {
     })
   }
 	render() {
-    let characterCount = this.props.input.value.length
+    let characterCount = this.props.input.value.toString().length
 
     let containerClassName = classnames({
       "input-text": true,

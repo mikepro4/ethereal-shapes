@@ -7,8 +7,6 @@ import moment from 'moment'
 import classNames from "classnames";
 import * as _ from "lodash"
 
-import Word from "./word"
-
 import { searchNFTs, loadNFTDetails} from "../../../redux/actions/nftActions"
 
 import ListResults  from "../../components/list"
@@ -45,7 +43,7 @@ class Home extends Component {
                 
                 <div className="nft-grid">
                     <ListResults
-                        type="featured_NFTs"
+                        type="recent_nfts"
                         resultType="nft"
                         searchCollection={this.props.searchNFTs}
                         updateTotal={(count) => {

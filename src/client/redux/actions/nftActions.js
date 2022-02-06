@@ -256,6 +256,8 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
 	api
 ) => {
     let criteria = {}
+    let sortProperty = "createdAt"
+    let sortDirection = "-1"
 
     if(type == "user") {
         criteria = {
@@ -265,17 +267,21 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
 
     if(type == "featured_NFTs") {
         criteria = {
-            createdBy: "613422fe0ee5bd00212cd0a4"
+            featured: true
         }
+
+        sortProperty = "featuredOrder"
+
+        sortDirection = "1"
     }
 
     await api
         .post("/NFTs/search", {
             criteria: criteria,
-            sortProperty: "createdAt",
+            sortProperty:sortProperty,
             offset: offset,
             limit: limit,
-            order: "-1"
+            order: sortDirection
         })
         .then(response => {
             if (success) {

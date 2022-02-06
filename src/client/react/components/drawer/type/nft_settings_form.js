@@ -269,6 +269,20 @@ class NFTSettingsForm extends Component {
                 />
                 {this.state.fileUrl && <img src={this.state.fileUrl}></img>}
 
+                <Field
+                    name="metadata.featured"
+                    type="checkbox"
+                    component={Checkbox}
+                    label="Featured"
+                    inline={true}
+                /> 
+
+                <Field
+                    name="metadata.featuredOrder"
+                    component={Input}
+                    title="Featured Order" placeholder="Featured Order"
+                />
+
 
                 {/* {this.renderButton()} */}
 
@@ -313,6 +327,8 @@ class NFTSettingsForm extends Component {
                         text="Duplicate"
                     large="true"
                 />
+
+                  
 
                 <Button
                     className={"submit-button theme-" + this.props.theme}
