@@ -6,6 +6,7 @@ import classNames from "classnames"
 import keydown from "react-keydown";
 import moment from "moment"
 import update from "immutability-helper";
+import axios from "axios";
 
 import qs from "qs";
 import * as _ from "lodash"
@@ -34,7 +35,8 @@ import {
     loadNFT,
     loadNewNFT,
     clearNFT,
-    clearNewNFT
+    clearNewNFT,
+    updateNFTImage
 } from "../../../redux/actions/nftActions"
 
 import ipfsHttpClient from "ipfs-http-client";
@@ -573,12 +575,47 @@ class NFTPage extends Component {
             .then((file) => {
                 console.log(file);
                 this.onChange(file)
+                this.handleDrop(file)
             })
     }
 
-    onChange = async(file) => {
+    handleDrop = file => {
+        // Progress
+        var config = {
+            onUploadProgress: function(progressEvent) {
+                let percentCompleted = Math.round(
+                    progressEvent.loaded * 100 / progressEvent.total
+                );
+                console.log(
+                    "onUploadProgress called with",
+                    arguments,
+                    "Percent Completed:" + percentCompleted
+                );
+            }
+        };
+        // Initial FormData
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("tags", `epic`);
+        formData.append("upload_preset", "ethereal"); // Replace the preset name with your own
+        formData.append("api_key", "DhgKXiXYQqQj0nEB74w_70HfPWI"); // Replace API key with your own Cloudinary key
+        formData.append("timestamp", (Date.now() / 1000) | 0);
 
-        // const file = {content: Buffer.from(data)}
+        return axios
+            .post(
+                "https://api.cloudinary.com/v1_1/dcdnt/image/upload",
+                formData,
+                config
+            )
+            .then(response => {
+                const data = response.data;
+                const fileURL = data.secure_url;
+                let palette = ""
+                console.log("cloudinary url: ", fileURL)
+            });
+	};
+
+    onChange = async(file) => {
 
         try {
             const added = await client.add(
@@ -613,10 +650,23 @@ class NFTPage extends Component {
             return(<div onClick={() => this.props.pauseAnimation(true)}>Pause</div>)
         }
     }
+
+    cancel = () => {
+        this.hideEditor()
+        this.props.pauseAnimation(false)
+    }
+
+    save = () => {
+        this.props.updateNFTImage(this.props.nft._id,this.state.fileUrl, () => {
+            this.hideEditor()
+        })
+        
+    }
     
 
     renderScreen = () => {
         if(this.getQueryParams().imageEditor == "true") {
+            // this.props.pauseAnimation(false)
 
             let vertical  =false
 
@@ -629,7 +679,7 @@ class NFTPage extends Component {
             if(vertical) {
                 height = this.props.app.clientWidth
             } else {
-                height = 1000
+                height = 800
             }
             return(<div>
                 <div 
@@ -638,8 +688,8 @@ class NFTPage extends Component {
             >
                 <div className="nft-generated">{this.state.fileUrl && <img src={this.state.fileUrl}></img>}</div>
                 {this.props.nft &&  this.props.nft.metadata && <Viz shapeId={this.props.nft.metadata.shapeId}pointCount={null} highDensity={true} /> }
-                <div className="cancel-editor" onClick={() => this.hideEditor()}>Cancel</div>
-                <div className="save-editor" onClick={() => this.hideEditor()}>Save</div>
+                <div className="cancel-editor" onClick={() => this.cancel()}>Cancel</div>
+                <div className="save-editor" onClick={() => this.save()}>Save</div>
                 <div className="capture-editor" onClick={() => this.captureImage()}>Capture image</div>
                 <div 
                     className={classNames({
@@ -760,6 +810,7 @@ export default {
         clearNFT,
         clearNewNFT,
         updateQueryString,
-        pauseAnimation
+        pauseAnimation,
+        updateNFTImage
 	})(NFTPage))
 }

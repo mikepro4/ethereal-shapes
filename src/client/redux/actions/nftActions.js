@@ -25,17 +25,46 @@ import {
 import { updateMarketTokens, updateCollectionItem } from "./appActions"
 
 
-export const updateNFTImage = (url) => async (
+// export const updateNFTImage = (url) => async (
+//     dispatch,
+// 	getState,
+// 	api
+// ) => {
+
+//     dispatch({
+//         type: UPDATE_NFT_IMAGE,
+//         payload: url
+//     });
+// }
+
+export const updateNFTImage = (nftId, fileUrl, success) => async (
     dispatch,
 	getState,
 	api
 ) => {
+        await api
+            .post("/NFT/updateImage", { 
+                nftId: nftId, 
+                fileUrl: fileUrl
+            })
+            .then(response => {
+                dispatch(loadNFT(nftId, (data) => {
+                    dispatch(loadNewNFT(data))
+                }));
+                if (success) {
+                    success(response.data);
+                }
+            })
+            .catch(() => {
+            });
 
-    dispatch({
-        type: UPDATE_NFT_IMAGE,
-        payload: url
-    });
+//     dispatch({
+//         type: UPDATE_NFT_SHAPE,
+//         payload: id
+//     });
+// }
 }
+
 
 export const updateNFTShape = (shapeId, nftId, success) => async (
     dispatch,

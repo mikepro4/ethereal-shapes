@@ -150,7 +150,7 @@ class NFTSettings extends Component {
             )
         } else {
             return(
-                <div className="nft-image-preview">No Image</div>
+                <div className="nft-image-preview" onClick={() => this.launchImageEditor()}>Create Image</div>
             )
         }
         
