@@ -21,6 +21,10 @@ import {
     hideDrawer,
 } from "../../../../redux/actions/appActions"
 
+import {
+    createShape,
+} from "../../../../redux/actions/shapeActions"
+
 import ipfsHttpClient from "ipfs-http-client";
 
 import { Buffer } from 'buffer';
@@ -299,33 +303,40 @@ class NFTSettingsForm extends Component {
                     loading={this.state.loading}
                     onClick={() => {
 
-                        let newNFT = {
-                            ...this.props.nft.newNFT,
-                            metadata: {
-                                ...this.props.nft.newNFT.metadata,
-                                owner: "",
-                                minted: false,
-                                featured: false,
-                                featuredOrder: 0,
-                                createdAt: new Date()
-                            },
-                            nft: {
-                                ...this.props.nft.newNFT.nft,
-                                name: this.props.nft.newNFT.nft.name + " copy"
-                                // createdAt: new Date()
+                        this.props.createShape(this.props.shape.currentShape, (data) => {
+                
+                           
+                            let newNFT = {
+                                ...this.props.nft.newNFT,
+                                metadata: {
+                                    ...this.props.nft.newNFT.metadata,
+                                    owner: "",
+                                    minted: false,
+                                    featured: false,
+                                    featuredOrder: 0,
+                                    createdAt: new Date(),
+                                    shapeId: data._id
+                                },
+                                nft: {
+                                    ...this.props.nft.newNFT.nft,
+                                    name: this.props.nft.newNFT.nft.name + " copy"
+                                    // createdAt: new Date()
+                                }
                             }
-                        }
-                        this.setState({
-                            loading: true
-                        })
-                            this.props.createNFT(newNFT, (nft) => {
-                            this.props.hideDrawer()
                             this.setState({
-                                loading: false
+                                loading: true
                             })
-
-                            this.props.history.push("/nft?id="+ nft._id);
+                                this.props.createNFT(newNFT, (nft) => {
+                                this.props.hideDrawer()
+                                this.setState({
+                                    loading: false
+                                })
+    
+                                this.props.history.push("/nft?id="+ nft._id);
+                            })
                         })
+
+                       
                     }}
                         text="Duplicate"
                     large="true"
@@ -393,6 +404,7 @@ NFTSettingsForm = reduxForm({
 const mapStateToProps = state => ({
     user: state.app.user,
     nft: state.activeNFT,
+    shape: state.shape
 });
 
 export default connect(mapStateToProps, {
@@ -400,7 +412,8 @@ export default connect(mapStateToProps, {
     hideDrawer,
     createNFT,
     updateNFTImage,
-    updateNFTShape
+    updateNFTShape,
+    createShape
 })(withRouter(NFTSettingsForm));
 
   
