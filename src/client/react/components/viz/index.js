@@ -404,13 +404,16 @@ class Viz extends Component {
     update = () => {
         let points = this.generatePoints()
         this.renderFrame(this.canvas.current.getContext('2d'), points)
-         const svgInterval = setInterval(() => {
-            this.setupSVGCanvas(points)
-
-             
-        }, 1000);
-
-        this.setState({ svgInterval });
+        if(this.props.fullScreen) {
+            const svgInterval = setInterval(() => {
+                this.setupSVGCanvas(points)
+    
+                 
+            }, 1000);
+    
+            this.setState({ svgInterval });
+        }
+        
     }
 
     renderOnce = (ctx) => {
