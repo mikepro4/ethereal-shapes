@@ -174,35 +174,42 @@ class NFTSettings extends Component {
         
     }
 
+    renderContent() {
+        if(!this.props.user) {
+            return(<div>Static</div>)
+        } else {
+            return( <div className={"details-container theme-" + this.props.theme}>
+            {/* <div className="drawer-header">
+                Title: {this.props.nft.metadata.title}
+            </div> */}
+
+            {this.renderImagePreview()}
+            {this.props.nft.newNFT && this.props.nft.newNFT.metadata && this.props.nft.newNFT.metadata.tokenId && <div className="short-url">
+                <a href={"https://www.etherealshapes.com/" + this.props.nft.newNFT.metadata.tokenId} target="_blank">https://www.etherealshapes.com/{this.props.nft.newNFT.metadata.tokenId}</a>
+            </div>}
+            
+            
+            <NFTSettingsForm 
+                enableReinitialize="true"
+                initialValues={
+                    this.props.drawerData
+                }
+                loading={this.state.loading}
+                onSubmit={this.handleFormSubmit.bind(this)}
+                theme={this.props.theme}
+                // onChange={this.debouncedOnChange.bind(this)}
+            />
+
+        </div>)
+        }
+    }
+
 
 	render() {
 
         return (
             <div className={"app-drawer-content-container standard-drawer nft-settings-drawer theme-" + this.props.theme}>
-                
-                <div className={"details-container theme-" + this.props.theme}>
-                    {/* <div className="drawer-header">
-                        Title: {this.props.nft.metadata.title}
-                    </div> */}
-
-                    {this.renderImagePreview()}
-                    {this.props.nft.newNFT && this.props.nft.newNFT.metadata && this.props.nft.newNFT.metadata.tokenId && <div className="short-url">
-                        <a href={"https://www.etherealshapes.com/" + this.props.nft.newNFT.metadata.tokenId} target="_blank">https://www.etherealshapes.com/{this.props.nft.newNFT.metadata.tokenId}</a>
-                    </div>}
-                    
-                    
-                    <NFTSettingsForm 
-                        enableReinitialize="true"
-                        initialValues={
-                            this.props.drawerData
-                        }
-                        loading={this.state.loading}
-                        onSubmit={this.handleFormSubmit.bind(this)}
-                        theme={this.props.theme}
-                        // onChange={this.debouncedOnChange.bind(this)}
-                    />
-
-                </div>
+                {this.renderContent()}
             </div>
 
         )

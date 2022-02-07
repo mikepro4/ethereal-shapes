@@ -321,13 +321,16 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
         }
     }
 
+    const token = localStorage.getItem('token');
+
     await api
         .post("/NFTs/search", {
             criteria: criteria,
             sortProperty:sortProperty,
             offset: offset,
             limit: limit,
-            order: sortDirection
+            order: sortDirection,
+            user: token
         })
         .then(response => {
             if (success) {

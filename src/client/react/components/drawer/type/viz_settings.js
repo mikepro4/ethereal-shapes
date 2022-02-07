@@ -97,10 +97,11 @@ class VizSettings extends Component {
 
                     </div>
 
-                    <Button 
-                            className={"control button-update theme-"+ this.props.theme}
+                    {this.props.user && <Button 
+                            className={"control button-update main-button theme-"+ this.props.theme}
                             loading={this.state.loading}
                             onClick={() =>  {
+                               
                                 this.setState({
                                     loading: true
                                 })
@@ -135,7 +136,7 @@ class VizSettings extends Component {
                                 })
                                 }
                             }
-                        >Save new shape</Button>
+                        >Save new shape</Button>}
                 </div>
             </div>
 

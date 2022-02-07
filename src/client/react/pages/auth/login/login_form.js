@@ -46,7 +46,7 @@ class LoginForm extends Component {
 
 		        <Button
 							disabled={this.props.pristine}
-							className={"submit-button transition-element theme-" + this.props.theme}
+							className={"submit-button transition-element main-button theme-" + this.props.theme}
 							loading={this.props.loading}
 							type="submit"
 							text="Login"

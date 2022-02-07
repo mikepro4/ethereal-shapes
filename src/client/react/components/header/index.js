@@ -21,6 +21,8 @@ import { showDrawer } from "../../../redux/actions/appActions"
 
 import AccountDisplay from "./account"
 
+import User from "./user"
+
 class Header extends Component {
 
     constructor(props) {
@@ -391,8 +393,16 @@ class Header extends Component {
                             })}
                         >
                             <NavLinks hideMenu={() => this.hideMenu()} linksType="mainLinks"  />
+                           
                             <div className="powered">
-                                <Powered />
+                                <User/>
+                                <Link to="/auth/login" onClick={() => {
+                                    if (this.state.menuOpen) {
+                                        this.hideMenu()
+                                    }
+                                }}>
+                                    <Powered />
+                                </Link>
                             </div>
                         </div>
 
