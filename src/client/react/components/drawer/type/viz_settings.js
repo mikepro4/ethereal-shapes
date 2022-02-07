@@ -55,6 +55,40 @@ class VizSettings extends Component {
 		return qs.parse(this.props.location.search.substring(1));
     };
 
+    saveAsPNG = () => {
+        var canvas = document.getElementById("viz");
+        var dataURL = canvas.toDataURL("image/png");
+        var newTab = window.open('about:blank','image from canvas');
+        newTab.document.write("<img src='" + dataURL + "' alt='from canvas'/>");
+
+    }
+
+    saveAsSVG = () => {
+		var svg = document.getElementById("svgcanvas");
+	
+		//get svg source.
+		var serializer = new XMLSerializer();
+		var source = serializer.serializeToString(svg);
+	
+		//add name spaces.
+		if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
+			source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+		}
+		if(!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)){
+			source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+		}
+	
+		//add xml declaration
+		source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+	
+		//convert svg source to URI data scheme.
+		var url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
+	
+		//set url value to a element's href attribute.
+        var newTab = window.open('about:blank','image from canvas');
+        newTab.document.write("<img src='" + url + "' alt='from canvas'/>");
+    }
+
 
 	render() {
         let shape = this.props.newShape && this.props.newShape.defaultViz ? this.props.newShape.defaultViz.shape : this.props.shape.defaultViz.shape
@@ -137,6 +171,19 @@ class VizSettings extends Component {
                                 }
                             }
                         >Save new shape</Button>}
+
+
+
+                    <Button 
+                        className={"control button-saveas main-button theme-"+ this.props.theme}
+                        onClick={() =>  this.saveAsPNG()}>Save as PNG</Button>
+
+                    <Button 
+                        className={"control button-saveas main-button theme-"+ this.props.theme}
+                        onClick={() =>  this.saveAsSVG()}>Save as SVG</Button>
+                    
+
+                        
                 </div>
             </div>
 

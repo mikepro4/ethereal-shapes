@@ -403,6 +403,10 @@ class Viz extends Component {
     update = () => {
         let points = this.generatePoints()
         this.renderFrame(this.canvas.current.getContext('2d'), points)
+
+        setInterval(() => {
+            this.setupSVGCanvas(points)
+        }, 1000)
     }
 
     renderOnce = (ctx) => {
@@ -416,8 +420,8 @@ class Viz extends Component {
             })
 
             // ctx.globalCompositeOperation = 'destination-over'
-            // ctx.fillStyle = "black";
-            // ctx.fillRect(0, 0, ctx.width, ctx.height)
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, ctx.width, ctx.height)
 
             let freqData = []
             let soundModifier = 1
@@ -713,6 +717,19 @@ class Viz extends Component {
         
 
     }
+
+    setupSVGCanvas = (points) => {
+        var container = document.querySelector("#centered");
+        var svgkitContext = new SVGCanvas(this.state.width,this.state.height);
+        let element = document.getElementById("svgcanvas");
+        if(element) {
+          element.parentNode.removeChild(element);
+        }
+        svgkitContext.svg.svgElement.setAttribute("class", "svg-canvas"); // just for styling
+        svgkitContext.svg.svgElement.setAttribute("id", "svgcanvas");
+        container.appendChild(svgkitContext.svg.svgElement);
+        this.renderOnce(svgkitContext, points)
+      }
 
 
     render() {
