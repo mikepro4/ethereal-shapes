@@ -18,6 +18,7 @@ import { ethers } from "ethers";
 import {
     LOAD_NFT,
     LOAD_NEW_NFT,
+    CLEAR_NFT,
     UPDATE_NFT_IMAGE,
     UPDATE_NFT_SHAPE,
     SALES_ACTIVE

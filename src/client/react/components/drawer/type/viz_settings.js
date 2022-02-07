@@ -65,6 +65,11 @@ class VizSettings extends Component {
 
     saveAsSVG = () => {
 		var svg = document.getElementById("svgcanvas");
+
+        var rectNodes = svg.querySelectorAll('rect');
+        [].slice.call( rectNodes ).forEach(function(rect){
+        rect.parentNode.removeChild( rect );
+        });
 	
 		//get svg source.
 		var serializer = new XMLSerializer();
@@ -77,6 +82,11 @@ class VizSettings extends Component {
 		if(!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)){
 			source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
 		}
+
+        source = source.replace(/(<rect.*?<\/rect>)/g, "");
+
+       
+        console.log(source)
 	
 		//add xml declaration
 		source = '<?xml version="1.0" standalone="no"?>\r\n' + source;

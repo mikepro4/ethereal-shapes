@@ -405,13 +405,14 @@ class Viz extends Component {
         let points = this.generatePoints()
         this.renderFrame(this.canvas.current.getContext('2d'), points)
         if(this.props.fullScreen) {
-            const svgInterval = setInterval(() => {
-                this.setupSVGCanvas(points)
+            // this.setupSVGCanvas(points)
+            // const svgInterval = setInterval(() => {
+            //     this.setupSVGCanvas(points)
     
                  
-            }, 1000);
+            // }, 1000);
     
-            this.setState({ svgInterval });
+            // this.setState({ svgInterval });
         }
         
     }
@@ -729,6 +730,7 @@ class Viz extends Component {
         var container = document.querySelector("#centered");
         var svgkitContext = new SVGCanvas(this.state.width,this.state.height);
         let element = document.getElementById("svgcanvas");
+
         if(element) {
           element.parentNode.removeChild(element);
         }
@@ -736,7 +738,7 @@ class Viz extends Component {
         svgkitContext.svg.svgElement.setAttribute("id", "svgcanvas");
         container.appendChild(svgkitContext.svg.svgElement);
         this.renderOnce(svgkitContext, points)
-      }
+    }
 
 
     render() {

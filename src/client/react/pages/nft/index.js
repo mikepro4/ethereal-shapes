@@ -56,16 +56,35 @@ var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': 
 
 class NFTPage extends Component {
 
-    state = {
-        description: "",
-        touched: false,
-        timeInterval: null,
-        time: 0,
-        originalBoldRate: null,
-        activeZone: null,
-        startedIntervals: [],
-        mathValues: ["sin", "cos", "tan", "atan", "log"]
+    constructor(props){
+		super(props)
+		this.state = {
+            description: "",
+            touched: false,
+            timeInterval: null,
+            time: 0,
+            originalBoldRate: null,
+            activeZone: null,
+            startedIntervals: [],
+            mathValues: ["sin", "cos", "tan", "atan", "log"]
+		}
     }
+    
+    static loadData(store, match, route, path, query) {
+        if(match.params.tokenId) {
+            return store.dispatch(loadNFTByTokenId(match.params.tokenId, (data) => {
+                store.dispatch(loadNewNFT(data))
+                store.dispatch(loadShape(data.metadata.shapeId))
+            }));
+        }  
+        
+        if(query.id) {
+            return store.dispatch(loadNFT(query.id, (data) => {
+                store.dispatch(loadNewNFT(data))
+                store.dispatch(loadShape(data.metadata.shapeId))
+            }));
+        }   
+	}
 
     componentDidMount() {
         if (this.props.match.params.tokenId) {
