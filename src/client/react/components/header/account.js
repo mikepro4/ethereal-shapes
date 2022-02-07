@@ -39,7 +39,7 @@ class AccountDisplay extends Component {
             </div>)
         } else {
             return(
-                <div className="header-account" onClick={() => this.props.showDrawer("word-settings")}>
+                <div className="header-account" onClick={() => this.props.showDrawer("connect-wallet")}>
                     <div className="header-account-icon"><Account /></div>
                     <div className="login-link">Login</div>
                 </div>
@@ -61,7 +61,7 @@ class AccountDisplay extends Component {
             </div>)
         } else {
             return(
-                <div className="header-account" onClick={() => this.props.showDrawer("word-settings")}>
+                <div className="header-account" onClick={() => this.props.showDrawer("connect-wallet")}>
                     <div className="header-account-icon"><Account /></div>
                     <div className="login-link">Login</div>
                 </div>

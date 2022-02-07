@@ -58,11 +58,17 @@ class NFTDetails extends Component {
     }
 
     buyNFT = () => {
-        this.props.updateStatusBuying(true)
-        this.props.buyNFT(this.props.item.nft.fileUrl, this.props.item, () => {
-            this.props.updateStatusBuying(false)
-            this.showToast("NFT succcesfully purchased ")
-        })
+
+        if(this.props.app.account.address) {
+            this.props.updateStatusBuying(true)
+            this.props.buyNFT(this.props.item.nft.fileUrl, this.props.item, () => {
+                this.props.updateStatusBuying(false)
+                this.showToast("NFT succcesfully purchased ")
+            })
+        } else {
+            this.props.showDrawer("connect-wallet-buy")
+        }
+        
     }
 
     createMarket = async () => {

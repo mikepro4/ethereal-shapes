@@ -34,7 +34,12 @@ import {
     loadNewShape
 } from "../../../../redux/actions/shapeActions"
 
+
+import Polygon from "../../icons/polygon"
+
 import qs from "qs";
+
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 class NFTSettings extends Component {
 
@@ -49,6 +54,7 @@ class NFTSettings extends Component {
         }
     
         this.debouncedOnChange = _.debounce(this.handleFormSubmit, 1000);
+        this.imagePreview = this.imagePreview = React.createRef()
     }
 
     getQueryParams = () => {
@@ -174,9 +180,113 @@ class NFTSettings extends Component {
         
     }
 
+    renderStatus() {
+        let nft = this.props.drawerData
+        if(nft.metadata.minted) {
+            if(nft.metadata.owner) {
+                let myNft
+                let filteredTokens = _.filter(this.props.app.marketTokens, {
+                    image: nft.nft.fileUrl
+                })
+                console.log(filteredTokens[0])
+    
+                if(filteredTokens[0]) {
+                    if(filteredTokens[0].owner.toLowerCase() == this.props.app.account.address.toLowerCase() && filteredTokens[0].owner !== "0x0000000000000000000000000000000000000000") {
+                        return(<div className="status owned">Owned by You</div>)
+                    } 
+                } else{
+                    if(nft.metadata.owner){
+                        return (<div className="status grey">Sold</div>)
+                    }
+                }
+            } else {
+                return(<div className="status green">On Sale</div>)
+            }
+        } else {
+            return(<div className="status draft">Draft</div>)
+        }
+        
+    }
+
+    renderImagePreview = () => {
+        let container
+        let nft = this.props.drawerData
+        let height
+
+        if(this.props.app.clientWidth < 1000) {
+           height = this.props.app.clientWidth - 40
+        } else {
+            height = 560
+        }
+
+        return(
+            <div className="nft-main-image" style={{height: height + "px"}}>
+                <img src={nft.nft.fileUrl}></img>
+            </div>
+        )
+    }
+
     renderContent() {
         if(!this.props.user) {
-            return(<div>Static</div>)
+
+            let url = "https://www.etherealshapes.com/" + this.props.drawerData.metadata.tokenId
+            return(
+                <div className="nft-info-container">
+
+                    <div className="nft-info-header">
+                        <div className="nft-info-header-left">
+                            <span className="nft-info-title">NFT</span>
+                            <span className="nft-info-tokenid">#{this.props.drawerData.metadata.tokenId}</span>
+                        </div>
+                        <div className="nft-info-header-right">
+                            <div className="nft-status">
+                                {this.renderStatus()}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="nft-info-image-preview" >
+                        {this.renderImagePreview()}
+                    </div>
+
+                    <div className="nft-info-details-container">
+
+                        <div className="nft-info-name">
+                            <div className="nft-info-label">Name</div>
+                            <div className="nft-info-value">{this.props.drawerData.nft.name}</div>
+                        </div>
+
+                        <div className="nft-info-price-container">
+                            <div className="nft-info-label">Price</div>
+                            <div className="nft-info-value">
+                                <span className="nft-info-polygon">
+                                    <Polygon/>
+                                </span>
+
+                                <span className="nft-info-price">
+                                    {this.props.drawerData.nft.price}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="nft-url-container">
+                        <div className="nft-info-label">NFT URL</div>
+                        <div className="nft-url">
+                            <a href={url} target="_blank">etherealshapes.com/{this.props.drawerData.metadata.tokenId}</a>
+                            <CopyToClipboard text={url} 
+                                onCopy={() => this.setState({copied: true})}>
+                                <div className="copy-url">
+                                    COPY
+                                </div>
+                            </CopyToClipboard>
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+            )
         } else {
             return( <div className={"details-container theme-" + this.props.theme}>
             {/* <div className="drawer-header">
@@ -206,9 +316,9 @@ class NFTSettings extends Component {
 
 
 	render() {
-
+       
         return (
-            <div className={"app-drawer-content-container standard-drawer nft-settings-drawer theme-" + this.props.theme}>
+            <div className={"app-drawer-content-container standard-drawer nft-settings-drawer theme-" + this.props.theme} ref={this.imagePreview}>
                 {this.renderContent()}
             </div>
 
@@ -224,7 +334,8 @@ function mapStateToProps(state) {
         user: state.app.user,
         authenticated: state.auth.authenticated,
         nft: state.activeNFT,
-        drawerData: state.app.drawerData
+        drawerData: state.app.drawerData,
+        app: state.app
 	};
 }
 

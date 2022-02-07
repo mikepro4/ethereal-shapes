@@ -13,6 +13,8 @@ import {
 import WordSettings from "./type/word_settings"
 import VizSettings from "./type/viz_settings"
 import NFTSettings from "./type/nft_settings"
+import ConnectWallet from "./type/connect_wallet"
+import ConnectWalletBuy from "./type/connect_wallet_buy"
 
 class Drawer extends Component {
 
@@ -37,6 +39,10 @@ class Drawer extends Component {
                 return (<VizSettings hideDrawer={() => this.hideDrawer()} enablePortal/>)
             case "nft-settings":
                 return (<NFTSettings hideDrawer={() => this.hideDrawer()} enablePortal/>)
+            case "connect-wallet":
+                return (<ConnectWallet hideDrawer={() => this.hideDrawer()} enablePortal/>)
+            case "connect-wallet-buy":
+                return (<ConnectWalletBuy hideDrawer={() => this.hideDrawer()} enablePortal/>)
             default:
                 return ;
         }

@@ -1,3 +1,9 @@
+a {
+	text-decoration: none !important;
+    font-weight: 400;
+    color: white;
+    transition: none;
+}
 // reset
 @import "./imports/reset";
 
@@ -31,6 +37,7 @@
 @import "../react/components/header/words_list.scss";
 @import "../react/components/drawer/index.scss";
 @import "../react/components/drawer/type/word_settings.scss";
+@import "../react/components/drawer/type/nft_settings.scss";
 @import "../react/components/block/index.scss";
 @import "../react/components/viz/index.scss";
 @import "../react/components/list/views/wordView.scss";
@@ -161,6 +168,7 @@ a {
 	text-decoration: none !important;
     font-weight: 400;
     color: $white;
+    transition: none;
 
     &:hover, &:active {
         color: $white

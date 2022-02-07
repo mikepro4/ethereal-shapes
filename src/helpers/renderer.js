@@ -66,6 +66,12 @@ export default (
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/site.webmanifest">
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <style>
+            a {
+                color: white;
+                transition: 0;
+            }
+        </style>
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#0000000">
         <meta property="og:url" content="https://www.mikhail.co />

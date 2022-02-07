@@ -42,8 +42,17 @@
         position: relative;    
         overflow-y: auto;
         background: rgba(15, 15, 15, 0.6);
-        -webkit-backdrop-filter: blur(30px);
-        backdrop-filter: blur(30px);
+       
+
+        @media only screen and (max-width: $mobile) {
+            -webkit-backdrop-filter: blur(30px);
+            backdrop-filter: blur(30px);
+        }
+
+        @media only screen and (min-width: $mobile) {
+            background: rgba(15, 15, 15, 0.95);
+        }
+
         color: $white;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
@@ -303,7 +312,7 @@
 }
 
 .nft-settings-drawer {
-    height: 80%;
+    height: 85%;
     @media only screen and (min-width: $mobile) {
         width: 600px;
     }
