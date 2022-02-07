@@ -150,7 +150,7 @@ class NFTSettings extends Component {
         // console.log(dataURL)
     }
 
-    renderImagePreview = () => {
+    renderImagePreviewAdmin = () => {
 
         let nft = this.props.drawerData
 
@@ -293,7 +293,7 @@ class NFTSettings extends Component {
                 Title: {this.props.nft.metadata.title}
             </div> */}
 
-            {this.renderImagePreview()}
+            {this.renderImagePreviewAdmin()}
             {this.props.nft.newNFT && this.props.nft.newNFT.metadata && this.props.nft.newNFT.metadata.tokenId && <div className="short-url">
                 <a href={"https://www.etherealshapes.com/" + this.props.nft.newNFT.metadata.tokenId} target="_blank">https://www.etherealshapes.com/{this.props.nft.newNFT.metadata.tokenId}</a>
             </div>}

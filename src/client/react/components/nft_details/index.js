@@ -42,6 +42,9 @@ import {
 import { createNFT, loadNFT, loadNewNFT, updateNFT, buyNFT } from "../../../redux/actions/nftActions"
 import { StaticJsonRpcProvider } from "@ethersproject/providers";
 
+
+import { createShape } from "../../../redux/actions/shapeActions"
+
 import Player from "../player"
 
 
@@ -226,12 +229,50 @@ class NFTDetails extends Component {
     }
 
     createNFT = () => {
-        this.props.createNFT(
-            this.props.nft
+        let shape = this.props.newShape && this.props.newShape.defaultViz ? this.props.newShape.defaultViz.shape : this.props.shape.defaultViz.shape
+        let point = this.props.newShape && this.props.newShape.defaultViz ? this.props.newShape.defaultViz.point : this.props.shape.defaultViz.point
+        let overlay = this.props.newShape && this.props.newShape.defaultViz ? this.props.newShape.defaultViz.overlay : this.props.shape.defaultViz.overlay
+        let colors = this.props.newShape && this.props.newShape.defaultViz ? this.props.newShape.defaultViz.colors : this.props.shape.defaultViz.colors
+
+        let user 
+
+        if(this.props.user && this.props.user._id ) {
+            user = this.props.user._id
+        } else {
+            user = "anon"
+        }
+
+        this.props.createShape({
+            metadata: {
+                title: this.props.shape.metadata.title,
+                createdBy: user
+            },
+            defaultViz: {
+                shape: shape,
+                point: point,
+                overlay: overlay,
+                colors: colors
+            }
+        }, (data) => {
+            console.log(data)
+
+            console.log(this.props.nft)
+
+            let newNft = {
+                ...this.props.nft,
+                metadata: {
+                    ...this.props.nft.metadata,
+                    shapeId: data._id
+                }
+            }
+            this.props.createNFT(
+                newNft
             , (data) => {
                 this.props.history.push("/nft?id=" + data._id);
                 this.props.hideDrawer()
             });
+        })
+       
     }
 
     getStatus = () => {
@@ -333,7 +374,10 @@ class NFTDetails extends Component {
 function mapStateToProps(state) {
     return {
         app: state.app,
-        nft: state.activeNFT.newNFT
+        nft: state.activeNFT.newNFT,
+        shape: state.shape.currentShape,
+        newShape: state.shape.newShape,
+        user: state.app.user
     };
 }
 
@@ -344,5 +388,6 @@ export default withRouter(connect(mapStateToProps, {
     buyNFT,
     updateCollectionItem,
     updateStatusBuying,
-    updateStatusMinting
+    updateStatusMinting,
+    createShape
 })(NFTDetails));
