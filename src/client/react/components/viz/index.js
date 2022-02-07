@@ -142,6 +142,7 @@ class Viz extends Component {
         window.removeEventListener("resize", this.handleResize);
         window.cancelAnimationFrame(this.state.requestAnimationFrame);
         clearInterval(this.state.timeInterval);
+        clearInterval(this.state.svgInterval);
 
         var id = window.requestAnimationFrame(function () { });
         while (id--) {
@@ -403,10 +404,13 @@ class Viz extends Component {
     update = () => {
         let points = this.generatePoints()
         this.renderFrame(this.canvas.current.getContext('2d'), points)
-
-        setInterval(() => {
+         const svgInterval = setInterval(() => {
             this.setupSVGCanvas(points)
-        }, 1000)
+
+             
+        }, 1000);
+
+        this.setState({ svgInterval });
     }
 
     renderOnce = (ctx) => {
