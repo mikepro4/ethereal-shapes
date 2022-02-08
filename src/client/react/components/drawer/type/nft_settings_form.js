@@ -359,9 +359,7 @@ class NFTSettingsForm extends Component {
 
                 
 
-                  
-
-                <Button
+                {this.props.nft.newNFT._id == this.props.app.drawerData._id && <Button
                     className={"submit-button main-button theme-" + this.props.theme}
                     loading={this.state.loading}
                     onClick={() => {
@@ -380,7 +378,7 @@ class NFTSettingsForm extends Component {
                     }}
                         text="Delete"
                     large="true"
-                />
+                />}
 
                 {/* <Button
                     className={"submit-button control theme-" + this.props.theme}
