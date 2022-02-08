@@ -135,8 +135,7 @@ class NFTSettingsForm extends Component {
                     text="Update"
                     large="true"
                 />
-
-                <Button
+                {this.props.location.pathname == "/nft" && <Button
                     className={"submit-button theme-" + this.props.theme}
                     loading={this.state.loading}
                     onClick={() => {
@@ -163,7 +162,8 @@ class NFTSettingsForm extends Component {
                     }}
                         text="Duplicate"
                     large="true"
-                />
+                />}
+                
 
 
                 <Button
@@ -313,7 +313,7 @@ class NFTSettingsForm extends Component {
                     large="true"
                 />
 
-                <Button
+                {this.props.nft.newNFT._id == this.props.app.drawerData._id && <Button
                     className={"submit-button main-button theme-" + this.props.theme}
                     loading={this.state.loading}
                     onClick={() => {
@@ -322,9 +322,9 @@ class NFTSettingsForm extends Component {
                 
                            
                             let newNFT = {
-                                ...this.props.nft.newNFT,
+                                ...this.props.app.drawerData,
                                 metadata: {
-                                    ...this.props.nft.newNFT.metadata,
+                                    ...this.props.app.drawerData.metadata,
                                     owner: "",
                                     minted: false,
                                     featured: false,
@@ -333,8 +333,8 @@ class NFTSettingsForm extends Component {
                                     shapeId: data._id
                                 },
                                 nft: {
-                                    ...this.props.nft.newNFT.nft,
-                                    name: this.props.nft.newNFT.nft.name + " copy"
+                                    ...this.props.app.drawerData.nft,
+                                    name: this.props.app.drawerData.nft.name + " copy"
                                     // createdAt: new Date()
                                 }
                             }
@@ -355,7 +355,9 @@ class NFTSettingsForm extends Component {
                     }}
                         text="Duplicate"
                     large="true"
-                />
+                />}
+
+                
 
                   
 
@@ -419,7 +421,8 @@ NFTSettingsForm = reduxForm({
 const mapStateToProps = state => ({
     user: state.app.user,
     nft: state.activeNFT,
-    shape: state.shape
+    shape: state.shape,
+    app: state.app
 });
 
 export default connect(mapStateToProps, {
