@@ -10,6 +10,7 @@ import All from "../react/pages/all"
 import Sale from "../react/pages/sale"
 import MyNFTs from "../react/pages/mynfts"
 import About from "../react/pages/about"
+import Admin from "../react/pages/admin"
 
 export default [
     {
@@ -95,6 +96,14 @@ export default [
 					name: "mint"
 				}
 			},
+            {
+                ...Admin,
+                path: "/admin",
+                exact: true,
+                params: {
+                    name: "admin"
+                }
+            },
             {
                 ...NFT,
                 path: "/:tokenId",

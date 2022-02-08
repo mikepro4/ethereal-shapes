@@ -39,6 +39,24 @@ import { updateMarketTokens, updateCollectionItem } from "./appActions"
 //     });
 // }
 
+export const resetNFTs = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/NFTs/reset", { })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+            // dispatch(authError('Account with this email already exists'));
+        });
+}
+
 export const updateNFTDuration = (nftId, duration, success) => async (
     dispatch,
 	getState,
@@ -317,9 +335,16 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
     }
 
     if(type == "my-nfts") {
-        criteria = {
-            owner: identifier
+        if(!identifier) {
+            criteria = {
+                owner: "no"
+            }
+        } else {
+            criteria = {
+                owner: identifier
+            }
         }
+       
     }
 
     const token = localStorage.getItem('token');
