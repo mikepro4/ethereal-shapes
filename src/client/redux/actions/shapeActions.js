@@ -149,7 +149,7 @@ export const searchShapes = (type, identifier, offset, limit, query, success) =>
             sortProperty: "createdAt",
             offset: offset,
             limit: limit,
-            order: "-1"
+            order: "1"
         })
         .then(response => {
             if (success) {
@@ -233,6 +233,26 @@ export const updateShape = (shape, data, success) => async (
         .catch(() => {
         });
 }
+
+export const updateShapeHidden = (id, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/shape/updateHidden", { 
+            shapeId: id, 
+        })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
 
 
 // ===========================================================================

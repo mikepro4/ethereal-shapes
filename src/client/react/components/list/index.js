@@ -15,6 +15,7 @@ import {
 import WordView from "./views/wordView"
 
 import NFTView from "./views/nftView"
+import ShapeView from "./views/shapeView"
 
 class ListResults extends Component {
 
@@ -196,6 +197,16 @@ class ListResults extends Component {
             case "nft":
                 if(!this.state.updateCollection) {
                     return (<NFTView
+                        item={item}
+                        key={item._id}
+                        handleClick={() => this.props.handleClick()}
+                    />)
+                } else {
+                    return(<div key={item._id}/>)
+                }
+            case "shape":
+                if(!this.state.updateCollection) {
+                    return (<ShapeView
                         item={item}
                         key={item._id}
                         handleClick={() => this.props.handleClick()}

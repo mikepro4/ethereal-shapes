@@ -11,6 +11,7 @@ import Sale from "../react/pages/sale"
 import MyNFTs from "../react/pages/mynfts"
 import About from "../react/pages/about"
 import Admin from "../react/pages/admin"
+import Shapes from "../react/pages/shapes"
 
 export default [
     {
@@ -99,6 +100,14 @@ export default [
             {
                 ...Admin,
                 path: "/admin",
+                exact: true,
+                params: {
+                    name: "admin"
+                }
+            },
+            {
+                ...Shapes,
+                path: "/shapes",
                 exact: true,
                 params: {
                     name: "admin"
