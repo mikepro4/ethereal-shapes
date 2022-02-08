@@ -41,6 +41,26 @@ import { ethers } from "ethers";
 
 /////////////////////////////////////////////////
 
+export const getMarketStats = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/market/stats", {})
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+            // dispatch(authError('Account with this email already exists'));
+        });
+}
+
+/////////////////////////////////////////////////
+
 export const setDraft = (value) => async (
     dispatch,
 	getState,

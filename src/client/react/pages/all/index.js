@@ -7,7 +7,12 @@ import moment from 'moment'
 import classNames from "classnames";
 import * as _ from "lodash"
 
-import { setDraft } from "../../../redux/actions/appActions"
+import { 
+    setDraft,
+    setApproved,
+    setRejected,
+    setSold
+} from "../../../redux/actions/appActions"
 import { searchNFTs, loadNFTDetails} from "../../../redux/actions/nftActions"
 
 import ListResults  from "../../components/list"
@@ -17,6 +22,31 @@ class Home extends Component {
 
     state = {
     }
+
+    // componentDidMount = () => {
+    //     if(this.getQueryParams().draft == "true") {
+    //         this.props.setDraft(true)
+    //     }
+
+    //     if(this.getQueryParams().approved == "true") {
+    //         this.props.setApproved(true)
+    //     }
+
+    //     if(this.getQueryParams().rejected == "true") {
+    //         this.props.setRejected(true)
+    //     }
+
+    //     if(this.getQueryParams().sold == "true") {
+    //         this.props.setSold(true)
+    //     }
+    // }
+
+    // componentWillUnmount() {
+    //     this.props.setSold(false)
+    //     this.props.setRejected(false)
+    //     this.props.setApproved(false)
+    //     this.props.setDraft(false)
+    // }
 
     renderHead = () => (
 		<Helmet>
@@ -88,6 +118,9 @@ export default {
 	component: withRouter(connect(mapStateToProps, {
         searchNFTs,
         loadNFTDetails,
-        setDraft
+        setDraft,
+        setApproved,
+        setRejected,
+        setSold
 	})(Home))
 }

@@ -7,6 +7,7 @@ import moment from 'moment'
 import classNames from "classnames";
 import * as _ from "lodash"
 
+import { getMarketStats } from "../../../redux/actions/appActions"
 import { searchNFTs, loadNFTDetails, resetNFTs } from "../../../redux/actions/nftActions"
 
 import ListResults from "../../components/list"
@@ -21,11 +22,19 @@ class Home extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {}
+        this.state = {
+            stats: {}
+        }
 
     }
 
     componentDidMount() {
+        this.props.getMarketStats((data) => {
+            console.log(data)
+            this.setState({
+                stats: data
+            })
+        })
     }
      
 
@@ -59,9 +68,47 @@ class Home extends Component {
         return (
             <div className="about-container">
                 <div className="admin">
-                    <button onClick={() => this.props.resetNFTs()}>
+                    {/* <button onClick={() => this.props.resetNFTs()}>
                         Reset
-                    </button>
+                    </button> */}
+                    {this.state.stats &&  <ul className="admin-stats">
+                        <li className="single-stat">
+                            <a href="/all?approved=true">
+                                {this.state.stats.approved} approved
+                            </a>
+                        </li>
+                        <li className="single-stat">
+                            <a href="/all?rejected=true">
+                                {this.state.stats.rejected} rejected
+                            </a>
+                        </li>
+                        <li className="single-stat">
+                            <a href="/all?draft=true">
+                                {this.state.stats.draft} draft
+                            </a>
+                        </li>
+                        <li className="single-stat">
+                            <a href="/">
+                                {this.state.stats.featured} featured
+                            </a>
+                        </li>
+                        <li className="single-stat">
+                            <a href="/all?sold=true">
+                                {this.state.stats.sold} sold
+                            </a>
+                        </li>
+                        <li className="single-stat">
+                            <a href="/sale">
+                                {this.state.stats.minted} minted
+                            </a>
+                        </li>
+                    </ul>}
+
+
+                    <a href="/review" className="review-nfts">Review NFT</a>
+                   
+
+
                 </div>
             </div>
 
@@ -80,6 +127,7 @@ export default {
     component: withRouter(connect(mapStateToProps, {
         searchNFTs,
         loadNFTDetails,
-        resetNFTs
+        resetNFTs,
+        getMarketStats
     })(Home))
 }

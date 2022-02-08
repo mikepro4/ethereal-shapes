@@ -396,7 +396,7 @@ class Header extends Component {
                            
                             <div className="powered">
                                 <User/>
-                                <Link to="/auth/login" onClick={() => {
+                                <Link to={this.props.user ? "/admin" : "/auth/login"} onClick={() => {
                                     if (this.state.menuOpen) {
                                         this.hideMenu()
                                     }
