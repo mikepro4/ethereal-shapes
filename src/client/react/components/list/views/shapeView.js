@@ -66,7 +66,7 @@ class nftView extends Component {
     }
 
     render() {
-        if(!this.props.item.metadata.hidden) {
+        // if(!this.props.item.metadata.hidden) {
             let height = 0
 
             if(this.nftView && this.nftView.current) {
@@ -121,9 +121,9 @@ class nftView extends Component {
                     
                 </div>
             )
-        } else {
-            return (<div></div>)
-        }
+        // } else {
+        //     return (<div></div>)
+        // }
         
 
         
