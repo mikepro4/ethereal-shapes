@@ -12,7 +12,8 @@ import {
 } from "../../../../redux/actions/appActions"
 
 import { 
-    buyNFT
+    buyNFT,
+    createNFT
 } from "../../../../redux/actions/nftActions"
 
 
@@ -45,6 +46,22 @@ class nftView extends Component {
     hideShape = () => {
         this.props.updateShapeHidden(this.props.item._id, () => {
             this.props.updateCollection(true)
+        })
+    }
+
+    createNFT = () => {
+        let newNFT = {
+            nft: {
+                name: "Ethereal",
+                price: "222",
+                description: "Ethereal"
+            },
+            metadata: {
+                shapeId: this.props.item._id
+            }
+        }
+        this.props.createNFT(newNFT, (nft) => {
+            this.props.history.push("/nft?id="+ nft._id);
         })
     }
 
@@ -95,6 +112,7 @@ class nftView extends Component {
                             <Button
                                 className={"create-button main-button"}
                                 text="Create"
+                                onClick={() => this.createNFT()}
                                 large="true"
                             />
                         </div>
@@ -129,4 +147,5 @@ export default withRouter(connect(mapStateToProps, {
     showDrawer,
     loadShape,
     updateShapeHidden,
+    createNFT
 })(nftView));
