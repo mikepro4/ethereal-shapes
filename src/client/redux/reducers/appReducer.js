@@ -26,7 +26,10 @@ import {
     SALES_ACTIVE,
     UPDATE_STATUS_BUYING,
     UPDATE_STATUS_MINTING,
-    SET_DRAFT
+    SET_DRAFT,
+    SET_APPROVED,
+    SET_REJECTED,
+    SET_SOLD
 } from "../actions/types";
 
 export const initialState = {
@@ -65,13 +68,33 @@ export const initialState = {
     nftTokens: [],
 
     salesActive: false,
+
     buying: false,
     minting: false,
-    draft: false
+
+    draft: false,
+    approved: false,
+    rejected: false,
+    sold: false
 };
 
 export const appReducer = (state = initialState, action) => {
 	switch (action.type) {
+        case SET_SOLD:
+            return {
+                ...state,
+                sold: action.payload
+            }
+        case SET_APPROVED:
+            return {
+                ...state,
+                approved: action.payload
+            }
+        case SET_REJECTED:
+            return {
+                ...state,
+                rejected: action.payload
+            }
         case SET_DRAFT:
             return {
                 ...state,

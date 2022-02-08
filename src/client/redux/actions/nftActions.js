@@ -349,9 +349,21 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
 
     if(type == "recent_nfts") {
         let draft = getState().app.draft
+        let approved = getState().app.approved
+        let rejected = getState().app.rejected
+        let sold = getState().app.sold
 
         criteria = {
-            notMinted: draft ? true : false
+            notMinted: draft ? true : false,
+            approved: approved ? true : false,
+            rejected: rejected ? true : false,
+            sold: sold ? true : false,
+        }
+    }
+
+    if(type == "nft-review") {
+        criteria = {
+            unreviewed: true
         }
     }
 
@@ -526,3 +538,44 @@ export const clearNFT = (success) => async (
 }
 
 // ===========================================================================
+
+export const updateNFTApproved = (id, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/NFT/updateApproved", { 
+            nftId: id, 
+        })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
+// ===========================================================================
+
+export const updateNFTRejected = (id, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/NFT/updateRejected", { 
+            nftId: id, 
+        })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+

@@ -19,7 +19,10 @@ import {
     SALES_ACTIVE,
     UPDATE_STATUS_BUYING,
     UPDATE_STATUS_MINTING,
-    SET_DRAFT
+    SET_DRAFT,
+    SET_APPROVED,
+    SET_REJECTED,
+    SET_SOLD
 } from "./types";
 
 import * as _ from "lodash";
@@ -45,6 +48,46 @@ export const setDraft = (value) => async (
 ) => {
     dispatch({
         type: SET_DRAFT,
+        payload: value
+    });
+};
+
+/////////////////////////////////////////////////
+
+export const setSold = (value) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: SET_SOLD,
+        payload: value
+    });
+};
+
+
+/////////////////////////////////////////////////
+
+export const setApproved = (value) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: SET_APPROVED,
+        payload: value
+    });
+};
+
+/////////////////////////////////////////////////
+
+export const setRejected = (value) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: SET_REJECTED,
         payload: value
     });
 };

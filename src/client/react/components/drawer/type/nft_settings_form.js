@@ -279,7 +279,7 @@ class NFTSettingsForm extends Component {
                     component={Checkbox}
                     label="Featured"
                     inline={true}
-                /> 
+                />
 
                 <Field
                     name="metadata.featuredOrder"
@@ -287,6 +287,21 @@ class NFTSettingsForm extends Component {
                     title="Featured Order" placeholder="Featured Order"
                 />
 
+                <Field
+                    name="metadata.approved"
+                    type="checkbox"
+                    component={Checkbox}
+                    label="Approved"
+                    inline={true}
+                /> 
+
+                <Field
+                    name="metadata.rejected"
+                    type="checkbox"
+                    component={Checkbox}
+                    label="Rejected"
+                    inline={true}
+                /> 
 
                 {/* {this.renderButton()} */}
 

@@ -35,7 +35,10 @@ import {
     deactivateKey,
     updateQueryString,
     pauseAnimation,
-    setDraft
+    setDraft,
+    setApproved,
+    setRejected,
+    setSold
 } from "../client/redux/actions/appActions"
 import { loadWord, updateBlocks } from "../client/redux/actions/wordsActions"
 import { loadShape } from "../client/redux/actions/shapeActions"
@@ -65,7 +68,16 @@ class App extends Component {
     static loadData(store, match, route, path, query) {
         if(query.draft) {
             return store.dispatch(setDraft(true));
+        } 
+        if(query.approved) {
+            return store.dispatch(setApproved(true));
+        }  
+        if(query.rejected) {
+            return store.dispatch(setRejected(true));
         }   
+        if(query.sold) {
+            return store.dispatch(setSold(true));
+        }       
 	}
 
     async componentDidMount() {
@@ -379,6 +391,9 @@ export default {
         deactivateKey,
         updateQueryString,
         pauseAnimation,
-        setDraft
+        setDraft,
+        setApproved,
+        setRejected,
+        setSold
     })(App))
 };

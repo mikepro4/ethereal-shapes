@@ -62,6 +62,9 @@ export const UPDATE_STATUS_BUYING = "app/UPDATE_STATUS_BUYING"
 export const UPDATE_STATUS_MINTING = "app/UPDATE_STATUS_MINTING"
 
 export const SET_DRAFT = "app/SET_DRAFT"
+export const SET_APPROVED = "app/SET_APPROVED"
+export const SET_REJECTED = "app/SET_REJECTED"
+export const SET_SOLD = "app/SET_SOLD"
 
 // =============================================================================
 

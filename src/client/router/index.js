@@ -12,6 +12,7 @@ import MyNFTs from "../react/pages/mynfts"
 import About from "../react/pages/about"
 import Admin from "../react/pages/admin"
 import Shapes from "../react/pages/shapes"
+import Review from "../react/pages/review"
 
 export default [
     {
@@ -111,6 +112,14 @@ export default [
                 exact: true,
                 params: {
                     name: "admin"
+                }
+            },
+            {
+                ...Review,
+                path: "/review",
+                exact: true,
+                params: {
+                    name: "review"
                 }
             },
             {

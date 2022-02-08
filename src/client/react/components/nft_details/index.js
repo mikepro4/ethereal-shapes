@@ -348,6 +348,8 @@ class NFTDetails extends Component {
                             {this.renderPrice()}
 
                             {this.props.user && this.props.item.metadata.featured && <span className="f">F</span>}
+                            {this.props.user && this.props.item.metadata.approved && <span className="f">A</span>}
+                            {this.props.user && this.props.item.metadata.rejected && <span className="f">R</span>}
                         </div>
                     </div>
 
