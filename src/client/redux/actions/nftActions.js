@@ -320,7 +320,7 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
 
     if(type == "featured_NFTs") {
         criteria = {
-            featured: true
+            featured: true,
         }
 
         sortProperty = "featuredOrder"
@@ -345,6 +345,14 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
             }
         }
        
+    }
+
+    if(type == "recent_nfts") {
+        let draft = getState().app.draft
+
+        criteria = {
+            notMinted: draft ? true : false
+        }
     }
 
     const token = localStorage.getItem('token');

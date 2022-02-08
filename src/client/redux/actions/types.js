@@ -61,6 +61,8 @@ export const SALES_ACTIVE = "app/SALES_ACTIVE"
 export const UPDATE_STATUS_BUYING = "app/UPDATE_STATUS_BUYING"
 export const UPDATE_STATUS_MINTING = "app/UPDATE_STATUS_MINTING"
 
+export const SET_DRAFT = "app/SET_DRAFT"
+
 // =============================================================================
 
 

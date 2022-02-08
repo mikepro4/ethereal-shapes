@@ -18,7 +18,8 @@ import {
     PAUSE_ANIMATION,
     SALES_ACTIVE,
     UPDATE_STATUS_BUYING,
-    UPDATE_STATUS_MINTING
+    UPDATE_STATUS_MINTING,
+    SET_DRAFT
 } from "./types";
 
 import * as _ from "lodash";
@@ -34,6 +35,19 @@ import {
 import NFT from "../../../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
+
+/////////////////////////////////////////////////
+
+export const setDraft = (value) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: SET_DRAFT,
+        payload: value
+    });
+};
 
 /////////////////////////////////////////////////
 

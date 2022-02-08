@@ -7,6 +7,7 @@ import moment from 'moment'
 import classNames from "classnames";
 import * as _ from "lodash"
 
+import { setDraft } from "../../../redux/actions/appActions"
 import { searchNFTs, loadNFTDetails} from "../../../redux/actions/nftActions"
 
 import ListResults  from "../../components/list"
@@ -31,6 +32,20 @@ class Home extends Component {
             return 0
         }
     }
+
+    componentWillMount()  {
+        if(this.getQueryParams().draft == "true") {
+            this.props.setDraft(true)
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.setDraft(false)
+    }
+
+    getQueryParams = () => {
+        return qs.parse(this.props.location.search.substring(1));
+    };
 
 	render() {
 
@@ -72,6 +87,7 @@ function mapStateToProps(state) {
 export default {
 	component: withRouter(connect(mapStateToProps, {
         searchNFTs,
-        loadNFTDetails
+        loadNFTDetails,
+        setDraft
 	})(Home))
 }

@@ -25,7 +25,8 @@ import {
     PAUSE_ANIMATION,
     SALES_ACTIVE,
     UPDATE_STATUS_BUYING,
-    UPDATE_STATUS_MINTING
+    UPDATE_STATUS_MINTING,
+    SET_DRAFT
 } from "../actions/types";
 
 export const initialState = {
@@ -65,11 +66,17 @@ export const initialState = {
 
     salesActive: false,
     buying: false,
-    minting: false
+    minting: false,
+    draft: false
 };
 
 export const appReducer = (state = initialState, action) => {
 	switch (action.type) {
+        case SET_DRAFT:
+            return {
+                ...state,
+                draft: action.payload
+            }
         case UPDATE_STATUS_BUYING:
             return {
                 ...state,
