@@ -97,6 +97,9 @@ export default (
 			
 				<script type="text/javascript" src="/SVGKit.js" ></script>
 				<script type="text/javascript" src="/SVGCanvas.js"></script>
+                <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/three.min.js"></script>
+                <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/OrbitControls.js"></script>
+                <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/MyShaderChunks.js"></script>
     </head>
 
     <body id="body">
