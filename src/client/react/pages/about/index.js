@@ -125,98 +125,101 @@ void main() {
 
  }
 `;
+        setTimeout(() => {
 
-        var startTime = Date.now();
-        var clock = new THREE.Clock();
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(
-            60,
-            window.innerWidth / window.innerHeight,
-            0.1,
-            1000
-        );
+            var startTime = Date.now();
+            var clock = new THREE.Clock();
 
-        const light = new THREE.DirectionalLight(0x54eeff, 0);
-        light.position.set(0, 0.5, 1.25);
-        scene.add(light);
-        scene.add(new THREE.AmbientLight(0xffffff));
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(
+                60,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                1000
+            );
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        this.mount.appendChild(renderer.domElement);
+            const light = new THREE.DirectionalLight(0x54eeff, 0);
+            light.position.set(0, 0.5, 1.25);
+            scene.add(light);
+            scene.add(new THREE.AmbientLight(0xffffff));
 
-        const envCube = new THREE.CubeTextureLoader()
-            .setPath("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/")
-            .load([
-                "skybox2_px.jpg",
-                "skybox2_nx.jpg",
-                "skybox2_py.jpg",
-                "skybox2_ny.jpg",
-                "skybox2_pz.jpg",
-                "skybox2_nz.jpg"
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            this.mount.appendChild(renderer.domElement);
+
+            const envCube = new THREE.CubeTextureLoader()
+                .setPath("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/")
+                .load([
+                    "skybox2_px.jpg",
+                    "skybox2_nx.jpg",
+                    "skybox2_py.jpg",
+                    "skybox2_ny.jpg",
+                    "skybox2_pz.jpg",
+                    "skybox2_nz.jpg"
+                ]);
+
+            const uniforms = THREE.UniformsUtils.merge([
+                THREE.UniformsLib["common"],
+                THREE.UniformsLib["lights"],
+                {
+                    lightIntensity: { type: "f", value: 1.0 },
+                    iGlobalTime: { type: "f", value: 0.0 },
+                    audio1: { type: "f", value: 0.0 },
+                    iResolution: { type: "v2", value: new THREE.Vector2() },
+                    side: THREE.DoubleSide,
+                    wrapping: THREE.ClampToEdgeWrapping,
+                    shading: THREE.SmoothShading,
+                    side: THREE.BackSide
+                }
             ]);
 
-        const uniforms = THREE.UniformsUtils.merge([
-            THREE.UniformsLib["common"],
-            THREE.UniformsLib["lights"],
-            {
-                lightIntensity: { type: "f", value: 1.0 },
-                iGlobalTime: { type: "f", value: 0.0 },
-                audio1: { type: "f", value: 0.0 },
-                iResolution: { type: "v2", value: new THREE.Vector2() },
-                side: THREE.DoubleSide,
-                wrapping: THREE.ClampToEdgeWrapping,
-                shading: THREE.SmoothShading,
-                side: THREE.BackSide
+            uniforms.u_color = { value: new THREE.Color(0xccffff) };
+            uniforms.u_light_position = { value: light.position.clone() };
+            uniforms.u_rim_color = { value: new THREE.Color(0xE2D7FF) };
+            uniforms.u_rim_strength = { value: 0 };
+            uniforms.u_rim_width = { value: 1 };
+            uniforms.u_envmap_cube = { value: envCube };
+            uniforms.u_envmap_strength = { value: 0 };
+
+            const geometry = new THREE.SphereGeometry(1, 128, 128);
+            const material = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: vshader,
+                fragmentShader: fshader,
+                wireframe: false,
+                lights: true
+            });
+
+            const knot = new THREE.Mesh(geometry, material);
+            scene.add(knot);
+
+            camera.position.z = 5;
+
+            var animate = function () {
+                requestAnimationFrame(animate);
+                uniforms.iGlobalTime.value += clock.getDelta() * 0.5;
+                uniforms.iResolution.value.x = window.devicePixelRatio ? window.innerWidth * window.devicePixelRatio : window.innerWidth;
+                uniforms.iResolution.value.y = window.devicePixelRatio ? window.innerHeight * window.devicePixelRatio : indow.innerHeight;
+                renderer.render(scene, camera);
+            };
+            animate();
+
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+            onWindowResize();
+            if (!("ontouchstart" in window))
+                window.addEventListener("resize", onWindowResize, false);
+
+            animate();
+
+            function onWindowResize(event) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
             }
-        ]);
-
-        uniforms.u_color = { value: new THREE.Color(0xccffff) };
-        uniforms.u_light_position = { value: light.position.clone() };
-        uniforms.u_rim_color = { value: new THREE.Color(0xE2D7FF) };
-        uniforms.u_rim_strength = { value: 0 };
-        uniforms.u_rim_width = { value: 1 };
-        uniforms.u_envmap_cube = { value: envCube };
-        uniforms.u_envmap_strength = { value: 0 };
-
-        const geometry = new THREE.SphereGeometry(1, 128, 128);
-        const material = new THREE.ShaderMaterial({
-            uniforms: uniforms,
-            vertexShader: vshader,
-            fragmentShader: fshader,
-            wireframe: false,
-            lights: true
-        });
-
-        const knot = new THREE.Mesh(geometry, material);
-        scene.add(knot);
-
-        camera.position.z = 5;
-
-        var animate = function () {
-            requestAnimationFrame(animate);
-            uniforms.iGlobalTime.value += clock.getDelta() * 0.5;
-            uniforms.iResolution.value.x = window.devicePixelRatio ? window.innerWidth * window.devicePixelRatio : window.innerWidth;
-            uniforms.iResolution.value.y = window.devicePixelRatio ? window.innerHeight * window.devicePixelRatio : indow.innerHeight;
-            renderer.render(scene, camera);
-        };
-        animate();
-
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-
-        onWindowResize();
-        if (!("ontouchstart" in window))
-        window.addEventListener("resize", onWindowResize, false);
-
-        animate();
-
-        function onWindowResize(event) {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        }
+        }, 100)
         // === THREE.JS EXAMPLE CODE END ===
     }
 
@@ -227,11 +230,11 @@ void main() {
     )
 
     // componentWillUnmount = () => {
-	// 	window.removeEventListener("resize", this.handleResize);
+    // 	window.removeEventListener("resize", this.handleResize);
     //     window.cancelAnimationFrame(this.state.requestAnimationFrame);
     //     clearInterval(this.state.timeInterval);
     // }
-    
+
     // handleResize = () => {
     //     this.updateDimensions()
     // }
