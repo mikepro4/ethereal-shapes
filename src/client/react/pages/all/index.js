@@ -33,15 +33,15 @@ class Home extends Component {
         }
     }
 
-    componentWillMount()  {
-        if(this.getQueryParams().draft == "true") {
-            this.props.setDraft(true)
-        }
-    }
+    // componentWillMount()  {
+        // if(this.getQueryParams().draft == "true") {
+        //     this.props.setDraft(true)
+        // }
+    // }
 
-    componentWillUnmount() {
-        this.props.setDraft(false)
-    }
+    // componentWillUnmount() {
+    //     this.props.setDraft(false)
+    // }
 
     getQueryParams = () => {
         return qs.parse(this.props.location.search.substring(1));

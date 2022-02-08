@@ -34,7 +34,8 @@ import {
     activateKey,
     deactivateKey,
     updateQueryString,
-    pauseAnimation
+    pauseAnimation,
+    setDraft
 } from "../client/redux/actions/appActions"
 import { loadWord, updateBlocks } from "../client/redux/actions/wordsActions"
 import { loadShape } from "../client/redux/actions/shapeActions"
@@ -51,11 +52,21 @@ import detectEthereumProvider from '@metamask/detect-provider'
 //             this.props.initSave()
 
 class App extends Component {
-    state = {
-        appVisible: false,
-        savingBlocks: false,
-        balance: null
+
+    constructor(props){
+		super(props)
+		this.state = {
+            appVisible: false,
+            savingBlocks: false,
+            balance: null
+        }
     }
+    
+    static loadData(store, match, route, path, query) {
+        if(query.draft) {
+            return store.dispatch(setDraft(true));
+        }   
+	}
 
     async componentDidMount() {
         this.auth()
@@ -73,6 +84,10 @@ class App extends Component {
         document.addEventListener("keydown", this.onKeyDownPressed.bind(this))
         document.addEventListener("keyup", this.onKeyUpPressed.bind(this))
 
+        if(this.getQueryParams().draft == "true") {
+            this.props.setDraft(true)
+        }
+
         // setInterval(() => {
         //     if(!this.props.account.address) {
         //         this.loadWeb3()
@@ -82,6 +97,7 @@ class App extends Component {
     }
 
     componentWillUnmount() {
+        this.props.setDraft(false)
         document.removeEventListener("keydown", this.onKeyDownPressed.bind(this));
         document.removeEventListener("keyup", this.onKeyUpPressed.bind(this));
     }     
@@ -362,6 +378,7 @@ export default {
         activateKey,
         deactivateKey,
         updateQueryString,
-        pauseAnimation
+        pauseAnimation,
+        setDraft
     })(App))
 };
