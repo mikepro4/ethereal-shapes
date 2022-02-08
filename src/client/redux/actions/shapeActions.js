@@ -143,6 +143,10 @@ export const searchShapes = (type, identifier, offset, limit, query, success) =>
         }
     }
 
+    criteria = {
+        notHidden: true
+    }
+
     await api
         .post("/shapes/search", {
             criteria: criteria,
