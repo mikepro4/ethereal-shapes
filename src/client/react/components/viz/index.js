@@ -141,8 +141,8 @@ class Viz extends Component {
     componentWillUnmount = () => {
         window.removeEventListener("resize", this.handleResize);
         window.cancelAnimationFrame(this.state.requestAnimationFrame);
-        clearInterval(this.state.timeInterval);
-        clearInterval(this.state.svgInterval);
+        // clearInterval(this.state.timeInterval);
+        // clearInterval(this.state.svgInterval);
 
         var id = window.requestAnimationFrame(function () { });
         while (id--) {
