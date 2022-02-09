@@ -1,7 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 const projectId = "0095c162fff84a3eb7540a929ed0dfa1";
 const fs = require("fs")
-const keyData = fs.readFileSync("./p-key.text", {
+const keyData = fs.readFileSync("./mykey.text", {
     encoding: "utf8", flag: "r"
 })
 

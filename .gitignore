@@ -4,3 +4,4 @@ build/
 public/
 !src/three/build/ 
 webpack-assets.json
+mykey.text

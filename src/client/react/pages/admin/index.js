@@ -68,9 +68,9 @@ class Home extends Component {
         return (
             <div className="about-container">
                 <div className="admin">
-                    {/* <button onClick={() => this.props.resetNFTs()}>
+                    <button onClick={() => this.props.resetNFTs()}>
                         Reset
-                    </button> */}
+                    </button>
                     {this.state.stats &&  <ul className="admin-stats">
                         <li className="single-stat">
                             <a href="/all?approved=true">

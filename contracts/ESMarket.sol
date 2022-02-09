@@ -13,7 +13,7 @@ contract ESMarket is ReentrancyGuard {
 
     address payable owner;
 
-    uint256 listingPrice = 0.045 ether;
+    uint256 listingPrice = 0.0001 ether;
 
     constructor() {
         owner = payable(msg.sender);
