@@ -187,9 +187,9 @@ class App extends Component {
     }
 
     componentDidUpdate(prevprops) {
-        // if(!_.isEqual(prevprops.location.search, this.props.location.search)) {
-        //     this.loadWeb3()
-        // }
+        if(!_.isEqual(prevprops.location.search, this.props.location.search)) {
+            this.loadWeb3()
+        }
 
         if(this.props.word && this.props.word.metadata) {
             if(!_.isEqual(prevprops.word, this.props.word)) {
