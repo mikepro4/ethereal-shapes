@@ -166,7 +166,7 @@ class App extends Component {
         // let ether = ethers.utils.formatUnits(ethbalance.toString(), "ether")
         let res = ethers.utils.formatEther(ethbalance);
         res = Math.round(res * 1e4) / 1e4;
-        // console.log("balance: ", res)
+        console.log("balance: ", res)
 
         this.props.updateAccount({
             balance: res,
@@ -292,13 +292,13 @@ class App extends Component {
     
         })
 
-        provider.on('networkChanged', async(networkId) => {
-            this.getBalance()
-            this.setState({
-                networkId: networkId
-            })
-            // alert("network chainged")
-        });
+        // provider.on('networkChanged', async(networkId) => {
+        //     this.getBalance()
+        //     this.setState({
+        //         networkId: networkId
+        //     })
+        //     // alert("network chainged")
+        // });
 
         provider.on('connect', async(networkId) => {
             console.log("CONNECT")
