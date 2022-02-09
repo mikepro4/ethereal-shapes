@@ -100,11 +100,11 @@ class App extends Component {
             this.props.setDraft(true)
         }
 
-        // setInterval(() => {
-        //     if(!this.props.account.address) {
-        //         this.loadWeb3()
-        //     }
-        // }, 2222)
+        setInterval(() => {
+            if(!this.props.account.address) {
+                this.loadWeb3()
+            }
+        }, 2222)
         
     }
 
