@@ -89,9 +89,9 @@ class App extends Component {
             this.getBalance()
         }, 100)
 
-        // setInterval(() => {
-        //     this.getBalance()
-        // }, 2222)
+        setInterval(() => {
+            this.getBalance()
+        }, 2222)
 
         document.addEventListener("keydown", this.onKeyDownPressed.bind(this))
         document.addEventListener("keyup", this.onKeyUpPressed.bind(this))
