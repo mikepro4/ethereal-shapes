@@ -90,7 +90,13 @@ app.get("*", (request, response) => {
         response.send(html);
     });
 });
+if(process.env.BASE_API_URL) {
+    app.listen(PORT, () => {
+        console.log("Server listening at port: ", PORT);
+    });
+} else {
+    https.createServer(options, app).listen(PORT, () => {
+        console.log("Server listening at port: ", PORT);
+    });
+}
 
-https.createServer(options, app).listen(PORT, () => {
-    console.log("Server listening at port: ", PORT);
-});
