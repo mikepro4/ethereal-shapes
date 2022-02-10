@@ -1,11 +1,11 @@
 import {
     DEMO_ON,
     DEMO_OFF,
-	SHOW_APP_MENU,
-	HIDE_APP_MENU,
+    SHOW_APP_MENU,
+    HIDE_APP_MENU,
     UPDATE_TOTAL_PIXELS,
-	UPDATE_TOTAL_SCROLLED_PIXELS,
-	SCROLL_TO,
+    UPDATE_TOTAL_SCROLLED_PIXELS,
+    SCROLL_TO,
     SCROLL_TO_RESET,
     UPDATE_COLLECTION,
     UPDATE_COLLECTION_ITEM,
@@ -44,8 +44,8 @@ import { ethers } from "ethers";
 
 export const setMicAudio = (value) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: SET_MIC_AUDIO,
@@ -58,8 +58,8 @@ export const setMicAudio = (value) => async (
 
 export const setMic = (value) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: SET_MIC,
@@ -72,8 +72,8 @@ export const setMic = (value) => async (
 
 export const getMarketStats = (success) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
 
     await api
@@ -92,8 +92,8 @@ export const getMarketStats = (success) => async (
 
 export const setDraft = (value) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: SET_DRAFT,
@@ -105,8 +105,8 @@ export const setDraft = (value) => async (
 
 export const setSold = (value) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: SET_SOLD,
@@ -119,8 +119,8 @@ export const setSold = (value) => async (
 
 export const setApproved = (value) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: SET_APPROVED,
@@ -132,8 +132,8 @@ export const setApproved = (value) => async (
 
 export const setRejected = (value) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: SET_REJECTED,
@@ -145,8 +145,8 @@ export const setRejected = (value) => async (
 
 export const updateStatusBuying = (value) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: UPDATE_STATUS_BUYING,
@@ -158,8 +158,8 @@ export const updateStatusBuying = (value) => async (
 
 export const updateStatusMinting = (value) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: UPDATE_STATUS_MINTING,
@@ -171,8 +171,8 @@ export const updateStatusMinting = (value) => async (
 
 export const pauseAnimation = (value) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: PAUSE_ANIMATION,
@@ -184,8 +184,8 @@ export const pauseAnimation = (value) => async (
 
 export const updateMarketTokens = (success) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
 
     // const provider = new ethers.providers.JsonRpcProvider("");
@@ -194,7 +194,7 @@ export const updateMarketTokens = (success) => async (
     const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
     const marketContract = new ethers.Contract(nftMarketAddress, ESMarket.abi, provider);
     const data = await marketContract.fetchAllTokens();
-    
+
 
     const items = await Promise.all(data.map(async i => {
         const tokenURI = await tokenContract.tokenURI(i.tokenId);
@@ -214,10 +214,33 @@ export const updateMarketTokens = (success) => async (
     }))
 
     console.log(items)
+    let activeNFT = getState().activeNFT.currentNFT
+    if(activeNFT && activeNFT.nft) {
+        let activeFileUrl = getState().activeNFT.currentNFT.nft.fileUrl
+        let activeId = getState().activeNFT.currentNFT._id
+    
+        let filteredNfts = _.filter(items, { image: activeFileUrl })
+    
+        let activeFileOwner = filteredNfts[0].owner
+    
+        await api
+            .post("/NFT/updateOwner", {
+                nftId: activeId,
+                owner: activeFileOwner
+            })
+            .then(response => {
+                if (success) {
+                    success(response.data);
+                }
+            })
+            .catch(() => {
+                // dispatch(authError('Account with this email already exists'));
+            });
+    }
 
-    if(items.length > 0 && success) {
-		success();
-	}
+    if (items.length > 0 && success) {
+        success();
+    }
     dispatch({
         type: UPDATE_MARKET_TOKENS,
         payload: items
@@ -228,8 +251,8 @@ export const updateMarketTokens = (success) => async (
 
 export const updateAccount = (account) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: UPDATE_ACCOUNT,
@@ -242,18 +265,18 @@ export const updateAccount = (account) => async (
 
 export const demoOn = (key, success) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: DEMO_ON,
     });
 };
 
-export const demoOff= (key, success) => async (
+export const demoOff = (key, success) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: DEMO_OFF,
@@ -265,8 +288,8 @@ export const demoOff= (key, success) => async (
 
 export const activateKey = (key, success) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: ACTIVATE_KEY,
@@ -276,8 +299,8 @@ export const activateKey = (key, success) => async (
 
 export const deactivateKey = (key, success) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: DEACTIVATE_KEY,
@@ -289,8 +312,8 @@ export const deactivateKey = (key, success) => async (
 
 export const updateCollection = (update, success) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: UPDATE_COLLECTION,
@@ -302,8 +325,8 @@ export const updateCollection = (update, success) => async (
 
 export const updateCollectionItem = (item, success) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: UPDATE_COLLECTION_ITEM,
@@ -315,81 +338,81 @@ export const updateCollectionItem = (item, success) => async (
 ///////////////////////////////////////////////////
 
 export const updateQueryString = (
-	updatedState,
-	location,
-	history
+    updatedState,
+    location,
+    history
 ) => dispatch => {
-	let queryParams = qs.parse(location.search.substring(1));
-	const updatedQuery = _.assign({}, queryParams, updatedState);
-	const str = qs.stringify(updatedQuery);
-	history.push({
-		search: "?" + str
-	});
+    let queryParams = qs.parse(location.search.substring(1));
+    const updatedQuery = _.assign({}, queryParams, updatedState);
+    const str = qs.stringify(updatedQuery);
+    history.push({
+        search: "?" + str
+    });
 };
 
 /////////////////////////////////////////////////
 
 export const showMenu = (success) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: SHOW_APP_MENU,
     });
 
-	if (success) {
-		success();
-	}
-	document.body.classList.add("no-scroll");
+    if (success) {
+        success();
+    }
+    document.body.classList.add("no-scroll");
 };
 
 export const hideMenu = (success) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: HIDE_APP_MENU,
     });
 
-	if (success) {
-		success();
-	}
-	document.body.classList.remove("no-scroll");
+    if (success) {
+        success();
+    }
+    document.body.classList.remove("no-scroll");
 };
 
 /////////////////////////////////////////////////
 
 export const updateTotalPixels = (total, clientWidth, clientHeight) => async (dispatch, getState) => {
-	dispatch({
-		type: UPDATE_TOTAL_PIXELS,
-		total: total,
-		clientWidth: clientWidth,
-		clientHeight: clientHeight,
-	});
+    dispatch({
+        type: UPDATE_TOTAL_PIXELS,
+        total: total,
+        clientWidth: clientWidth,
+        clientHeight: clientHeight,
+    });
 }
 
 export const updateTotalScrolledPixels = (px) => async (dispatch, getState) => {
-	dispatch({
-		type: UPDATE_TOTAL_SCROLLED_PIXELS,
-		pixels: px
-	});
+    dispatch({
+        type: UPDATE_TOTAL_SCROLLED_PIXELS,
+        pixels: px
+    });
 }
 
 /////////////////////////////////////////////////
 
 export const setScrollTo = (px) => async (dispatch) => {
-	dispatch({
-		type: SCROLL_TO,
-		payload: px
-	});
+    dispatch({
+        type: SCROLL_TO,
+        payload: px
+    });
 }
 
 export const resetScrollTo = (px) => async (dispatch) => {
-	dispatch({
-		type: SCROLL_TO_RESET
-	});
+    dispatch({
+        type: SCROLL_TO_RESET
+    });
 }
 
 
@@ -397,10 +420,10 @@ export const resetScrollTo = (px) => async (dispatch) => {
 
 export const showDrawer = (type, drawerData, element, drawerLocation) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
-    if(drawerData) {
+    if (drawerData) {
         dispatch({
             type: SHOW_DRAWER,
             payload: type,
@@ -416,22 +439,22 @@ export const showDrawer = (type, drawerData, element, drawerLocation) => async (
             drawerLocation: drawerLocation
         });
     }
-    
-	document.body.classList.add("no-scroll");
+
+    document.body.classList.add("no-scroll");
 };
 
 export const hideDrawer = (success) => async (
     dispatch,
-	getState,
-	api
+    getState,
+    api
 ) => {
     dispatch({
         type: HIDE_DRAWER
     });
 
-	if (success) {
-		success();
-	}
-	document.body.classList.remove("no-scroll");
+    if (success) {
+        success();
+    }
+    document.body.classList.remove("no-scroll");
 };
 

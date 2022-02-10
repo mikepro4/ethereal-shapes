@@ -37,7 +37,8 @@ import {
     clearNFT,
     clearNewNFT,
     updateNFTImage,
-    loadNFTByTokenId
+    loadNFTByTokenId,
+    checkOwner
 } from "../../../redux/actions/nftActions"
 
 import ipfsHttpClient from "ipfs-http-client";
@@ -87,6 +88,7 @@ class NFTPage extends Component {
 	}
 
     componentDidMount() {
+
         if (this.props.match.params.tokenId) {
             this.setState({
                 tokenId: this.props.match.params.tokenId
@@ -800,8 +802,8 @@ class NFTPage extends Component {
     renderButtonStatus() {
         if (this.getQueryParams().id || this.props.match.params.tokenId) {
             if (this.props.nft.metadata.minted) {
-                if (this.props.nft.metadata.owner) {
-                    if (this.props.nft.metadata.owner == this.props.app.account.address) {
+                if (this.props.nft.metadata.owner && this.props.app.account.address && this.props.nft.metadata.owner !== "0x0000000000000000000000000000000000000000") {
+                    if (this.props.nft.metadata.owner.toLowerCase() == this.props.app.account.address.toLowerCase()) {
                         return ("own")
                     } else {
                         return ("sold")
@@ -897,6 +899,7 @@ export default {
         pauseAnimation,
         updateNFTImage,
         trackStop,
-        loadNFTByTokenId
+        loadNFTByTokenId,
+        checkOwner
     })(NFTPage))
 }

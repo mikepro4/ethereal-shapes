@@ -300,7 +300,7 @@ class NFTDetails extends Component {
         if (this.props.item && this.props.item.metadata) {
             if (this.props.item.metadata.minted) {
 
-                if (this.props.item.metadata.owner) {
+                if (this.props.item.metadata.owner && this.props.item.metadata.owner !== "0x0000000000000000000000000000000000000000") {
                     if (this.props.type == "own") {
                         status = "Owned by you"
                         color = "owned"

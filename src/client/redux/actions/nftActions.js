@@ -142,6 +142,30 @@ export const updateNFTShape = (shapeId, nftId, success) => async (
 // }
 }
 
+export const checkOwner = (fileUrl, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    let marketTokens = getState().app.marketTokens;
+    let filteredNfts = _.filter(marketTokens, { image: fileUrl})
+
+    let nft = filteredNfts[0]
+    console.log(nft)
+
+    // await api
+    //     .post("/NFTs/reset", { })
+    //     .then(response => {
+    //         if (success) {
+    //             success(response.data);
+    //         }
+    //     })
+    //     .catch(() => {
+    //         // dispatch(authError('Account with this email already exists'));
+    //     });
+}
+
 
 /////////////////////////////////////////////////
 
