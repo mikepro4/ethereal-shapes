@@ -23,7 +23,8 @@ import {
     SET_APPROVED,
     SET_REJECTED,
     SET_SOLD,
-    SET_MIC
+    SET_MIC,
+    SET_MIC_AUDIO
 } from "./types";
 
 import * as _ from "lodash";
@@ -40,6 +41,20 @@ import NFT from "../../../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
 
+
+export const setMicAudio = (value) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: SET_MIC_AUDIO,
+        payload: value
+    });
+};
+
+
+/////////////////////////////////////////////////
 
 export const setMic = (value) => async (
     dispatch,

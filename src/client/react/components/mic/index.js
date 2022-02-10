@@ -6,7 +6,8 @@ import classNames from "classnames"
 import Mic from "../icons/mic"
 
 import {
-    setMic
+    setMic,
+    setMicAudio
 } from '../../../redux/actions/appActions'
 
 
@@ -48,12 +49,13 @@ class MicAudio extends Component {
                 audio: audio
             }, () => {
                 this.props.setMic(true)
-                // this.audioContext = new (window.AudioContext ||
-                //     window.webkitAudioContext)();
-                // this.analyser = this.audioContext.createAnalyser();
-                // this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
-                // this.source = this.audioContext.createMediaStreamSource(this.props.audio);
-                // this.source.connect(this.analyser);
+                this.props.setMicAudio(audio)
+                let audioContext = new (window.AudioContext ||
+                    window.webkitAudioContext)();
+                let analyser = audioContext.createAnalyser();
+                let dataArray = new Uint8Array(analyser.frequencyBinCount);
+                let source = audioContext.createMediaStreamSource(audio);
+                source.connect(analyser);
                 // this.refs.audio.currentTime = 0
                 // var AudioContext = window.AudioContext
                 //     || window.webkitAudioContext
@@ -64,7 +66,15 @@ class MicAudio extends Component {
                 // let audioSrc = context.createMediaElementSource(audio);
                 // audioSrc.connect(analyser);
                 // audioSrc.connect(context.destination);
-                // this.props.setAnalyser(analyser)
+                this.props.setAnalyser(analyser)
+
+                // this.audioContext = new (window.AudioContext ||
+                //     window.webkitAudioContext)();
+                //   this.analyser = this.audioContext.createAnalyser();
+                //   this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+                //   this.source = this.audioContext.createMediaStreamSource(this.props.audio);
+                //   this.source.connect(this.analyser);
+                //   this.rafId = requestAnimationFrame(this.tick);
 
             })
         } else {
@@ -107,5 +117,6 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
     setAnalyser,
-    setMic
+    setMic,
+    setMicAudio
 })(MicAudio);

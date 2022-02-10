@@ -67,6 +67,7 @@ export const SET_REJECTED = "app/SET_REJECTED"
 export const SET_SOLD = "app/SET_SOLD"
 
 export const SET_MIC = "app/SET_MIC"
+export const SET_MIC_AUDIO = "app/SET_MIC_AUDIO"
 
 // =============================================================================
 
