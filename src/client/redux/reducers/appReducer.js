@@ -29,7 +29,8 @@ import {
     SET_DRAFT,
     SET_APPROVED,
     SET_REJECTED,
-    SET_SOLD
+    SET_SOLD,
+    SET_MIC
 } from "../actions/types";
 
 export const initialState = {
@@ -75,11 +76,17 @@ export const initialState = {
     draft: false,
     approved: false,
     rejected: false,
-    sold: false
+    sold: false,
+    mic: false
 };
 
 export const appReducer = (state = initialState, action) => {
 	switch (action.type) {
+        case SET_MIC:
+            return {
+                ...state,
+                mic: action.payload
+            }
         case SET_SOLD:
             return {
                 ...state,

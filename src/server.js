@@ -17,6 +17,14 @@ const HOST = process.env.HOST || `localhost:${PORT}`;
 const PROXY_ROUTE = "/api";
 const PUBLIC_DIR = "public";
 const STATIC_DIR = "static";
+const fs = require('fs');
+const https = require('https');
+
+
+const options = {
+    key: fs.readFileSync('./localhost-key.pem'), // Replace with the path to your key
+    cert: fs.readFileSync('./localhost.pem') // Replace with the path to your certificate
+}
 
 const app = express();
 
@@ -83,6 +91,6 @@ app.get("*", (request, response) => {
     });
 });
 
-app.listen(PORT, () => {
+https.createServer(options, app).listen(PORT, () => {
     console.log("Server listening at port: ", PORT);
 });

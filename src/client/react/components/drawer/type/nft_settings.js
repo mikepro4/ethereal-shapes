@@ -190,7 +190,7 @@ class NFTSettings extends Component {
                 })
                 console.log(filteredTokens[0])
     
-                if(filteredTokens[0]) {
+                if(filteredTokens[0] && filteredTokens[0].owner && this.props.app.account.address) {
                     if(filteredTokens[0].owner.toLowerCase() == this.props.app.account.address.toLowerCase() && filteredTokens[0].owner !== "0x0000000000000000000000000000000000000000") {
                         return(<div className="status owned">Owned by You</div>)
                     } 

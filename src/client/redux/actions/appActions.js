@@ -22,7 +22,8 @@ import {
     SET_DRAFT,
     SET_APPROVED,
     SET_REJECTED,
-    SET_SOLD
+    SET_SOLD,
+    SET_MIC
 } from "./types";
 
 import * as _ from "lodash";
@@ -38,6 +39,19 @@ import {
 import NFT from "../../../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
+
+
+export const setMic = (value) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: SET_MIC,
+        payload: value
+    });
+};
+
 
 /////////////////////////////////////////////////
 

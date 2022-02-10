@@ -47,6 +47,8 @@ import { createShape } from "../../../redux/actions/shapeActions"
 
 import Player from "../player"
 
+import Mic from "../mic/index"
+
 
 class NFTDetails extends Component {
 
@@ -187,15 +189,32 @@ class NFTDetails extends Component {
 			intent: Intent.SUCCESS,
 		});
     }
+
+    renderMic() {
+        return(
+            <div>
+                <Mic/>
+            </div>
+        )
+    }
 		
 
     renderButton(type) {
 
         switch (type) {
             case "own":
-                return (<div> {!this.props.more && this.renderArrow()}</div>)
+                return (
+                    <div> 
+                        {!this.props.more && this.renderArrow()}
+                        {this.props.mic && this.renderMic()}
+                    </div>
+                )
             case "sold":
-                return (<div> {!this.props.more && this.renderArrow()}</div>)
+                return (
+                    <div>
+                         {!this.props.more && this.renderArrow()}
+                         {this.props.mic && this.renderMic()}
+                    </div>)
 
             case "buy":
                 return (<Button

@@ -837,7 +837,7 @@ class NFTPage extends Component {
 
                 <div className="nft-details-container">
                     {this.props.nft && this.props.nft.nft && this.props.nft.nft.name && <NFTDetails item={this.props.nft
-                    } large={true} more={true} type={this.renderButtonStatus()} />}
+                    } large={true} more={true} mic={true} type={this.renderButtonStatus()} />}
                 </div>
 
                 <div className="description-editor">
