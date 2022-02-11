@@ -47,11 +47,11 @@ class nftView extends Component {
 
     renderNftDetails() {
         let nft = _.filter(this.props.marketTokens, { image: this.props.item.nft.fileUrl})
-        if(nft[0]) {
+        if(nft[0] && nft[0].owner && this.props.app.account.address) {
             let owner = nft[0].owner.toLowerCase() == this.props.app.account.address.toLowerCase()
             let seller = nft[0].seller.toLowerCase() == this.props.app.account.address.toString()
 
-            if(this.props.item.metadata.owner && this.props.item.metadata.owner !== this.props.app.account.address.toLowerCase()) {
+            if(this.props.item.metadata.owner && this.props.item.metadata.owner && this.props.app.account.address !== this.props.app.account.address.toLowerCase()) {
                 return(<div>
                     sold
                 </div>)
@@ -75,7 +75,7 @@ class nftView extends Component {
 
     renderButtonStatus() {
         if(this.props.item.metadata.minted) {
-            if(this.props.item.metadata.owner) {
+            if(this.props.item.metadata.owner && this.props.app.account.address) {
                 if(this.props.item.metadata.owner.toLowerCase() == this.props.app.account.address.toLowerCase()) {
                     return("own")
                 } else {
