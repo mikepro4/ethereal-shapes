@@ -804,8 +804,8 @@ class NFTPage extends Component {
     renderButtonStatus() {
         if (this.getQueryParams().id || this.props.match.params.tokenId) {
             if (this.props.nft.metadata.minted) {
-                if (this.props.nft.metadata.owner && this.props.app.account.address && this.props.nft.metadata.owner !== "0x0000000000000000000000000000000000000000") {
-                    if (this.props.nft.metadata.owner.toLowerCase() == this.props.app.account.address.toLowerCase()) {
+                if (this.props.nft.metadata.owner && this.props.nft.metadata.owner !== "0x0000000000000000000000000000000000000000") {
+                    if (this.props.app.account.address && this.props.nft.metadata.owner.toLowerCase() == this.props.app.account.address.toLowerCase()) {
                         return ("own")
                     } else {
                         return ("sold")
