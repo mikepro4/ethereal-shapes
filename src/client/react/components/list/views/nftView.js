@@ -75,8 +75,8 @@ class nftView extends Component {
 
     renderButtonStatus() {
         if(this.props.item.metadata.minted) {
-            if(this.props.item.metadata.owner && this.props.app.account.address) {
-                if(this.props.item.metadata.owner.toLowerCase() == this.props.app.account.address.toLowerCase()) {
+            if(this.props.item.metadata.owner ) {
+                if(this.props.app.account.address &&this.props.item.metadata.owner.toLowerCase() == this.props.app.account.address.toLowerCase()) {
                     return("own")
                 } else {
                     return("sold")
