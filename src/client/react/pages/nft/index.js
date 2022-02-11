@@ -18,7 +18,8 @@ import SettingsIcon from "../../components/icons/settings"
 import {
     showDrawer,
     updateQueryString,
-    pauseAnimation
+    pauseAnimation,
+    updateMarketTokens
 } from '../../../redux/actions/appActions'
 
 import Timeline from "../../components/player/Timeline"
@@ -88,6 +89,7 @@ class NFTPage extends Component {
 	}
 
     componentDidMount() {
+        this.props.updateMarketTokens()
 
         if (this.props.match.params.tokenId) {
             this.setState({
@@ -900,6 +902,7 @@ export default {
         updateNFTImage,
         trackStop,
         loadNFTByTokenId,
-        checkOwner
+        checkOwner,
+        updateMarketTokens
     })(NFTPage))
 }
