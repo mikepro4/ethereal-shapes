@@ -222,11 +222,13 @@ export const updateMarketTokens = (success) => async (
         let filteredNfts = _.filter(items, { image: activeFileUrl })
     
         let activeFileOwner = filteredNfts[0].owner
+        let activeTokenId = filteredNfts[0].tokenId
     
         await api
             .post("/NFT/updateOwner", {
                 nftId: activeId,
-                owner: activeFileOwner
+                owner: activeFileOwner,
+                tokenId: activeTokenId ? activeTokenId : ""
             })
             .then(response => {
                 if (success) {

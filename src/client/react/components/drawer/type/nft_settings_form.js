@@ -266,6 +266,26 @@ class NFTSettingsForm extends Component {
                     title="File URL" placeholder="File URL"
                 />
 
+                <Field
+                    name="metadata.tokenId"
+                    component={Input}
+                    title="Token ID" placeholder="Token ID"
+                />
+
+                <Field
+                    name="metadata.owner"
+                    component={Input}
+                    title="Owner" placeholder="Owner"
+                />
+
+                <Field
+                    name="metadata.minted"
+                    type="checkbox"
+                    component={Checkbox}
+                    label="Minted"
+                    inline={true}
+                />
+
                 <input
                     type="file"
                     name="Asset"
