@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import classNames from "classnames"
-import { Icon, Button, Classes, Intent, Position, Toaster  } from "@blueprintjs/core";
+import { Icon, Button, Classes, Intent, Position, Toaster, Switch  } from "@blueprintjs/core";
 
 import qs from "qs";
 import * as _ from "lodash"
@@ -25,6 +25,12 @@ import {
 import {
     updateNFTShape
 }from "../../../../redux/actions/nftActions"
+
+
+import {
+    demoOn,
+    demoOff
+}from "../../../../redux/actions/appActions"
 
 class VizSettings extends Component {
 
@@ -97,6 +103,29 @@ class VizSettings extends Component {
 		//set url value to a element's href attribute.
         var newTab = window.open('about:blank','image from canvas');
         newTab.document.write("<img src='" + url + "' alt='from canvas'/>");
+    }
+
+    handleSwitchChange = (data) => {
+ 
+        if(this.props.app.demoMode) {
+            this.props.demoOff()
+        } else {
+            this.props.demoOn()
+
+        }
+    }
+
+    renderDemoSwitch =() => {
+        
+        return(
+            <div>
+                <Switch 
+                    checked={this.props.app.demoMode} 
+                    onChange={this.handleSwitchChange} 
+                    label="Demo mode"
+                />
+            </div>
+        )
     }
 
 
@@ -191,6 +220,10 @@ class VizSettings extends Component {
                     <Button 
                         className={"control button-saveas main-button theme-"+ this.props.theme}
                         onClick={() =>  this.saveAsSVG()}>Save as SVG</Button>
+
+                    <div className="demo-switch-container">
+                        {this.renderDemoSwitch()}
+                    </div>
                     
 
                         
@@ -210,7 +243,8 @@ function mapStateToProps(state) {
         authenticated: state.auth.authenticated,
         shape: state.shape.currentShape,
         newShape: state.shape.newShape,
-        nft: state.activeNFT.mewNFT
+        nft: state.activeNFT.newNFT,
+        app: state.app
 	};
 }
 
@@ -220,4 +254,6 @@ export default withRouter(connect(mapStateToProps, {
     loadNewShape,
     createShape,
     updateNFTShape,
+    demoOn,
+    demoOff
 })(VizSettings));

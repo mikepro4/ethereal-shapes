@@ -344,10 +344,10 @@ class NFTDetails extends Component {
 
         return (
             <div
-                className="nft-details-container"
                 className={classNames({
                     "nft-details-container": true,
-                    "large": this.props.large
+                    "large": this.props.large,
+                    "demo-mode": this.props.app.demoMode
                 })}
             >
                 <div className="nft-details-left">

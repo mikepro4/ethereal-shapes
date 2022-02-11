@@ -521,7 +521,7 @@ class Header extends Component {
 function mapStateToProps(state) {
     return {
         location: state.router.location,
-        demoMode: false,
+        demoMode: state.app.demoMode,
         user: state.app.user,
         blocks: state.blocks,
         clientHeight: state.app.clientHeight

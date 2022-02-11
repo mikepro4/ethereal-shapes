@@ -22,7 +22,17 @@
     @media only screen and (min-width: $mobile) {
         padding: 0;
         opacity: 1;
-        animation: none
+        animation: none;
+
+        &.demo-mode {
+            opacity: 0 !important;
+        }
+       
+    }
+
+    &.demo-mode {
+        animation: none;
+        opacity: 0 !important;
     }
    
 

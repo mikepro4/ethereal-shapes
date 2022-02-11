@@ -7,10 +7,11 @@
     z-index: 2223;
     display: flex;
     justify-content: space-between;
+    transition: all 1s ease;
     // overflow: hidden;
 
     &.demo-mode {
-        display: none;
+        opacity: 0;
     }
   
     .app-header-wrapper-mobile {
