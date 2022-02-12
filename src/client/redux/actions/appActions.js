@@ -188,9 +188,11 @@ export const updateMarketTokens = (success) => async (
     api
 ) => {
 
-    // const provider = new ethers.providers.JsonRpcProvider("");
+    const provider = new ethers.providers.JsonRpcProvider("https://polygon-mainnet.g.alchemy.com/v2/gyaYPfWvTp5LWylwLELws3CJhjTLL6Gy");
+    // const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.g.alchemy.com/v2/vRUT6XYcEKill-ZdUvWmgYl-avIZnwAt");
+    
     // const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/0095c162fff84a3eb7540a929ed0dfa1");
-    const provider = new ethers.providers.JsonRpcProvider("https://polygon-mainnet.infura.io/v3/0095c162fff84a3eb7540a929ed0dfa1");
+    // const provider = new ethers.providers.JsonRpcProvider("https://polygon-mainnet.infura.io/v3/0095c162fff84a3eb7540a929ed0dfa1");
     const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
     const marketContract = new ethers.Contract(nftMarketAddress, ESMarket.abi, provider);
     const data = await marketContract.fetchAllTokens();

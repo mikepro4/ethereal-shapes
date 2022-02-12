@@ -17,7 +17,8 @@ module.exports = {
             chainId: 1337
         },
         mumbai: {
-            url: `https://polygon-mumbai.infura.io/v3/${projectId}`,
+            // url: `https://polygon-mumbai.infura.io/v3/${projectId}`,
+            url: "https://polygon-mumbai.g.alchemy.com/v2/vRUT6XYcEKill-ZdUvWmgYl-avIZnwAt",
             accounts: [keyData]
         },
         mainnet: {

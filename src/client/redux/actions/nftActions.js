@@ -191,10 +191,12 @@ export const buyNFT = (fileUrl, passedNft, success) => async (
     const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
     console.log(nft, nft.tokenId, price)
     console.log(nftAddress, nft.tokenId, signer, nft, price.toString())
+    let uri = await nftContract.baseTokenURI()
+    console.log(uri)
+
     const transaction = await contract.createMarketSale(nftAddress, nft.tokenId, {
         value: price
     });
-    console.log(nftContract.baseTokenURI())
 
     await transaction.wait();
     dispatch(updateMarketTokens(() => {
