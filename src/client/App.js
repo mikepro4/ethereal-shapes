@@ -177,13 +177,15 @@ class App extends Component {
     }
 
     auth() {
-		const token = localStorage.getItem('token');
-		if (token) {
-			this.props.authUser()
-			this.loadUser()
-		} else {
-			this.showApp()
-		}
+        if(window && localStorage) {
+            const token = localStorage.getItem('token');
+            if (token) {
+                this.props.authUser()
+                this.loadUser()
+            } else {
+                this.showApp()
+            }
+        }
     }
 
     componentDidUpdate(prevprops) {

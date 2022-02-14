@@ -475,8 +475,8 @@
       ]
     },
     "/Users/mikhail/Desktop/NEWCODE/nft/ethereal-shapes/contracts/NFT.sol": {
-      "lastModificationDate": 1643720382968,
-      "contentHash": "651d27a4673e10e9d16e723483ac5da1",
+      "lastModificationDate": 1644868836062,
+      "contentHash": "2c9af829b5bcfa13f981b94034123463",
       "sourceName": "contracts/NFT.sol",
       "solcConfig": {
         "version": "0.8.4",

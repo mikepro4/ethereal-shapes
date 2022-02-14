@@ -51,7 +51,7 @@ contract NFT is ERC721URIStorage {
         return "https://creatures-api.opensea.io/contract/opensea-creatures";
     }
 
-    constructor(address _proxyRegistryAddress) ERC721("Ethereal Shapes", "ETHS") {
+    constructor(address _proxyRegistryAddress) ERC721("focusrite es2022", "FRES2") {
         contractAddress = _proxyRegistryAddress;
         // owner = payable(msg.sender);
     }
