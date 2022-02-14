@@ -64,8 +64,8 @@ export const loadShape = (id, single, success) => async (
 	api
 ) => {
 
-    await api
-        .post("/shapes/item", { shapeId: id })
+    await axios
+        .post("https://mikhailcoapi.herokuapp.com/shapes/item", { shapeId: id })
         .then(response => {
             if (success) {
                 success(response.data);
