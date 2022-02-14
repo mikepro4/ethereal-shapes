@@ -13,9 +13,24 @@ import { ConnectedRouter } from "connected-react-router";
 import "./styles/main.scss";
 
 const PROXY_ROUTE = "/api";
-// const token = localStorage.getItem('token');
+
+let axiosInstance 
+
+if(localStorage) {
+    const token = localStorage.getItem('token');
+    axiosInstance = axios.create({
+        baseURL: PROXY_ROUTE,
+        headers: { "authorization": `${token}` }
+    });
+} else {
+    axiosInstance = axios.create({
+        baseURL: PROXY_ROUTE,
+    });
+}
+const token = localStorage.getItem('token');
 const axiosInstance = axios.create({
     baseURL: PROXY_ROUTE,
+    headers: { "authorization": `${token}` }
 });
 
 const { history, store } = configureStore(
