@@ -16,7 +16,7 @@ const PROXY_ROUTE = "/api";
 
 let axiosInstance 
 
-if (typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
+if (window && localStorage && typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
     const token = localStorage.getItem('token');
     axiosInstance = axios.create({
         baseURL: PROXY_ROUTE,
