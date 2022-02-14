@@ -14,9 +14,20 @@ import "./styles/main.scss";
 
 const PROXY_ROUTE = "/api";
 
+function lsTest(){
+    var test = 'test';
+    try {
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+    } catch(e) {
+        return false;
+    }
+}
+
 let axiosInstance 
 console.log("WINDOW: ", window)
-if (window && window.localStorage !== ["Exception: DOMException: Failed to read the 'localStorage' property from 'Window': The document is sandboxed and lacks the 'allow-same-origin' flag. at s (<anonymous>:1:83)"] && typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
+if (lsTest() === true) {
     const token = localStorage.getItem('token');
     axiosInstance = axios.create({
         baseURL: PROXY_ROUTE,
