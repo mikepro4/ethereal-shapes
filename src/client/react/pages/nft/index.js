@@ -39,7 +39,8 @@ import {
     clearNewNFT,
     updateNFTImage,
     loadNFTByTokenId,
-    checkOwner
+    checkOwner,
+    loadNFTandShape
 } from "../../../redux/actions/nftActions"
 
 import ipfsHttpClient from "ipfs-http-client";
@@ -81,8 +82,9 @@ class NFTPage extends Component {
         }  
         
         if(query.id) {
-            return store.dispatch(loadNFT(query.id, (data) => {
-                store.dispatch(loadNewNFT(data))
+            console.log(query)
+            return store.dispatch(loadNFTandShape(query.id, (data) => {
+                store.dispatch(loadNewNFT(data.nft))
                 store.dispatch(loadShape(data.metadata.shapeId))
             }));
         }   
@@ -903,6 +905,7 @@ export default {
         trackStop,
         loadNFTByTokenId,
         checkOwner,
-        updateMarketTokens
+        updateMarketTokens,
+        loadNFTandShape
     })(NFTPage))
 }

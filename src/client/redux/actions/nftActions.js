@@ -17,6 +17,7 @@ import { ethers } from "ethers";
 
 import {
     LOAD_NFT,
+    LOAD_SHAPE,
     LOAD_NEW_NFT,
     CLEAR_NFT,
     UPDATE_NFT_IMAGE,
@@ -269,6 +270,41 @@ export const loadNFT = (id, success) => async (
             dispatch({
                 type: LOAD_NFT,
                 payload: response.data
+            });
+
+        })
+        .catch(() => {
+            // dispatch(authError('Account with this email already exists'));
+        });
+}
+
+// ===========================================================================
+
+
+
+export const loadNFTandShape = (id, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+   
+
+    await api
+        .post("/NFT/load", { NFTid: id })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+
+            dispatch({
+                type: LOAD_NFT,
+                payload: response.data.nft
+            });
+
+            dispatch({
+                type: LOAD_SHAPE,
+                payload: response.data.shape
             });
 
         })
