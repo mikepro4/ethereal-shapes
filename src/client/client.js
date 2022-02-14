@@ -27,11 +27,11 @@ if(localStorage) {
         baseURL: PROXY_ROUTE,
     });
 }
-const token = localStorage.getItem('token');
-const axiosInstance = axios.create({
-    baseURL: PROXY_ROUTE,
-    headers: { "authorization": `${token}` }
-});
+// const token = localStorage.getItem('token');
+// const axiosInstance = axios.create({
+//     baseURL: PROXY_ROUTE,
+//     headers: { "authorization": `${token}` }
+// });
 
 const { history, store } = configureStore(
     window.INITIAL_STATE,
