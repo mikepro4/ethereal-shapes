@@ -16,17 +16,17 @@ const PROXY_ROUTE = "/api";
 
 let axiosInstance 
 
-if (window && localStorage && typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
-    const token = localStorage.getItem('token');
+// if (window && window.localStorage && typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
+//     const token = localStorage.getItem('token');
+//     axiosInstance = axios.create({
+//         baseURL: PROXY_ROUTE,
+//         headers: { "authorization": `${token}` }
+//     });
+// } else {
     axiosInstance = axios.create({
         baseURL: PROXY_ROUTE,
-        headers: { "authorization": `${token}` }
     });
-} else {
-    axiosInstance = axios.create({
-        baseURL: PROXY_ROUTE,
-    });
-}
+// }
 // const token = localStorage.getItem('token');
 // const axiosInstance = axios.create({
 //     baseURL: PROXY_ROUTE,
