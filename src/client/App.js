@@ -81,7 +81,7 @@ class App extends Component {
 	}
 
     async componentDidMount() {
-        // this.auth()
+        this.auth()
         this.loadWeb3()
         this.props.updateMarketTokens()
 
