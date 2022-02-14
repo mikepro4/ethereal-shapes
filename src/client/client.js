@@ -16,7 +16,7 @@ const PROXY_ROUTE = "/api";
 
 let axiosInstance 
 console.log("WINDOW: ", window)
-if (window && window.localStorage !== "[Exception: DOMException: Failed to read the 'localStorage' property from 'Window': The document is sandboxed and lacks the 'allow-same-origin' flag. at s (<anonymous>:1:83)]" && typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
+if (window && window.localStorage !== ["Exception: DOMException: Failed to read the 'localStorage' property from 'Window': The document is sandboxed and lacks the 'allow-same-origin' flag. at s (<anonymous>:1:83)"] && typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
     const token = localStorage.getItem('token');
     axiosInstance = axios.create({
         baseURL: PROXY_ROUTE,
