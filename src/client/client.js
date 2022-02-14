@@ -15,7 +15,7 @@ import "./styles/main.scss";
 const PROXY_ROUTE = "/api";
 
 let axiosInstance 
-
+console.log("WINDOW: ", window)
 if (window && window.localStorage && typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
     const token = localStorage.getItem('token');
     axiosInstance = axios.create({
