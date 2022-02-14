@@ -393,7 +393,7 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
         }
     }
 
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
 
     await api
         .post("/NFTs/search", {
@@ -402,7 +402,7 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
             offset: offset,
             limit: limit,
             order: sortDirection,
-            user: "token"
+            user: ""
         })
         .then(response => {
             if (success) {
