@@ -3,9 +3,18 @@
 	position: relative;
     background: #090909;
     min-height: 100%;
+    transition: all 0.5s;
     @media only screen and (min-width: $mobile) {
         background: #0D0D0D;
         background: #141414;
+    }
+
+    &.black {
+        background: #000000;
+
+        @media only screen and (min-width: $mobile) {
+            background: #000000;
+        }
     }
 }
 
@@ -23,6 +32,10 @@
     left: 0;
     right: 0;
     bottom: 0;
+    
+}
+
+.nft-container {
     padding: 150px 0 0 0;
 
     @media only screen and (min-width: $mobile) {

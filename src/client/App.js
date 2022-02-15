@@ -122,6 +122,7 @@ class App extends Component {
 
     componentWillUnmount() {
         this.props.setDraft(false)
+        this.props.setAbout(false)
         document.removeEventListener("keydown", this.onKeyDownPressed.bind(this));
         document.removeEventListener("keyup", this.onKeyUpPressed.bind(this));
     }     
@@ -335,7 +336,13 @@ class App extends Component {
 
     render() {
         return (
-            <div className="app">
+            <div 
+                className="app"
+                className={classNames({
+                    "app": true,
+                    "black": this.props.app.about.active
+                })}
+            >
                 {this.props.drawerOpen && <Drawer type={this.props.drawerType} />}
                 <Header balance={this.state.balance}/>
 
@@ -409,6 +416,6 @@ export default {
         setApproved,
         setRejected,
         setSold,
-        setIframe
+        setIframe,
     })(App))
 };

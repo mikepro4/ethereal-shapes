@@ -14,6 +14,10 @@ import NavLinks from "../../components/navLinks"
 import Viz from "../../components/viz"
 
 import { loadShape } from "../../../redux/actions/shapeActions"
+
+import { 
+    setAbout 
+} from "../../../redux/actions/appActions"
 // import * as THREE from "three";
 
 
@@ -30,7 +34,12 @@ class About extends Component {
         this.planet = this.planet = React.createRef()
     }
 
+    componentWillUnmount() {
+        this.props.setAbout(false)
+    } 
+
     componentDidMount() {
+        this.props.setAbout(true)
         this.props.loadShape(this.props.app.about.mainShapeId, true, (data) => {
             this.setState({
                 shape: data
@@ -268,8 +277,12 @@ void main() {
                     {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } pointCount={1000}  /> }
                 </div>
 
-                <div className="about-subtitle">Ethereal Shapes</div>
-                <div className="about-title">Interactive Audio/Visual Experience</div>
+                <div className="about-text-container">
+                    <div className="about-subtitle">Ethereal Shapes</div>
+                    <div className="about-title">Interactive Audio/Visual <br/> Experience</div>
+                </div>
+                
+                <div className="placeholder"></div>
             </div>
 
         );
@@ -287,6 +300,7 @@ export default {
     component: withRouter(connect(mapStateToProps, {
         searchNFTs,
         loadNFTDetails,
-        loadShape
+        loadShape,
+        setAbout
     })(About))
 }

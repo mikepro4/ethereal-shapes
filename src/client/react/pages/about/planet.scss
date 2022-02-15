@@ -5,6 +5,58 @@
 }
 
 .main-shape-container {
-    height: 400px;
+    height: 460px;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0 auto;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeIn 1s 0s linear forwards;
+
+    @media only screen and (min-width: $mobile) {
+        // padding-top: 1000px;
+        padding-top: 0;
+        width: 950px;
+        height: 950px;
+    }
+}
+
+.about-subtitle {
+    text-align: center;
+    font-weight: 300;
+    font-size: 13px;
+    margin-bottom: 7px;
+
+    @media only screen and (min-width: $mobile) {
+        margin-bottom: 10px;
+        font-size: 22px;
+        font-weight: 200;
+    }
+}
+
+.about-title {
+    text-align: center;
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding: 0 30px;
+
+    @media only screen and (min-width: $mobile) {
+        font-size: 60px;
+    }
+}
+
+.about-text-container {
+    position: relative;
+    z-index: 2;
+    transform: translateY(-50px);
+    opacity: 0;
+    animation: fadeIn 1s 0.5s linear forwards;
+
+    @media only screen and (min-width: $mobile) {
+        font-size: 60px;
+        transform: translateY(-70px);
+    }
 }
