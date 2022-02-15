@@ -25,7 +25,8 @@ import {
     SET_SOLD,
     SET_MIC,
     SET_MIC_AUDIO,
-    SET_IFRAME
+    SET_IFRAME,
+    SET_TOUCH_ZONES
 } from "./types";
 
 import * as _ from "lodash";
@@ -42,6 +43,22 @@ import NFT from "../../../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
 
+/////////////////////////////////////////////////
+
+export const setTouchZones = (value) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: SET_TOUCH_ZONES,
+        payload: value
+    });
+};
+
+
+/////////////////////////////////////////////////
+
 export const setIframe = (value) => async (
     dispatch,
     getState,
@@ -52,7 +69,6 @@ export const setIframe = (value) => async (
         payload: value
     });
 };
-
 
 /////////////////////////////////////////////////
 

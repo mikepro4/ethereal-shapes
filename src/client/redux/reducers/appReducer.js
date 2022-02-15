@@ -32,7 +32,8 @@ import {
     SET_SOLD,
     SET_MIC,
     SET_MIC_AUDIO,
-    SET_IFRAME
+    SET_IFRAME,
+    SET_TOUCH_ZONES
 } from "../actions/types";
 
 export const initialState = {
@@ -81,11 +82,17 @@ export const initialState = {
     sold: false,
     mic: false,
     micAudio: null,
-    iframe: false
+    iframe: false,
+    touchZones: false
 };
 
 export const appReducer = (state = initialState, action) => {
 	switch (action.type) {
+        case SET_TOUCH_ZONES:
+            return {
+                ...state,
+                touchZones: action.payload
+            }
         case SET_IFRAME:
             return {
                 ...state,

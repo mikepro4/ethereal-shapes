@@ -10,6 +10,8 @@ import update from "immutability-helper";
 import qs from "qs";
 import * as _ from "lodash"
 
+import { Icon } from "@blueprintjs/core";
+
 import {
     createShape, loadShape, searchShapes, deleteShape, updateShape, loadNewShape, clearNewShape, getMainShape
 } from "../../../redux/actions/shapeActions"
@@ -807,6 +809,43 @@ class TouchZones extends Component {
         }
     }
 
+    renderTouchZoneIcon(direction) {
+        if(direction == "plus") {
+            return(
+                <div>
+                     <Icon icon="plus"/>
+                </div>
+            )
+        } else if(direction == "minus") {
+            return(
+                <div>
+                     <Icon icon="minus"/>
+                </div>
+            )
+        }
+    }
+
+    renderTouchZone = (name, direction) => {
+        if(this.props.app.touchZones) {
+            return(
+                <div className="touzh-zone-container">
+                    <div className="touch-zone-bg-1"></div>
+                    <div className="touch-zone-bg-2"></div>
+    
+                    <div className="touch-zone-details">
+                        <div className="touch-zone-icon-container">
+                            {this.renderTouchZoneIcon(direction)}
+                        </div>
+                        <div className="touch-zone-name">
+                            {name}
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+       
+    }
+
     render() {
 
         return (
@@ -821,7 +860,9 @@ class TouchZones extends Component {
                         onMouseDown={(event) => this.handleZone2TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone2TouchEnd(event)}
                         onMouseUp={(event) => this.handleZone2TouchEnd(event)}
-                    ></div>
+                    >
+                        {this.renderTouchZone("Frequency", "minus")}
+                    </div>
 
                     <div
                         className={classNames({
@@ -831,7 +872,9 @@ class TouchZones extends Component {
                         onMouseDown={(event) => this.handleZone1TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone1TouchEnd(event)}
                         onMouseUp={(event) => this.handleZone1TouchEnd(event)}
-                    ></div>
+                    >
+                        {this.renderTouchZone("Frequency", "plus")}
+                    </div>
 
                 </div>
 
@@ -845,7 +888,9 @@ class TouchZones extends Component {
                         onMouseDown={(event) => this.handleZone4TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone4TouchEnd(event)}
                         onMouseUp={(event) => this.handleZone4TouchEnd(event)}
-                    ></div>
+                    >
+                        {this.renderTouchZone("Step", "minus")}
+                    </div>
 
                     <div
                         className={classNames({
@@ -855,7 +900,9 @@ class TouchZones extends Component {
                         onMouseDown={(event) => this.handleZone3TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone3TouchEnd(event)}
                         onMouseUp={(event) => this.handleZone3TouchEnd(event)}
-                    ></div>
+                    >
+                        {this.renderTouchZone("Step", "plus")}
+                    </div>
                 </div>
 
                 <div className="touch-zones-row touch-zones-row-3">
@@ -868,7 +915,9 @@ class TouchZones extends Component {
                         onMouseDown={(event) => this.handleZone8TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone8TouchEnd(event)}
                         onMouseUp={(event) => this.handleZone8TouchEnd(event)}
-                    ></div>
+                    >
+                        {this.renderTouchZone("Rotation", "minus")}
+                    </div>
 
                     <div
                         className={classNames({
@@ -878,7 +927,9 @@ class TouchZones extends Component {
                         onMouseDown={(event) => this.handleZone7TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone7TouchEnd(event)}
                         onMouseUp={(event) => this.handleZone7TouchEnd(event)}
-                    ></div>
+                    >
+                        {this.renderTouchZone("Rotation", "plus")}
+                    </div>
                 </div>
 
                 <div className="touch-zones-row touch-zones-row-3">
@@ -890,7 +941,9 @@ class TouchZones extends Component {
                         onMouseDown={(event) => this.handleZone6TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone6TouchEnd(event)}
                         onMouseUp={(event) => this.handleZone6TouchEnd(event)}
-                    ></div>
+                    >
+                        {this.renderTouchZone("Boldness", "minus")}
+                    </div>
 
                     <div
                         className={classNames({
@@ -900,7 +953,9 @@ class TouchZones extends Component {
                         onMouseDown={(event) => this.handleZone5TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone5TouchEnd(event)}
                         onMouseUp={(event) => this.handleZone5TouchEnd(event)}
-                    ></div>
+                    >
+                        {this.renderTouchZone("Boldness", "plus")}
+                    </div>
                 </div>
             </div>
 

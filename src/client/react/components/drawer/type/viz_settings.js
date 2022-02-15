@@ -29,7 +29,8 @@ import {
 
 import {
     demoOn,
-    demoOff
+    demoOff,
+    setTouchZones
 } from "../../../../redux/actions/appActions"
 
 class VizSettings extends Component {
@@ -123,6 +124,29 @@ class VizSettings extends Component {
                     checked={this.props.app.demoMode}
                     onChange={this.handleSwitchChange}
                     label="Demo mode"
+                />
+            </div>
+        )
+    }
+
+    handleSwitchTouchZonesChange = (data) => {
+
+        if (this.props.app.touchZones) {
+            this.props.setTouchZones(false)
+        } else {
+            this.props.setTouchZones(true)
+
+        }
+    }
+
+    renderTouchZonesSwitch = () => {
+
+        return (
+            <div>
+                <Switch
+                    checked={this.props.app.touchZones}
+                    onChange={this.handleSwitchTouchZonesChange}
+                    label="Show touch zones"
                 />
             </div>
         )
@@ -227,6 +251,8 @@ class VizSettings extends Component {
                         </div>
                     </div>}
 
+                    {this.renderTouchZonesSwitch()}
+
 
 
 
@@ -261,5 +287,6 @@ export default withRouter(connect(mapStateToProps, {
     createShape,
     updateNFTShape,
     demoOn,
-    demoOff
+    demoOff,
+    setTouchZones
 })(VizSettings));

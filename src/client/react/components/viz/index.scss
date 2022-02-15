@@ -73,8 +73,13 @@
     top: 60px;
     left: 0;
     right: 0;
-    bottom: 80px;
+    bottom: 130px;
     z-index: 10000;
+
+    @media only screen and (min-width: $mobile) {
+        top: 100px;
+        bottom: 222px
+    }
 
     .touch-zones-row {
         height: 25%;
@@ -87,9 +92,34 @@
             flex-grow: 1;
             flex-shrink: 1;
             transition: all 1.5s;
+            position: relative;
+            cursor: pointer;
+
+            .touzh-zone-container {
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                right: 5px;
+                bottom: 5px;
+                background: rgba($white, 0.00);
+                transition: all 1.5s;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 10px;
+                text-align: center;
+
+                .touch-zone-name {
+                    margin: 5px 0 0 0;
+                    font-size: 16px;
+                    font-weight: 300;
+                }
+            }
 
             &.touch-zone-active {
-                // background: rgba($white, 0.02);
+                .touzh-zone-container {
+                    background: rgba($white, 0.2);
+                }
             }
 
              &:first-child {

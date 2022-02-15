@@ -794,7 +794,7 @@ class Viz extends Component {
                     backgroundColor: finalViz && finalViz.shape && finalViz.shape.backgroundColor
                 }}
             >
-                <TouchZones/>
+                {this.props.fullScreen && <TouchZones/> }
                 <canvas
                     ref={this.canvas}
                     className="viz"

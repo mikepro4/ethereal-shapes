@@ -71,6 +71,8 @@ export const SET_MIC_AUDIO = "app/SET_MIC_AUDIO"
 
 export const SET_IFRAME = "app/SET_IFRAME"
 
+export const SET_TOUCH_ZONES = "app/SET_TOUCH_ZONES"
+
 // =============================================================================
 
 
