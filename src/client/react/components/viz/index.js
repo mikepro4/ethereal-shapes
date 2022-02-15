@@ -55,11 +55,16 @@ class Viz extends Component {
         //     window.dispatchEvent(new Event('resize'));
              
         // }, 1000);
-
-        setTimeout(() => {
-            window.dispatchEvent(new Event('resize'));
-             
-        }, 10);
+        if(this.props.fullScreen) {
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+                this.updateViz()
+                // this.setState({
+                //     pointSize: 5
+                // })
+            }, 10);
+        }
+        
 
         // this.setState({ timeInterval });
 
