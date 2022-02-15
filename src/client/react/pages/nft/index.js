@@ -569,7 +569,7 @@ class NFTPage extends Component {
     renderHead = () => (
         <Helmet>
             <title>Ethereal Shapes</title>
-            <meta property="og:title" content="Homepage" />
+            <meta property="og:title" content="Ethereal Shapes" />
         </Helmet>
     )
 

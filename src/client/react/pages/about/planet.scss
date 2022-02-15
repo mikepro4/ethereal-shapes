@@ -60,3 +60,74 @@
         transform: translateY(-70px);
     }
 }
+
+.about-icon-grid {
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    column-gap: 20px;
+    row-gap: 35px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 350px;
+    margin: 0 auto;
+    transform: translateY(-10px);
+
+
+    svg {
+        margin: 0 auto;
+        width: 30px;
+        height: 30px;
+    }
+
+    .icon-title {
+        opacity: 0.5;
+        transition: all 0.5s;
+    }
+
+    .icon-wrapper {
+        width: 70px;
+        height: 70px;
+        transition: all 0.5s;
+        background: rgba(255,255,255,0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 200px;
+        margin: 0 auto 10px auto;
+
+        @media only screen and (min-width: $mobile) {
+           width: 120px;
+           height: 120px;
+           margin-bottom: 15px;
+        }
+    }
+
+    @media only screen and (min-width: $mobile) {
+        grid-template-columns: 16% 16% 16% 16% 16% 16%;
+        column-gap: 20px;
+        row-gap: 200px;
+        justify-content: center;
+        max-width: 1100px;
+       
+
+        svg {
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    .about-icon {
+        cursor: pointer;
+
+        &:hover {
+            .icon-wrapper {
+                background: rgba(255,255,255,1);
+            }
+
+            .icon-title  {
+                opacity: 1;
+            }
+        }
+    }
+}

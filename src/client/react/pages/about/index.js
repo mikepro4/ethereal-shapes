@@ -15,9 +15,16 @@ import Viz from "../../components/viz"
 
 import { loadShape } from "../../../redux/actions/shapeActions"
 
-import { 
-    setAbout 
+import {
+    setAbout
 } from "../../../redux/actions/appActions"
+
+import Twitter from "../../components/icons/twitter"
+import Discord from "../../components/icons/discord"
+import Opensea from "../../components/icons/opensea"
+import Instagram from "../../components/icons/instagram"
+import Youtube from "../../components/icons/youtube"
+import Reddit from "../../components/icons/reddit"
 // import * as THREE from "three";
 
 
@@ -36,7 +43,7 @@ class About extends Component {
 
     componentWillUnmount() {
         this.props.setAbout(false)
-    } 
+    }
 
     componentDidMount() {
         this.props.setAbout(true)
@@ -243,7 +250,7 @@ void main() {
 
     renderHead = () => (
         <Helmet>
-            <title>Home</title>
+            <title>About | Ethereal Shapes</title>
         </Helmet>
     )
 
@@ -273,15 +280,98 @@ void main() {
                 {/* <div className="planet" id="planet" ref={ref => (this.mount = ref)}>
                 </div> */}
 
+                {this.renderHead()}
+
                 <div className="main-shape-container">
-                    {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } pointCount={1000}  /> }
+                    {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={this.state.shape.defaultViz} pointCount={1000} />}
                 </div>
 
                 <div className="about-text-container">
                     <div className="about-subtitle">Ethereal Shapes</div>
-                    <div className="about-title">Interactive Audio/Visual <br/> Experience</div>
+                    <div className="about-title">Interactive Audio/Visual <br /> Experience</div>
                 </div>
-                
+
+                <ul className="about-icon-grid">
+                    <li className="about-icon icon-twitter">
+                        <a href="https://twitter.com/etherealshapes_" target="_blank">
+                            <div className="icon-wrapper">
+                                <div className="icon-container">
+                                    <Twitter />
+                                </div>
+                            </div>
+                            <div className="icon-title">
+                                Twitter
+                            </div>
+                        </a>
+
+                    </li>
+
+                    <li className="about-icon icon-twitter">
+                        <a href="https://discord.gg/8cQHqpe3ST" target="_blank">
+                            <div className="icon-wrapper">
+                                <div className="icon-container">
+                                    <Discord />
+                                </div>
+                            </div>
+                            <div className="icon-title">
+                                Discord
+                            </div>
+                        </a>
+                    </li>
+
+                    <li className="about-icon icon-twitter">
+                        <a href="https://opensea.io/collection/focusrite-es2022" target="_blank">
+                            <div className="icon-wrapper">
+                                <div className="icon-container">
+                                    <Opensea />
+                                </div>
+                            </div>
+                            <div className="icon-title">
+                                Open Sea
+                            </div>
+                        </a>
+                    </li>
+
+                    <li className="about-icon icon-twitter">
+                        <a href="https://www.instagram.com/etherealshapesnft/" target="_blank">
+                            <div className="icon-wrapper">
+                                <div className="icon-container">
+                                    <Instagram />
+                                </div>
+                            </div>
+                            <div className="icon-title">
+                                Instagram
+                            </div>
+                        </a>
+                    </li>
+
+                    <li className="about-icon icon-twitter">
+                        <a href="https://www.youtube.com/channel/UC81SL4B3NsZ-x0U3M4hZ0fA" target="_blank">
+                            <div className="icon-wrapper">
+                                <div className="icon-container">
+                                    <Youtube />
+                                </div>
+                            </div>
+                            <div className="icon-title">
+                                Youtube
+                            </div>
+                        </a>
+                    </li>
+
+                    <li className="about-icon icon-twitter">
+                        <a href="https://www.reddit.com/r/etherealshapes/" target="_blank">
+                            <div className="icon-wrapper">
+                                <div className="icon-container">
+                                    <Reddit />
+                                </div>
+                            </div>
+                            <div className="icon-title">
+                                Reddit
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+
                 <div className="placeholder"></div>
             </div>
 

@@ -50,7 +50,7 @@ class Home extends Component {
 
     renderHead = () => (
 		<Helmet>
-			<title>Home</title>
+			<title>All NFTs | Ethereal Shapes</title>
 		</Helmet>
     )
 

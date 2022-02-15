@@ -21,7 +21,7 @@ class Home extends Component {
 
     renderHead = () => (
 		<Helmet>
-			<title>Home</title>
+			<title>Ethereal Shapes | Featured</title>
 		</Helmet>
     )
 
