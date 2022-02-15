@@ -221,13 +221,15 @@ class VizSettings extends Component {
                         <Button
                             className={"control button-saveas main-button theme-" + this.props.theme}
                             onClick={() => this.saveAsSVG()}>Save as SVG</Button>
+
+                        <div className="demo-switch-container">
+                            {this.renderDemoSwitch()}
+                        </div>
                     </div>}
 
 
 
-                    <div className="demo-switch-container">
-                        {this.renderDemoSwitch()}
-                    </div>
+
 
 
 
