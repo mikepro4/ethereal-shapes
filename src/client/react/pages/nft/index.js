@@ -148,7 +148,7 @@ class NFTPage extends Component {
                     nft: {
                         price: 222,
                         name: "Ethereal",
-                        description: "Ethereal Shapes is a collection of Audio/Visual Interact NFTs. Buy and interact on https://www.etherealshapes.com/"
+                        description: "Ethereal Shapes is a collection of Audio/Visual Interactive NFTs. Buy and interact on https://www.etherealshapes.com/"
                     },
                     metadata: {
                         shapeId: "61fc4d5c9c7c440021028b5b"

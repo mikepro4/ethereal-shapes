@@ -43,13 +43,6 @@ contract NFT is ERC721URIStorage {
     // tokenId return which MarketToken - fetch which one it is
     // mapping(uint256 => MarketToken) private idToMarketToken;
 
-    function baseTokenURI() public pure returns (string memory) {
-        return "https://creatures-api.opensea.io/api/creature/";
-    }
-
-    function contractURI() public pure returns (string memory) {
-        return "https://creatures-api.opensea.io/contract/opensea-creatures";
-    }
 
     constructor(address _proxyRegistryAddress) ERC721("focusrite es2022", "FRES2") {
         contractAddress = _proxyRegistryAddress;
