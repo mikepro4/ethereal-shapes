@@ -85,7 +85,6 @@ class NFTPage extends Component {
             console.log(query)
             return store.dispatch(loadNFTandShape(query.id, (data) => {
                 store.dispatch(loadNewNFT(data.nft))
-                store.dispatch(loadShape(data.metadata.shapeId))
             }));
         }   
 	}
@@ -98,10 +97,10 @@ class NFTPage extends Component {
                 tokenId: this.props.match.params.tokenId
             })
 
-            this.props.loadNFTByTokenId(this.props.match.params.tokenId, (data) => {
-                this.props.loadNewNFT(data)
-                this.props.loadShape(data.metadata.shapeId)
-            })
+            // this.props.loadNFTByTokenId(this.props.match.params.tokenId, (data) => {
+            //     this.props.loadNewNFT(data)
+            //     this.props.loadShape(data.metadata.shapeId)
+            // })
             // this.props.loadNFT(this.getQueryParams().id, (data) => {
             //     this.props.loadNewNFT(data)
             //     this.props.loadShape(data.metadata.shapeId)
@@ -134,10 +133,10 @@ class NFTPage extends Component {
             console.log("here")
             console.log(this.getQueryParams().id)
 
-            this.props.loadNFT(this.getQueryParams().id, (data) => {
-                this.props.loadNewNFT(data)
-                this.props.loadShape(data.metadata.shapeId)
-            })
+            // this.props.loadNFT(this.getQueryParams().id, (data) => {
+            //     this.props.loadNewNFT(data)
+            //     this.props.loadShape(data.metadata.shapeId)
+            // })
             // this.props.loadNft(this.getQueryParams().id, (data) => {
             //     console.log(data)
             // })
