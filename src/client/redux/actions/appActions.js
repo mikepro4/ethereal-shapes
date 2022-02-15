@@ -26,7 +26,8 @@ import {
     SET_MIC,
     SET_MIC_AUDIO,
     SET_IFRAME,
-    SET_TOUCH_ZONES
+    SET_TOUCH_ZONES,
+    SET_ABOUT
 } from "./types";
 
 import * as _ from "lodash";
@@ -42,6 +43,18 @@ import {
 import NFT from "../../../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
+
+export const setAbout = (value) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: SET_ABOUT,
+        payload: value
+    });
+};
+
 
 /////////////////////////////////////////////////
 

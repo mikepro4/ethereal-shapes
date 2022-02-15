@@ -11,22 +11,31 @@ import { searchNFTs, loadNFTDetails } from "../../../redux/actions/nftActions"
 
 import ListResults from "../../components/list"
 import NavLinks from "../../components/navLinks"
+import Viz from "../../components/viz"
 
+import { loadShape } from "../../../redux/actions/shapeActions"
 // import * as THREE from "three";
 
 
-class Home extends Component {
+class About extends Component {
 
 
     constructor(props) {
         super(props)
 
-        this.state = {}
+        this.state = {
+            shape: {}
+        }
 
         this.planet = this.planet = React.createRef()
     }
 
     componentDidMount() {
+        this.props.loadShape(this.props.app.about.mainShapeId, true, (data) => {
+            this.setState({
+                shape: data
+            })
+        })
         const vshader = `
 #include <common>
 #include <lights_pars_begin>
@@ -252,8 +261,15 @@ void main() {
 
         return (
             <div className="about-container">
-                <div className="planet" id="planet" ref={ref => (this.mount = ref)}>
+                {/* <div className="planet" id="planet" ref={ref => (this.mount = ref)}>
+                </div> */}
+
+                <div className="main-shape-container">
+                    {this.state.shape && this.state.shape.defaultViz && <Viz defaultViz={ this.state.shape.defaultViz } pointCount={1000}  /> }
                 </div>
+
+                <div className="about-subtitle">Ethereal Shapes</div>
+                <div className="about-title">Interactive Audio/Visual Experience</div>
             </div>
 
         );
@@ -270,6 +286,7 @@ function mapStateToProps(state) {
 export default {
     component: withRouter(connect(mapStateToProps, {
         searchNFTs,
-        loadNFTDetails
-    })(Home))
+        loadNFTDetails,
+        loadShape
+    })(About))
 }
