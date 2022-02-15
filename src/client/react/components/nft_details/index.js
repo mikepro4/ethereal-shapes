@@ -84,7 +84,7 @@ class NFTDetails extends Component {
         if (!name || !description || !price || !fileUrl) return
 
         const data = JSON.stringify({
-            name, description, image: fileUrl, animation_url: "https://www.etherealshapes.com/1"
+            name, description, image: fileUrl, animation_url: "https://www.etherealshapes.com/nft?id=" + this.props.item._id
         })
 
         try {

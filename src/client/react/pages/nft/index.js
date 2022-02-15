@@ -133,10 +133,10 @@ class NFTPage extends Component {
             console.log("here")
             console.log(this.getQueryParams().id)
 
-            // this.props.loadNFT(this.getQueryParams().id, (data) => {
-            //     this.props.loadNewNFT(data)
-            //     this.props.loadShape(data.metadata.shapeId)
-            // })
+            this.props.loadNFT(this.getQueryParams().id, (data) => {
+                this.props.loadNewNFT(data)
+                this.props.loadShape(data.metadata.shapeId)
+            })
             // this.props.loadNft(this.getQueryParams().id, (data) => {
             //     console.log(data)
             // })

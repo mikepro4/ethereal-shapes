@@ -56,6 +56,11 @@ class Viz extends Component {
              
         // }, 1000);
 
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+             
+        }, 10);
+
         // this.setState({ timeInterval });
 
         // setTimeout(() => {
