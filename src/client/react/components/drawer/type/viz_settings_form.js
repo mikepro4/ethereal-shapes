@@ -16,82 +16,82 @@ import ColorPicker from "../../form/ColorPicker";
 
 class VizSettingsForm extends Component {
     renderColors({ fields, meta: { error, submitFailed } }) {
-        return(
+        return (
             <ul>
-                
+
                 {fields.map((color, index) => (
-                <li key={index}>
-                    <button
-                        type="button"
-                        title="Remove Member"
-                        onClick={() => fields.remove(index)}
-                    >delete</button>
-                    <h4>Color #{index + 1}</h4>
-                    <Field
-                        name={`${color}.hex`}
-                        component={ColorPicker}
-                        label="Color"
-                    />
+                    <li key={index}>
+                        <button
+                            type="button"
+                            title="Remove Member"
+                            onClick={() => fields.remove(index)}
+                        >delete</button>
+                        <h4>Color #{index + 1}</h4>
+                        <Field
+                            name={`${color}.hex`}
+                            component={ColorPicker}
+                            label="Color"
+                        />
 
-                    <Field
-                        name={`${color}.amount`}
-                        component={Slider}
-                        label="Color amount"
-                        resetValue={0}
-                        sliderMax={100}
-                        labelStepSize={20}
-                    />
+                        <Field
+                            name={`${color}.amount`}
+                            component={Slider}
+                            label="Color amount"
+                            resetValue={0}
+                            sliderMax={100}
+                            labelStepSize={20}
+                        />
 
-                    <Field
-                        name={`${color}.opacity`}
-                        component={Slider}
-                        label="Color opacity"
-                        resetValue={1}
-                        sliderMax={100}
-                        labelStepSize={20}
-                    />
-                </li>
+                        <Field
+                            name={`${color}.opacity`}
+                            component={Slider}
+                            label="Color opacity"
+                            resetValue={1}
+                            sliderMax={100}
+                            labelStepSize={20}
+                        />
+                    </li>
                 ))}
 
-            <li>
-                <button type="button" onClick={() => fields.push({
-                    hex: "#ffffff",
-                    opacity: "100",
-                    amount: "20"
-                })}>
-                    Add color
-                </button>
+                <li>
+                    <button type="button" onClick={() => fields.push({
+                        hex: "#ffffff",
+                        opacity: "100",
+                        amount: "20"
+                    })}>
+                        Add color
+                    </button>
                 </li>
             </ul>
         )
     }
-	render() {
+    render() {
         const { handleSubmit } = this.props;
-        
-        let mathTabOptions = [
-			{
-				value: "sin",
-				name: "Sin"
-			},
-			{
-				value: "cos",
-				name: "Cos"
-			},
-			{
-				value: "tan",
-				name: "Tan"
-			},
-			{
-				value: "atan",
-				name: "Atan"
-			},
-			{
-				value: "log",
-				name: "Log"
-			}
-		]
 
-		return (
+        let mathTabOptions = [
+            {
+                value: "sin",
+                name: "Sin"
+            },
+            {
+                value: "cos",
+                name: "Cos"
+            },
+            {
+                value: "tan",
+                name: "Tan"
+            },
+            {
+                value: "atan",
+                name: "Atan"
+            },
+            {
+                value: "log",
+                name: "Log"
+            }
+        ]
+
+        return (
             <Form onSubmit={handleSubmit} autoComplete="off">
 
                 <Field
@@ -101,89 +101,101 @@ class VizSettingsForm extends Component {
                     label="Algorithm math"
                 />
 
-                <Field
-                    name="shape.frequency"
-                    component={Slider}
-                    label="Frequency"
-                    sliderMax={20}
-                    sliderMin={-20}
-                    labelStepSize={10}
-                />
+                {!this.props.app.iframe && <div>
+                    <Field
+                        name="shape.frequency"
+                        component={Slider}
+                        label="Frequency"
+                        sliderMax={20}
+                        sliderMin={-20}
+                        labelStepSize={10}
+                    />
 
-                <Field
-                    name="shape.step"
-                    component={Slider}
-                    label="Step"
-                    sliderMax={20}
-                    sliderMin={-20}
-                    labelStepSize={10}
-                />
+                    <Field
+                        name="shape.step"
+                        component={Slider}
+                        label="Step"
+                        sliderMax={20}
+                        sliderMin={-20}
+                        labelStepSize={10}
+                    />
 
-                <Field
-                    name="shape.rotateSpeed"
-                    component={Slider}
-                    label="Rotation"
-                    sliderMax={10}
-                    sliderMin={-10}
-                    labelStepSize={5}
-                />
+                    <Field
+                        name="shape.rotateSpeed"
+                        component={Slider}
+                        label="Rotation"
+                        sliderMax={10}
+                        sliderMin={-10}
+                        labelStepSize={5}
+                    />
 
-                <Field
-                    name="shape.boldRate"
-                    component={Slider}
-                    label="Boldness"
-                    sliderMax={20}
-                    sliderMin={-20}
-                    labelStepSize={10}
-                />
+                    <Field
+                        name="shape.boldRate"
+                        component={Slider}
+                        label="Boldness"
+                        sliderMax={20}
+                        sliderMin={-20}
+                        labelStepSize={10}
+                    />
 
-                <Field
-                    name="shape.friction"
-                    component={Slider}
-                    label="Friction"
-                    sliderMax={1}
-                    sliderMin={-1}
-                    labelStepSize={0.5}
-                />
+                    <Field
+                        name="shape.friction"
+                        component={Slider}
+                        label="Friction"
+                        sliderMax={1}
+                        sliderMin={-1}
+                        labelStepSize={0.5}
+                    />
 
-                <Field
-                    name="shape.rotatePointSpeed"
-                    component={Slider}
-                    label="Point rotation speed"
-                    sliderMax={10}
-                    sliderMin={-10}
-                    labelStepSize={5}
-                />
+                    <Field
+                        name="shape.rotatePointSpeed"
+                        component={Slider}
+                        label="Point rotation speed"
+                        sliderMax={10}
+                        sliderMin={-10}
+                        labelStepSize={5}
+                    />
 
-                <Field
-                    name="point.pointSize"
-                    component={Slider}
-                    label="Point size"
-                    sliderMax={500}
-                    sliderMin={1}
-                    resetValue={1.3}
-                    labelStepSize={125}
-                />
+                    <Field
+                        name="point.pointSize"
+                        component={Slider}
+                        label="Point size"
+                        sliderMax={500}
+                        sliderMin={1}
+                        resetValue={1.3}
+                        labelStepSize={125}
+                    />
 
-                <Field
-                    name="point.pointCount"
-                    component={Slider}
-                    label="Point count"
-                    sliderMax={1024}
-                    sliderMin={1}
-                    resetValue={1}
-                    incrementStep={1}
-                    labelStepSize={205}
-                />
+                    <Field
+                        name="point.pointCount"
+                        component={Slider}
+                        label="Point count"
+                        sliderMax={1024}
+                        sliderMin={1}
+                        resetValue={1}
+                        incrementStep={1}
+                        labelStepSize={205}
+                    />
 
-                <Field
-                    name="point.pointOpacity"
-                    component={Slider}
-                    label="Point opacity"
-                    resetValue={1}
-                    sliderMax={1}
-                    labelStepSize={0.1}
-                />
+                    <Field
+                        name="point.pointOpacity"
+                        component={Slider}
+                        label="Point opacity"
+                        resetValue={1}
+                        sliderMax={1}
+                        labelStepSize={0.1}
+                    />
+
+                    {this.props.user && <Button
+                        className={"submit-button update-shape main-button"}
+                        loading={this.props.loading}
+                        type="submit"
+                        text="Update"
+                        large="true"
+                    />}
+
+                </div>}
+
 
                 {/* <Field
                     name="shape.backgroundColor"
@@ -235,20 +247,14 @@ class VizSettingsForm extends Component {
                     />
                 </div> */}
 
-               
 
-                {this.props.user && <Button
-                    className={"submit-button update-shape main-button"}
-                    loading={this.props.loading}
-                    type="submit"
-                    text="Update"
-                    large="true"
-                /> }
 
-               
+
+
+
             </Form>
-		);
-	}
+        );
+    }
 }
 
 const validate = values => {
@@ -259,7 +265,7 @@ const validate = values => {
     }
 
     return errors
-  }
+}
 
 VizSettingsForm = reduxForm({
     form: 'vizSettings',
@@ -267,10 +273,10 @@ VizSettingsForm = reduxForm({
 })(VizSettingsForm);
 
 const mapStateToProps = state => ({
-    user: state.app.user
+    user: state.app.user,
+    app: state.app
 });
 
 export default connect(mapStateToProps, {
 })(VizSettingsForm);
 
-  

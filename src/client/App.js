@@ -38,7 +38,8 @@ import {
     setDraft,
     setApproved,
     setRejected,
-    setSold
+    setSold,
+    setIframe
 } from "../client/redux/actions/appActions"
 import { loadWord, updateBlocks } from "../client/redux/actions/wordsActions"
 import { loadShape } from "../client/redux/actions/shapeActions"
@@ -81,6 +82,9 @@ class App extends Component {
 	}
 
     async componentDidMount() {
+        if(this.inIframe()) {
+            this.props.setIframe(true)
+        }
         this.auth()
         this.loadWeb3()
         this.props.updateMarketTokens()
@@ -106,6 +110,14 @@ class App extends Component {
             }
         }, 2222)
         
+    }
+
+    inIframe = () => {
+        try {
+            return window.self !== window.top;
+        } catch (e) {
+            return true;
+        }
     }
 
     componentWillUnmount() {
@@ -396,6 +408,7 @@ export default {
         setDraft,
         setApproved,
         setRejected,
-        setSold
+        setSold,
+        setIframe
     })(App))
 };

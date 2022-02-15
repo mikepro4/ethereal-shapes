@@ -305,7 +305,7 @@
 }
 
 .viz-settings-drawer {
-    height: 50%;
+    max-height: 50%;
     @media only screen and (min-width: $mobile) {
         width: 600px;
     }

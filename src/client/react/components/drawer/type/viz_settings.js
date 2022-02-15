@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import classNames from "classnames"
-import { Icon, Button, Classes, Intent, Position, Toaster, Switch  } from "@blueprintjs/core";
+import { Icon, Button, Classes, Intent, Position, Toaster, Switch } from "@blueprintjs/core";
 
 import qs from "qs";
 import * as _ from "lodash"
@@ -24,13 +24,13 @@ import {
 
 import {
     updateNFTShape
-}from "../../../../redux/actions/nftActions"
+} from "../../../../redux/actions/nftActions"
 
 
 import {
     demoOn,
     demoOff
-}from "../../../../redux/actions/appActions"
+} from "../../../../redux/actions/appActions"
 
 class VizSettings extends Component {
 
@@ -42,7 +42,7 @@ class VizSettings extends Component {
         console.log(data)
 
         this.setState({
-			loading: true
+            loading: true
         })
 
         this.props.updateShape(this.props.shape, data, () => {
@@ -58,56 +58,56 @@ class VizSettings extends Component {
     }
 
     getQueryParams = () => {
-		return qs.parse(this.props.location.search.substring(1));
+        return qs.parse(this.props.location.search.substring(1));
     };
 
     saveAsPNG = () => {
         var canvas = document.getElementById("viz");
         var dataURL = canvas.toDataURL("image/png");
-        var newTab = window.open('about:blank','image from canvas');
+        var newTab = window.open('about:blank', 'image from canvas');
         newTab.document.write("<img src='" + dataURL + "' alt='from canvas'/>");
 
     }
 
     saveAsSVG = () => {
-		var svg = document.getElementById("svgcanvas");
+        var svg = document.getElementById("svgcanvas");
 
         var rectNodes = svg.querySelectorAll('rect');
-        [].slice.call( rectNodes ).forEach(function(rect){
-        rect.parentNode.removeChild( rect );
+        [].slice.call(rectNodes).forEach(function (rect) {
+            rect.parentNode.removeChild(rect);
         });
-	
-		//get svg source.
-		var serializer = new XMLSerializer();
-		var source = serializer.serializeToString(svg);
-	
-		//add name spaces.
-		if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
-			source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-		}
-		if(!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)){
-			source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
-		}
+
+        //get svg source.
+        var serializer = new XMLSerializer();
+        var source = serializer.serializeToString(svg);
+
+        //add name spaces.
+        if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+            source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
+        if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+            source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+        }
 
         source = source.replace(/(<rect.*?<\/rect>)/g, "");
 
-       
+
         console.log(source)
-	
-		//add xml declaration
-		source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
-	
-		//convert svg source to URI data scheme.
-		var url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
-	
-		//set url value to a element's href attribute.
-        var newTab = window.open('about:blank','image from canvas');
+
+        //add xml declaration
+        source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+
+        //convert svg source to URI data scheme.
+        var url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+
+        //set url value to a element's href attribute.
+        var newTab = window.open('about:blank', 'image from canvas');
         newTab.document.write("<img src='" + url + "' alt='from canvas'/>");
     }
 
     handleSwitchChange = (data) => {
- 
-        if(this.props.app.demoMode) {
+
+        if (this.props.app.demoMode) {
             this.props.demoOff()
         } else {
             this.props.demoOn()
@@ -115,13 +115,13 @@ class VizSettings extends Component {
         }
     }
 
-    renderDemoSwitch =() => {
-        
-        return(
+    renderDemoSwitch = () => {
+
+        return (
             <div>
-                <Switch 
-                    checked={this.props.app.demoMode} 
-                    onChange={this.handleSwitchChange} 
+                <Switch
+                    checked={this.props.app.demoMode}
+                    onChange={this.handleSwitchChange}
                     label="Demo mode"
                 />
             </div>
@@ -129,18 +129,18 @@ class VizSettings extends Component {
     }
 
 
-	render() {
+    render() {
         let shape = this.props.newShape && this.props.newShape.defaultViz ? this.props.newShape.defaultViz.shape : this.props.shape.defaultViz.shape
         let point = this.props.newShape && this.props.newShape.defaultViz ? this.props.newShape.defaultViz.point : this.props.shape.defaultViz.point
         let overlay = this.props.newShape && this.props.newShape.defaultViz ? this.props.newShape.defaultViz.overlay : this.props.shape.defaultViz.overlay
         let colors = this.props.newShape && this.props.newShape.defaultViz ? this.props.newShape.defaultViz.colors : this.props.shape.defaultViz.colors
         return (
             <div className={"app-drawer-content-container standard-drawer viz-settings-drawer theme-" + this.props.theme}>
-                
+
                 <div className={"details-container theme-" + this.props.theme}>
                     <div className="drawer-header">
 
-                        <VizSettingsForm 
+                        <VizSettingsForm
                             enableReinitialize="true"
                             initialValues={
                                 {
@@ -170,17 +170,18 @@ class VizSettings extends Component {
 
                     </div>
 
-                    {this.props.user && <Button 
-                            className={"control button-update main-button theme-"+ this.props.theme}
+                    {!this.props.app.iframe && <div>
+                        {this.props.user && <Button
+                            className={"control button-update main-button theme-" + this.props.theme}
                             loading={this.state.loading}
-                            onClick={() =>  {
-                               
+                            onClick={() => {
+
                                 this.setState({
                                     loading: true
                                 })
                                 let user
 
-                                if(this.props.user && this.props.user._id ) {
+                                if (this.props.user && this.props.user._id) {
                                     user = this.props.user._id
                                 } else {
                                     user = "anon"
@@ -207,37 +208,40 @@ class VizSettings extends Component {
                                         loading: false
                                     })
                                 })
-                                }
+                            }
                             }
                         >Save new shape</Button>}
 
 
 
-                    <Button 
-                        className={"control button-saveas main-button theme-"+ this.props.theme}
-                        onClick={() =>  this.saveAsPNG()}>Save as PNG</Button>
+                        <Button
+                            className={"control button-saveas main-button theme-" + this.props.theme}
+                            onClick={() => this.saveAsPNG()}>Save as PNG</Button>
 
-                    <Button 
-                        className={"control button-saveas main-button theme-"+ this.props.theme}
-                        onClick={() =>  this.saveAsSVG()}>Save as SVG</Button>
+                        <Button
+                            className={"control button-saveas main-button theme-" + this.props.theme}
+                            onClick={() => this.saveAsSVG()}>Save as SVG</Button>
+                    </div>}
+
+
 
                     <div className="demo-switch-container">
                         {this.renderDemoSwitch()}
                     </div>
-                    
 
-                        
+
+
                 </div>
             </div>
 
         )
- 
-		
-	}
+
+
+    }
 }
 
 function mapStateToProps(state) {
-	return {
+    return {
         theme: state.app.theme,
         user: state.app.user,
         authenticated: state.auth.authenticated,
@@ -245,7 +249,7 @@ function mapStateToProps(state) {
         newShape: state.shape.newShape,
         nft: state.activeNFT.newNFT,
         app: state.app
-	};
+    };
 }
 
 export default withRouter(connect(mapStateToProps, {

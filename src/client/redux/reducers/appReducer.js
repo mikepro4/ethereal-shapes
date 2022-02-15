@@ -31,7 +31,8 @@ import {
     SET_REJECTED,
     SET_SOLD,
     SET_MIC,
-    SET_MIC_AUDIO
+    SET_MIC_AUDIO,
+    SET_IFRAME
 } from "../actions/types";
 
 export const initialState = {
@@ -79,11 +80,17 @@ export const initialState = {
     rejected: false,
     sold: false,
     mic: false,
-    micAudio: null
+    micAudio: null,
+    iframe: false
 };
 
 export const appReducer = (state = initialState, action) => {
 	switch (action.type) {
+        case SET_IFRAME:
+            return {
+                ...state,
+                iframe: action.payload
+            }
         case SET_MIC_AUDIO:
             return {
                 ...state,

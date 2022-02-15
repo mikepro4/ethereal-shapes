@@ -33,8 +33,8 @@ import { Buffer } from 'buffer';
 var client = ipfsHttpClient({ host: 'ipfs.infura.io', port: '5001', 'api-path': '/api/v0/', protocol: "https" })
 // const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-import { 
-    updateMarketTokens, 
+import {
+    updateMarketTokens,
     updateCollectionItem,
     updateStatusBuying,
     updateStatusMinting
@@ -64,7 +64,7 @@ class NFTDetails extends Component {
 
     buyNFT = () => {
 
-        if(this.props.app.account.address) {
+        if (this.props.app.account.address) {
             this.props.updateStatusBuying(true)
             this.props.buyNFT(this.props.item.nft.fileUrl, this.props.item, () => {
                 this.props.updateStatusBuying(false)
@@ -73,7 +73,7 @@ class NFTDetails extends Component {
         } else {
             this.props.showDrawer("connect-wallet-buy")
         }
-        
+
     }
 
     createMarket = async () => {
@@ -155,7 +155,7 @@ class NFTDetails extends Component {
                 this.props.updateMarketTokens()
                 this.props.updateCollectionItem(this.props.item)
             })
-           
+
         })
 
         // this.props.createNFT( { 
@@ -176,44 +176,44 @@ class NFTDetails extends Component {
     }
 
     renderArrow = () => {
-        return(
+        return (
             <div className="arrow-container" onClick={() => this.props.history.push("/nft?id=" + this.props.item._id)}>
-                <Arrow/>
+                <Arrow />
             </div>
         )
     }
 
     showToast = (message, id) => {
-		this.refs.toaster.show({
-			message: message,
-			intent: Intent.SUCCESS,
-		});
+        this.refs.toaster.show({
+            message: message,
+            intent: Intent.SUCCESS,
+        });
     }
 
     renderMic() {
-        return(
+        return (
             <div>
-                <Mic/>
+                <Mic />
             </div>
         )
     }
-		
+
 
     renderButton(type) {
 
         switch (type) {
             case "own":
                 return (
-                    <div> 
+                    <div>
                         {!this.props.more && this.renderArrow()}
-                        {this.props.mic && this.renderMic()}
+                        {this.props.mic && !this.props.app.iframe && this.renderMic()}
                     </div>
                 )
             case "sold":
                 return (
                     <div>
-                         {!this.props.more && this.renderArrow()}
-                         {this.props.mic && this.renderMic()}
+                        {!this.props.more && this.renderArrow()}
+                        {this.props.mic && !this.props.app.iframe && this.renderMic()}
                     </div>)
 
             case "buy":
@@ -236,12 +236,14 @@ class NFTDetails extends Component {
                     onClick={() => this.mintNFT()}
                 />)
             case "create":
-                return (<Button
-                    className={"create-button main-button"}
-                    onClick={() => this.createNFT()}
-                    text="Create"
-                    large="true"
-                />)
+                return (<div>
+                    {!this.props.app.iframe && this.props.app.user && <Button
+                        className={"create-button main-button"}
+                        onClick={() => this.createNFT()}
+                        text="Create"
+                        large="true"
+                    />}
+                </div>)
             default:
                 return;
         }
@@ -253,9 +255,9 @@ class NFTDetails extends Component {
         let overlay = this.props.newShape && this.props.newShape.defaultViz ? this.props.newShape.defaultViz.overlay : this.props.shape.defaultViz.overlay
         let colors = this.props.newShape && this.props.newShape.defaultViz ? this.props.newShape.defaultViz.colors : this.props.shape.defaultViz.colors
 
-        let user 
+        let user
 
-        if(this.props.user && this.props.user._id ) {
+        if (this.props.user && this.props.user._id) {
             user = this.props.user._id
         } else {
             user = "anon"
@@ -286,12 +288,12 @@ class NFTDetails extends Component {
             }
             this.props.createNFT(
                 newNft
-            , (data) => {
-                this.props.history.push("/nft?id=" + data._id);
-                this.props.hideDrawer()
-            });
+                , (data) => {
+                    this.props.history.push("/nft?id=" + data._id);
+                    this.props.hideDrawer()
+                });
         })
-       
+
     }
 
     getStatus = () => {
@@ -355,8 +357,7 @@ class NFTDetails extends Component {
                     <div className="play-container">
                         <Player nft={this.props.item} />
                     </div>
-
-                    <div className="metadata-container" onClick={() => this.props.showDrawer("nft-settings", this.props.item)}>
+                    {!this.props.app.iframe && <div className="metadata-container" onClick={() => this.props.showDrawer("nft-settings", this.props.item)}>
                         <div className="metadata-name">
                             {this.props.item.nft.name}
                         </div>
@@ -370,11 +371,12 @@ class NFTDetails extends Component {
                             {this.props.user && this.props.item.metadata.approved && <span className="f">A</span>}
                             {this.props.user && this.props.item.metadata.rejected && <span className="f">R</span>}
                         </div>
-                    </div>
+                    </div>}
+
 
                 </div>
 
-               
+
 
                 <div className="nft-details-left">
                     <div className="left">

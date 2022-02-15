@@ -24,7 +24,8 @@ import {
     SET_REJECTED,
     SET_SOLD,
     SET_MIC,
-    SET_MIC_AUDIO
+    SET_MIC_AUDIO,
+    SET_IFRAME
 } from "./types";
 
 import * as _ from "lodash";
@@ -40,6 +41,20 @@ import {
 import NFT from "../../../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
+
+export const setIframe = (value) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: SET_IFRAME,
+        payload: value
+    });
+};
+
+
+/////////////////////////////////////////////////
 
 
 export const setMicAudio = (value) => async (

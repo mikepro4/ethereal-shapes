@@ -470,7 +470,7 @@ class Header extends Component {
                         this.handleClick()
                     }}>
 
-                        {this.renderLines()}
+                        {!this.props.iframe && this.renderLines()}
 
                     </div>
 
@@ -524,7 +524,8 @@ function mapStateToProps(state) {
         demoMode: state.app.demoMode,
         user: state.app.user,
         blocks: state.blocks,
-        clientHeight: state.app.clientHeight
+        clientHeight: state.app.clientHeight,
+        iframe: state.app.iframe,
     };
 }
 

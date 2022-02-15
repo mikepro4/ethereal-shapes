@@ -49,24 +49,29 @@ class AccountDisplay extends Component {
 
 
     render() {
-        if(this.props.account.address && this.props.account.balance !== null) {
-            let account = this.props.account.address.substr(this.props.account.address.length - 4)
-            return(<div className="header-account-wrapper">
-                <div className="header-account-balance-container">
-                    <div className="header-polygon"><Polygon/></div>
-                    <div className="header-account-balance">{this.props.account.balance}</div>
-                    
-                </div>
-                <div className="header-account-addresss">0x...{account}</div>
-            </div>)
+        if(!this.props.app.iframe) {
+            if(this.props.account.address && this.props.account.balance !== null) {
+                let account = this.props.account.address.substr(this.props.account.address.length - 4)
+                return(<div className="header-account-wrapper">
+                    <div className="header-account-balance-container">
+                        <div className="header-polygon"><Polygon/></div>
+                        <div className="header-account-balance">{this.props.account.balance}</div>
+                        
+                    </div>
+                    <div className="header-account-addresss">0x...{account}</div>
+                </div>)
+            } else {
+                return(
+                    <div className="header-account" onClick={() => this.props.showDrawer("connect-wallet")}>
+                        <div className="header-account-icon"><Account /></div>
+                        <div className="login-link">Login</div>
+                    </div>
+                )
+            }
         } else {
-            return(
-                <div className="header-account" onClick={() => this.props.showDrawer("connect-wallet")}>
-                    <div className="header-account-icon"><Account /></div>
-                    <div className="login-link">Login</div>
-                </div>
-            )
+            return (<div></div>)
         }
+        
     }
 }
 
