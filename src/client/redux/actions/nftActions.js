@@ -190,7 +190,7 @@ export const buyNFT = (fileUrl, passedNft, success) => async (
     const contract = new ethers.Contract(nftMarketAddress, ESMarket.abi, signer)
     const nftContract = new ethers.Contract(nftAddress, NFT.abi, signer)
 
-    const price = ethers.utils.parseUnits(passedNft.nft.price.toString(), "ether");
+    const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
     console.log(nft, nft.tokenId, price)
     console.log(nftAddress, nft.tokenId, signer, nft, price.toString())
 

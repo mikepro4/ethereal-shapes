@@ -340,7 +340,7 @@ class App extends Component {
                 className="app"
                 className={classNames({
                     "app": true,
-                    "black": this.props.app.about.active
+                    "black": this.props.app.about.active || this.props.app.demoMode
                 })}
             >
                 {this.props.drawerOpen && <Drawer type={this.props.drawerType} />}
