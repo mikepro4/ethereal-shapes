@@ -27,7 +27,8 @@ import {
     SET_MIC_AUDIO,
     SET_IFRAME,
     SET_TOUCH_ZONES,
-    SET_ABOUT
+    SET_ABOUT,
+    SET_DOWNLOAD_SVG
 } from "./types";
 
 import * as _ from "lodash";
@@ -43,6 +44,21 @@ import {
 import NFT from "../../../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
+
+/////////////////////////////////////////////////
+
+export const setDownloadSVG = (value) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: SET_DOWNLOAD_SVG,
+        payload: value
+    });
+};
+
+/////////////////////////////////////////////////
 
 export const setAbout = (value) => async (
     dispatch,

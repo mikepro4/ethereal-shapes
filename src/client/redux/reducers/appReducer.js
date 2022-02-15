@@ -34,7 +34,8 @@ import {
     SET_MIC_AUDIO,
     SET_IFRAME,
     SET_TOUCH_ZONES,
-    SET_ABOUT
+    SET_ABOUT,
+    SET_DOWNLOAD_SVG
 } from "../actions/types";
 
 export const initialState = {
@@ -88,11 +89,17 @@ export const initialState = {
     about: {
         active: false,
         mainShapeId: "620b4991834d9a002171da30"
-    }
+    },
+    downloadSVG: false
 };
 
 export const appReducer = (state = initialState, action) => {
 	switch (action.type) {
+        case SET_DOWNLOAD_SVG:
+            return {
+                ...state,
+                downloadSVG: action.payload
+            }
         case SET_ABOUT:
             return {
                 ...state,

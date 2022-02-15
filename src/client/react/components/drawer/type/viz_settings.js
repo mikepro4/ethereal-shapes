@@ -30,7 +30,8 @@ import {
 import {
     demoOn,
     demoOff,
-    setTouchZones
+    setTouchZones,
+    setDownloadSVG
 } from "../../../../redux/actions/appActions"
 
 class VizSettings extends Component {
@@ -68,42 +69,6 @@ class VizSettings extends Component {
         var newTab = window.open('about:blank', 'image from canvas');
         newTab.document.write("<img src='" + dataURL + "' alt='from canvas'/>");
 
-    }
-
-    saveAsSVG = () => {
-        var svg = document.getElementById("svgcanvas");
-
-        var rectNodes = svg.querySelectorAll('rect');
-        [].slice.call(rectNodes).forEach(function (rect) {
-            rect.parentNode.removeChild(rect);
-        });
-
-        //get svg source.
-        var serializer = new XMLSerializer();
-        var source = serializer.serializeToString(svg);
-
-        //add name spaces.
-        if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-            source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-        }
-        if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-            source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
-        }
-
-        source = source.replace(/(<rect.*?<\/rect>)/g, "");
-
-
-        console.log(source)
-
-        //add xml declaration
-        source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
-
-        //convert svg source to URI data scheme.
-        var url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
-
-        //set url value to a element's href attribute.
-        var newTab = window.open('about:blank', 'image from canvas');
-        newTab.document.write("<img src='" + url + "' alt='from canvas'/>");
     }
 
     handleSwitchChange = (data) => {
@@ -244,7 +209,7 @@ class VizSettings extends Component {
 
                         <Button
                             className={"control button-saveas main-button theme-" + this.props.theme}
-                            onClick={() => this.saveAsSVG()}>Save as SVG</Button>
+                            onClick={() => this.props.setDownloadSVG(true)}>Save as SVG</Button>
 
                         <div className="demo-switch-container">
                             {this.renderDemoSwitch()}
@@ -288,5 +253,6 @@ export default withRouter(connect(mapStateToProps, {
     updateNFTShape,
     demoOn,
     demoOff,
-    setTouchZones
+    setTouchZones,
+    setDownloadSVG
 })(VizSettings));

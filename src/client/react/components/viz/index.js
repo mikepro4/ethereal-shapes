@@ -8,6 +8,8 @@ import { fromPairs, upperFirst } from "lodash";
 
 import TouchZones from "./touchZones"
 
+import { setDownloadSVG } from "../../../redux/actions/appActions"
+
 class Viz extends Component {
     constructor(props) {
         super(props)
@@ -145,6 +147,11 @@ class Viz extends Component {
                     this.renderFrame(this.canvas.current.getContext('2d'), this.state.points)
                 })
             }
+        }
+
+        if (this.props.app.downloadSVG !== prevprops.app.downloadSVG && this.props.app.downloadSVG == true) {
+            this.props.setDownloadSVG(false)
+            this.setupSVGCanvas()
         }
     }
 
@@ -767,6 +774,45 @@ class Viz extends Component {
         svgkitContext.svg.svgElement.setAttribute("id", "svgcanvas");
         container.appendChild(svgkitContext.svg.svgElement);
         this.renderOnce(svgkitContext, points)
+        setTimeout(() => {
+            this.saveAsSVG()
+        }, 10)
+    }
+
+    saveAsSVG = () => {
+        var svg = document.getElementById("svgcanvas");
+
+        var rectNodes = svg.querySelectorAll('rect');
+        [].slice.call(rectNodes).forEach(function (rect) {
+            rect.parentNode.removeChild(rect);
+        });
+
+        //get svg source.
+        var serializer = new XMLSerializer();
+        var source = serializer.serializeToString(svg);
+
+        //add name spaces.
+        if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+            source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
+        if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+            source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+        }
+
+        source = source.replace(/(<rect.*?<\/rect>)/g, "");
+
+
+        console.log(source)
+
+        //add xml declaration
+        source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+
+        //convert svg source to URI data scheme.
+        var url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+
+        //set url value to a element's href attribute.
+        var newTab = window.open('about:blank', 'image from canvas');
+        newTab.document.write("<img src='" + url + "' alt='from canvas'/>");
     }
 
 
@@ -820,5 +866,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-
+    setDownloadSVG
 })(Viz);
