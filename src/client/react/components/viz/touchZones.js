@@ -818,7 +818,9 @@ class TouchZones extends Component {
                             "touch-zone-active": this.state.activeZone == 2
                         }, "touch-zone touch-zone-2")}
                         onTouchStart={(event) => this.handleZone2TouchStart(event)}
+                        onMouseDown={(event) => this.handleZone2TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone2TouchEnd(event)}
+                        onMouseUp={(event) => this.handleZone2TouchEnd(event)}
                     ></div>
 
                     <div
@@ -826,7 +828,9 @@ class TouchZones extends Component {
                             "touch-zone-active": this.state.activeZone == 1
                         }, "touch-zone touch-zone-1")}
                         onTouchStart={(event) => this.handleZone1TouchStart(event)}
+                        onMouseDown={(event) => this.handleZone1TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone1TouchEnd(event)}
+                        onMouseUp={(event) => this.handleZone1TouchEnd(event)}
                     ></div>
 
                 </div>
@@ -838,7 +842,9 @@ class TouchZones extends Component {
                             "touch-zone-active": this.state.activeZone == 4
                         }, "touch-zone touch-zone-4")}
                         onTouchStart={(event) => this.handleZone4TouchStart(event)}
+                        onMouseDown={(event) => this.handleZone4TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone4TouchEnd(event)}
+                        onMouseUp={(event) => this.handleZone4TouchEnd(event)}
                     ></div>
 
                     <div
@@ -846,7 +852,9 @@ class TouchZones extends Component {
                             "touch-zone-active": this.state.activeZone == 3
                         }, "touch-zone touch-zone-3")}
                         onTouchStart={(event) => this.handleZone3TouchStart(event)}
+                        onMouseDown={(event) => this.handleZone3TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone3TouchEnd(event)}
+                        onMouseUp={(event) => this.handleZone3TouchEnd(event)}
                     ></div>
                 </div>
 
@@ -857,7 +865,9 @@ class TouchZones extends Component {
                             "touch-zone-active": this.state.activeZone == 8
                         }, "touch-zone touch-zone-8")}
                         onTouchStart={(event) => this.handleZone8TouchStart(event)}
+                        onMouseDown={(event) => this.handleZone8TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone8TouchEnd(event)}
+                        onMouseUp={(event) => this.handleZone8TouchEnd(event)}
                     ></div>
 
                     <div
@@ -865,7 +875,9 @@ class TouchZones extends Component {
                             "touch-zone-active": this.state.activeZone == 7
                         }, "touch-zone touch-zone-7")}
                         onTouchStart={(event) => this.handleZone7TouchStart(event)}
+                        onMouseDown={(event) => this.handleZone7TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone7TouchEnd(event)}
+                        onMouseUp={(event) => this.handleZone7TouchEnd(event)}
                     ></div>
                 </div>
 
@@ -875,7 +887,9 @@ class TouchZones extends Component {
                             "touch-zone-active": this.state.activeZone == 6
                         }, "touch-zone touch-zone-6")}
                         onTouchStart={(event) => this.handleZone6TouchStart(event)}
+                        onMouseDown={(event) => this.handleZone6TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone6TouchEnd(event)}
+                        onMouseUp={(event) => this.handleZone6TouchEnd(event)}
                     ></div>
 
                     <div
@@ -883,7 +897,9 @@ class TouchZones extends Component {
                             "touch-zone-active": this.state.activeZone == 5
                         }, "touch-zone touch-zone-5")}
                         onTouchStart={(event) => this.handleZone5TouchStart(event)}
+                        onMouseDown={(event) => this.handleZone5TouchStart(event)}
                         onTouchEnd={(event) => this.handleZone5TouchEnd(event)}
+                        onMouseUp={(event) => this.handleZone5TouchEnd(event)}
                     ></div>
                 </div>
             </div>
