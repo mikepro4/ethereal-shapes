@@ -72,7 +72,8 @@
     max-width: 350px;
     margin: 0 auto;
     transform: translateY(-10px);
-
+    opacity: 0;
+    animation: fadeIn 1s 0.55s linear forwards;
 
     svg {
         margin: 0 auto;
