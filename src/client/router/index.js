@@ -13,6 +13,7 @@ import About from "../react/pages/about"
 import Admin from "../react/pages/admin"
 import Shapes from "../react/pages/shapes"
 import Review from "../react/pages/review"
+import Planet from "../react/pages/planet"
 
 export default [
     {
@@ -117,6 +118,14 @@ export default [
             {
                 ...Review,
                 path: "/review",
+                exact: true,
+                params: {
+                    name: "review"
+                }
+            },
+            {
+                ...Planet,
+                path: "/planet",
                 exact: true,
                 params: {
                     name: "review"
