@@ -55,13 +55,17 @@ class Nav extends Component {
 				name: "On Sale",
                 active: this.props.app.salesActive
 			},
-			{
-			  	url: "/my-nfts",
-				name: "My NFTs",
-			},
+			// {
+			//   	url: "/my-nfts",
+			// 	name: "My NFTs",
+			// },
 			{
 			  	url: "/about",
 				name: "About",
+			},
+			{
+			  	url: "/planet",
+				name: "Planet",
 			}
 		]
 
