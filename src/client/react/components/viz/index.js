@@ -261,7 +261,7 @@ class Viz extends Component {
                             finalPointSise = pointSize * 1.4
                         }
                     } else {
-                        finalPointSise = pointSize + .5
+                        finalPointSise = pointSize + 1.5
                     }
                 } else {
 
