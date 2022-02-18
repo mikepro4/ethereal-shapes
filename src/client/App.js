@@ -82,34 +82,36 @@ class App extends Component {
 	}
 
     async componentDidMount() {
-        if(this.inIframe()) {
-            this.props.setIframe(true)
-        }
-        this.auth()
-        this.loadWeb3()
-        this.props.updateMarketTokens()
-
-        setTimeout(() => {
-            this.getBalance()
-        }, 100)
-
-        setInterval(() => {
-            this.getBalance()
-        }, 2222)
-
-        document.addEventListener("keydown", this.onKeyDownPressed.bind(this))
-        document.addEventListener("keyup", this.onKeyUpPressed.bind(this))
-
-        if(this.getQueryParams().draft == "true") {
-            this.props.setDraft(true)
-        }
-
-        setInterval(() => {
-            if(!this.props.account.address) {
-                this.loadWeb3()
+        if(!this.props.app.locked) {
+            if(this.inIframe()) {
+                this.props.setIframe(true)
             }
-        }, 2222)
-        
+            this.auth()
+            this.loadWeb3()
+            this.props.updateMarketTokens()
+    
+            setTimeout(() => {
+                this.getBalance()
+            }, 100)
+    
+            setInterval(() => {
+                this.getBalance()
+            }, 2222)
+    
+            document.addEventListener("keydown", this.onKeyDownPressed.bind(this))
+            document.addEventListener("keyup", this.onKeyUpPressed.bind(this))
+    
+            if(this.getQueryParams().draft == "true") {
+                this.props.setDraft(true)
+            }
+    
+            setInterval(() => {
+                if(!this.props.account.address) {
+                    this.loadWeb3()
+                }
+            }, 2222)
+            
+        }
     }
 
     inIframe = () => {
@@ -202,36 +204,35 @@ class App extends Component {
     }
 
     componentDidUpdate(prevprops) {
-        if(!_.isEqual(prevprops.location.search, this.props.location.search)) {
-            this.loadWeb3()
-        }
-
-        if(this.props.word && this.props.word.metadata) {
-            if(!_.isEqual(prevprops.word, this.props.word)) {
-                this.props.loadShape(this.props.word.metadata.shapeId)
+        if(!this.props.app.locked) {
+            if(!_.isEqual(prevprops.location.search, this.props.location.search)) {
+                this.loadWeb3()
             }
-        }
-        if(this.props.word && this.props.word.metadata) {
-            if(!_.isEqual(prevprops.word, this.props.word)) {
-                this.props.loadShape(this.props.word.metadata.shapeId)
-            }
-        }
 
-        if(prevprops.blocks.uploadDone !== this.props.blocks.uploadDone && this.props.blocks.uploadDone == true) {
-            if(this.props.blocks.status !== "saving") {
-                this.props.updateBlocks(
-                    this.props.word,
-                    this.props.blocks.updatedBlocks, 
-                    () => {
-                        
-                        this.props.loadWord(this.getQueryParams().word, (data) => {
+            if(this.props.word && this.props.word.metadata) {
+                if(!_.isEqual(prevprops.word, this.props.word)) {
+                    this.props.loadShape(this.props.word.metadata.shapeId)
+                }
+            }
+            if(this.props.word && this.props.word.metadata) {
+                if(!_.isEqual(prevprops.word, this.props.word)) {
+                    this.props.loadShape(this.props.word.metadata.shapeId)
+                }
+            }
+
+            if(prevprops.blocks.uploadDone !== this.props.blocks.uploadDone && this.props.blocks.uploadDone == true) {
+                if(this.props.blocks.status !== "saving") {
+                    this.props.updateBlocks(
+                        this.props.word,
+                        this.props.blocks.updatedBlocks, 
+                        () => {
+                            
+                            this.props.loadWord(this.getQueryParams().word, (data) => {
+                        })
                     })
-                })
+                }
             }
         }
-
-        
-        
     }
 
     getQueryParams = () => {
@@ -340,7 +341,7 @@ class App extends Component {
                 className="app"
                 className={classNames({
                     "app": true,
-                    "black": this.props.app.about.active || this.props.app.demoMode
+                    "black": this.props.app.about.active || this.props.app.demoMode || this.props.app.locked
                 })}
             >
                 {this.props.drawerOpen && <Drawer type={this.props.drawerType} />}

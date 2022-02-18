@@ -14,6 +14,7 @@ import Admin from "../react/pages/admin"
 import Shapes from "../react/pages/shapes"
 import Review from "../react/pages/review"
 import Planet from "../react/pages/planet"
+import Iteration1 from "../react/pages/iteration1"
 
 export default [
     {
@@ -25,6 +26,14 @@ export default [
                 exact: true,
                 params: {
                     name: "home"
+                }
+            },
+            {
+                ...Iteration1,
+                path: "/iteration1",
+                exact: true,
+                params: {
+                    name: "iteration 1"
                 }
             },
             {

@@ -39,6 +39,7 @@ import {
 } from "../actions/types";
 
 export const initialState = {
+    locked: true,
     account: {
         metamask: false,
         ownedTokens: null,
@@ -89,6 +90,10 @@ export const initialState = {
     about: {
         active: false,
         mainShapeId: "620b4991834d9a002171da30"
+    },
+    iteration1: {
+        audioUrl: "https://res.cloudinary.com/dcdnt/video/upload/v1644530071/dcdnt/albums/aska/03_ASMR_50_Miles.mp3",
+        mainShapeId: "62102b4d62ae4100210b6dfb"
     },
     downloadSVG: false
 };

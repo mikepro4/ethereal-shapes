@@ -470,7 +470,7 @@ class Header extends Component {
                         this.handleClick()
                     }}>
 
-                        {!this.props.iframe && this.renderLines()}
+                        {!this.props.iframe && !this.props.locked && this.renderLines()}
 
                     </div>
 
@@ -491,7 +491,7 @@ class Header extends Component {
                     </div>
 
                     {/* {this.renderAccount()} */}
-                    <AccountDisplay/>
+                    {!this.props.locked && <AccountDisplay/> }
 
                 </div>
                 {this.renderMenu()}
@@ -526,6 +526,7 @@ function mapStateToProps(state) {
         blocks: state.blocks,
         clientHeight: state.app.clientHeight,
         iframe: state.app.iframe,
+        locked: state.app.locked
     };
 }
 
