@@ -249,7 +249,12 @@ class Viz extends Component {
                 if(this.props.app.clientWidth > 1000) {
                     finalPointSise = pointSize + 0.5
                 } else {
-                    finalPointSise = pointSize
+
+                    if(this.props.lessBlur) {
+                        finalPointSise = pointSize * 0.7
+                    } else {
+                        finalPointSise = pointSize
+                    }
                 }
             }
     
@@ -622,7 +627,11 @@ class Viz extends Component {
             if (visible) {
 
                 if(this.props.lessBlur) {
-                    finalBlur = blur /2
+                    if(this.props.app.clientWidth < 1000) {
+                        finalBlur = blur /2
+                    } else {
+                        finalBlur = blur / 1.2
+                    }
                 } else {
                     finalBlur = blur
                 }

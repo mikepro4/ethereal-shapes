@@ -197,7 +197,7 @@ class VizSettingsForm extends Component {
                 </div>}
 
 
-                {/* <Field
+                <Field
                     name="shape.backgroundColor"
                     component={ColorPicker}
                     label="Background Color"
@@ -235,7 +235,7 @@ class VizSettingsForm extends Component {
                     label="Overlay Color"
                 />
 
-                <FieldArray name="colors" component={this.renderColors} /> */}
+                <FieldArray name="colors" component={this.renderColors} />
 
                 {/* <div className="blade-input-group">
                     <Field
