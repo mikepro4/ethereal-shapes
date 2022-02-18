@@ -435,7 +435,7 @@ class Viz extends Component {
                 y: this.state.points[i].y,
                 vx: 0,
                 vy: 0,
-                hidden: finalHidden,
+                hidden: this.state.points[i].hidden,
                 color: this.state.points[i].color,
                 opacity: this.state.points[i].opacity
             }
