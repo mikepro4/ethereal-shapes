@@ -185,7 +185,14 @@ class Viz extends Component {
         this.setState({
             pointCount: pointCount
         })
-        this.updateColors()
+        if(!this.state.updatedColors) {
+            this.updateColors()
+
+            this.setState({
+                updatedColors: true
+            })
+
+        }
     }
 
     startViz = () => {
@@ -254,7 +261,7 @@ class Viz extends Component {
                             finalPointSise = pointSize * 1.4
                         }
                     } else {
-                        finalPointSise = pointSize + 1.5
+                        finalPointSise = pointSize + .5
                     }
                 } else {
 
@@ -421,14 +428,28 @@ class Viz extends Component {
             finalHidden = true
         }
 
-        let point = {
-            x: x,
-            y: y,
-            vx: 0,
-            vy: 0,
-            hidden: finalHidden,
-            color: "#000000"
+        let point
+        if(this.state.points.length > 0) {
+            point = {
+                x: this.state.points[i].x,
+                y: this.state.points[i].y,
+                vx: 0,
+                vy: 0,
+                hidden: finalHidden,
+                color: this.state.points[i].color,
+                opacity: this.state.points[i].opacity
+            }
+        } else {
+            point = {
+                x: x,
+                y: y,
+                vx: 0,
+                vy: 0,
+                hidden: finalHidden,
+                color: "#ffffff"
+            }
         }
+       
         return point
     }
 
