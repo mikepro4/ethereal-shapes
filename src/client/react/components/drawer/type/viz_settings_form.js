@@ -40,14 +40,16 @@ class VizSettingsForm extends Component {
                             label="Color"
                         />
 
-                        <Field
+                        {fields.length > 1 && <Field
                             name={`${color}.amount`}
                             component={Slider}
                             label="Color amount"
                             resetValue={0}
                             sliderMax={100}
                             labelStepSize={20}
-                        />
+                        />}
+
+                        
 
                         <Field
                             name={`${color}.opacity`}

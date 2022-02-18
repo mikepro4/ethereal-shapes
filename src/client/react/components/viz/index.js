@@ -268,7 +268,7 @@ class Viz extends Component {
                 math: math,
                 pointSize: finalPointSise,
                 pointOpacity: pointOpacity,
-                pointColor: "#ffffff",
+                pointColor: pointColor ? pointColor : "#ffffff",
                 backgroundColor: backgroundColor,
                 backgroundEnabled: false,
                 backgroundOpacity: 1
@@ -693,62 +693,101 @@ class Viz extends Component {
             let colors = this.getViz().colors
             let pointCount = this.state.pointCount
             let ranges = []
+            let newRanges = []
 
             if (colors.length > 0) {
-                let newRanges = _.map(colors, (point, i) => {
+
+                newRanges = _.map(colors, (point, i) => {
+                    console.log( parseInt(point.amount) * pointCount / 100)
+
                     return ({
-                        count: point.amount * pointCount / 100
+                        count: parseInt(point.amount) * pointCount / 100
                     })
                 })
 
+
                 let points = []
 
-                _.map(newRanges, (range, colorCount) => {
+                if(newRanges.length == 1) {
+                    let count = pointCount
                     let filteredPoints = _.filter(this.state.points, (point, i) => {
-                        if (i < range.count) {
+                        if (i < count) {
                             return true
                         }
                     })
                     let coloredPoints = _.map(filteredPoints, (point, i) => {
-                        if (i < range.count) {
+                        if (i < count) {
+
                             return ({
                                 ...point,
-                                color: colors[colorCount].hex,
-                                opacity: colors[colorCount].opacity
+                                color: colors[0].hex,
+                                opacity: colors[0].opacity
                             })
                         }
                     })
-                    points = _.concat(points, coloredPoints)
-                    return
-                })
+                    points = coloredPoints
 
-                let difference = this.state.pointCount - points.length
-
-                let filteredDifference = _.filter(this.state.points, (point, i) => {
-                    if (i >= (this.state.pointCount - difference)) {
-                        return true
-                    }
-                })
-
-                let remainingPoints = _.map(filteredDifference, (point, i) => {
-                    return ({
-                        ...point,
-                        hidden: true
-                    })
-                })
-                points = _.concat(points, remainingPoints)
-
-                this.setState({
-                    points: points
-                })
-
-                if (points.length == this.state.totalPointCount) {
                     this.setState({
                         points: points
                     })
-                } else {
 
+                    // this.setState({
+                    //     pointColor: colors[0].hex,
+                    //     pointOpacity: colors[0].opacity
+                    // })
+                } else {
+                    _.map(newRanges, (range, colorCount) => {
+                        let filteredPoints = _.filter(this.state.points, (point, i) => {
+                            if (i < range.count) {
+                                return true
+                            }
+                        })
+                        let coloredPoints = _.map(filteredPoints, (point, i) => {
+                            if (i < range.count) {
+    
+                                return ({
+                                    ...point,
+                                    color: colors[colorCount].hex,
+                                    opacity: colors[colorCount].opacity
+                                })
+                            }
+                        })
+                        points = _.concat(points, coloredPoints)
+                        return
+                    })
+    
+                    let difference = this.state.pointCount - points.length
+    
+                    let filteredDifference = _.filter(this.state.points, (point, i) => {
+                        if (i >= (this.state.pointCount - difference)) {
+                            return true
+                        }
+                    })
+    
+                    let remainingPoints = _.map(filteredDifference, (point, i) => {
+                        return ({
+                            ...point,
+                            hidden: true
+                        })
+                    })
+                    points = _.concat(points, remainingPoints)
+
+                    this.setState({
+                        points: points
+                    })
+    
                 }
+
+                
+
+              
+                // if (points.length == this.state.totalPointCount) {
+                //     this.setState({
+                //         points: points
+                //     })
+                // } else {
+
+                // }
             } else {
                 let allWhitePoints = _.map(this.state.points, (point, i) => {
                     return ({
@@ -763,6 +802,7 @@ class Viz extends Component {
                 })
             }
         }
+
 
     }
 
