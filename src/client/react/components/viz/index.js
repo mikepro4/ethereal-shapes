@@ -226,7 +226,8 @@ class Viz extends Component {
                 step,
                 frequency,
                 boldRate,
-                math
+                math,
+                backgroundColor
             } = defaultViz.shape
     
             const {
@@ -263,7 +264,7 @@ class Viz extends Component {
                 pointSize: finalPointSise,
                 pointOpacity: pointOpacity,
                 pointColor: "#ffffff",
-                backgroundColor: "",
+                backgroundColor: backgroundColor,
                 backgroundEnabled: false,
                 backgroundOpacity: 1
             }, () => {
@@ -464,7 +465,7 @@ class Viz extends Component {
                 }
             }
            
-            ctx.fillStyle = "rgba(0,0, 0, 255)";
+            ctx.fillStyle = `rgba(${this.hexToRgb(this.state.backgroundColor).r}, ${this.hexToRgb(this.state.backgroundColor).g}, ${this.hexToRgb(this.state.backgroundColor).b}, 255)`
             ctx.fillRect(0, 0, ctx.width * 2, ctx.height * 2);
 
 
@@ -619,7 +620,13 @@ class Viz extends Component {
                 colorOpacity,
             } = finalViz.overlay
             if (visible) {
-                finalBlur = blur
+
+                if(this.props.lessBlur) {
+                    finalBlur = blur /2
+                } else {
+                    finalBlur = blur
+                }
+                
                 finalColor = color
                 finalOpacity = colorOpacity
             } else {
