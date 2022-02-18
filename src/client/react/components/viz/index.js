@@ -247,7 +247,15 @@ class Viz extends Component {
                 }
             } else {
                 if(this.props.app.clientWidth > 1000) {
-                    finalPointSise = pointSize + 0.5
+                    if(defaultViz.overlay.visible && this.props.fullScreen) {
+                        if(this.props.fullScrnee) {
+                            finalPointSise = pointSize *2
+                        } else {
+                            finalPointSise = pointSize * 1.4
+                        }
+                    } else {
+                        finalPointSise = pointSize + 0.5
+                    }
                 } else {
 
                     if(this.props.lessBlur) {
