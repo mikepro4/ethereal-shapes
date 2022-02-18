@@ -429,7 +429,7 @@ class Viz extends Component {
         }
 
         let point
-        if(this.state.points.length > 0) {
+        if(this.state.points.length > 0 && this.state.points[i]) {
             point = {
                 x: this.state.points[i].x,
                 y: this.state.points[i].y,
