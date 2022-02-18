@@ -356,3 +356,44 @@
 .demo-switch-container {
     margin: 20px 0 20px 0 ;
 }
+
+.colors-container {
+    border: 1px solid rgba($white, 0.1);
+    border-radius: 20px;
+    margin: 20px 0 20px 0;
+
+    li.color-container {
+        padding: 20px;
+        border-bottom: 1px solid rgba($white, 0.1);
+        position: relative;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .delete-color {
+            position: absolute;
+            top: 0;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+        }
+
+        h4 {
+            font-weight: 500;
+            font-size: 28px;
+            margin: 0 0 20px 0;
+        }
+    }
+}
+
+.color-picker-container {
+    .input-label {
+        margin: 0 0 10px 0;
+    }
+    margin-bottom: 20px;
+}
+
+.add-color {
+    margin: 0;
+}

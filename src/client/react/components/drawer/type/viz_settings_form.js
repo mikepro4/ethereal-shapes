@@ -17,15 +17,22 @@ import ColorPicker from "../../form/ColorPicker";
 class VizSettingsForm extends Component {
     renderColors({ fields, meta: { error, submitFailed } }) {
         return (
-            <ul>
+            <ul className="colors-container">
 
                 {fields.map((color, index) => (
-                    <li key={index}>
-                        <button
+                    <li className="color-container" key={index}>
+                        {/* <button
                             type="button"
                             title="Remove Member"
                             onClick={() => fields.remove(index)}
-                        >delete</button>
+                        >delete</button> */}
+
+                        <Button
+                            className={"submit-button update-shape main-button delete-color"}
+                            onClick={() => fields.remove(index)}
+                            icon="trash"
+                            large="true"
+                        />
                         <h4>Color #{index + 1}</h4>
                         <Field
                             name={`${color}.hex`}
@@ -53,14 +60,19 @@ class VizSettingsForm extends Component {
                     </li>
                 ))}
 
-                <li>
-                    <button type="button" onClick={() => fields.push({
-                        hex: "#ffffff",
-                        opacity: "100",
-                        amount: "20"
-                    })}>
-                        Add color
-                    </button>
+                <li className="color-container">
+                
+                    <Button
+                        className={"main-button add-color"}
+                        onClick={() => fields.push({
+                            hex: "#ffffff",
+                            opacity: "100",
+                            amount: "20"
+                        })}
+                        text="Add color"
+                        icon="plus"
+                        large="true"
+                    />
                 </li>
             </ul>
         )
@@ -186,6 +198,49 @@ class VizSettingsForm extends Component {
                         labelStepSize={0.1}
                     />
 
+                    
+
+                    <Field
+                        name="shape.backgroundColor"
+                        component={ColorPicker}
+                        label="Background Color"
+                    />
+
+                    <Field
+                        name="overlay.visible"
+                        type="checkbox"
+                        component={Checkbox}
+                        label="Overlay visible"
+                        inline={true}
+                    />              
+
+                    <Field
+                        name="overlay.blur"
+                        component={Slider}
+                        label="Overlay blur"
+                        resetValue={222}
+                        sliderMax={350}
+                        labelStepSize={50}
+                    />
+
+                    <Field
+                        name="overlay.colorOpacity"
+                        component={Slider}
+                        label="Overlay opacity"
+                        resetValue={0}
+                        sliderMax={1}
+                        labelStepSize={0.1}
+                    />
+
+                    <Field
+                        name="overlay.color"
+                        component={ColorPicker}
+                        label="Overlay Color"
+                    />
+
+                    <FieldArray name="colors" component={this.renderColors} />
+
+
                     {this.props.user && <Button
                         className={"submit-button update-shape main-button"}
                         loading={this.props.loading}
@@ -197,45 +252,8 @@ class VizSettingsForm extends Component {
                 </div>}
 
 
-                <Field
-                    name="shape.backgroundColor"
-                    component={ColorPicker}
-                    label="Background Color"
-                />
+               
 
-                <Field
-                    name="overlay.visible"
-                    type="checkbox"
-                    component={Checkbox}
-                    label="Overlay viible"
-                    inline={true}
-                />              
-
-                <Field
-                    name="overlay.blur"
-                    component={Slider}
-                    label="Overlay blur"
-                    resetValue={222}
-                    sliderMax={350}
-                    labelStepSize={50}
-                />
-
-                <Field
-                    name="overlay.colorOpacity"
-                    component={Slider}
-                    label="Overlay opacity"
-                    resetValue={0}
-                    sliderMax={1}
-                    labelStepSize={0.1}
-                />
-
-                <Field
-                    name="overlay.color"
-                    component={ColorPicker}
-                    label="Overlay Color"
-                />
-
-                <FieldArray name="colors" component={this.renderColors} />
 
                 {/* <div className="blade-input-group">
                     <Field

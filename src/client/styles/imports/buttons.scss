@@ -14,6 +14,10 @@
             border-radius: 50px;
             height: 41px;
             transition: all 0.2s ease;
+
+            svg {
+                fill:white
+            }
     
     
             @media only screen and (max-width: $mobile) {
@@ -49,6 +53,10 @@
                 background: $white;
                 color: $black;
                 border: 1px solid $white;
+
+                svg {
+                    fill:black
+                }
             }
         }
     
