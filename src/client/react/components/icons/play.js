@@ -14,7 +14,7 @@ class Play extends Component {
                     viewBox="0 0 41 41"
                     >
                     <path
-                        fill="#F9F9F9"
+                        fill="#FFFFFF"
                         fillRule="evenodd"
                         d="M20.5 41C31.822 41 41 31.822 41 20.5S31.822 0 20.5 0 0 9.178 0 20.5 9.178 41 20.5 41zM16 14.39v12.258a.5.5 0 00.744.437l10.507-5.863a.5.5 0 00.016-.864L16.76 13.963a.5.5 0 00-.76.427z"
                         clipRule="evenodd"

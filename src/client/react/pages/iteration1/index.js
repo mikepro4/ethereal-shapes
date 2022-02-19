@@ -29,6 +29,7 @@ import Opensea from "../../components/icons/opensea"
 import Instagram from "../../components/icons/instagram"
 import Youtube from "../../components/icons/youtube"
 import Reddit from "../../components/icons/reddit"
+import WhiteTwitter from "../../components/icons/whiteTwitter"
 // import * as THREE from "three";
 
 import Player from "../../components/player"
@@ -298,6 +299,23 @@ void main() {
         }
     }
 
+    renderPlayer() {
+        return(
+            <div className="player-container">
+                <Player nft={this.state.nft} /> 
+
+                <div className="nft-info">
+                    <div className="nft-name">
+                        <div className="nft-name-wrapper">{this.state.nft.nft.name}</div>
+                    </div>
+                    <div className="nft-description">
+                        <div className="nft-name-wrapper">{this.state.nft.nft.description}</div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     render() {
 
         return (
@@ -314,9 +332,7 @@ void main() {
                     </Link>
                 </div>
 
-                <div className="player-container">
-                    {this.state.nft && this.state.nft.metadata && <Player nft={this.state.nft} /> }
-                </div>
+                {this.state.nft && this.state.nft.metadata && this.renderPlayer() }
 
                 {this.state.nft && this.state.nft.metadata  &&  <div className="timeline-container">
                     <Timeline
@@ -324,6 +340,11 @@ void main() {
                         nft={this.state.nft}
                     />
                 </div>}
+
+                <a href="https://twitter.com/etherealshapes_" target="_blank" className="twitter-container">
+                    <div className="icon-bg"></div>
+                    <Twitter/>
+                </a>
                
                 
 
