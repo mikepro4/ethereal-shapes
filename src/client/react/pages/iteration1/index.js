@@ -19,6 +19,10 @@ import {
     setAbout
 } from "../../../redux/actions/appActions"
 
+import {
+    loadNFT
+} from "../../../redux/actions/nftActions"
+
 import Twitter from "../../components/icons/twitter"
 import Discord from "../../components/icons/discord"
 import Opensea from "../../components/icons/opensea"
@@ -26,6 +30,9 @@ import Instagram from "../../components/icons/instagram"
 import Youtube from "../../components/icons/youtube"
 import Reddit from "../../components/icons/reddit"
 // import * as THREE from "three";
+
+import Player from "../../components/player"
+import Timeline from "../../components/player/Timeline"
 
 
 class About extends Component {
@@ -35,7 +42,7 @@ class About extends Component {
         super(props)
 
         this.state = {
-            shape: {}
+            nft: {}
         }
 
         this.planet = this.planet = React.createRef()
@@ -46,6 +53,15 @@ class About extends Component {
     }
 
     componentDidMount() {
+
+        this.props.loadNFT("620044c28776724aa5fc1622", (data) => {
+            console.log(data)
+            this.setState({
+                nft: data
+            })
+        })
+
+        // 62102b4d62ae4100210b6dfd
         this.props.setAbout(true)
         this.props.loadShape(this.props.app.iteration1.mainShapeId, true, (data) => {
             this.setState({
@@ -290,6 +306,19 @@ void main() {
                     </Link>
                 </div>
 
+                <div className="player-container">
+                    {this.state.nft && this.state.nft.metadata && <Player nft={this.state.nft} /> }
+                </div>
+
+                {this.state.nft && this.state.nft.metadata  &&  <div className="timeline-container">
+                    <Timeline
+                        duration={this.state.nft && this.state.nft.metadata ? this.state.nft.metadata.duration : 0}
+                        nft={this.state.nft}
+                    />
+                </div>}
+               
+                
+
                 {/* <div className="iteration1-main-shape-container">
                     {this.state.shape && this.state.shape.defaultViz && <Viz transparent={true} fullScreen={true} defaultViz={this.state.shape.defaultViz} pointCount={1000} />}
                 </div> */}
@@ -312,6 +341,7 @@ export default {
         searchNFTs,
         loadNFTDetails,
         loadShape,
-        setAbout
+        setAbout,
+        loadNFT
     })(About))
 }

@@ -116,4 +116,45 @@
             }
         }
     }
+
+    .player-container {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 100;
+        opacity: 0;
+        animation: fadeInScale 0.7s 2s cubic-bezier(.19,1,.46,1.21) forwards;
+
+        @media only screen and (min-width: $mobile) {
+            bottom: 60px;
+            left: 60px;
+
+            svg {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+       
+    }
+
+    .timeline-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        transition: all 1s ease;
+
+
+        @media only screen and (min-width: $mobile) {
+            transform: translateY(18px);
+        }
+
+        &:hover {
+            @media only screen and (min-width: $mobile) {
+                transform: translateY(0px); 
+            }
+        }
+    }
 }
