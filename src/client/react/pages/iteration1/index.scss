@@ -94,6 +94,8 @@
 
         .page-intro {
             cursor: pointer;
+            position: relative;
+            top: -15px;
 
             &:hover {
                 .page-title {
