@@ -66,40 +66,34 @@ export default (
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="manifest" href="/site.webmanifest">
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-        <style>
-            a {
-                color: white;
-                transition: 0;
-            }
-        </style>
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#0000000">
-        <meta property="og:url" content="https://www.mikhail.co />
+        <meta property="og:url" content="https://www.etherealshapes.com/ />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Mikhail Proniushkin" />
-        <meta property="og:description" content="Design, Tech & Techno" />
-        <meta property="og:image" content="https://res.cloudinary.com/dcdnt/image/upload/v1631067755/mikhail.png" />
+        <meta property="og:title" content="Ethereal Shapes" />
+        <meta property="og:description" content="Algorithmic interactive art powered by an immersive audio/visual WebGL experience." />
+        <meta property="og:image" content="https://res.cloudinary.com/dcdnt/image/upload/v1645294923/ethereal_shapes.png" />
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
         <script type="text/javascript" src="/MochiKit/Base.js"></script>
-				<script type="text/javascript" src="/MochiKit/Iter.js"></script>
-				<script type="text/javascript" src="/MochiKit/Logging.js"></script>
-				<script type="text/javascript" src="/MochiKit/DateTime.js"></script>
-				<script type="text/javascript" src="/MochiKit/Format.js"></script>
-				<script type="text/javascript" src="/MochiKit/Async.js"></script>
-				<script type="text/javascript" src="/MochiKit/DOM.js"></script>
-				<script type="text/javascript" src="/MochiKit/Style.js"></script>
-				<script type="text/javascript" src="/MochiKit/LoggingPane.js"></script>
-				<script type="text/javascript" src="/MochiKit/Color.js"></script>
-				<script type="text/javascript" src="/MochiKit/Signal.js"></script>
-				<script type="text/javascript" src="/MochiKit/Style.js"></script>
-				<script type="text/javascript" src="/MochiKit/Position.js"></script>
-				<script type="text/javascript" src="/MochiKit/Visual.js"></script>
-			
-				<script type="text/javascript" src="/SVGKit.js" ></script>
-				<script type="text/javascript" src="/SVGCanvas.js"></script>
-                <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/three.min.js"></script>
-                <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/OrbitControls.js"></script>
-                <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/MyShaderChunks.js"></script>
+        <script type="text/javascript" src="/MochiKit/Iter.js"></script>
+        <script type="text/javascript" src="/MochiKit/Logging.js"></script>
+        <script type="text/javascript" src="/MochiKit/DateTime.js"></script>
+        <script type="text/javascript" src="/MochiKit/Format.js"></script>
+        <script type="text/javascript" src="/MochiKit/Async.js"></script>
+        <script type="text/javascript" src="/MochiKit/DOM.js"></script>
+        <script type="text/javascript" src="/MochiKit/Style.js"></script>
+        <script type="text/javascript" src="/MochiKit/LoggingPane.js"></script>
+        <script type="text/javascript" src="/MochiKit/Color.js"></script>
+        <script type="text/javascript" src="/MochiKit/Signal.js"></script>
+        <script type="text/javascript" src="/MochiKit/Style.js"></script>
+        <script type="text/javascript" src="/MochiKit/Position.js"></script>
+        <script type="text/javascript" src="/MochiKit/Visual.js"></script>
+    
+        <script type="text/javascript" src="/SVGKit.js" ></script>
+        <script type="text/javascript" src="/SVGCanvas.js"></script>
+        <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/three.min.js"></script>
+        <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/OrbitControls.js"></script>
+        <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/MyShaderChunks.js"></script>
     </head>
 
     <body id="body">
