@@ -457,64 +457,69 @@ class Header extends Component {
     }
 
     render() {
-        return (
-            <div
-                className={classNames({
-                    "app-header": true,
-                    "demo-mode": this.props.demoMode
-                })}
-            >
-                <div className="app-header-wrapper-mobile">
-
-                    <div className="menu_icon" onClick={() => {
-                        this.handleClick()
-                    }}>
-
-                        {!this.props.iframe && !this.props.locked && this.renderLines()}
-
+        if(!this.props.locked) {
+            return (
+                <div
+                    className={classNames({
+                        "app-header": true,
+                        "demo-mode": this.props.demoMode
+                    })}
+                >
+                    <div className="app-header-wrapper-mobile">
+    
+                        <div className="menu_icon" onClick={() => {
+                            this.handleClick()
+                        }}>
+    
+                            {!this.props.iframe && !this.props.locked && this.renderLines()}
+    
+                        </div>
+    
+                        <div className="header-logo-mobile">
+                            <Link
+                                to="/"
+                                onClick={() => {
+                                    if (this.state.menuOpen) {
+                                        this.hideMenu()
+                                    }
+                                }}>
+                                <LogoMobile />
+                            </Link>
+    
+                            {/* {this.renderStatus()} */}
+    
+    
+                        </div>
+    
+                        {/* {this.renderAccount()} */}
+                        {!this.props.locked && <AccountDisplay/> }
+    
                     </div>
-
-                    <div className="header-logo-mobile">
-                        <Link
-                            to="/"
-                            onClick={() => {
-                                if (this.state.menuOpen) {
-                                    this.hideMenu()
-                                }
-                            }}>
-                            <LogoMobile />
-                        </Link>
-
-                        {/* {this.renderStatus()} */}
-
-
+                    {this.renderMenu()}
+    
+                    <div className="app-header-wrapper-desktop">
+                        <div className="desktop-logo">
+    
+                            <Link
+                                to="/"
+                                onClick={() => {
+                                    if (this.state.menuOpen) {
+                                        this.hideMenu()
+                                    }
+                                }}>
+                                <LogoDesktop />
+                            </Link>
+                        </div>
+                        <NavLinks hideMenu={() => this.hideMenu()} linksType="mainLinks" />
+                        <AccountDisplay/>
+                        {/* <div className="desktop-account"><div className="desktop-account">Login</div></div> */}
                     </div>
-
-                    {/* {this.renderAccount()} */}
-                    {!this.props.locked && <AccountDisplay/> }
-
                 </div>
-                {this.renderMenu()}
-
-                <div className="app-header-wrapper-desktop">
-                    <div className="desktop-logo">
-
-                        <Link
-                            to="/"
-                            onClick={() => {
-                                if (this.state.menuOpen) {
-                                    this.hideMenu()
-                                }
-                            }}>
-                            <LogoDesktop />
-                        </Link>
-                    </div>
-                    <NavLinks hideMenu={() => this.hideMenu()} linksType="mainLinks" />
-                    <AccountDisplay/>
-                    {/* <div className="desktop-account"><div className="desktop-account">Login</div></div> */}
-                </div>
-            </div>
-        );
+            );
+        } else {
+            return (<div></div>)
+        }
+       
     }
 }
 

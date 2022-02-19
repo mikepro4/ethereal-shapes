@@ -208,7 +208,7 @@ void main() {
             uniforms.u_envmap_cube = { value: envCube };
             uniforms.u_envmap_strength = { value: 0 };
 
-            const geometry = new THREE.SphereGeometry(1, 128, 128);
+            const geometry = new THREE.PlaneGeometry( 2000, 2000 );
             const material = new THREE.ShaderMaterial({
                 uniforms: uniforms,
                 vertexShader: vshader,
@@ -219,19 +219,20 @@ void main() {
 
             const knot = new THREE.Mesh(geometry, material);
             scene.add(knot);
-
-            camera.position.z = 5;
+            camera.position.y = 0.1;
+            camera.position.z = 0.4;
+            uniforms.iGlobalTime.value = 20
+            console.log(uniforms.iGlobalTime.value)
 
             var animate = function () {
                 requestAnimationFrame(animate);
-                uniforms.iGlobalTime.value += clock.getDelta() * 0.5;
+                uniforms.iGlobalTime.value -= clock.getDelta() * 0.5;
                 uniforms.iResolution.value.x = window.devicePixelRatio ? window.innerWidth * window.devicePixelRatio : window.innerWidth;
                 uniforms.iResolution.value.y = window.devicePixelRatio ? window.innerHeight * window.devicePixelRatio : indow.innerHeight;
                 renderer.render(scene, camera);
             };
             animate();
 
-            const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
             onWindowResize();
             if (!("ontouchstart" in window))
@@ -282,9 +283,16 @@ void main() {
 
                 {this.renderHead()}
 
-                <div className="iteration1-main-shape-container">
-                    {this.state.shape && this.state.shape.defaultViz && <Viz transparent={true} fullScreen={true} defaultViz={this.state.shape.defaultViz} pointCount={1000} />}
+                <div className="content-container">
+                    <div className="page-intro" onClick={() => location.reload()}>
+                        <div className="page-title">Ethereal</div>
+                        <div className="page-subtitle">Shapes</div>
+                    </div>
                 </div>
+
+                {/* <div className="iteration1-main-shape-container">
+                    {this.state.shape && this.state.shape.defaultViz && <Viz transparent={true} fullScreen={true} defaultViz={this.state.shape.defaultViz} pointCount={1000} />}
+                </div> */}
 
             </div>
 

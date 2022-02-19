@@ -18,17 +18,21 @@ $animation_easing2: cubic-bezier(0.12, 0.77, 0.28, 0.86);
     animation: text-wipe 2s 0.3s linear infinite;
 }
 
+.animation-text-wipe.animate-in {
+    animation: text-wipe 2s 0.3s linear forwards;
+}
+
+
 
 @keyframes text-wipe {
     0% {
-        -webkit-mask-position: 0%;
-    }
-
-    50% {
+        opacity: 0;
         -webkit-mask-position: 100%;
     }
 
+
     100% {
+        opacity: 1;
         -webkit-mask-position: 0%;
     }
    

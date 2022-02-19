@@ -53,3 +53,38 @@
     font-weight: 700;
     font-style: normal;
 }
+
+
+// MP
+
+@font-face {
+    font-family: 'MP';
+    src: url('../../../static/fonts/MPExtraLight.woff2') format('woff2'),
+        url('../../../static/fonts/MPExtraLight.woff') format('font-woff');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MP';
+    src: url('../../../static/fonts/MPLight.woff2') format('woff2'),
+        url('../../../static/fonts/MPLight.woff') format('font-woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MP';
+    src: url('../../../static/fonts/MP.woff2') format('woff2'),
+        url('../../../static/fonts/MP.woff') format('font-woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MP';
+    src: url('../../../static/fonts/MPBold.woff2') format('woff2'),
+        url('../../../static/fonts/MPBold.woff') format('font-woff');
+    font-weight: 500;
+    font-style: normal;
+}
