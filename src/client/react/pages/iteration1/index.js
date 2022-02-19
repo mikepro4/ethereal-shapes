@@ -330,6 +330,10 @@ void main() {
                         <div className="page-title">Ethereal</div>
                         <div className="page-subtitle">Shapes</div>
                     </Link>
+
+                    {/* <div className="guide-1"></div>
+                    <div className="guide-2"></div>
+                    <div className="guide-block"></div> */}
                 </div>
 
                 {this.state.nft && this.state.nft.metadata && this.renderPlayer() }
