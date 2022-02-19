@@ -54,7 +54,7 @@ class About extends Component {
 
     componentDidMount() {
 
-        this.props.loadNFT("620044c28776724aa5fc1622", (data) => {
+        this.props.loadNFT("62102b4d62ae4100210b6dfd", (data) => {
             console.log(data)
             this.setState({
                 nft: data
@@ -264,6 +264,14 @@ void main() {
         }, 100)
         // === THREE.JS EXAMPLE CODE END ===
     }
+
+    componentWillUnmount = () => {
+        var id = window.requestAnimationFrame(function () { });
+        while (id--) {
+            window.cancelAnimationFrame(id);
+        }
+    }
+
 
     renderHead = () => (
         <Helmet>
