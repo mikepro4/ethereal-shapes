@@ -13,6 +13,8 @@ import { searchNFTs, loadNFTDetails, resetNFTs } from "../../../redux/actions/nf
 import ListResults from "../../components/list"
 import NavLinks from "../../components/navLinks"
 
+import { checkUser } from "../../../utils/checkUser"
+
 // import * as THREE from "three";
 
 
@@ -35,6 +37,7 @@ class Home extends Component {
                 stats: data
             })
         })
+        checkUser(this.props.app.user, this.props.history)
     }
      
 

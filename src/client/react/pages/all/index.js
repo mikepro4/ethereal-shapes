@@ -18,12 +18,15 @@ import { searchNFTs, loadNFTDetails} from "../../../redux/actions/nftActions"
 import ListResults  from "../../components/list"
 import NavLinks  from "../../components/navLinks"
 
+import { checkUser } from "../../../utils/checkUser"
+
 class Home extends Component {
 
     state = {
     }
 
-    // componentDidMount = () => {
+    componentDidMount = () => {
+        checkUser(this.props.app.user, this.props.history)
     //     if(this.getQueryParams().draft == "true") {
     //         this.props.setDraft(true)
     //     }
@@ -39,7 +42,7 @@ class Home extends Component {
     //     if(this.getQueryParams().sold == "true") {
     //         this.props.setSold(true)
     //     }
-    // }
+    }
 
     // componentWillUnmount() {
     //     this.props.setSold(false)

@@ -23,6 +23,7 @@ class Login extends Component {
 
 	componentDidMount() {
         this.props.authError(null)
+
     }
 
     handleFormSubmit({ email, password }) {
@@ -36,7 +37,7 @@ class Login extends Component {
 		})
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevprops) {
         if(this.props.error) {
 			if(this.state.loading) {
 				this.showFailToast(this.props.error)
@@ -44,6 +45,10 @@ class Login extends Component {
 					loading: false
 				})
 			}
+        }
+
+        if(this.props.user !== prevprops.user && this.props.user) {
+            this.props.history.push("/featured")
         }
     }
 
@@ -65,10 +70,10 @@ class Login extends Component {
                     theme={this.props.theme}
 				/>
 
-				<div className="auth-footer-link">
+				{/* <div className="auth-footer-link">
 					<span className="auth-footer-link-label">Need an account?</span>
 					<Link to="/auth/signup"><Button minimal="true" className={"small-button theme-" + this.props.theme}>Sign up</Button></Link>
-				</div>
+				</div> */}
 
 				<Toaster position={Position.TOP_CENTER} ref="toaster" />
 			</div>
@@ -81,7 +86,8 @@ function mapStateToProps(state) {
 	return {
         router: state.router,
         theme: state.app.theme,
-		error: state.auth.error
+		error: state.auth.error,
+        user: state.app.user
 	};
 }
 

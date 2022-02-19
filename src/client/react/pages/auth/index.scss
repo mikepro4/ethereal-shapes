@@ -2,10 +2,17 @@
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
-    padding: 222px 20px;
     position: relative;
     animation: fadeInSlide .4s linear forwards;
     border-radius: 4px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   
     .auth-logo {
       margin: 0 0 55px 0;
@@ -29,6 +36,9 @@
     }
   
     .auth-form {
+        width: 100%;
+        max-width: 350px;
+
       button {
         margin: 35px auto 0 auto;
       }

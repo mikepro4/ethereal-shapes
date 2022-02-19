@@ -26,11 +26,11 @@ import NFT from "../../artifacts/contracts/NFT.sol/NFT.json";
 import ESMarket from "../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
 
-import { 
-    showDrawer, 
-    updateAccount, 
-    updateMarketTokens, 
-    updateCollection,  
+import {
+    showDrawer,
+    updateAccount,
+    updateMarketTokens,
+    updateCollection,
     activateKey,
     deactivateKey,
     updateQueryString,
@@ -57,59 +57,64 @@ import detectEthereumProvider from '@metamask/detect-provider'
 
 class App extends Component {
 
-    constructor(props){
-		super(props)
-		this.state = {
+    constructor(props) {
+        super(props)
+        this.state = {
             appVisible: false,
             savingBlocks: false,
             balance: null
         }
     }
-    
+
     static loadData(store, match, route, path, query) {
-        if(query.draft) {
+        if (query.draft) {
             return store.dispatch(setDraft(true));
-        } 
-        if(query.approved) {
+        }
+        if (query.approved) {
             return store.dispatch(setApproved(true));
-        }  
-        if(query.rejected) {
+        }
+        if (query.rejected) {
             return store.dispatch(setRejected(true));
-        }   
-        if(query.sold) {
+        }
+        if (query.sold) {
             return store.dispatch(setSold(true));
-        }       
-	}
+        }
+    }
 
     async componentDidMount() {
-        if(this.inIframe()) {
+        if (this.inIframe()) {
             this.props.setIframe(true)
         }
         this.auth()
-        // this.loadWeb3()
-        // this.props.updateMarketTokens()
+        // if (this.props.app.user) {
+        //     this.loadWeb3()
+        //     this.props.updateMarketTokens()
 
-        // setTimeout(() => {
-        //     this.getBalance()
-        // }, 100)
+        //     setTimeout(() => {
+        //         this.getBalance()
+        //     }, 100)
 
-        // setInterval(() => {
-        //     this.getBalance()
-        // }, 2222)
+        //     setInterval(() => {
+        //         this.getBalance()
+        //     }, 2222)
+
+        //     setInterval(() => {
+        //         if (!this.props.account.address) {
+        //             this.loadWeb3()
+        //         }
+        //     }, 2222)
+        // }
+
 
         document.addEventListener("keydown", this.onKeyDownPressed.bind(this))
         document.addEventListener("keyup", this.onKeyUpPressed.bind(this))
 
-        if(this.getQueryParams().draft == "true") {
+        if (this.getQueryParams().draft == "true") {
             this.props.setDraft(true)
         }
 
-        // setInterval(() => {
-        //     if(!this.props.account.address) {
-        //         this.loadWeb3()
-        //     }
-        // }, 2222)
-            
+
+
     }
 
     inIframe = () => {
@@ -125,12 +130,12 @@ class App extends Component {
         this.props.setAbout(false)
         document.removeEventListener("keydown", this.onKeyDownPressed.bind(this));
         document.removeEventListener("keyup", this.onKeyUpPressed.bind(this));
-    }     
+    }
 
     @keydown("ctrl + e")
-	toggleEditor() {
-		console.log("toggle editor")
-        if(this.getQueryParams().imageEditor == "true") {
+    toggleEditor() {
+        console.log("toggle editor")
+        if (this.getQueryParams().imageEditor == "true") {
             this.props.updateQueryString(
                 { imageEditor: false },
                 this.props.location,
@@ -143,19 +148,19 @@ class App extends Component {
                 this.props.history
             );
         }
-        
+
     }
 
     @keydown("ctrl + space")
-	togglePauseAnimation() {
-		console.log("toggle editor")
-        if(this.props.app.pauseAnimation) {
+    togglePauseAnimation() {
+        console.log("toggle editor")
+        if (this.props.app.pauseAnimation) {
             this.props.pauseAnimation(false)
         } else {
             this.props.pauseAnimation(true)
         }
     }
-    
+
     onKeyDownPressed(e) {
         // console.log("down", e.keyCode);
         this.props.activateKey(e.keyCode)
@@ -185,12 +190,12 @@ class App extends Component {
             balance: res,
             ownedTokens: parseInt(balance, 16),
         })
-        
-       
+
+
     }
 
     auth() {
-        if(window && localStorage) {
+        if (window && localStorage) {
             const token = localStorage.getItem('token');
             if (token) {
                 this.props.authUser()
@@ -206,41 +211,41 @@ class App extends Component {
         //     this.loadWeb3()
         // }
 
-        if(this.props.word && this.props.word.metadata) {
-            if(!_.isEqual(prevprops.word, this.props.word)) {
+        if (this.props.word && this.props.word.metadata) {
+            if (!_.isEqual(prevprops.word, this.props.word)) {
                 this.props.loadShape(this.props.word.metadata.shapeId)
             }
         }
-        if(this.props.word && this.props.word.metadata) {
-            if(!_.isEqual(prevprops.word, this.props.word)) {
+        if (this.props.word && this.props.word.metadata) {
+            if (!_.isEqual(prevprops.word, this.props.word)) {
                 this.props.loadShape(this.props.word.metadata.shapeId)
             }
         }
 
-        if(prevprops.blocks.uploadDone !== this.props.blocks.uploadDone && this.props.blocks.uploadDone == true) {
-            if(this.props.blocks.status !== "saving") {
+        if (prevprops.blocks.uploadDone !== this.props.blocks.uploadDone && this.props.blocks.uploadDone == true) {
+            if (this.props.blocks.status !== "saving") {
                 this.props.updateBlocks(
                     this.props.word,
-                    this.props.blocks.updatedBlocks, 
+                    this.props.blocks.updatedBlocks,
                     () => {
-                        
+
                         this.props.loadWord(this.getQueryParams().word, (data) => {
+                        })
                     })
-                })
             }
         }
     }
 
     getQueryParams = () => {
-		return qs.parse(this.props.location.search.substring(1));
+        return qs.parse(this.props.location.search.substring(1));
     };
-    
+
     loadUser() {
-		this.props.fetchCurrentUser(() => {
-			this.showApp()
-		})
+        this.props.fetchCurrentUser(() => {
+            this.showApp()
+        })
     }
-    
+
     showApp() {
         this.setState({
             appVisible: true
@@ -264,7 +269,7 @@ class App extends Component {
             })
         }
 
-        let accounts = await provider.request({ method: "eth_requestAccounts"});
+        let accounts = await provider.request({ method: "eth_requestAccounts" });
         let account = accounts[0]
         console.log(account)
 
@@ -274,15 +279,15 @@ class App extends Component {
 
         provider.on('chainChanged', async () => {
             this.getBalance()
-    
+
             console.log("reload")
             // alert("chain changed")
         })
 
-        
+
 
         provider.on('accountsChanged', async (data) => {
-    
+
             this.props.updateAccount({
                 address: data[0],
             })
@@ -301,7 +306,7 @@ class App extends Component {
             // }
 
             // this.loadWeb3()
-    
+
         })
 
         // provider.on('networkChanged', async(networkId) => {
@@ -312,7 +317,7 @@ class App extends Component {
         //     // alert("network chainged")
         // });
 
-        provider.on('connect', async(networkId) => {
+        provider.on('connect', async (networkId) => {
             console.log("CONNECT")
             location.reload();
             // alert("connect")
@@ -333,7 +338,7 @@ class App extends Component {
 
     render() {
         return (
-            <div 
+            <div
                 className="app"
                 className={classNames({
                     "app": true,
@@ -341,7 +346,7 @@ class App extends Component {
                 })}
             >
                 {this.props.drawerOpen && <Drawer type={this.props.drawerType} />}
-                <Header balance={this.state.balance}/>
+                <Header balance={this.state.balance} />
 
                 <div className="main-section">
                     <div className="app-route-container">
@@ -372,9 +377,9 @@ class App extends Component {
                 </div> */}
 
 
-                <Scroll/>
-                <AudioPlayer/>
-                
+                <Scroll />
+                <AudioPlayer />
+
             </div>
         )
     }
@@ -394,8 +399,8 @@ function mapStateToProps(state) {
 
 export default {
     component: withRouter(connect(mapStateToProps, {
-        authUser, 
-        fetchCurrentUser, 
+        authUser,
+        fetchCurrentUser,
         clearCurrentUser,
         loadWord,
         showDrawer,

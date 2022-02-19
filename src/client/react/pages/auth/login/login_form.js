@@ -37,12 +37,12 @@ class LoginForm extends Component {
 			        />
 						</div>
 
-						<div className="login-form-footer transition-element">
+						{/* <div className="login-form-footer transition-element">
 
 							<div className="login-form-forgot-password">
 								<Link to="/auth/forgot_password">Forgot password?</Link>
 							</div>
-						</div>
+						</div> */}
 
 		        <Button
 							disabled={this.props.pristine}

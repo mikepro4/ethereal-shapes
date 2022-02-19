@@ -7,6 +7,8 @@ import moment from 'moment'
 import classNames from "classnames";
 import * as _ from "lodash"
 
+
+
 import Word from "./word"
 
 import { searchNFTs, loadNFTDetails} from "../../../redux/actions/nftActions"
@@ -14,9 +16,15 @@ import { searchNFTs, loadNFTDetails} from "../../../redux/actions/nftActions"
 import ListResults  from "../../components/list"
 import NavLinks  from "../../components/navLinks"
 
+import { checkUser } from "../../../utils/checkUser"
+
 class Home extends Component {
 
     state = {
+    }
+
+    componentDidMount() {
+        checkUser(this.props.app.user, this.props.history)
     }
 
     renderHead = () => (

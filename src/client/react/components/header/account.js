@@ -62,9 +62,9 @@ class AccountDisplay extends Component {
                 </div>)
             } else {
                 return(
-                    <div className="header-account" onClick={() => this.props.showDrawer("connect-wallet")}>
-                        <div className="header-account-icon"><Account /></div>
-                        <div className="login-link">Login</div>
+                    <div className="header-account" >
+                        <Link to="/auth/logout" className="header-account-icon"><Account /></Link>
+                        <Link to="/auth/logout" className="login-link">Logout</Link>
                     </div>
                 )
             }
@@ -74,6 +74,8 @@ class AccountDisplay extends Component {
         
     }
 }
+
+// onClick={() => this.props.showDrawer("connect-wallet")}
 
 function mapStateToProps(state) {
     return {

@@ -386,16 +386,16 @@ class Header extends Component {
                     id="menu-container"
                 >
 
-                    {this.state.showContent && <div className="menu_content" style={{height: this.props.clientHeight + "px"}}>
+                    {this.state.showContent && <div className="menu_content" style={{ height: this.props.clientHeight + "px" }}>
                         <div
                             className={classNames({
                                 "words-list-container": true,
                             })}
                         >
-                            <NavLinks hideMenu={() => this.hideMenu()} linksType="mainLinks"  />
-                           
+                            <NavLinks hideMenu={() => this.hideMenu()} linksType="mainLinks" />
+
                             <div className="powered">
-                                <User/>
+                                <User />
                                 <Link to={this.props.user ? "/admin" : "/auth/login"} onClick={() => {
                                     if (this.state.menuOpen) {
                                         this.hideMenu()
@@ -458,65 +458,81 @@ class Header extends Component {
 
     render() {
         // console.log(this.props.location.pathname !== "/")
-            return (
-                <div
-                    className={classNames({
-                        "app-header": true,
-                        "demo-mode": this.props.demoMode || this.props.location.pathname == "/"
-                    })}
-                >
-                    <div className="app-header-wrapper-mobile">
-    
-                        <div className="menu_icon" onClick={() => {
-                            this.handleClick()
-                        }}>
-    
-                            {!this.props.iframe && this.renderLines()}
-    
-                        </div>
-    
-                        <div className="header-logo-mobile">
-                            <Link
-                                to="/"
-                                onClick={() => {
-                                    if (this.state.menuOpen) {
-                                        this.hideMenu()
-                                    }
-                                }}>
-                                <LogoMobile />
-                            </Link>
-    
-                            {/* {this.renderStatus()} */}
-    
-    
-                        </div>
-    
-                        {/* {this.renderAccount()} */}
-                        <AccountDisplay/> 
-    
+        return (
+            <div
+                className={classNames({
+                    "app-header": true,
+                    "demo-mode": this.props.demoMode || this.props.location.pathname == "/"
+                })}
+            >
+                <div className="app-header-wrapper-mobile">
+
+                    <div className="menu_icon" onClick={() => {
+                        this.handleClick()
+                    }}>
+
+                        {!this.props.iframe && this.props.user && this.renderLines()}
+
                     </div>
-                    {this.renderMenu()}
-    
-                    <div className="app-header-wrapper-desktop">
-                        <div className="desktop-logo">
-    
-                            <Link
-                                to="/"
-                                onClick={() => {
-                                    if (this.state.menuOpen) {
-                                        this.hideMenu()
-                                    }
-                                }}>
-                                <LogoDesktop />
-                            </Link>
-                        </div>
-                        <NavLinks hideMenu={() => this.hideMenu()} linksType="mainLinks" />
-                        <AccountDisplay/>
-                        {/* <div className="desktop-account"><div className="desktop-account">Login</div></div> */}
+
+                    <div className="header-logo-mobile">
+                        <Link
+                            to="/"
+                            onClick={() => {
+                                if (this.state.menuOpen) {
+                                    this.hideMenu()
+                                }
+                            }}>
+                            <LogoMobile />
+                        </Link>
+
+                        {/* {this.renderStatus()} */}
+
+
                     </div>
+
+                    {/* {this.renderAccount()} */}
+                    {this.props.user && <AccountDisplay />}
                 </div>
-            );
-       
+                {this.renderMenu()}
+
+                <div className="app-header-wrapper-desktop">
+                    {this.props.user && <div className="desktop-logo">
+
+                        <Link
+                            to="/"
+                            onClick={() => {
+                                if (this.state.menuOpen) {
+                                    this.hideMenu()
+                                }
+                            }}>
+                            <LogoDesktop />
+                        </Link>
+                    </div>}
+
+                    {!this.props.user &&  <div className="desktop-no-user-logo">
+                        <Link
+                            to="/"
+                            onClick={() => {
+                                if (this.state.menuOpen) {
+                                    this.hideMenu()
+                                }
+                            }}>
+                            <LogoMobile />
+                        </Link>
+
+                        {/* {this.renderStatus()} */}
+
+
+                    </div>}
+
+                    {this.props.user && <NavLinks hideMenu={() => this.hideMenu()} linksType="mainLinks" />}
+                    {this.props.user && <AccountDisplay />}
+                    {/* <div className="desktop-account"><div className="desktop-account">Login</div></div> */}
+                </div>
+            </div>
+        );
+
     }
 }
 

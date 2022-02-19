@@ -43,7 +43,7 @@ class Nav extends Component {
 
         let mainLinks = [
 			{
-			  	url: "/",
+			  	url: "/featured",
 				name: "Featured",
 			},
             {

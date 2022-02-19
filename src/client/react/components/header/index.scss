@@ -13,6 +13,17 @@
     &.demo-mode {
         opacity: 0;
     }
+
+    .desktop-no-user-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+
+        @media only screen and (max-width: $mobile) {
+            display: none;
+        }
+    }
   
     .app-header-wrapper-mobile {
       width: 100%;

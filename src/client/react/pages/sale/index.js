@@ -12,10 +12,17 @@ import { searchNFTs, loadNFTDetails} from "../../../redux/actions/nftActions"
 import ListResults  from "../../components/list"
 import NavLinks  from "../../components/navLinks"
 
+import { checkUser } from "../../../utils/checkUser"
+
 class Home extends Component {
 
     state = {
     }
+
+    componentDidMount = () => {
+        checkUser(this.props.app.user, this.props.history)
+    }
+
 
     renderHead = () => (
 		<Helmet>

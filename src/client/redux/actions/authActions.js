@@ -65,8 +65,9 @@ export const signinUser = ({ email, password, history, success }) => async (
             localStorage.setItem('token', response.data.token)
             history.push("/")
             if(localStorage.getItem('token') == response.data.token) {
-                location.reload();
                 setTimeout(() => {
+                location.reload();
+
                     dispatch(fetchCurrentUser())
                 }, 100)
             }
