@@ -284,10 +284,10 @@ void main() {
                 {this.renderHead()}
 
                 <div className="content-container">
-                    <div className="page-intro" onClick={() => location.reload()}>
+                    <Link to="/featured" className="page-intro">
                         <div className="page-title">Ethereal</div>
                         <div className="page-subtitle">Shapes</div>
-                    </div>
+                    </Link>
                 </div>
 
                 {/* <div className="iteration1-main-shape-container">

@@ -21,7 +21,7 @@ export default [
         ...App,
         routes: [
             {
-                ...Home,
+                ...Iteration1,
                 path: "/",
                 exact: true,
                 params: {
@@ -29,11 +29,11 @@ export default [
                 }
             },
             {
-                ...Iteration1,
-                path: "/iteration1",
+                ...Home,
+                path: "/featured",
                 exact: true,
                 params: {
-                    name: "iteration 1"
+                    name: "Featured"
                 }
             },
             {

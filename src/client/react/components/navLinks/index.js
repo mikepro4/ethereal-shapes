@@ -27,7 +27,7 @@ class Nav extends Component {
 
         let mobileTabs = [
 			{
-			  	url: "/",
+			  	url: "/featured",
 				name: "Featured",
 			},
             {

@@ -457,12 +457,12 @@ class Header extends Component {
     }
 
     render() {
-        if(!this.props.locked) {
+        // console.log(this.props.location.pathname !== "/")
             return (
                 <div
                     className={classNames({
                         "app-header": true,
-                        "demo-mode": this.props.demoMode
+                        "demo-mode": this.props.demoMode || this.props.location.pathname == "/"
                     })}
                 >
                     <div className="app-header-wrapper-mobile">
@@ -471,7 +471,7 @@ class Header extends Component {
                             this.handleClick()
                         }}>
     
-                            {!this.props.iframe && !this.props.locked && this.renderLines()}
+                            {!this.props.iframe && this.renderLines()}
     
                         </div>
     
@@ -492,7 +492,7 @@ class Header extends Component {
                         </div>
     
                         {/* {this.renderAccount()} */}
-                        {!this.props.locked && <AccountDisplay/> }
+                        <AccountDisplay/> 
     
                     </div>
                     {this.renderMenu()}
@@ -516,9 +516,6 @@ class Header extends Component {
                     </div>
                 </div>
             );
-        } else {
-            return (<div></div>)
-        }
        
     }
 }
