@@ -336,19 +336,19 @@ void main() {
                     <div className="guide-block"></div> */}
                 </div>
 
-                {this.state.nft && this.state.nft.metadata && this.renderPlayer() }
+                {this.state.nft && this.state.nft.metadata && !this.props.app.demoMode && this.renderPlayer() }
 
-                {this.state.nft && this.state.nft.metadata  &&  <div className="timeline-container">
+                {this.state.nft && this.state.nft.metadata && !this.props.app.demoMode  &&  <div className="timeline-container">
                     <Timeline
                         duration={this.state.nft && this.state.nft.metadata ? this.state.nft.metadata.duration : 0}
                         nft={this.state.nft}
                     />
                 </div>}
 
-                <a href="https://twitter.com/etherealshapes_" target="_blank" className="twitter-container">
+                {!this.props.app.demoMode && <a href="https://twitter.com/etherealshapes_" target="_blank" className="twitter-container">
                     <div className="icon-bg"></div>
                     <Twitter/>
-                </a>
+                </a>}
                
                 
 
