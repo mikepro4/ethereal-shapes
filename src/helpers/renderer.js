@@ -56,7 +56,7 @@ export default (
 
     const helmetInstance = Helmet.renderStatic();
     const html = `
-    <html lang="en">
+    <html lang="en" prefix="og: http://ogp.me/ns#">
       <head>
         ${helmetInstance.title.toString()}
         ${helmetInstance.meta.toString()}
