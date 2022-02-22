@@ -339,7 +339,48 @@ void main() {
 
                 {this.renderHead()}
 
-                <div className="placeholder">
+                <div className="iteration2-content-wrapper">
+
+                    <div className="iteration2-section section-hero">
+
+                        <div className="section-hero-top"></div>
+
+                        <div className="section-hero-bottom"></div>
+                    </div>
+
+                    <div className="iteration2-section section-design">
+
+                    </div>
+
+                    <div className="iteration2-section section-approach">
+                        <div className="section-approach-top"></div>
+
+                        <ul className="section-approach-bottom">
+                            <li className="section-approach-1">
+                                1
+                            </li>
+                            <li  className="section-approach-2">
+                                2
+                            </li>
+                            <li  className="section-approach-3">
+                                3
+                            </li>
+                            <li  className="section-approach-4">
+                                4
+                            </li>
+                            <li  className="section-approach-5">
+                                5
+                            </li>
+                        </ul>
+
+                        <div className="section-approach-description">
+
+                        </div>
+                    </div>
+
+                    <div className="placeholder">
+
+                    </div>
 
                 </div>
 
