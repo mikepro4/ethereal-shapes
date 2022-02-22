@@ -378,6 +378,12 @@ void main() {
                         </div>
                     </div>
 
+                    <div className="iteration2-section section-process">
+                        <div className="section-process-description"></div>
+                        <div className="section-process-list"></div>
+                        <div className="section-process-view"></div>
+                    </div>
+
                     <div className="placeholder">
 
                     </div>
