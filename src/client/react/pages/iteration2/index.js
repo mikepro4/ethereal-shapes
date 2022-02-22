@@ -238,17 +238,31 @@ void main() {
             scene.add(knot);
             camera.position.y = 0.1;
             camera.position.z = 0.4;
-            uniforms.iGlobalTime.value = 20
-            console.log(uniforms.iGlobalTime.value)
+
+            let startFrame  = 25
+            let endFrame = 19
+            let direction = "minus"
+            uniforms.iGlobalTime.value = startFrame
+
+           
 
             var animate = function () {
                 requestAnimationFrame(animate);
-                uniforms.iGlobalTime.value -= clock.getDelta() * 0.5;
+                if(direction == "minus") {
+                    uniforms.iGlobalTime.value -= clock.getDelta() * 0.4;
+                    if(uniforms.iGlobalTime.value <= endFrame) {
+                        direction = "plus"
+                    }
+                } else {
+                    uniforms.iGlobalTime.value += clock.getDelta() * 0.4;
+                    if(uniforms.iGlobalTime.value >= startFrame) {
+                        direction = "minus"
+                    }
+                }
                 uniforms.iResolution.value.x = window.devicePixelRatio ? window.innerWidth * window.devicePixelRatio : window.innerWidth;
                 uniforms.iResolution.value.y = window.devicePixelRatio ? window.innerHeight * window.devicePixelRatio : indow.innerHeight;
                 renderer.render(scene, camera);
             };
-            animate();
 
 
             onWindowResize();
@@ -325,36 +339,9 @@ void main() {
 
                 {this.renderHead()}
 
-                <div className="content-container">
-                    <Link to="/featured" className="page-intro">
-                        <div className="page-title">Ethereal</div>
-                        <div className="page-subtitle">Shapes</div>
-                    </Link>
+                <div className="placeholder">
 
-                    {/* <div className="guide-1"></div>
-                    <div className="guide-2"></div>
-                    <div className="guide-block"></div> */}
                 </div>
-
-                {this.state.nft && this.state.nft.metadata && !this.props.app.demoMode && this.renderPlayer() }
-
-                {this.state.nft && this.state.nft.metadata && !this.props.app.demoMode  &&  <div className="timeline-container">
-                    <Timeline
-                        duration={this.state.nft && this.state.nft.metadata ? this.state.nft.metadata.duration : 0}
-                        nft={this.state.nft}
-                    />
-                </div>}
-
-                {!this.props.app.demoMode && <a href="https://twitter.com/etherealshapes_" target="_blank" className="twitter-container">
-                    <div className="icon-bg"></div>
-                    <Twitter/>
-                </a>}
-               
-                
-
-                {/* <div className="iteration1-main-shape-container">
-                    {this.state.shape && this.state.shape.defaultViz && <Viz transparent={true} fullScreen={true} defaultViz={this.state.shape.defaultViz} pointCount={1000} />}
-                </div> */}
 
             </div>
 

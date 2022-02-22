@@ -248,7 +248,6 @@ void main() {
                 uniforms.iResolution.value.y = window.devicePixelRatio ? window.innerHeight * window.devicePixelRatio : indow.innerHeight;
                 renderer.render(scene, camera);
             };
-            animate();
 
 
             onWindowResize();
