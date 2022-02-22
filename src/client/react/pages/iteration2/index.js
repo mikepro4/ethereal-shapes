@@ -6,6 +6,7 @@ import qs from "qs";
 import moment from 'moment'
 import classNames from "classnames";
 import * as _ from "lodash"
+import { Button } from "@blueprintjs/core";
 
 import { searchNFTs, loadNFTDetails } from "../../../redux/actions/nftActions"
 
@@ -377,6 +378,27 @@ void main() {
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
                             </p>
+                            
+
+                            <div className="section-stats">
+
+                                <Button
+                                    className={"mint-button main-button"}
+                                    type="submit"
+                                    text="Mint"
+                                    large="true"
+                                    onClick={() => {}}
+                                />
+                                <div className="stat-price">
+                                    0.222 ETH
+                                </div>
+
+                                <div className="stat-divider"></div>
+
+                                <div className="stat-count">
+                                    0 / 666 items
+                                </div>
+                            </div>
                         </div>
                     </div>
 

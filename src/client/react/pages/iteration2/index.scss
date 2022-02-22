@@ -87,6 +87,40 @@ $placeholderBG: rgba(red, 0.1);
     }
 }
 
+.section-stats {
+    display: flex;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 40px 0 0 0 ;
+    position: relative;
+    align-items: center;
+
+    @media only screen and (max-width: $mobile) {
+        padding-left: 20px;
+        font-size: 14px;
+    }
+
+    .stat-price {
+        font-weight: 600;
+    }
+
+    .stat-divider {
+        width: 4px; 
+        height:4px;
+        border-radius: 10px;
+        background: rgba($white, 0.2);
+        margin: 0 10px;
+    }
+
+    .mint-button {
+        max-width: 100px;
+        margin-right: 25px;
+        padding: 20px;
+    }
+    
+}
+
+
 .iteration2-container {
 
     .iteration2-content-wrapper {
@@ -129,13 +163,13 @@ $placeholderBG: rgba(red, 0.1);
             .section-hero-bottom {
 
                 @media only screen and (max-width: $mobile) {
-                    margin-bottom: 100px;
+                    margin-bottom: 50px;
                 }
 
                 @media only screen and (min-width: $mobile) {
                     grid-column: 2 / 3;
                     grid-row: 2;
-                    margin-bottom: 222px;
+                    margin-bottom: 140px;
                 }
                   
             }
