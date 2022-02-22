@@ -45,10 +45,10 @@
 
 .glass {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: -500px;
+    left: -500px;
+    right: -500px;
+    bottom: -500px;
     z-index: 3;
     transition: all 0.2s linear;
 

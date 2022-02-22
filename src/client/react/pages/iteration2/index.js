@@ -240,7 +240,7 @@ void main() {
             camera.position.z = 0.4;
 
             let startFrame  = 25
-            let endFrame = 19
+            let endFrame = 18
             let direction = "minus"
             uniforms.iGlobalTime.value = startFrame
 
