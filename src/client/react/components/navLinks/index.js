@@ -66,6 +66,10 @@ class Nav extends Component {
 			{
 			  	url: "/planet",
 				name: "Planet",
+			},
+			{
+			  	url: "/iteration2",
+				name: "Iteration 2",
 			}
 		]
 

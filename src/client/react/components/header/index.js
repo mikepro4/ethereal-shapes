@@ -471,7 +471,7 @@ class Header extends Component {
                         this.handleClick()
                     }}>
 
-                        {!this.props.iframe && this.props.user && this.renderLines()}
+                        {!this.props.iframe && this.props.user && this.props.location.pathname !== "/iteration2" && this.renderLines()}
 
                     </div>
 
@@ -492,12 +492,25 @@ class Header extends Component {
                     </div>
 
                     {/* {this.renderAccount()} */}
-                    {this.props.user && <AccountDisplay />}
+                    {this.props.user && this.props.location.pathname !== "/iteration2" && <AccountDisplay />}
                 </div>
                 {this.renderMenu()}
 
                 <div className="app-header-wrapper-desktop">
                     {this.props.user && <div className="desktop-logo">
+                         <Link
+                            to="/"
+                            onClick={() => {
+                                if (this.state.menuOpen) {
+                                    this.hideMenu()
+                                }
+                            }}>
+                            <LogoDesktop />
+                        </Link>
+                        
+                    </div>}
+
+                    {this.props.location.pathname == "/iteration2" && !this.props.user && <div className="desktop-logo">
 
                         <Link
                             to="/"
@@ -510,8 +523,9 @@ class Header extends Component {
                         </Link>
                     </div>}
 
-                    {!this.props.user &&  <div className="desktop-no-user-logo">
-                        <Link
+                    {!this.props.user && <div className="desktop-no-user-logo">
+
+                        {this.props.location.pathname !== "/iteration2" && <Link
                             to="/"
                             onClick={() => {
                                 if (this.state.menuOpen) {
@@ -519,17 +533,17 @@ class Header extends Component {
                                 }
                             }}>
                             <LogoMobile />
-                        </Link>
-
-                        {/* {this.renderStatus()} */}
+                        </Link>}
+                        
 
 
                     </div>}
 
-                    {this.props.user && <NavLinks hideMenu={() => this.hideMenu()} linksType="mainLinks" />}
-                    {this.props.user && <AccountDisplay />}
+                    {this.props.user && this.props.location.pathname !== "/iteration2" && <NavLinks hideMenu={() => this.hideMenu()} linksType="mainLinks" />}
+                    {this.props.user && this.props.location.pathname !== "/iteration2" && <AccountDisplay />}
                     {/* <div className="desktop-account"><div className="desktop-account">Login</div></div> */}
                 </div>
+                
             </div>
         );
 

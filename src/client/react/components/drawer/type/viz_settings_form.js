@@ -102,6 +102,10 @@ class VizSettingsForm extends Component {
             {
                 value: "log",
                 name: "Log"
+            },
+            {
+                value: "clz32",
+                name: "Clz32"
             }
         ]
 

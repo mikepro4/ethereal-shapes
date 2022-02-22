@@ -1,0 +1,303 @@
+.iteration2-planet {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.iteration2-main-shape-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.iteration2-container {
+
+    .guide-1 {
+        width: 1px;
+        background: red;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        position: fixed;
+        z-index: 100;
+        opacity: 0.5;
+    }
+
+    .guide-2 {
+        height: 1px;
+        background: red;
+        left: 0;
+        top: 50%;
+        right: 0;
+        position: fixed;
+        z-index: 100;
+        opacity: 0.5;
+    }
+
+    .guide-block {
+        width: 222px;
+        height: 40px;
+        margin-top: -20px;
+        margin-left: -111px;
+        top: 50%;
+        left: 50%;
+        position: fixed;
+        z-index: 100;
+        background: red;
+        opacity: 0.5;
+    }
+    
+    .content-container {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-family: "MP";
+        text-transform: uppercase;
+        animation: fadeIn 0.2s forwards;
+        opacity: 0;
+
+        
+
+        .page-title {
+            font-size: 22px;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+
+            background: linear-gradient(to right, rgba(255, 255, 255, 100%), rgba(255, 255, 255, 0.92) 100%);
+            // background: $white;
+            opacity: 0;
+            left: 5px;
+            position: relative;
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            // background-size: 500% 500%;
+            background-position: center center;
+
+            animation: text-wipe 2s 0s linear forwards;
+            -webkit-mask-image: linear-gradient(to left, #0000 25%, #000 75%);
+            -webkit-mask-size: 500%;
+            -webkit-mask-position: 100%;
+            transition: all 2s ease;
+            
+
+            @media only screen and (min-width: $mobile) {
+                font-size: 47px;
+                font-weight: 500;
+                letter-spacing: 15px;
+            }
+        }
+
+        .page-subtitle {
+            margin: 5px 0 0 0;
+            font-size: 10px;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            position: relative;
+            left: 3px;
+
+            background: $white;
+            opacity: 0;
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            // background-size: 500% 500%;
+            background-position: center center;
+
+            animation: text-wipe 2s 0.02s linear forwards;
+            -webkit-mask-image: linear-gradient(to left, #0000 25%, #000 75%);
+            -webkit-mask-size: 500%;
+            -webkit-mask-position: 100%;
+            transition: all 2s ease;
+
+            @media only screen and (min-width: $mobile) {
+                margin: 10px 0 0 0;
+                font-size: 20px;
+                font-weight: 300;
+                letter-spacing: 8px;
+            }
+        }
+
+        .page-intro {
+            cursor: pointer;
+            position: relative;
+
+            &:hover {
+                .page-title {
+                    letter-spacing: 8px;
+
+                    @media only screen and (min-width: $mobile) {
+                        letter-spacing: 16px;
+                    }
+                }
+
+                .page-subtitle {
+                    letter-spacing: 7px;
+
+                    @media only screen and (min-width: $mobile) {
+                        letter-spacing: 9px;
+                    }
+                }
+            }
+        }
+    }
+
+    .player-container {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 100;
+        opacity: 0;
+        // animation: fadeInScale 0.7s 2s cubic-bezier(.19,1,.46,1.21) forwards;
+        animation: fadeIn 1s 1.8s ease forwards;
+        display: flex;
+
+        .nft-info {
+            margin: 0 0 0 10px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            @media only screen and (min-width: $mobile) {
+                margin-left: 25px;
+            }
+
+            .nft-name {
+                font-size: 18px;
+                font-weight: 500;
+
+                @media only screen and (min-width: $mobile) {
+                    font-size: 44px;
+                }
+            }
+
+            .nft-description {
+                font-size: 8px;
+                font-weight: 300;
+                opacity: 0.5;
+
+                @media only screen and (min-width: $mobile) {
+                    font-size: 17px;
+                }
+            }
+        }
+
+        svg {
+            cursor: pointer;
+            fill: $white;
+        }
+
+        @media only screen and (min-width: $mobile) {
+            bottom: 60px;
+            left: 60px;
+
+            svg {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+       
+    }
+
+    .timeline-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        transition: all 1s ease;
+
+
+        @media only screen and (min-width: $mobile) {
+            transform: translateY(18px);
+        }
+
+        &:hover {
+            @media only screen and (min-width: $mobile) {
+                transform: translateY(0px); 
+            }
+        }
+    }
+
+    .twitter-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 100;
+        width: 41px;
+        height: 41px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 1s ease;
+        
+        .icon-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 100px;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInScale 1s 2.2s ease forwards;
+            transition: all 1s ease;
+        }
+
+        svg {
+            width: 18px;
+            height: 18px;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeInScale 1s 2.22s ease forwards;
+
+            path {
+                transition: all 1s ease;
+                fill: $white
+            }
+        }
+
+        @media only screen and (min-width: $mobile) {
+            width: 100px;
+            height: 100px;
+            bottom: 60px;
+            right: 60px;
+
+            svg {
+                width: 40px;
+                height: 40px;
+                top: 1px;
+            }
+        }
+
+        &:hover {
+
+            .icon-bg {
+                background: $white;
+            }
+
+            svg {
+                path {
+                    fill: #2AA9E0
+                }
+            }
+        }
+    }
+}

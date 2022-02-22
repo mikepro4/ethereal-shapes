@@ -88,3 +88,11 @@
     font-weight: 500;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'A2';
+    src: url('../../../static/fonts/A2.woff2') format('woff2'),
+        url('../../../static/fonts/A2.woff') format('font-woff');
+    font-weight: 400;
+    font-style: normal;
+}
