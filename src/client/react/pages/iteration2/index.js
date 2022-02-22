@@ -330,6 +330,27 @@ void main() {
         )
     }
 
+    renderSectionHeader(number, name, border) {
+        return(
+            <div 
+                className={classNames({
+                    "section-header": true,
+                    "border": border
+                })}
+            >
+                <span className="section-count">
+                    {number}
+                </span>
+                <span className="section-divider">
+                    ––
+                </span>
+                <span className="section-name">
+                    {name}
+                </span>
+            </div>
+        )
+    }
+
     render() {
 
         return (
@@ -343,13 +364,24 @@ void main() {
 
                     <div className="iteration2-section section-hero">
 
-                        <div className="section-hero-top"></div>
+                        {this.renderSectionHeader("01", "Collection", false)}
 
-                        <div className="section-hero-bottom"></div>
+                        <div className="section-hero-top">
+                            <h1 className="section-big-title">
+                                Controlling the chaos
+                            </h1>
+                        </div>
+
+                        <div className="section-hero-bottom">
+                            <p className="section-main-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                            </p>
+                        </div>
                     </div>
 
                     <div className="iteration2-section section-design">
-
+                        {this.renderSectionHeader("02", "Design", true)}
                     </div>
 
                     <div className="iteration2-section section-approach">
