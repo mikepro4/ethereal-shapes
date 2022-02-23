@@ -516,6 +516,12 @@ void main() {
         document.body.removeChild(element);
     }
 
+    renderMath = () => {
+        return(<div>
+            {this.state.shape && this.state.shape.shape && this.state.shape.shape.math }
+        </div>)
+    }
+
     render() {
         let designPlaylist = {
             seconds: 10,
@@ -604,29 +610,50 @@ void main() {
                         </div>
 
                         <ul className="section-approach-bottom">
-                            <li className="section-approach-1">
-                                {this.state.shape && this.state.shape.shape && this.state.shape.shape.math }
+                            <li className="section-approach-item section-approach-1">
+                                <div className="math-name-container">
+                                    {this.renderMath()}
+                                </div>
+                                <div className="section-approach-item-title">
+                                    Math
+                                </div>
                             </li>
-                            <li  className="section-approach-2">
+                            <li  className="section-approach-item section-approach-2">
                                 {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
+                                <div className="section-approach-item-title">
+                                    Rendering engine
+                                </div>
                             </li>
-                            <li  className="section-approach-3">
+                            <li  className="section-approach-item section-approach-3">
                                 {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
+                                <div className="section-approach-item-title">
+                                    UI Controls
+                                </div>
                             </li>
-                            <li  className="section-approach-4">
+                            <li  className="section-approach-item section-approach-4">
                                 {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
+                                <div className="section-approach-item-title">
+                                    Music
+                                </div>
                             </li>
-                            <li  className="section-approach-5">
+                            <li  className="section-approach-item section-approach-5">
                                 {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
+                                <div className="section-approach-item-title">
+                                    AI
+                                </div>
                             </li>
                         </ul>
 
                         <div className="section-approach-description">
-
+                            <p className="section-main-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                            </p>
                         </div>
                     </div>
 
                     <div className="iteration2-section section-process">
+                        {this.renderSectionHeader("04", "Process", true)}
                         <div className="section-process-description"></div>
                         <div className="section-process-list"></div>
                         <div className="section-process-view"></div>
