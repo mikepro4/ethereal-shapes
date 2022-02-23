@@ -527,6 +527,14 @@ void main() {
             ]
         }
 
+        let pointCount
+
+        if(this.props.app.clientWidth > 1000) {
+            pointCount = 222
+        } else {
+            pointCount = 500
+        }
+
         return (
             <div className="iteration2-container">
                 {/* <div className="iteration2-planet" style={{opacity: this.getOpacity() + "%"}} id="planet" ref={ref => (this.mount = ref)}>
@@ -600,16 +608,16 @@ void main() {
                                 {this.state.shape && this.state.shape.shape && this.state.shape.shape.math }
                             </li>
                             <li  className="section-approach-2">
-                                {/* {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} fullScreen={true} presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "} */}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
                             </li>
                             <li  className="section-approach-3">
-                                {/* {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} fullScreen={true} presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "} */}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
                             </li>
                             <li  className="section-approach-4">
-                                {/* {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} fullScreen={true} presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "} */}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
                             </li>
                             <li  className="section-approach-5">
-                                {/* {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} fullScreen={true} presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "} */}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
                             </li>
                         </ul>
 

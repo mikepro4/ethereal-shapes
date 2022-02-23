@@ -32,7 +32,7 @@ $placeholderBG: rgba(red, 0.1);
     font-feature-settings: "tnum" on,"lnum" on,"liga" on,"zero";
     text-transform: uppercase;
     font-size: 12px;
-    padding-top: 15px;
+    padding-top: 25px;
 
     &.border {
         border-top: 1px solid rgba($white, 0.1);
@@ -220,6 +220,7 @@ $placeholderBG: rgba(red, 0.1);
                     display: grid;
                     column-gap: 30px;
                     grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+                    margin-top: 100px;
 
                 }
 
@@ -236,7 +237,7 @@ $placeholderBG: rgba(red, 0.1);
                 // grid-template-columns: 20% 20% 20% 20% 20%;
 
                 li {
-                    background: $placeholderBG;
+                    border: 1px solid $white;
                     aspect-ratio: 1;
                     position: relative;
 
