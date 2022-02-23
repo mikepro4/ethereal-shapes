@@ -125,13 +125,15 @@ class Playlist extends Component {
 
         return (
             <div className="nft-playlist-container">
+                <div className="nft-playlist-view-container">
+                    <View
+                        item={this.getNft()}
+                        defaultViz={this.getDefaultViz()}
+                        paused={this.state.paused}
+                    />
 
-                <View
-                    item={this.getNft()}
-                    defaultViz={this.getDefaultViz()}
-                    paused={this.state.paused}
-                />
-
+                </div>
+                
                 {this.renderPlaylistControls()}
             </div>
         );

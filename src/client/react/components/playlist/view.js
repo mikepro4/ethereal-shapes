@@ -24,7 +24,7 @@ class View extends Component {
     render() {
         return (
             <div className="nft-playlist-view">
-                {this.props.defaultViz ? <Viz defaultViz={ this.props.defaultViz } lessBlur={true} paused={this.props.paused} fullScreen={true} transparent={true} nftId={this.props.item._id}  />  : " "}
+                {this.props.defaultViz ? <Viz defaultViz={ this.props.defaultViz } lessBlur={true} paused={this.props.paused} fullScreen={true} presentation={true} transparent={true} nftId={this.props.item._id}  />  : " "}
             </div>
         );
     }

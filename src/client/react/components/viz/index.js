@@ -276,13 +276,17 @@ class Viz extends Component {
             } else {
                 if (this.props.app.clientWidth > 1000) {
                     if (defaultViz.overlay.visible && this.props.fullScreen) {
-                        if (this.props.fullScrnee) {
+                        if (this.props.fullScreen) {
                             finalPointSise = pointSize * 2
                         } else {
                             finalPointSise = pointSize * 1.4
                         }
                     } else {
-                        finalPointSise = pointSize + 1.5
+                        if(this.props.presentation) {
+                            finalPointSise = pointSize + 0.5
+                        } else {
+                            finalPointSise = pointSize + 1.5
+                        }
                     }
                 } else {
 
@@ -324,7 +328,11 @@ class Viz extends Component {
             let scale = 1
 
             if (this.props.defaultViz) {
-                scale = 0.8
+                if(this.props.presentation) {
+                    scale = 1.2
+                } else {
+                    scale = 0.8
+                }
             }
 
             let scaleValue
@@ -369,7 +377,15 @@ class Viz extends Component {
             let scale = 1
 
             if (this.props.defaultViz) {
-                scale = 0.8
+                if(this.props.presentation) {
+                    if (this.props.app.clientWidth > 1000) { 
+                        scale = 1.2
+                    } else {
+                        scale = 0.8
+                    }
+                } else {
+                    scale = 0.8
+                }
             }
 
             let scaleValue
