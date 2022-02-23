@@ -13,36 +13,18 @@ import Viz from "../viz"
 
 class View extends Component {
 
-    state = {
-        shape: null
-    }
-
     componentDidMount = () => {
-        if(this.props.item) {
-            // this.props.loadShape(this.props.item.metadata.shapeId, true, (data) => {
-            //     this.setState({
-            //         shape: data
-            //     })
-            // })
-        }
+
     }
 
     componentDidUpdate = (prevprops) => {
-        if(!_.isEqual(prevprops.item, this.props.item) && this.props.item) {
-            this.props.loadShape(this.props.item.metadata.shapeId, true, (data) => {
-                this.setState({
-                    shape: data
-                })
-            })
-        }
+
     }
 
     render() {
-
         return (
             <div className="nft-playlist-view">
-                {this.state.shape ? <Viz defaultViz={ this.state.shape.defaultViz } lessBlur={true} fullScreen={true} transparent={true} nftId={this.props.item._id}  />  : " "}
-                
+                {this.props.defaultViz ? <Viz defaultViz={ this.props.defaultViz } lessBlur={true} fullScreen={true} transparent={true} nftId={this.props.item._id}  />  : " "}
             </div>
         );
     }

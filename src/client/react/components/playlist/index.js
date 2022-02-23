@@ -15,15 +15,16 @@ class Playlist extends Component {
 
     state = {
         active: null,
+        shapes: [],
         list: []
     }
 
     componentDidMount = () => {
         this.props.getMultiple(this.props.playlist.list, (data) => {
-            console.log(data.results)
             this.setState({
-                list: data.results,
-                active: data.results[0]._id
+                shapes: data.shapes,
+                list: data.nfts,
+                active: data.nfts[0]._id
             })
 
 
@@ -41,12 +42,27 @@ class Playlist extends Component {
         return filteredNfts[0]
     }
 
+    getDefaultViz = () => {
+        let nft = this.getNft()
+        if(nft) {
+            let filteredShapes = _.filter(this.state.shapes, { _id: nft.metadata.shapeId})
+            // console.log(filteredShapes)
+            return filteredShapes[0].defaultViz
+        } else {
+            return null
+        }
+       
+    }
+
     render() {
 
         return (
             <div className="nft-playlist-container">
 
-                <View item={this.getNft()}/>
+                <View 
+                    item={this.getNft()}
+                    defaultViz={this.getDefaultViz()}
+                />
             </div>
         );
     }
