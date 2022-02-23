@@ -1,10 +1,15 @@
 .nft-playlist-container {
-    min-height: 600px;
     padding: 100px 0 0 0px;
-    background: rgba(red, 0.1);
-    aspect-ratio: 16/9;
+    // background: rgba(red, 0.1);
+
+    @media only screen and (min-width: $mobile) {
+        aspect-ratio: 16/9;
+        min-height: 600px;
+    }
 
     @media only screen and (max-width: $mobile) {
+        aspect-ratio: 1;
+
         padding: 100px 0 0 20px;
     }
 }

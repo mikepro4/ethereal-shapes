@@ -45,9 +45,6 @@ class Playlist extends Component {
 
         return (
             <div className="nft-playlist-container">
-                Playlist
-
-                Nft Id: {this.state.active ? this.state.active : "no"}
 
                 <View item={this.getNft()}/>
             </div>

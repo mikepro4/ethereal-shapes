@@ -41,7 +41,7 @@ class View extends Component {
 
         return (
             <div className="nft-playlist-view">
-                {this.state.shape ? <Viz defaultViz={ this.state.shape.defaultViz } lessBlur={true} fullScreen={true} nftId={this.props.item._id}  />  : " No shape"}
+                {this.state.shape ? <Viz defaultViz={ this.state.shape.defaultViz } lessBlur={true} fullScreen={true} transparent={true} nftId={this.props.item._id}  />  : " "}
                 
             </div>
         );
