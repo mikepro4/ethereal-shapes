@@ -110,8 +110,8 @@ class Viz extends Component {
         if(!_.isEqual(this.props.defaultViz, prevprops.defaultViz)) {
             this.loadShape()
              setTimeout(() => {
-                this.updateColors()
-            }, 1)
+                    this.updateColors()
+                }, 1)
         }
 
         if (this.props.defaultViz && !this.state.forcePaused && !this.props.presentation) {
@@ -712,7 +712,12 @@ class Viz extends Component {
                     if (this.props.app.clientWidth < 1000) {
                         finalBlur = blur / 2
                     } else {
-                        finalBlur = blur / 1.2
+                        
+                        if(this.props.presentation) {
+                            finalBlur = blur 
+                        } else {
+                            finalBlur = blur / 1.2
+                        }
                     }
                 } else {
                     finalBlur = blur

@@ -685,25 +685,25 @@ void main() {
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-2">
-                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}presentation={true} nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
                                     Rendering engine
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-3">
-                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} presentation={true} nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
                                     UI Controls
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-4">
-                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true}  nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
                                     Music
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-5">
-                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true} nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
                                     AI
                                 </div>

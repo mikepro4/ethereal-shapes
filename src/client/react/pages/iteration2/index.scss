@@ -20,6 +20,10 @@ $placeholderBG: rgba(red, 0.1);
 
 .iteration2-section {
     position: relative;
+
+    .glass {
+        z-index: 10000;
+    }
 }
 
 .section-header {
