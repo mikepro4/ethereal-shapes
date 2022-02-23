@@ -70,7 +70,7 @@ $placeholderBG: rgba(red, 0.1);
 }
 
 .section-big-title {
-    padding: 60px  0 0 0;
+    padding: 70px  0 0 0;
     font-size: 160px;
     line-height: 90%;
     font-feature-settings: "tnum" on,"lnum" on,"liga" on,"zero";
@@ -195,14 +195,13 @@ $placeholderBG: rgba(red, 0.1);
                 column-gap: 20px;
                 row-gap: 40px;
                 grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
-                padding: 20px;
+                // padding: 20px;
                 margin-top: 20px;
             }
 
 
             .section-approach-top {
                 // background: $placeholderBG;
-                height: 500px;
 
                 @media only screen and (min-width: $mobile) {
                     grid-column: 1 / 7;
@@ -229,6 +228,7 @@ $placeholderBG: rgba(red, 0.1);
                     display: grid;
                     column-gap: 20px;
                     row-gap: 40px;
+                    padding: 20px;
                     grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
 
                 }

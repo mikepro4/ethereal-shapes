@@ -428,7 +428,11 @@ void main() {
 
                     <div className="iteration2-section section-approach">
                         {this.renderSectionHeader("03", "Approach", true)}
-                        <div className="section-approach-top"></div>
+                        <div className="section-approach-top">
+                            <h1 className="section-big-title">
+                                Algorithmic interactive art
+                            </h1>
+                        </div>
 
                         <ul className="section-approach-bottom">
                             <li className="section-approach-1">
