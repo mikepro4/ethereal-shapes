@@ -286,10 +286,15 @@ class Viz extends Component {
                             finalPointSise = pointSize * 2
                         } else {
                             finalPointSise = pointSize * 1.4
+                            
                         }
                     } else {
                         if(this.props.presentation) {
-                            finalPointSise = pointSize + 0.5
+                            if(this.props.smallPoints && defaultViz.overlay.visible) {
+                                finalPointSise = pointSize / 1.4
+                            } else {
+                                finalPointSise = pointSize + 0.5
+                            }
                         } else {
                             finalPointSise = pointSize + 1.5
                         }
@@ -714,7 +719,11 @@ class Viz extends Component {
                     } else {
                         
                         if(this.props.presentation) {
-                            finalBlur = blur 
+                            if(this.props.smallPoints && this.props.defaultViz.overlay.visible) {
+                                finalBlur = blur / 3
+                            } else {
+                                finalBlur = blur 
+                            }
                         } else {
                             finalBlur = blur / 1.2
                         }

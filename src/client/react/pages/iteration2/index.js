@@ -593,7 +593,9 @@ void main() {
                 "620207da14481155d8f6f491",
                 // "6202082d14481155d8f6f517",
                 "620f480eb901f1fb95aa7130",
-                "6201b3784a8a7d0021be3850"
+                "6201b3784a8a7d0021be3850",
+                "62130aa3c388a70021bb59e3",
+                "620ebccbf3ae1a0021e0c0c5"
             ]
         }
 
@@ -685,25 +687,25 @@ void main() {
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-2">
-                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}presentation={true} nftId={this.state.nft._id}  />  : " "}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} smallPoints={true} presentation={true} nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
                                     Rendering engine
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-3">
-                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} presentation={true} nftId={this.state.nft._id}  />  : " "}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} smallPoints={true} presentation={true} nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
                                     UI Controls
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-4">
-                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true}  nftId={this.state.nft._id}  />  : " "}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} smallPoints={true}  presentation={true}  nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
                                     Music
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-5">
-                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true} nftId={this.state.nft._id}  />  : " "}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} smallPoints={true}  presentation={true} nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
                                     AI
                                 </div>
