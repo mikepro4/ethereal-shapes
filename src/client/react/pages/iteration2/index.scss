@@ -40,7 +40,7 @@ $placeholderBG: rgba(red, 0.1);
 
     @media only screen and (max-width: $mobile) {
         font-size: 9px;
-        padding-top: 20px;
+        padding-top: 25px;
         padding-left: 20px;
     }
 
@@ -82,7 +82,7 @@ $placeholderBG: rgba(red, 0.1);
 
     @media only screen and (max-width: $mobile) {
         font-size: 45px;
-        padding-top: 50px;
+        padding-top: 60px;
         padding-left: 20px;
     }
 }
@@ -238,6 +238,7 @@ $placeholderBG: rgba(red, 0.1);
                 li {
                     background: $placeholderBG;
                     aspect-ratio: 1;
+                    position: relative;
 
                     &.section-approach-1 {
                         @media only screen and (max-width: $mobile) {

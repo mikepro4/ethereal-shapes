@@ -26,6 +26,8 @@ class Playlist extends Component {
                 shapes: data.shapes,
                 list: data.nfts,
                 active: data.nfts[0]._id
+            }, () => {
+                this.updateTop()
             })
         })
 
@@ -37,6 +39,16 @@ class Playlist extends Component {
 
         this.setState({timeInterval})
         
+    }
+
+    updateTop() {
+        if(this.props.setNft) {
+            this.props.setNft(this.getNft())
+        }
+
+        if(this.props.setShape) {
+            this.props.setShape(this.getDefaultViz())
+        }
     }
 
     setNextActive = () => {
@@ -53,6 +65,8 @@ class Playlist extends Component {
                     active: this.props.playlist.list[index + 1]
                 })
             }
+
+           this.updateTop()
         }
     }
 
@@ -69,6 +83,8 @@ class Playlist extends Component {
             active: id,
             paused: false,
             timeInterval
+        }, () => {
+            this.updateTop()
         })
     }
 

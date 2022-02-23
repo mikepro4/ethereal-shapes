@@ -47,14 +47,27 @@ class About extends Component {
         super(props)
 
         this.state = {
-            nft: {}
+            nft: {},
+            shape: {}
         }
 
         this.planet = this.planet = React.createRef()
     }
 
+    setNft = (nft) => {
+        this.setState({
+            nft: nft
+        })
+    }
+
+    setShape = (shape) => {
+        this.setState({
+            shape: shape
+        })
+    }
+
+
     componentWillUnmount() {
-        this.props.setAbout(false)
     }
 
     componentDidMount() {
@@ -298,16 +311,6 @@ void main() {
         </Helmet>
     )
 
-    // componentWillUnmount = () => {
-    // 	window.removeEventListener("resize", this.handleResize);
-    //     window.cancelAnimationFrame(this.state.requestAnimationFrame);
-    //     clearInterval(this.state.timeInterval);
-    // }
-
-    // handleResize = () => {
-    //     this.updateDimensions()
-    // }
-
     getOpacity() {
         if (this.props.app.totalScrolledPixels < 500) {
             return 100 - this.props.app.totalScrolledPixels / 1.5
@@ -315,23 +318,6 @@ void main() {
         else {
             return 0
         }
-    }
-
-    renderPlayer() {
-        return(
-            <div className="player-container">
-                <Player nft={this.state.nft} /> 
-
-                <div className="nft-info">
-                    <div className="nft-name">
-                        <div className="nft-name-wrapper">{this.state.nft.nft.name}</div>
-                    </div>
-                    <div className="nft-description">
-                        <div className="nft-name-wrapper">{this.state.nft.nft.description}</div>
-                    </div>
-                </div>
-            </div>
-        )
     }
 
     renderSectionHeader(number, name, border) {
@@ -530,13 +516,7 @@ void main() {
         document.body.removeChild(element);
     }
 
-      
-
     render() {
-        // let designPlaylist = [{
-        //     nftId: "62016829bc6f6c00213836f9",
-        // }]
-
         let designPlaylist = {
             seconds: 10,
             list: [
@@ -600,6 +580,8 @@ void main() {
 
                         <Playlist
                             playlist={designPlaylist}
+                            setNft={(nft) => this.setNft(nft)}
+                            setShape={(shape) => this.setShape(shape)}
                         />
                     </div>
 
@@ -615,19 +597,19 @@ void main() {
 
                         <ul className="section-approach-bottom">
                             <li className="section-approach-1">
-                                1
+                                {this.state.shape && this.state.shape.shape && this.state.shape.shape.math }
                             </li>
                             <li  className="section-approach-2">
-                                2
+                                {/* {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} fullScreen={true} presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "} */}
                             </li>
                             <li  className="section-approach-3">
-                                3
+                                {/* {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} fullScreen={true} presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "} */}
                             </li>
                             <li  className="section-approach-4">
-                                4
+                                {/* {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} fullScreen={true} presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "} */}
                             </li>
                             <li  className="section-approach-5">
-                                5
+                                {/* {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} fullScreen={true} presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "} */}
                             </li>
                         </ul>
 
