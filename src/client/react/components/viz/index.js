@@ -111,7 +111,7 @@ class Viz extends Component {
             this.loadShape()
         }
 
-        if (this.props.defaultViz && !this.state.forcePaused) {
+        if (this.props.defaultViz && !this.state.forcePaused && !this.props.presentation) {
 
             if (rect.y > this.props.app.clientHeight / 1.4) {
                 if (!this.state.paused) {

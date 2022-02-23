@@ -372,8 +372,8 @@ void main() {
 
         return (
             <div className="iteration2-container">
-                <div className="iteration2-planet" id="planet" ref={ref => (this.mount = ref)}>
-                </div>
+                {/* <div className="iteration2-planet" style={{opacity: this.getOpacity() + "%"}} id="planet" ref={ref => (this.mount = ref)}>
+                </div> */}
 
                 {this.renderHead()}
 
