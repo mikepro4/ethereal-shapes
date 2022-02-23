@@ -27,15 +27,48 @@ class Playlist extends Component {
                 list: data.nfts,
                 active: data.nfts[0]._id
             })
-
-
         })
+
+        const timeInterval = setInterval(() => {
+            this.setNextActive()
+        }, 
+            this.props.playlist.seconds * 1000 
+        )
+
+        this.setState({timeInterval})
+        
+    }
+
+    setNextActive = () => {
+        if(!this.state.paused) {
+            let index = _.indexOf(this.props.playlist.list, this.state.active, 0)
+            let listLength = (this.props.playlist.list.length)
+    
+            if(index + 1 > listLength - 1) {
+                this.setState({
+                    active: this.props.playlist.list[0]
+                })
+            } else {
+                this.setState({
+                    active: this.props.playlist.list[index + 1]
+                })
+            }
+        }
     }
 
     setActive = (id) => {
+        clearInterval(this.state.timeInterval);
+
+        const timeInterval = setInterval(() => {
+            this.setNextActive()
+        }, 
+            this.props.playlist.seconds * 1000 
+        )
+
         this.setState({
             active: id,
-            paused: false
+            paused: false,
+            timeInterval
         })
     }
 
