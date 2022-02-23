@@ -54,6 +54,25 @@ class Playlist extends Component {
        
     }
 
+    getNftById = (id) => {
+        let filteredNfts = _.filter(this.state.list, { _id: id})
+        return filteredNfts[0]
+    }
+
+    renderPlaylistControls = () => {
+        return(
+            <div className="playlist-controls-container">
+
+                {this.props.playlist.list.map((nft) => {
+                    return(<div onClick={() => this.setActive(nft)}>
+                        {this.getNftById(nft)&& this.getNftById(nft).nft.name}
+                    </div>)
+                })}
+
+            </div>
+        )
+    }
+
     render() {
 
         return (
@@ -63,6 +82,8 @@ class Playlist extends Component {
                     item={this.getNft()}
                     defaultViz={this.getDefaultViz()}
                 />
+
+                {this.renderPlaylistControls()}
             </div>
         );
     }

@@ -107,6 +107,10 @@ class Viz extends Component {
 
         let rect = this.vizContainer.current.getBoundingClientRect();
 
+        if(!_.isEqual(this.props.defaultViz, prevprops.defaultViz)) {
+            this.loadShape()
+        }
+
         if (this.props.defaultViz) {
 
             if (rect.y > this.props.app.clientHeight / 1.4) {
