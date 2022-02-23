@@ -48,7 +48,9 @@ class About extends Component {
 
         this.state = {
             nft: {},
-            shape: {}
+            shape: {},
+            newShape: {},
+            mathValues: ["sin", "cos", "tan", "atan", "log", "tanh", "abs"]
         }
 
         this.planet = this.planet = React.createRef()
@@ -517,9 +519,70 @@ void main() {
     }
 
     renderMath = () => {
-        return(<div>
-            {this.state.shape && this.state.shape.shape && this.state.shape.shape.math }
+        console.log(this.state.shape)
+        return(<div className="math-name-container" onClick={() => this.updateMath("next")}>
+            <div className="math-wrapper" >
+                <div className="current-math">
+                    {this.state.shape && this.state.shape.shape && this.state.shape.shape.math }
+                </div>
+
+                <div className="new-math">
+                </div>
+            </div>
         </div>)
+    }
+
+    updateMath(direction) {
+        let selectedShape = this.state.shape
+
+        if (selectedShape && selectedShape.shape) {
+
+            let indexOfCurrent = _.indexOf(this.state.mathValues, selectedShape.shape.math)
+            let finalIndex
+
+            if (direction == "next") {
+                if ((indexOfCurrent + 1) > this.state.mathValues.length - 1) {
+                    finalIndex = 0
+                } else {
+                    finalIndex = indexOfCurrent + 1
+                }
+
+                let finalShape = {
+                    ...selectedShape,
+                    shape: {
+                        ...selectedShape.shape,
+                        math: this.state.mathValues[finalIndex]
+                    }
+                }
+
+                this.setState({
+                    shape: finalShape
+                })
+            } else if (direction == "prev") {
+
+                if ((indexOfCurrent - 1) < 0) {
+                    finalIndex = this.state.mathValues.length - 1
+                } else {
+                    finalIndex = indexOfCurrent - 1
+                }
+
+                let finalshape = {
+                    ...selectedShape,
+                    defaultViz: {
+                        ...selectedShape.defaultViz,
+                        shape: {
+                            ...selectedShape.defaultViz.shape,
+                            math: this.state.mathValues[finalIndex]
+                        }
+                    }
+                }
+
+                this.setState({
+                    shape: finalshape
+                })
+            }
+
+        }
     }
 
     render() {
@@ -528,18 +591,23 @@ void main() {
             list: [
                 "62016829bc6f6c00213836f9",
                 "620207da14481155d8f6f491",
-                "6202082d14481155d8f6f517",
+                // "6202082d14481155d8f6f517",
+                "620f480eb901f1fb95aa7130",
                 "6201b3784a8a7d0021be3850"
             ]
         }
 
         let pointCount
-
-        if(this.props.app.clientWidth > 1000) {
-            pointCount = 222
+        if(this.state.shape && this.state.shape.overlay && this.state.shape.overlay.visible) {
+            pointCount = this.state.shape.point.pointCount
         } else {
-            pointCount = 500
+            if(this.props.app.clientWidth > 1000) {
+                pointCount = 222
+            } else {
+                pointCount = 500
+            }
         }
+        
 
         return (
             <div className="iteration2-container">
@@ -611,15 +679,13 @@ void main() {
 
                         <ul className="section-approach-bottom">
                             <li className="section-approach-item section-approach-1">
-                                <div className="math-name-container">
-                                    {this.renderMath()}
-                                </div>
+                                {this.renderMath()}
                                 <div className="section-approach-item-title">
                                     Math
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-2">
-                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}  presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
+                                {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount}presentation={true} transparent={true} nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
                                     Rendering engine
                                 </div>

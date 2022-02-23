@@ -109,6 +109,9 @@ class Viz extends Component {
 
         if(!_.isEqual(this.props.defaultViz, prevprops.defaultViz)) {
             this.loadShape()
+             setTimeout(() => {
+                this.updateColors()
+            }, 1)
         }
 
         if (this.props.defaultViz && !this.state.forcePaused && !this.props.presentation) {
@@ -134,6 +137,9 @@ class Viz extends Component {
                         paused: false
                     }, () => {
                         this.renderFrame(this.canvas.current.getContext('2d'), this.state.points)
+                        // setTimeout(() => {
+                        //     this.updateColors()
+                        // }, 1)
                     })
                 }
             }
