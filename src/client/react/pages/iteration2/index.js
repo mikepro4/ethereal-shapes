@@ -36,6 +36,9 @@ import WhiteTwitter from "../../components/icons/whiteTwitter"
 import Player from "../../components/player"
 import Timeline from "../../components/player/Timeline"
 
+import Playlist from "../../components/playlist"
+
+
 
 class About extends Component {
 
@@ -353,6 +356,17 @@ void main() {
     }
 
     render() {
+        // let designPlaylist = [{
+        //     nftId: "62016829bc6f6c00213836f9",
+        // }]
+
+        let designPlaylist = {
+            seconds: 10,
+            list: [
+                "62016829bc6f6c00213836f9",
+                "620207da14481155d8f6f491"
+            ]
+        }
 
         return (
             <div className="iteration2-container">
@@ -404,6 +418,10 @@ void main() {
 
                     <div className="iteration2-section section-design">
                         {this.renderSectionHeader("02", "Design", true)}
+
+                        <Playlist
+                            playlist={designPlaylist}
+                        />
                     </div>
 
                     <div className="iteration2-section section-approach">
