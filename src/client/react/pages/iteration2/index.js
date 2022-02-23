@@ -59,20 +59,20 @@ class About extends Component {
 
     componentDidMount() {
 
-        this.props.loadNFT("62102b4d62ae4100210b6dfd", (data) => {
-            console.log(data)
-            this.setState({
-                nft: data
-            })
-        })
+        // this.props.loadNFT("62102b4d62ae4100210b6dfd", (data) => {
+        //     console.log(data)
+        //     this.setState({
+        //         nft: data
+        //     })
+        // })
 
         // 62102b4d62ae4100210b6dfd
-        this.props.setAbout(true)
-        this.props.loadShape(this.props.app.iteration1.mainShapeId, true, (data) => {
-            this.setState({
-                shape: data
-            })
-        })
+        // this.props.setAbout(true)
+        // this.props.loadShape(this.props.app.iteration1.mainShapeId, true, (data) => {
+        //     this.setState({
+        //         shape: data
+        //     })
+        // })
         const vshader = `
 #include <common>
 #include <lights_pars_begin>

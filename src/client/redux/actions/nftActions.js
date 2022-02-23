@@ -41,6 +41,24 @@ import { updateMarketTokens, updateCollectionItem } from "./appActions"
 //     });
 // }
 
+export const getMultiple = (nfts, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/NFTs/getMultiple", { nfts: nfts})
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+            // dispatch(authError('Account with this email already exists'));
+        });
+}
+
 export const resetNFTs = (success) => async (
     dispatch,
 	getState,
