@@ -111,7 +111,7 @@ class Viz extends Component {
             this.loadShape()
         }
 
-        if (this.props.defaultViz) {
+        if (this.props.defaultViz && !this.state.forcePaused) {
 
             if (rect.y > this.props.app.clientHeight / 1.4) {
                 if (!this.state.paused) {
@@ -136,6 +136,23 @@ class Viz extends Component {
                         this.renderFrame(this.canvas.current.getContext('2d'), this.state.points)
                     })
                 }
+            }
+        }
+
+        if (this.props.paused !== prevprops.paused) {
+            console.log("PAUSE it")
+            if (this.props.paused) {
+                this.setState({
+                    forcePaused: true,
+                    paused: true
+                })
+            } else {
+                this.setState({
+                    forcePaused: false,
+                    paused: false
+                }, () => {
+                    this.renderFrame(this.canvas.current.getContext('2d'), this.state.points)
+                })
             }
         }
 

@@ -364,7 +364,9 @@ void main() {
             seconds: 10,
             list: [
                 "62016829bc6f6c00213836f9",
-                "620207da14481155d8f6f491"
+                "620207da14481155d8f6f491",
+                "6202082d14481155d8f6f517",
+                "6201b3784a8a7d0021be3850"
             ]
         }
 
@@ -425,6 +427,7 @@ void main() {
                     </div>
 
                     <div className="iteration2-section section-approach">
+                        {this.renderSectionHeader("03", "Approach", true)}
                         <div className="section-approach-top"></div>
 
                         <ul className="section-approach-bottom">

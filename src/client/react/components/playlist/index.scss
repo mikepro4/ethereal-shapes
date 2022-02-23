@@ -16,5 +16,52 @@
     .playlist-controls-container {
         position: relative;
         z-index: 3;
+
+        .single-player-control {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+
+            .single-player-control-content {
+                display: flex;
+                align-items: center; 
+            }
+
+
+            .play-control{
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid rgba($white, 0.2);
+                transition: all 0.5s ease;
+                border-radius: 30px;
+                margin-right: 10px;
+
+                .play svg {
+                    position: relative;
+                    left: 1px;
+                }
+
+                &.play-control-active {
+                    border: 1px solid rgba($white, 1);
+                }
+            }
+
+            .player-nft-name {
+                font-size: 18px;
+                opacity: 0.5;
+
+                transition: all 0.5s ease;
+            }
+
+            &.active {
+                .player-nft-name {
+                    opacity: 1;
+                }
+            }
+        }
     }
 }
