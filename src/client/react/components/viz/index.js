@@ -572,7 +572,7 @@ class Viz extends Component {
                         }
                     }
                 } else {
-                    // if (this.props.nftId == this.props.player.trackId) {
+                    if(this.props.presentation) {
                         if (this.props.player.analyser && soundModifier) {
                             soundModifier = freqData[this.getPointIterator(i)] / 1000
 
@@ -580,7 +580,18 @@ class Viz extends Component {
                                 soundModifier = 1
                             }
                         }
-                    // }
+                    }  else {
+                        if (this.props.nftId == this.props.player.trackId) {
+                            if (this.props.player.analyser && soundModifier) {
+                                soundModifier = freqData[this.getPointIterator(i)] / 1000
+    
+                                if (soundModifier == 0) {
+                                    soundModifier = 1
+                                }
+                            }
+                        }
+                    }
+                   
                 }
 
 

@@ -321,6 +321,42 @@ $placeholderBG: rgba(red, 0.1);
                         cursor: pointer;
                     }
 
+                    .mic-container {
+                        position: absolute;
+                        z-index: 10;
+                        bottom: 20px;
+                        right: 20px;
+                        top: inherit;
+                        cursor: pointer;
+                        border: 1px solid $white;
+                        border-radius: 100px;
+                        padding: 0;
+                        width: 42px;
+                        height: 42px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        transition: all .5s ease;
+
+                        @media only screen and (min-width: $mobile) {
+                            // padding-right: 15px;
+                            width: inherit;
+                            margin-right: 0;
+                            width: 42px;
+                            height: 42px;
+                            
+                    
+                            svg {
+                                width: 16px;
+                                height: 16px;
+                            }
+                        }
+
+                        &.mic-active {
+                            border: 1px solid #29FF7F;
+                        }
+                    }
+
                     &.section-approach-1 {
                         cursor: pointer;
 

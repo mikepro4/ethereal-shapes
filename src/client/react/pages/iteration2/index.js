@@ -35,6 +35,7 @@ import WhiteTwitter from "../../components/icons/whiteTwitter"
 // import * as THREE from "three";
 
 import Player from "../../components/player"
+import Mic from "../../components/mic"
 import Timeline from "../../components/player/Timeline"
 
 import Playlist from "../../components/playlist"
@@ -766,9 +767,10 @@ void main() {
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-5">
+                                <Mic />
                                 {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} smallPoints={true}  presentation={true} nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
-                                    AI
+                                    Mic input
                                 </div>
                             </li>
                         </ul>
