@@ -330,11 +330,10 @@ class Viz extends Component {
                         }
                     }
                 } else {
-
                     if (this.props.lessBlur) {
                         finalPointSise = pointSize * 0.7
                     } else {
-                        finalPointSise = pointSize
+                        finalPointSise = pointSize - 0.5
                     }
                 }
             }
