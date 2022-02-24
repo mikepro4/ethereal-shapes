@@ -653,6 +653,22 @@ void main() {
             ]
         }
 
+        let processPlaylist = {
+            seconds: 10,
+            list: [
+                "62170f2fee9cc8d8546d0009",
+                "62170fb6ee9cc8d8546d001c",
+                "62171038ee9cc8d8546d002f",
+                "621710afee9cc8d8546d0045",
+                "62171176ee9cc8d8546d009c",
+                "621711a4ee9cc8d8546d00bc",
+                "621711deee9cc8d8546d00d5",
+                "62171285ee9cc8d8546d0101",
+                "62171294ee9cc8d8546d0109",
+                "62171312ee9cc8d8546d0139"
+            ]
+        }
+
         let pointCount
         if(this.state.shape && this.state.shape.overlay && this.state.shape.overlay.visible) {
             pointCount = this.state.shape.point.pointCount
@@ -795,10 +811,16 @@ void main() {
 
                         <div className="section-process-playlist">
                             <Playlist
-                                playlist={designPlaylist}
+                                playlist={processPlaylist}
                                 column={true}
                             />
                         </div>
+                    </div>
+
+                    <div className="iteration2-section section-background">
+                        {this.renderSectionHeader("05", "Background", true)}
+                       
+                       
                     </div>
 
                     <div className="placeholder">

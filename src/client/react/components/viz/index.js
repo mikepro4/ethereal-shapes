@@ -116,7 +116,7 @@ class Viz extends Component {
 
         if (this.props.defaultViz && !this.state.forcePaused ) {
             if(this.props.presentation) {
-                if (rect.y > this.props.app.clientHeight / 1.2) {
+                if (rect.y > this.props.app.clientHeight / 1.1) {
                     if (!this.state.paused) {
                         this.setState({
                             paused: true
