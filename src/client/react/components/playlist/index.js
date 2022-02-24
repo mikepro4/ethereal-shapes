@@ -158,7 +158,12 @@ class Playlist extends Component {
 
     renderPlaylistControls = () => {
         return (
-            <div className="playlist-controls-container">
+            <div 
+                className={classNames({
+                    "playlist-controls-container": true,
+                    "column": this.props.column
+                })}
+            >
 
                 {this.props.playlist.list.map((nft) => {
                     return (<div className="single-player-control-container" >

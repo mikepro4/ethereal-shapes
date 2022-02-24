@@ -43,6 +43,13 @@
     
         }
 
+        &.column {
+            @media only screen and (max-width: $mobile) {
+                grid-template-columns:1fr;
+        
+            }
+        }
+
         .single-player-control {
             display: flex;
             align-items: center;

@@ -103,18 +103,19 @@ $placeholderBG: rgba(red, 0.1);
     text-align: center;
 
     @media only screen and (min-width: $mobile) {
-        padding: 222px  0 0 0;
+        padding: 170px  0 0 0;
         // margin-left: -7px;
         margin: 0 auto;
         line-height: 105%;
         max-width: 1000px;
+        padding-bottom: 50px;
     }
 
     @media only screen and (max-width: $mobile) {
         font-size: 20px;
         padding-top: 100px;
         padding-left: 20px;
-        padding: 100px 20px 20px 20px;
+        padding: 100px 20px 40px 20px;
         max-width: 350px;
         margin: 0 auto;
     }

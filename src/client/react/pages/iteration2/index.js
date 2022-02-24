@@ -796,6 +796,7 @@ void main() {
                         <div className="section-process-playlist">
                             <Playlist
                                 playlist={designPlaylist}
+                                column={true}
                             />
                         </div>
                     </div>
