@@ -29,11 +29,20 @@ class Timeline extends Component {
 
     componentDidUpdate(prevprops) {
         if(this.props.nft.metadata.audioUrl !== prevprops.nft.metadata.audioUrl) {
-            this.props.trackLoad({
-                _id: this.props.nft._id,
-                audioUrl: this.props.nft.metadata.audioUrl,
-            })
-
+            if(this.props.dontReset) {
+                if(!this.props.player.status == "playing") {
+                    this.props.trackLoad({
+                        _id: this.props.nft._id,
+                        audioUrl: this.props.nft.metadata.audioUrl,
+                    })
+                }
+            } else {
+                this.props.trackLoad({
+                    _id: this.props.nft._id,
+                    audioUrl: this.props.nft.metadata.audioUrl,
+                })
+            }
+           
            
 
             // this.props.trackPlay({
@@ -69,6 +78,7 @@ class Timeline extends Component {
             audioUrl: this.props.nft.metadata.audioUrl,
         }
         if(this.props.nft._id == this.props.player.trackId) {
+            
             if(this.props.player.status == "pause" || this.props.player.status == "stop") {
                 return (
                     <div className="play-button" onClick={() => this.props.trackPlay(track)}>
@@ -82,12 +92,29 @@ class Timeline extends Component {
                     </div>
                 )
             }
+            
         } else {
-            return (
-                <div className="play-button" onClick={() => this.play(track)}>
-                    <Play/>
-                </div>
-            )
+            if(this.props.dontReset) {
+                if (this.props.player.status == "play") {
+                    return (
+                        <div className="play-button" onClick={() => this.props.trackPause(track)}>
+                            <Pause/>
+                        </div>
+                    )
+                } else {
+                    return (
+                        <div className="play-button" onClick={() => this.play(track)}>
+                            <Play/>
+                        </div>
+                    )
+                }
+            } else {
+                return (
+                    <div className="play-button" onClick={() => this.play(track)}>
+                        <Play/>
+                    </div>
+                )
+            }
         }
 		
 	}

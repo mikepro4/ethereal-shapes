@@ -759,6 +759,7 @@ void main() {
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-4">
+                                {this.state.nft && this.state.nft.metadata && <Player nft={this.state.nft} dontReset={true} /> }
                                 {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} smallPoints={true}  presentation={true}  nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
                                     Music
