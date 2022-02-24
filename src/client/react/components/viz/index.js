@@ -114,35 +114,65 @@ class Viz extends Component {
                 }, 1)
         }
 
-        if (this.props.defaultViz && !this.state.forcePaused && !this.props.presentation) {
-
-            if (rect.y > this.props.app.clientHeight / 1.4) {
-                if (!this.state.paused) {
-                    this.setState({
-                        paused: true
-                    })
+        if (this.props.defaultViz && !this.state.forcePaused ) {
+            if(this.props.presentation) {
+                if (rect.y > this.props.app.clientHeight / 1.2) {
+                    if (!this.state.paused) {
+                        this.setState({
+                            paused: true
+                        })
+                    }
+                }
+    
+                if (rect.y < -250) {
+                    if (!this.state.paused) {
+                        this.setState({
+                            paused: true
+                        })
+                    }
+                }
+                if (rect.y < this.props.app.clientHeight / 1.4 && rect.y > -249) {
+                    if (this.state.paused) {
+                        this.setState({
+                            paused: false
+                        }, () => {
+                            this.renderFrame(this.canvas.current.getContext('2d'), this.state.points)
+                            // setTimeout(() => {
+                            //     this.updateColors()
+                            // }, 1)
+                        })
+                    }
+                }
+            } else {
+                if (rect.y > this.props.app.clientHeight / 1.4) {
+                    if (!this.state.paused) {
+                        this.setState({
+                            paused: true
+                        })
+                    }
+                }
+    
+                if (rect.y < -250) {
+                    if (!this.state.paused) {
+                        this.setState({
+                            paused: true
+                        })
+                    }
+                }
+                if (rect.y < this.props.app.clientHeight / 1.4 && rect.y > -249) {
+                    if (this.state.paused) {
+                        this.setState({
+                            paused: false
+                        }, () => {
+                            this.renderFrame(this.canvas.current.getContext('2d'), this.state.points)
+                            // setTimeout(() => {
+                            //     this.updateColors()
+                            // }, 1)
+                        })
+                    }
                 }
             }
-
-            if (rect.y < -250) {
-                if (!this.state.paused) {
-                    this.setState({
-                        paused: true
-                    })
-                }
-            }
-            if (rect.y < this.props.app.clientHeight / 1.4 && rect.y > -249) {
-                if (this.state.paused) {
-                    this.setState({
-                        paused: false
-                    }, () => {
-                        this.renderFrame(this.canvas.current.getContext('2d'), this.state.points)
-                        // setTimeout(() => {
-                        //     this.updateColors()
-                        // }, 1)
-                    })
-                }
-            }
+          
         }
 
         if (this.props.paused !== prevprops.paused) {

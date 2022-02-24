@@ -785,9 +785,19 @@ void main() {
 
                     <div className="iteration2-section section-process">
                         {this.renderSectionHeader("04", "Process", true)}
-                        <div className="section-process-description"></div>
-                        <div className="section-process-list"></div>
-                        <div className="section-process-view"></div>
+                        <div className="section-process-description">
+                            <h2 className="section-medium-title">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien.
+                            </h2>
+                        </div>
+                        {/* <<div className="section-process-list"></div>
+                        <div className="section-process-view"></div>> */}
+
+                        <div className="section-process-playlist">
+                            <Playlist
+                                playlist={designPlaylist}
+                            />
+                        </div>
                     </div>
 
                     <div className="placeholder">
