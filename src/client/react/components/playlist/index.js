@@ -31,42 +31,48 @@ class Playlist extends Component {
             })
         })
 
+
         const timeInterval = setInterval(() => {
             this.setNextActive()
-        }, 
-            this.props.playlist.seconds * 1000 
+        },
+            this.props.playlist.seconds * 1000
         )
 
-        this.setState({timeInterval})
-        
+        this.setState({ timeInterval })
+
+
     }
 
     updateTop() {
-        if(this.props.setNft) {
+        if (this.props.setNft) {
             this.props.setNft(this.getNft())
         }
 
-        if(this.props.setShape) {
+        if (this.props.setShape) {
             this.props.setShape(this.getDefaultViz())
         }
     }
 
     setNextActive = () => {
-        if(!this.state.paused) {
-            let index = _.indexOf(this.props.playlist.list, this.state.active, 0)
-            let listLength = (this.props.playlist.list.length)
-    
-            if(index + 1 > listLength - 1) {
-                this.setState({
-                    active: this.props.playlist.list[0]
-                })
-            } else {
-                this.setState({
-                    active: this.props.playlist.list[index + 1]
-                })
-            }
+        if(this.props.startOnScroll) {
 
-           this.updateTop()
+        } else {
+            if (!this.state.paused) {
+                let index = _.indexOf(this.props.playlist.list, this.state.active, 0)
+                let listLength = (this.props.playlist.list.length)
+    
+                if (index + 1 > listLength - 1) {
+                    this.setState({
+                        active: this.props.playlist.list[0]
+                    })
+                } else {
+                    this.setState({
+                        active: this.props.playlist.list[index + 1]
+                    })
+                }
+    
+                this.updateTop()
+            }
         }
     }
 
@@ -75,8 +81,8 @@ class Playlist extends Component {
 
         const timeInterval = setInterval(() => {
             this.setNextActive()
-        }, 
-            this.props.playlist.seconds * 1000 
+        },
+            this.props.playlist.seconds * 1000
         )
 
         this.setState({
@@ -158,7 +164,7 @@ class Playlist extends Component {
 
     renderPlaylistControls = () => {
         return (
-            <div 
+            <div
                 className={classNames({
                     "playlist-controls-container": true,
                     "column": this.props.column
@@ -187,7 +193,7 @@ class Playlist extends Component {
                     />
 
                 </div>
-                
+
                 {this.renderPlaylistControls()}
             </div>
         );

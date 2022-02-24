@@ -813,6 +813,7 @@ void main() {
                             <Playlist
                                 playlist={processPlaylist}
                                 column={true}
+                                startOnScroll={true}
                             />
                         </div>
                     </div>
