@@ -114,7 +114,7 @@ class Viz extends Component {
                 }, 1)
         }
 
-        if (this.props.defaultViz && !this.state.forcePaused  && this.props.app.clientWidth > 1000) {
+        if (this.props.defaultViz && !this.state.forcePaused ) {
             if(this.props.presentation ) {
                 if (rect.y > this.props.app.clientHeight / 1.1) {
                     if (!this.state.paused) {
