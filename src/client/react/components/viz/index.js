@@ -544,12 +544,12 @@ class Viz extends Component {
                     this.props.player.analyser.getByteFrequencyData(freqData)
                 }
             } else {
-                if (this.props.nftId == this.props.player.trackId) {
-                    if (this.props.player.analyser) {
-                        freqData = new Uint8Array(this.props.player.analyser.frequencyBinCount)
-                        this.props.player.analyser.getByteFrequencyData(freqData)
-                    }
+                // if (this.props.nftId == this.props.player.trackId) {
+                if (this.props.player.analyser) {
+                    freqData = new Uint8Array(this.props.player.analyser.frequencyBinCount)
+                    this.props.player.analyser.getByteFrequencyData(freqData)
                 }
+                // }
             }
             if (!this.props.transparent) {
                 ctx.fillStyle = `rgba(${this.hexToRgb(this.state.backgroundColor).r}, ${this.hexToRgb(this.state.backgroundColor).g}, ${this.hexToRgb(this.state.backgroundColor).b}, 255)`
@@ -572,7 +572,7 @@ class Viz extends Component {
                         }
                     }
                 } else {
-                    if (this.props.nftId == this.props.player.trackId) {
+                    // if (this.props.nftId == this.props.player.trackId) {
                         if (this.props.player.analyser && soundModifier) {
                             soundModifier = freqData[this.getPointIterator(i)] / 1000
 
@@ -580,7 +580,7 @@ class Viz extends Component {
                                 soundModifier = 1
                             }
                         }
-                    }
+                    // }
                 }
 
 
