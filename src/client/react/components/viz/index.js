@@ -999,7 +999,7 @@ class Viz extends Component {
                     backgroundColor: backgroundColor
                 }}
             >
-                {this.props.fullScreen && <TouchZones />}
+                {this.props.fullScreen && !this.props.playlist && <TouchZones />}
                 <canvas
                     ref={this.canvas}
                     className="viz"

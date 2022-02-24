@@ -21,9 +21,11 @@ $placeholderBG: rgba(red, 0.1);
 .iteration2-section {
     position: relative;
 
-    .glass {
-        z-index: 10000;
-    }
+    // .glass {
+    //     z-index: 10000;
+    // }
+
+    
 }
 
 .section-header {
@@ -188,6 +190,43 @@ $placeholderBG: rgba(red, 0.1);
         .section-approach {
             // margin-top: 30px;
 
+            .touch-zones {
+                top: 20px;
+                left: 20px;
+                bottom: 20px;
+                right: 20px;
+
+                display: grid;
+                column-gap: 10px;
+                row-gap: 10px;
+                grid-template-columns:1fr 1fr;
+            }
+            .touch-zone {
+                border: 1px solid $white;
+                margin: 0;
+                flex-grow: 1;
+                height: inherit;
+                transition: all 1s;
+                cursor: pointer;
+
+                &:hover {
+                    background: rgba($white, 0.2);
+                }
+
+                &.touch-zone-active {
+                    background: $white;
+                }
+            }
+
+            // .touch-zones-row {
+            //     margin: 0 0 16px 0;
+            //     display: grid;
+            //     align-items: stretch;
+            //     column-gap: 30px;
+            //     row-gap: 30px;
+            //     grid-template-columns:1fr 1fr;
+            // }
+
             @media only screen and (min-width: $mobile) {
                 display: grid;
                 column-gap: 30px;
@@ -275,6 +314,8 @@ $placeholderBG: rgba(red, 0.1);
                     }
 
                     &.section-approach-1 {
+                        cursor: pointer;
+
                         @media only screen and (max-width: $mobile) {
                             grid-column: 1 / 6;
                             grid-row: 1;
@@ -282,6 +323,8 @@ $placeholderBG: rgba(red, 0.1);
                     }
 
                     &.section-approach-2 {
+                        cursor: pointer;
+
                         @media only screen and (max-width: $mobile) {
                             grid-column: 2 / 7;
                             grid-row: 2;
@@ -289,6 +332,7 @@ $placeholderBG: rgba(red, 0.1);
                     }
 
                     &.section-approach-3 {
+                        
                         @media only screen and (max-width: $mobile) {
                             grid-column: 1 / 6;
                             grid-row: 3;

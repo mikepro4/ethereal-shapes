@@ -13,6 +13,7 @@ import { searchNFTs, loadNFTDetails } from "../../../redux/actions/nftActions"
 import ListResults from "../../components/list"
 import NavLinks from "../../components/navLinks"
 import Viz from "../../components/viz"
+import TouchZones from "../../components/viz/touchZonesLocal"
 
 import { loadShape } from "../../../redux/actions/shapeActions"
 
@@ -585,6 +586,58 @@ void main() {
         }
     }
 
+    updateProperty(property, amount, destination, minValue, maxValue) {
+        let selectedShape = this.state.shape
+
+
+        // console.log(selectedShape)
+        if (selectedShape && selectedShape.shape) {
+            let finalshape
+
+            if (!destination || destination == "shape") {
+                finalshape = {
+                    ...selectedShape,
+                    shape: {
+                        ...selectedShape.shape,
+                        [property]: selectedShape.shape[property] + amount
+                    }
+                }
+            }
+
+            if (destination == "point") {
+                let finalAmount
+                let pointAmount = selectedShape.point[property] + amount
+
+                if (maxValue) {
+                    if (pointAmount < minValue) {
+                        finalAmount = minValue
+                    } else if (pointAmount > maxValue) {
+                        finalAmount = maxValue
+                    } else if (pointAmount >= minValue && pointAmount <= maxValue) {
+                        finalAmount = pointAmount
+                    }
+                } else {
+                    if (pointAmount < 0) {
+                        finalAmount = 0
+                    } else {
+                        finalAmount = pointAmount
+                    }
+                }
+
+                finalshape = {
+                    ...selectedShape,
+                    point: {
+                        ...selectedShape.point,
+                        [property]: finalAmount
+                    }
+                }
+            }
+            this.setState({
+                shape: finalshape
+            })
+        }
+    }
+
     render() {
         let designPlaylist = {
             seconds: 10,
@@ -686,16 +739,23 @@ void main() {
                                     Math
                                 </div>
                             </li>
-                            <li  className="section-approach-item section-approach-2">
+                            <li  className="section-approach-item section-approach-2" onClick={() => {
+                                this.updateProperty("step", 0.1)
+                            }}>
                                 {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} smallPoints={true} presentation={true} nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
                                     Rendering engine
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-3">
+                                <TouchZones shape={{defaultViz: this.state.shape}} updateShape={(finalShape) => {
+                                    this.setState({
+                                        shape: finalShape.defaultViz
+                                    })
+                                }}/>
                                 {this.state.shape && this.state.shape.shape ? <Viz defaultViz={ this.state.shape } lessBlur={true} pointCount={pointCount} smallPoints={true} presentation={true} nftId={this.state.nft._id}  />  : " "}
                                 <div className="section-approach-item-title">
-                                    UI Controls
+                                    Touch zones
                                 </div>
                             </li>
                             <li  className="section-approach-item section-approach-4">
