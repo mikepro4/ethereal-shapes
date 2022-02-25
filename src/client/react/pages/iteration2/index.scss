@@ -188,25 +188,7 @@ $placeholderBG: rgba(red, 0.1);
     
 }
 
-.albums-container {
-    display: grid;
-    grid-template-columns:1fr 1fr;
-    column-gap: 30px;
 
-    @media only screen and (max-width: $mobile) {
-        padding: 40px 20px 20px 20px;
-        column-gap: 20px;
-    }
-
-
-    .single-album {
-        aspect-ratio: 1;
-
-        img {
-            max-width: 100%;
-        }
-    }
-}
 
 
 .iteration2-container {
@@ -571,6 +553,46 @@ $placeholderBG: rgba(red, 0.1);
                     margin-bottom: 50px;
                 }
 
+            }
+        }
+
+        .section-background {
+            display: grid;
+            grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
+
+            .albums-container {
+                display: grid;
+                grid-column: 1 / 7;
+                column-gap: 30px;
+                grid-template-columns:1fr 1fr;
+            
+                @media only screen and (max-width: $mobile) {
+                    padding: 40px 20px 20px 20px;
+                    column-gap: 20px;
+                }
+            
+                .single-album {
+                    aspect-ratio: 1;
+            
+                    img {
+                        max-width: 100%;
+                    }
+                }
+            }
+            
+            .engine-description {
+
+                @media only screen and (max-width: $mobile) {
+                    margin-bottom: 50px;
+                    grid-column: 1 / 7;
+                }
+                
+                @media only screen and (min-width: $mobile) {
+                    margin-bottom: 180px;
+                    margin-top: 100px;
+
+                    grid-column: 2 / 6;
+                }
             }
         }
     }

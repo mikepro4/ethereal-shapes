@@ -867,23 +867,48 @@ void main() {
                             Engine for generative art
                         </h1>
 
-                        <div className="albums-container">
-                            <div className="single-album">
-                                <div className="single-album-image">
-                                    <img src="https://res.cloudinary.com/dcdnt/image/upload/v1645750482/dcdnt/cover.png"/>
+                        <div className="section-background">
+
+                            <div className="albums-container">
+                                <div className="single-album">
+                                    <div className="single-album-image">
+                                        <a href="https://open.spotify.com/album/2hWX7a05Heg5Ul7g84PN7A?si=XXs7PTfgSwCixKYuJHZ8SA" target="_blank">
+                                            <img src="https://res.cloudinary.com/dcdnt/image/upload/v1645750482/dcdnt/cover.png"/>
+                                        </a>
+                                    </div>
+
+                                    <div className="spotify-button"></div>
                                 </div>
 
-                                <div className="spotify-button"></div>
-                            </div>
+                                <div className="single-album">
+                                    <div className="single-album-image">
+                                        <a href="https://open.spotify.com/album/4bSDpE4UOaKLXRaPL5ehkg?si=hxcCpZl4RHGp7gsU3MD7zA" target="_blank">
+                                            <img src="https://res.cloudinary.com/dcdnt/image/upload/v1547973377/dcdnt/kz9vjpawgx9dhdanbxaw.jpg"/>
+                                        </a>
+                                    </div>
 
-                            <div className="single-album">
-                                <div className="single-album-image">
-                                    <img src="https://res.cloudinary.com/dcdnt/image/upload/v1547973377/dcdnt/kz9vjpawgx9dhdanbxaw.jpg"/>
+                                    <div className="spotify-button"></div>
                                 </div>
-
-                                <div className="spotify-button"></div>
                             </div>
+
+                            <div className="engine-description">
+                                <h2 className="section-normal-title">
+                                    Initial use cases
+                                </h2>
+
+                                <p className="section-main-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                </p>
+
+                                <p className="section-main-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                </p>
+                            </div>
+
                         </div>
+
 
                         {/* <div className="section-background">
 
@@ -904,6 +929,19 @@ void main() {
                             </div>
                         </div> */}
                        
+                    </div>
+
+                    <div className="iteration2-section">
+                        {this.renderSectionHeader("07", "Technology", true)}
+
+                        <h1 className="section-big-title">
+                            10 years of practice
+                        </h1>
+
+                        <div className="section-technology">
+
+                        </div>
+
                     </div>
 
                     <div className="placeholder">
