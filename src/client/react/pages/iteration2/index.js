@@ -53,7 +53,7 @@ class About extends Component {
             nft: {},
             shape: {},
             newShape: {},
-            mathValues: ["sin", "cos", "tan", "atan", "log", "tanh", "abs"]
+            mathValues: ["sin", "cos", "tan", "atan", "log", "tanh", "abs", "clz32", "sqrt"]
         }
 
         this.planet = this.planet = React.createRef()
@@ -939,8 +939,21 @@ void main() {
                         </h1>
 
                         <div className="section-technology">
-
+                            <p className="section-main-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                            </p>
                         </div>
+
+                    </div>
+
+                    <div className="iteration2-section">
+                        {this.renderSectionHeader("08", "The future", true)}
+
+                        {/* <h1 className="section-big-title">
+                            Immersive audio/visual experiences
+                        </h1> */}
+
 
                     </div>
 

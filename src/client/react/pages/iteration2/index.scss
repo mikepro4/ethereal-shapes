@@ -373,6 +373,11 @@ $placeholderBG: rgba(red, 0.1);
                         @media only screen and (max-width: $mobile) {
                             font-size: 60px;
                         }
+
+                        .math-wrapper {
+                            position: relative;
+                            top: -5px;
+                        }
                     }
 
                     .nft-transport {
@@ -592,6 +597,34 @@ $placeholderBG: rgba(red, 0.1);
                     margin-top: 100px;
 
                     grid-column: 2 / 6;
+                }
+            }
+        }
+
+        .section-technology {
+            display: grid;
+            grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
+            column-gap: 30px;
+
+            @media only screen and (max-width: $mobile) {
+                margin-top: 40px;
+                margin-bottom: 50px;
+            }
+            
+            @media only screen and (min-width: $mobile) {
+                margin-top: 30px;
+                margin-bottom: 180px;
+            }
+
+            .section-main-text {
+                
+
+                @media only screen and (max-width: $mobile) {
+                    grid-column: 1 / 7;
+                }
+                
+                @media only screen and (min-width: $mobile) {
+                    grid-column: 4 / 7;
                 }
             }
         }
