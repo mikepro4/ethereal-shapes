@@ -868,7 +868,21 @@ void main() {
                         </h1>
 
                         <div className="albums-container">
+                            <div className="single-album">
+                                <div className="single-album-image">
+                                    <img src="https://res.cloudinary.com/dcdnt/image/upload/v1645750482/dcdnt/cover.png"/>
+                                </div>
 
+                                <div className="spotify-button"></div>
+                            </div>
+
+                            <div className="single-album">
+                                <div className="single-album-image">
+                                    <img src="https://res.cloudinary.com/dcdnt/image/upload/v1547973377/dcdnt/kz9vjpawgx9dhdanbxaw.jpg"/>
+                                </div>
+
+                                <div className="spotify-button"></div>
+                            </div>
                         </div>
 
                         {/* <div className="section-background">
