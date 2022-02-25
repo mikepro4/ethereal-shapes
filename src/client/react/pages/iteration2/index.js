@@ -337,7 +337,7 @@ void main() {
                     {number}
                 </span>
                 <span className="section-divider">
-                    ––
+                —
                 </span>
                 <span className="section-name">
                     {name}
