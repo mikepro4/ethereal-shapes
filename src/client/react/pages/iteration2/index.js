@@ -829,7 +829,7 @@ void main() {
                         </div>
                     </div>
 
-                    <div className="iteration2-section section-background">
+                    <div className="iteration2-section">
                         {this.renderSectionHeader("05", "Music", true)}
 
                         <h1 className="section-big-title">
@@ -858,6 +858,37 @@ void main() {
                             </div>
                         </div>
                        
+                    </div>
+
+                    <div className="iteration2-section">
+                        {this.renderSectionHeader("06", "Background", true)}
+
+                        <h1 className="section-big-title">
+                            Engine for generative art
+                        </h1>
+
+                        <div className="albums-container">
+
+                        </div>
+
+                        {/* <div className="section-background">
+
+                            <div className="section-techno-description">
+                                <h2 className="section-normal-title">
+                                    Original music
+                                </h2>
+
+                                <p className="section-main-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                </p>
+
+                                <p className="section-main-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                </p>
+                            </div>
+                        </div> */}
                        
                     </div>
 
