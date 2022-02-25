@@ -39,6 +39,7 @@ import Mic from "../../components/mic"
 import Timeline from "../../components/player/Timeline"
 
 import Playlist from "../../components/playlist"
+import YoutubePlaylist from "../../components/youtubePlaylist"
 
 
 
@@ -669,6 +670,16 @@ void main() {
             ]
         }
 
+        let youtubePlaylist = {
+            seconds: 10,
+            list: [
+                "Lux2Wly_hjQ",
+                "P4QuBz1oIYI",
+                "32_SDNjZRBs",
+            ]
+        }
+
+
         let pointCount
         if(this.state.shape && this.state.shape.overlay && this.state.shape.overlay.visible) {
             pointCount = this.state.shape.point.pointCount
@@ -819,7 +830,33 @@ void main() {
                     </div>
 
                     <div className="iteration2-section section-background">
-                        {this.renderSectionHeader("05", "Background", true)}
+                        {this.renderSectionHeader("05", "Music", true)}
+
+                        <h1 className="section-big-title">
+                            Live DAWless Techno sessions
+                        </h1>
+
+                        <div className="section-techno">
+                            <YoutubePlaylist
+                                playlist={youtubePlaylist}
+                            />
+
+                            <div className="section-techno-description">
+                                <h2 className="section-normal-title">
+                                    Original music
+                                </h2>
+
+                                <p className="section-main-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                </p>
+
+                                <p className="section-main-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
+                                </p>
+                            </div>
+                        </div>
                        
                        
                     </div>
