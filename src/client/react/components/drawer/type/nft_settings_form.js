@@ -247,6 +247,12 @@ class NFTSettingsForm extends Component {
                 />  
 
                 <Field
+                    name="metadata.collectionId"
+                    component={Input}
+                    title="Collection ID" placeholder="Collection ID"
+                />
+
+                <Field
                     name="metadata.shapeId"
                     component={Input}
                     title="Shape ID" placeholder="Shape ID"
