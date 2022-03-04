@@ -13,7 +13,8 @@ import { createSpeechlySpeechRecognition } from '@speechly/speech-recognition-po
 
 import {
     setMic,
-    setMicAudio
+    setMicAudio,
+    setTouchZones
 } from '../../../redux/actions/appActions'
 
 import {
@@ -41,7 +42,17 @@ class MicAudio extends Component {
     toggleMic = async () => {
         console.log("toggle audio")
 
+       
         if (!this.state.connected) {
+
+            const appId = 'd158af9e-c90e-47f6-b0a4-6e2fde5d2be6';
+                const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
+                SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
+
+                SpeechRecognition.startListening({
+                    continuous: true,
+                    language: 'en-GB'
+                })
 
             // var constraints = { audio: true, video: { width: 1280, height: 720 } }; 
             console.log(window.navigator)
@@ -56,9 +67,6 @@ class MicAudio extends Component {
             }, () => {
                 this.props.setMic(true)
                 this.props.setMicAudio(audio)
-
-
-
 
 
                 let audioContext = new (window.AudioContext ||
@@ -89,14 +97,7 @@ class MicAudio extends Component {
                 //     console.log(event.results[0][0].transcript)
                 // });
 
-                const appId = 'd158af9e-c90e-47f6-b0a4-6e2fde5d2be6';
-                const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
-                SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
-
-                SpeechRecognition.startListening({
-                    continuous: true,
-                    language: 'en-GB'
-                    })
+                
                 let analyser = audioContext.createAnalyser();
                 let dataArray = new Uint8Array(analyser.frequencyBinCount);
                 let source = audioContext.createMediaStreamSource(audio);
@@ -156,6 +157,19 @@ class MicAudio extends Component {
     }
 
     render() {
+        const commands = [
+            {
+              command: 'show controls',
+              callback: (food) => {this.props.setTouchZones(true) },
+              matchInterim: true
+            },
+            {
+                command: 'close controls',
+                callback: (food) => {this.props.setTouchZones(false) },
+                matchInterim: true
+              }
+        ]
+
         return (
             <div className={
                 classNames({
@@ -169,7 +183,7 @@ class MicAudio extends Component {
                 <div className="speech-container">
                     <span>{this.renderTranscript()}</span>
                 </div>
-                <Dictaphone/>
+                <Dictaphone commands={commands}/>
                 <div className="mic-background">
                 </div>
             </div>
@@ -188,5 +202,6 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
     setAnalyser,
     setMic,
-    setMicAudio
+    setMicAudio,
+    setTouchZones
 })(MicAudio);
