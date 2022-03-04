@@ -159,6 +159,30 @@ class MicAudio extends Component {
     }
 
     generate = (text) => {
+        clearInterval(this.state.timeInterval);
+        clearTimeout(this.state.secondTimeInterval);
+        setTimeout(() => {
+            const timeInterval = setInterval(() => {
+                if(this.state.response.length > 0) {
+                    this.setState({
+                        response: [
+                            this.state.response[0]
+                        ]
+                    })
+                }
+              
+            }, 5000);
+            this.setState({ timeInterval });
+
+            const secondTimeInterval = setTimeout(() => {
+                this.setState({
+                    response: []
+                })
+            }, 10000)
+
+            this.setState({ secondTimeInterval });
+        }, 1)
+       
         this.props.generate(text, (data) => {
             console.log(data)
             this.setState({

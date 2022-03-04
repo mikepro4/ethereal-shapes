@@ -88,8 +88,40 @@
     font-size: 14px;
     text-align: left;
     width: 200px;
+
+    @media only screen and (min-width: $mobile) {
+        top: 200px;
+        left: 70px;
+        font-size: 34px;
+        width: 700px;
+    }
 }
 
 .response-item {
     margin: 0 0 10px 0;
+
+    @media only screen and (min-width: $mobile) {
+        margin: 0 0 35px 0;
+        line-height: 1.2em;
+    }
+
+    &:nth-child(1) {
+        opacity: 1;
+        font-weight: 400;
+    }
+
+    &:nth-child(2) {
+        opacity: 0.5;
+        font-weight: 300;
+    }
+
+    &:nth-child(3) {
+        opacity: 0.3;
+        font-weight: 200;
+    }
+
+    &:nth-child(4) {
+        opacity: 0.1;
+        font-weight: 100;
+    }
 }
