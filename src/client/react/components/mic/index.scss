@@ -60,3 +60,23 @@
         }
     }
 }
+
+.speech-container {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    font-size: 14px;
+    text-align: right;
+    width: 200px;
+    
+    span {
+        text-transform: lowercase;
+    }
+
+    @media only screen and (min-width: $mobile) {
+        bottom: 200px;
+        right: 80px;
+        font-size: 30px;
+        width: 500px
+    }
+}

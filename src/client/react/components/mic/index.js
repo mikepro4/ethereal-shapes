@@ -2,14 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import classNames from "classnames"
+import Dictaphone from "./Dictaphone";
 
 import Mic from "../icons/mic"
+
+import 'regenerator-runtime'
+import SpeechRecognition  from 'react-speech-recognition';
+
+import { createSpeechlySpeechRecognition } from '@speechly/speech-recognition-polyfill';
 
 import {
     setMic,
     setMicAudio
 } from '../../../redux/actions/appActions'
-
 
 import {
     setAnalyser
@@ -20,13 +25,12 @@ class MicAudio extends Component {
         status: null,
         loaded: false,
         connected: false,
-        audio: false
+        audio: false,
+        results: []
     }
 
     componentDidMount = () => {
         // this.toggleMic()
-
-       
 
     }
 
@@ -36,25 +40,68 @@ class MicAudio extends Component {
 
     toggleMic = async () => {
         console.log("toggle audio")
+
         if (!this.state.connected) {
+
             // var constraints = { audio: true, video: { width: 1280, height: 720 } }; 
             console.log(window.navigator)
-        
+
             const audio = await window.navigator.mediaDevices.getUserMedia({
                 audio: true,
                 video: false
-              });
+            });
             this.setState({
                 connected: true,
                 audio: audio
             }, () => {
                 this.props.setMic(true)
                 this.props.setMicAudio(audio)
+
+
+
+
+
                 let audioContext = new (window.AudioContext ||
                     window.webkitAudioContext)();
+
+
+                // var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+
+                // var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+                // recognition.continuous = true;
+                // recognition.lang = 'en-US';
+                // recognition.interimResults = false;
+                // recognition.maxAlternatives = 0
+                // recognition.start()
+
+                // recognition.addEventListener('result', (event) => {
+                //     console.log(event)
+                //     // let result
+                //     // if(event.results[1]) {
+                //     //     result = event.results[1][0].transcript
+                //     // } else {
+                //     //     result = event.results[0][0].transcript
+                //     // }
+
+                //     this.setState({
+                //         results: Object.values(event.results)
+                //     })
+                //     console.log(event.results[0][0].transcript)
+                // });
+
+                const appId = 'd158af9e-c90e-47f6-b0a4-6e2fde5d2be6';
+                const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
+                SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
+
+                SpeechRecognition.startListening({
+                    continuous: true,
+                    language: 'en-GB'
+                    })
                 let analyser = audioContext.createAnalyser();
                 let dataArray = new Uint8Array(analyser.frequencyBinCount);
                 let source = audioContext.createMediaStreamSource(audio);
+
+			    // this.connect();
                 source.connect(analyser);
                 // this.refs.audio.currentTime = 0
                 // var AudioContext = window.AudioContext
@@ -67,6 +114,10 @@ class MicAudio extends Component {
                 // audioSrc.connect(analyser);
                 // audioSrc.connect(context.destination);
                 this.props.setAnalyser(analyser)
+
+
+
+
 
                 // this.audioContext = new (window.AudioContext ||
                 //     window.webkitAudioContext)();
@@ -84,9 +135,24 @@ class MicAudio extends Component {
                 audio: null
             }, () => {
                 this.props.setMic(false)
+
+                SpeechRecognition.stopListening({
+                    continuous: true,
+                    language: 'en-GB'
+                })
             })
         }
 
+    }
+    renderTranscript() {
+        console.log("here", this.state.results)
+        return (<div>
+            {this.state.results && this.state.results.length > 0 && this.state.results.map((result, i) => {
+                return (
+                    <div key={i}>{result[0].transcript}</div>
+                )
+            })}
+        </div>)
     }
 
     render() {
@@ -100,6 +166,10 @@ class MicAudio extends Component {
                 onClick={() => this.toggleMic()}
             >
                 <Mic />
+                <div className="speech-container">
+                    <span>{this.renderTranscript()}</span>
+                </div>
+                <Dictaphone/>
                 <div className="mic-background">
                 </div>
             </div>
