@@ -24,6 +24,7 @@ const Dictaphone = ({ commands, onListen }) => {
     //   console.log('Got interim result:', interimTranscript)
     }
     if (finalTranscript !== '') {
+        // onListen(interimTranscript)
     //   console.log('Got final result:', finalTranscript)
     }
   }, [interimTranscript, finalTranscript]);
