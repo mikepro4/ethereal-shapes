@@ -229,6 +229,12 @@ class NFTSettingsForm extends Component {
             <Form onSubmit={handleSubmit} autoComplete="off">
 
                 <Field
+                    name="_id"
+                    component={Input}
+                    title="NFT ID" placeholder="NFT ID"
+                />
+
+                <Field
                     name="nft.name"
                     component={Input}
                     title="Name" placeholder="Name"

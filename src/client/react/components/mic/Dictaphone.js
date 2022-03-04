@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import 'regenerator-runtime'
 import { useSpeechRecognition } from 'react-speech-recognition';
 
-const Dictaphone = ({ commands}) => {
+const Dictaphone = ({ commands, onListen }) => {
   const [transcribing, setTranscribing] = useState(true)
   const toggleTranscribing = () => setTranscribing(!transcribing)
   const toggleClearTranscriptOnListen = () => setClearTranscriptOnListen(!clearTranscriptOnListen)
@@ -19,7 +19,7 @@ const Dictaphone = ({ commands}) => {
   } = useSpeechRecognition({ transcribing, clearTranscriptOnListen, commands })
   useEffect(() => {
     if (interimTranscript !== '') {
-        // onListen(interimTranscript)
+        onListen(interimTranscript)
 
     //   console.log('Got interim result:', interimTranscript)
     }

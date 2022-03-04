@@ -47,6 +47,28 @@ import { ethers } from "ethers";
 
 /////////////////////////////////////////////////
 
+export const generate = (text, success) => async (
+    dispatch,
+    getState,
+    api
+) => {
+
+    await api
+        .post("/generate", {
+            text: text
+        })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+            // dispatch(authError('Account with this email already exists'));
+        });
+}
+
+/////////////////////////////////////////////////
+
 export const setDownloadSVG = (value) => async (
     dispatch,
     getState,

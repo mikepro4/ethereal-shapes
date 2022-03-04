@@ -12,6 +12,7 @@ import SpeechRecognition  from 'react-speech-recognition';
 import { createSpeechlySpeechRecognition } from '@speechly/speech-recognition-polyfill';
 
 import {
+    generate,
     setMic,
     setMicAudio,
     setTouchZones
@@ -27,7 +28,8 @@ class MicAudio extends Component {
         loaded: false,
         connected: false,
         audio: false,
-        results: []
+        results: [],
+        response: []
     }
 
     componentDidMount = () => {
@@ -156,6 +158,33 @@ class MicAudio extends Component {
         </div>)
     }
 
+    generate = (text) => {
+        this.props.generate(text, (data) => {
+            console.log(data)
+            this.setState({
+                response: [
+                    ...this.state.response,
+                    data
+                ]
+            })
+        })
+    }
+
+    renderResponse() {
+        console.log(this.state.response)
+        return (<div>
+            {this.state.response && this.state.response.length > 0 && _.reverse(this.state.response).map((result, i) => {
+                if(i<=3) {
+                    return (
+                        <div className="response-item" key={i}>{result.result}</div>
+                    )
+                }
+                
+            })}
+        </div>)
+    }
+
+
     render() {
         const commands = [
             {
@@ -183,7 +212,11 @@ class MicAudio extends Component {
                 <div className="speech-container">
                     <span>{this.renderTranscript()}</span>
                 </div>
-                <Dictaphone commands={commands}/>
+
+                <div className="response-container">
+                    <span>{this.renderResponse()}</span>
+                </div>
+                <Dictaphone commands={commands} onListen={(text) => this.generate(text) }/>
                 <div className="mic-background">
                 </div>
             </div>
@@ -203,5 +236,6 @@ export default connect(mapStateToProps, {
     setAnalyser,
     setMic,
     setMicAudio,
-    setTouchZones
+    setTouchZones,
+    generate
 })(MicAudio);

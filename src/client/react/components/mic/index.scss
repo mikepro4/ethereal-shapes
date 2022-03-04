@@ -80,3 +80,18 @@
         width: 500px
     }
 }
+
+.response-container{
+    position: fixed;
+    top: 70px;
+    left: 20px;
+    font-size: 14px;
+    text-align: left;
+    width: 200px;
+}
+
+.response-item {
+    opacity: 0;
+    animation: fadeIn 1s linear forwards;
+    margin: 0 0 10px 0;
+}
