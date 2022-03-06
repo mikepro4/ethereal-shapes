@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import classNames from "classnames"
+import stringInject from 'stringinject';
 import Dictaphone from "./Dictaphone";
 
 import Mic from "../icons/mic"
@@ -185,12 +186,14 @@ class MicAudio extends Component {
                 this.setState({
                     response: []
                 })
-            }, 10000)
+            }, 30000)
 
             this.setState({ secondTimeInterval });
         }, 1)
 
-        this.props.generate(text, (data) => {
+        let finalText = stringInject(this.props.nft.currentNFT.metadata.prompt, [text]);
+
+        this.props.generate(finalText, (data) => {
             console.log(data)
             this.setState({
                 response: [
@@ -280,7 +283,7 @@ class MicAudio extends Component {
                     })
                 }
 
-            }, 5000);
+            }, 30000);
             this.setState({ saveTranscriptInterval });
         }, 1)
 
@@ -336,7 +339,8 @@ function mapStateToProps(state) {
     return {
         auth: state.app.user,
         location: state.router.location,
-        app: state.app
+        app: state.app,
+        nft: state.activeNFT
     };
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Field, reduxForm, FieldArray, formValueSelector, change} from "redux-form";
+import { Field, reduxForm, FieldArray, formValueSelector, change } from "redux-form";
 import classnames from "classnames";
 import { Form } from "redux-form";
 import { connect } from "react-redux";
@@ -42,17 +42,17 @@ import {
 } from "../../../../redux/actions/nftActions"
 
 class NFTSettingsForm extends Component {
-    
+
     state = {
         loading: false,
         fileUrl: ""
     }
 
-   
+
 
     renderBlock(i) {
-        return(
-            <div key={i} className="single-block"><Block position={i}/></div>
+        return (
+            <div key={i} className="single-block"><Block position={i} /></div>
         )
     }
 
@@ -63,22 +63,22 @@ class NFTSettingsForm extends Component {
 
         for (var i = 1; i < blocksCount; i++) {
             blocks.push(this.renderBlock(i))
-        } 
+        }
 
-        return(<div className="blocks-container">
+        return (<div className="blocks-container">
             {blocks}
         </div>)
     }
 
-    onChange = async(e) => {
+    onChange = async (e) => {
         const file = e.target.files[0];
         console.log(file)
 
         try {
             const added = await client.add(
                 file, {
-                    progress: (prog) => console.log("received: ", prog)
-                }
+                progress: (prog) => console.log("received: ", prog)
+            }
             )
             console.log(added)
             const url = `https://ipfs.infura.io/ipfs/${added[0].path}`;
@@ -88,14 +88,14 @@ class NFTSettingsForm extends Component {
                 fileUrl: url.toString()
             })
             this.props.dispatch(change('nftSettings', 'nft.fileUrl', url.toString()));
-        } catch(error) {
+        } catch (error) {
             console.log("error: ", error);
         }
     }
 
     renderButton() {
-        if(this.props.nft && this.props.nft.newNFT) {
-            return(<Button
+        if (this.props.nft && this.props.nft.newNFT) {
+            return (<Button
                 className={"submit-button theme-" + this.props.theme}
                 loading={this.state.loading}
                 onClick={() => {
@@ -123,11 +123,11 @@ class NFTSettingsForm extends Component {
                     //     this.props.history.push("/?nft="+ nft._id);
                     // })
                 }}
-                    text="Create"
+                text="Create"
                 large="true"
             />)
         } else {
-            return(<div>
+            return (<div>
                 <Button
                     className={"submit-button theme-" + this.props.theme}
                     loading={this.props.loading}
@@ -151,19 +151,19 @@ class NFTSettingsForm extends Component {
                         this.setState({
                             loading: true
                         })
-                            this.props.createNFT(newNFT, (nft) => {
+                        this.props.createNFT(newNFT, (nft) => {
                             this.props.hideDrawer()
                             this.setState({
                                 loading: false
                             })
 
-                            this.props.history.push("/?nft="+ nft._id);
+                            this.props.history.push("/?nft=" + nft._id);
                         })
                     }}
-                        text="Duplicate"
+                    text="Duplicate"
                     large="true"
                 />}
-                
+
 
 
                 <Button
@@ -173,8 +173,8 @@ class NFTSettingsForm extends Component {
                         this.setState({
                             loading: true
                         })
-                           
-                            this.props.deleteNFT(this.props.nft._id, () => {
+
+                        this.props.deleteNFT(this.props.nft._id, () => {
                             this.props.hideDrawer()
                             this.setState({
                                 loading: false
@@ -183,7 +183,7 @@ class NFTSettingsForm extends Component {
                             this.props.history.push("/");
                         })
                     }}
-                        text="Delete"
+                    text="Delete"
                     large="true"
                 />
             </div>)
@@ -191,41 +191,41 @@ class NFTSettingsForm extends Component {
         }
     }
 
-	render() {
+    render() {
         const { handleSubmit } = this.props;
-        
+
         let sortByOptions = [
-			{
-				value: "position",
-				name: "Position"
-			},
-			{
-				value: "h",
-				name: "H"
-			},
-			{
-				value: "s",
-				name: "S"
-			},
-			{
-				value: "b",
-				name: "B"
-			},
-		]
+            {
+                value: "position",
+                name: "Position"
+            },
+            {
+                value: "h",
+                name: "H"
+            },
+            {
+                value: "s",
+                name: "S"
+            },
+            {
+                value: "b",
+                name: "B"
+            },
+        ]
 
         let sortByDirectionOptions = [
-			{
-				value: "desc",
-				name: "Desc"
-			},
-			{
-				value: "asc",
-				name: "Asc"
-			},
-		]
+            {
+                value: "desc",
+                name: "Desc"
+            },
+            {
+                value: "asc",
+                name: "Asc"
+            },
+        ]
 
 
-		return (
+        return (
             <Form onSubmit={handleSubmit} autoComplete="off">
 
                 <Field
@@ -240,6 +240,14 @@ class NFTSettingsForm extends Component {
                     title="Name" placeholder="Name"
                 />
 
+                <div className="prompt">
+                    <Field
+                        name="metadata.prompt"
+                        component={Textarea}
+                        title="Prompt" placeholder="Prompt"
+                    />
+                </div>
+
                 <Field
                     name="nft.price"
                     component={Input}
@@ -250,7 +258,7 @@ class NFTSettingsForm extends Component {
                     name="nft.description"
                     component={Textarea}
                     title="Description" placeholder="Description"
-                />  
+                />
 
                 <Field
                     name="metadata.collectionId"
@@ -270,7 +278,7 @@ class NFTSettingsForm extends Component {
                     title="Audio URL" placeholder="Audio URL"
                 />
 
-               
+
 
                 <Field
                     name="nft.fileUrl"
@@ -325,7 +333,7 @@ class NFTSettingsForm extends Component {
                     component={Checkbox}
                     label="Approved"
                     inline={true}
-                /> 
+                />
 
                 <Field
                     name="metadata.rejected"
@@ -333,7 +341,7 @@ class NFTSettingsForm extends Component {
                     component={Checkbox}
                     label="Rejected"
                     inline={true}
-                /> 
+                />
 
                 {/* {this.renderButton()} */}
 
@@ -351,8 +359,8 @@ class NFTSettingsForm extends Component {
                     onClick={() => {
 
                         this.props.createShape(this.props.shape.currentShape, (data) => {
-                
-                           
+
+
                             let newNFT = {
                                 ...this.props.app.drawerData,
                                 metadata: {
@@ -373,23 +381,23 @@ class NFTSettingsForm extends Component {
                             this.setState({
                                 loading: true
                             })
-                                this.props.createNFT(newNFT, (nft) => {
+                            this.props.createNFT(newNFT, (nft) => {
                                 this.props.hideDrawer()
                                 this.setState({
                                     loading: false
                                 })
-    
-                                this.props.history.push("/nft?id="+ nft._id);
+
+                                this.props.history.push("/nft?id=" + nft._id);
                             })
                         })
 
-                       
+
                     }}
-                        text="Duplicate"
+                    text="Duplicate"
                     large="true"
                 />}
 
-                
+
 
                 {this.props.nft.newNFT._id == this.props.app.drawerData._id && <Button
                     className={"submit-button main-button theme-" + this.props.theme}
@@ -398,8 +406,8 @@ class NFTSettingsForm extends Component {
                         this.setState({
                             loading: true
                         })
-                           
-                            this.props.deleteNFT(this.props.nft.newNFT._id, () => {
+
+                        this.props.deleteNFT(this.props.nft.newNFT._id, () => {
                             this.props.hideDrawer()
                             this.setState({
                                 loading: false
@@ -408,7 +416,7 @@ class NFTSettingsForm extends Component {
                             this.props.history.push("/");
                         })
                     }}
-                        text="Delete"
+                    text="Delete"
                     large="true"
                 />}
 
@@ -427,10 +435,10 @@ class NFTSettingsForm extends Component {
                     large="true"
                 /> */}
 
-               
+
             </Form>
-		);
-	}
+        );
+    }
 }
 
 const validate = values => {
@@ -441,7 +449,7 @@ const validate = values => {
     }
 
     return errors
-  }
+}
 
 NFTSettingsForm = reduxForm({
     form: 'nftSettings',
@@ -464,4 +472,3 @@ export default connect(mapStateToProps, {
     createShape
 })(withRouter(NFTSettingsForm));
 
-  

@@ -397,3 +397,12 @@
 .add-color {
     margin: 0;
 }
+
+.prompt {
+    .textarea-text {
+        height: 222px; 
+    }
+    .textarea-text .blade-textarea {
+        height: 200px;
+    }
+}
