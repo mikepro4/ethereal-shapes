@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import classNames from "classnames"
 import Dictaphone from "./Dictaphone";
 
 import Mic from "../icons/mic"
 
 import 'regenerator-runtime'
-import SpeechRecognition  from 'react-speech-recognition';
+import SpeechRecognition from 'react-speech-recognition';
 
 import { createSpeechlySpeechRecognition } from '@speechly/speech-recognition-polyfill';
+
+import qs from "qs";
+import * as _ from "lodash"
 
 import {
     generate,
@@ -22,13 +25,17 @@ import {
     setAnalyser
 } from '../../../redux/actions/playerActions'
 
+import {
+    createTranscript
+} from '../../../redux/actions/transcriptActions'
+
 class MicAudio extends Component {
     state = {
         status: null,
         loaded: false,
         connected: false,
         audio: false,
-        results: [],
+        request: [],
         response: []
     }
 
@@ -44,17 +51,17 @@ class MicAudio extends Component {
     toggleMic = async () => {
         console.log("toggle audio")
 
-       
+
         if (!this.state.connected) {
 
             const appId = 'd158af9e-c90e-47f6-b0a4-6e2fde5d2be6';
-                const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
-                SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
+            const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
+            SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 
-                SpeechRecognition.startListening({
-                    continuous: true,
-                    language: 'en-GB'
-                })
+            SpeechRecognition.startListening({
+                continuous: true,
+                language: 'en-GB'
+            })
 
             // var constraints = { audio: true, video: { width: 1280, height: 720 } }; 
             console.log(window.navigator)
@@ -99,12 +106,12 @@ class MicAudio extends Component {
                 //     console.log(event.results[0][0].transcript)
                 // });
 
-                
+
                 let analyser = audioContext.createAnalyser();
                 let dataArray = new Uint8Array(analyser.frequencyBinCount);
                 let source = audioContext.createMediaStreamSource(audio);
 
-			    // this.connect();
+                // this.connect();
                 source.connect(analyser);
                 // this.refs.audio.currentTime = 0
                 // var AudioContext = window.AudioContext
@@ -158,19 +165,19 @@ class MicAudio extends Component {
         </div>)
     }
 
-    generate = (text) => {
+    createResponse = (text) => {
         clearInterval(this.state.timeInterval);
         clearTimeout(this.state.secondTimeInterval);
         setTimeout(() => {
             const timeInterval = setInterval(() => {
-                if(this.state.response.length > 0) {
+                if (this.state.response.length > 0) {
                     this.setState({
                         response: [
                             this.state.response[0]
                         ]
                     })
                 }
-              
+
             }, 5000);
             this.setState({ timeInterval });
 
@@ -182,45 +189,122 @@ class MicAudio extends Component {
 
             this.setState({ secondTimeInterval });
         }, 1)
-       
+
         this.props.generate(text, (data) => {
             console.log(data)
             this.setState({
                 response: [
                     ...this.state.response,
-                    data
+                    {
+                        date: new Date(),
+                        text: data.result
+                    }
                 ]
             })
         })
+    }
+
+    generate = (text) => {
+        console.log("Start Timer")
+        console.log(text)
+        this.saveTranscript()
+
+        this.setState({
+            request: [
+                ...this.state.request,
+                {
+                    date: new Date(),
+                    text: text
+                }
+            ]
+        }, () => {
+            console.log(this.state.request)
+
+            let lastStatement = this.state.request[this.state.request.length - 1].text
+            if (lastStatement !== "SAVE TRANSCRIPT") {
+                this.createResponse(lastStatement)
+            }
+        })
+
+
+        // const timeInterval = setInterval(() => {
+        //     this.setState({
+        //         request: [
+        //             this.state.request,
+        //             text
+        //         ]
+        //     })
+
+        // }, 5000);
+        // this.setState({ timeInterval });
     }
 
     renderResponse() {
         console.log(this.state.response)
         return (<div>
             {this.state.response && this.state.response.length > 0 && _.reverse(this.state.response).map((result, i) => {
-                if(i<=3) {
+                if (i <= 3) {
                     return (
-                        <div className="response-item" key={i}>{result.result}</div>
+                        <div className="response-item" key={i}>{result.text}</div>
                     )
                 }
-                
+
             })}
         </div>)
+    }
+
+    getQueryParams = () => {
+        return qs.parse(this.props.location.search.substring(1));
+    };
+
+    saveTranscript() {
+        clearTimeout(this.state.saveTranscriptInterval);
+        let nftId = this.getQueryParams().id
+        setTimeout(() => {
+            const saveTranscriptInterval = setTimeout(() => {
+                if (this.state.response.length > 0 || this.state.request.length > 0) {
+                    console.log("request", this.state.request)
+                    console.log("response", this.state.response)
+                    console.log("nftId", nftId)
+                    this.props.createTranscript({
+                        request: this.state.request,
+                        response: this.state.response,
+                        metadata: {
+                            nftId: nftId,
+                        }
+                    }, () => {
+                        this.setState({
+                            request: [],
+                            response: []
+                        })
+                    })
+                }
+
+            }, 5000);
+            this.setState({ saveTranscriptInterval });
+        }, 1)
+
     }
 
 
     render() {
         const commands = [
             {
-              command: 'show controls',
-              callback: (food) => {this.props.setTouchZones(true) },
-              matchInterim: true
+                command: 'show controls',
+                callback: (food) => { this.props.setTouchZones(true) },
+                matchInterim: true
             },
             {
                 command: 'close controls',
-                callback: (food) => {this.props.setTouchZones(false) },
+                callback: (food) => { this.props.setTouchZones(false) },
                 matchInterim: true
-              }
+            },
+            ,
+            {
+                command: 'save transcript',
+                callback: (food) => { this.saveTranscript() },
+                matchInterim: true
+            }
         ]
 
         return (
@@ -240,7 +324,7 @@ class MicAudio extends Component {
                 <div className="response-container">
                     <span>{this.renderResponse()}</span>
                 </div>
-                <Dictaphone commands={commands} onListen={(text) => this.generate(text) }/>
+                <Dictaphone commands={commands} onListen={(text) => this.generate(text)} />
                 <div className="mic-background">
                 </div>
             </div>
@@ -261,5 +345,6 @@ export default connect(mapStateToProps, {
     setMic,
     setMicAudio,
     setTouchZones,
-    generate
-})(MicAudio);
+    generate,
+    createTranscript
+})(withRouter(MicAudio));

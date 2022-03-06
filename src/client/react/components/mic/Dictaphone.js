@@ -19,11 +19,14 @@ const Dictaphone = ({ commands, onListen }) => {
   } = useSpeechRecognition({ transcribing, clearTranscriptOnListen, commands })
   useEffect(() => {
     if (interimTranscript !== '') {
-        onListen(interimTranscript)
+        // onListen(interimTranscript)
+        // resetTranscript()
 
     //   console.log('Got interim result:', interimTranscript)
     }
     if (finalTranscript !== '') {
+        onListen(finalTranscript)
+        resetTranscript()
         // onListen(interimTranscript)
     //   console.log('Got final result:', finalTranscript)
     }
