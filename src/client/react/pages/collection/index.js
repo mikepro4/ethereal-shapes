@@ -10,7 +10,7 @@ import { Icon, Button, Classes, Intent } from "@blueprintjs/core";
 
 import ListResults from "../../components/list"
 
-import { 
+import {
     showDrawer
 } from "../../../redux/actions/appActions"
 
@@ -43,8 +43,8 @@ class Collection extends Component {
             this.props.loadCollectionToState(data)
         })
 
-       this.getStats()
-    
+        this.getStats()
+
     }
 
     getStats = () => {
@@ -57,13 +57,17 @@ class Collection extends Component {
     }
 
     componentDidUpdate(prevprops) {
-        if(this.props.app.updateCollectionItem !== prevprops.app.updateCollectionItem && this.props.app.updateCollectionItem) {
+        if (this.props.app.updateCollectionItem !== prevprops.app.updateCollectionItem && this.props.app.updateCollectionItem) {
+            this.getStats()
+        }
+
+        if (this.props.app.updateCollection !== prevprops.app.updateCollection && this.props.app.updateCollection) {
             this.getStats()
         }
     }
 
     getQueryParams = () => {
-		return qs.parse(this.props.location.search.substring(1));
+        return qs.parse(this.props.location.search.substring(1));
     };
 
 
@@ -76,7 +80,7 @@ class Collection extends Component {
     render() {
 
         return (
-            <div className="main-container">
+            <div className="main-container collection-page">
                 {/* <div className="page-header">
                     <ul className="breadcrumbs">
                         <li>
@@ -103,20 +107,33 @@ class Collection extends Component {
                 </div> */}
 
                 <div className="main-title">
-                    <div className="main-page-title">{this.props.collection.details && this.props.collection.details.metadata.title}</div>
+                    <div className="main-title-left">
+                        <div className="main-page-title">{this.props.collection.details && this.props.collection.details.metadata.title}</div>
 
-                    <div className="collection-stats">
-                        <span className="collection-pinned">
-                            {this.state.approved}
-                        </span>
+                        <div className="collection-stats">
+                            <span className="collection-pinned">
+                                {this.state.approved}
+                            </span>
 
-                        <span className="collection-divider">
-                            /
-                        </span>
+                            <span className="collection-divider">
+                                /
+                            </span>
 
-                        <span className="collection-total">
-                            {this.state.all}
-                        </span>
+                            <span className="collection-total">
+                                {this.state.all}
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div className="main-title-right">
+                        <div className="actions-icon" onClick={() => this.props.showDrawer("collection-actions")}>
+                            <Icon icon="add" />
+                        </div>
+
+                        <div className="actions-icon" onClick={() => this.props.showDrawer("collection-actions")}>
+                            <Icon icon="settings" />
+                        </div>
                     </div>
                 </div>
 
@@ -152,7 +169,7 @@ function mapStateToProps(state) {
 
 export default {
     component: withRouter(connect(mapStateToProps, {
-        loadCollection, 
+        loadCollection,
         loadCollectionToState,
         showDrawer,
         searchNFTs,

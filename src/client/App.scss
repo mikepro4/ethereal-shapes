@@ -182,10 +182,15 @@
     position: sticky;
     top: 50px;
     z-index: 100;
+    margin-bottom: 20px;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
 
     @media only screen and (min-width: $mobile) {
         top: 150px;
         padding: 20px 60px;
+        margin-bottom: 60px;
     }
 
     .main-page-title {
@@ -206,5 +211,18 @@
             font-size: 16px;
         }
 
+    }
+
+
+    .main-title-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .main-title-right  {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }

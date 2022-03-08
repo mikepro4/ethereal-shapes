@@ -26,20 +26,28 @@ import {
     SALES_ACTIVE
 } from "./types";
 
-import { updateMarketTokens, updateCollectionItem } from "./appActions"
+import { updateMarketTokens, updateCollectionItem, updateCollection } from "./appActions"
 
 
-// export const updateNFTImage = (url) => async (
-//     dispatch,
-// 	getState,
-// 	api
-// ) => {
+export const updateNFTCollection = (nftId, collectionId, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+        await api
+            .post("/NFT/updateCollection", { 
+                nftId: nftId, 
+                collectionId: collectionId
+            })
+            .then(response => {
+                if (success) {
+                    success(response.data);
+                }
+            })
+            .catch(() => {
+            });
 
-//     dispatch({
-//         type: UPDATE_NFT_IMAGE,
-//         payload: url
-//     });
-// }
+}
 
 export const getMultiple = (nfts, success) => async (
     dispatch,

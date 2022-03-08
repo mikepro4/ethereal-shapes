@@ -82,6 +82,16 @@ class Home extends Component {
                     </div>
                 </div> */}
 
+                <div className="main-title">
+                    <Button
+                        className="main-button"
+                        text="New collection"
+                        onClick={() => this.createCollection()}
+                        large="true"
+                        icon="plus"
+                    />
+                </div>
+
                 <ListResults
                     type="collections"
                     resultType="collection"
