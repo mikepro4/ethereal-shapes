@@ -283,23 +283,23 @@ class NFTSettingsForm extends Component {
                     />
                 </div>
 
-                <Field
+                {/* <Field
                     name="nft.price"
                     component={Input}
                     title="Price" placeholder="Price"
-                />
+                /> */}
 
-                <Field
+                {/* <Field
                     name="nft.description"
                     component={Textarea}
                     title="Description" placeholder="Description"
-                />
+                /> */}
 
-                <Field
+                {/* <Field
                     name="metadata.collectionId"
                     component={Input}
                     title="Collection ID" placeholder="Collection ID"
-                />
+                /> */}
 
                 <Field
                     name="metadata.shapeId"
@@ -321,7 +321,7 @@ class NFTSettingsForm extends Component {
                     title="File URL" placeholder="File URL"
                 />
 
-                <Field
+                {/* <Field
                     name="metadata.tokenId"
                     component={Input}
                     title="Token ID" placeholder="Token ID"
@@ -339,7 +339,7 @@ class NFTSettingsForm extends Component {
                     component={Checkbox}
                     label="Minted"
                     inline={true}
-                />
+                /> */}
 
                 <input
                     type="file"
