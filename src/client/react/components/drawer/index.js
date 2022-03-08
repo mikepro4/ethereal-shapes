@@ -15,6 +15,8 @@ import VizSettings from "./type/viz_settings"
 import NFTSettings from "./type/nft_settings"
 import ConnectWallet from "./type/connect_wallet"
 import ConnectWalletBuy from "./type/connect_wallet_buy"
+import DeleteCollection from "./type/delete_collection"
+import EditCollection from "./type/edit_collection"
 
 class Drawer extends Component {
 
@@ -43,6 +45,10 @@ class Drawer extends Component {
                 return (<ConnectWallet hideDrawer={() => this.hideDrawer()} enablePortal/>)
             case "connect-wallet-buy":
                 return (<ConnectWalletBuy hideDrawer={() => this.hideDrawer()} enablePortal/>)
+            case "delete-collection":
+                return (<DeleteCollection hideDrawer={() => this.hideDrawer()} enablePortal/>)
+            case "edit-collection":
+                return (<EditCollection hideDrawer={() => this.hideDrawer()} enablePortal/>)
             default:
                 return ;
         }

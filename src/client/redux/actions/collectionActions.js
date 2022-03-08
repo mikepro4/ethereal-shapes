@@ -9,6 +9,31 @@ import {
     CLEAR_COLLECTION
 } from "./types";
 
+// ===========================================================================
+
+export const getCollectionStats = (collectionId, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/collection/getStats", {
+            collectionId: collectionId
+        })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+            
+        });
+}
+
+// ===========================================================================
+
+
 export const loadCollectionToState = (data, success) => async (
     dispatch,
     getState,

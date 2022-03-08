@@ -12,7 +12,8 @@ import {
 
 import {
     loadCollectionToState,
-    deleteCollection
+    deleteCollection,
+    getCollectionStats
 } from "../../../../redux/actions/collectionActions"
 
 class collectionView extends Component {
@@ -21,10 +22,19 @@ class collectionView extends Component {
         super(props)
 
         this.state = {
+            all: [],
+            approved: []
         }
     }
 
     componentDidMount = () => {
+        this.props.getCollectionStats(this.props.item._id, (data) => {
+            console.log(data)
+            this.setState({
+                all: data.all,
+                approved: data.approved
+            })
+        })
     }
 
     deleteCollection = () => {
@@ -48,7 +58,7 @@ class collectionView extends Component {
 
                     <div className="collection-stats">
                         <span className="collection-pinned">
-                            0
+                            {this.state.approved}
                         </span>
 
                         <span className="collection-divider">
@@ -56,7 +66,7 @@ class collectionView extends Component {
                         </span>
 
                         <span className="collection-total">
-                            0
+                         {this.state.all}
                         </span>
                     </div>
                 </Link>
@@ -88,5 +98,6 @@ export default withRouter(connect(mapStateToProps, {
     deleteCollection,
     updateCollection,
     showDrawer,
-    loadCollectionToState
+    loadCollectionToState,
+    getCollectionStats
 })(collectionView));
