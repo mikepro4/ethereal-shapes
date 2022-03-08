@@ -18,6 +18,7 @@ a {
 @import "./imports/blueprint_overides";
 @import "./imports/animations";
 @import "./imports/buttons";
+@import "./imports/select";
 
 // pages
 @import "../App.scss";
@@ -31,6 +32,7 @@ a {
 @import "../react/components/form/ColorPicker.scss";
 @import "../react/components/form/Slider.scss";
 @import "../react/components/form/TabGroup.scss";
+@import "../react/components/form/ReactSelect.scss";
 
 // componenta
 @import "../react/components/header/index.scss";

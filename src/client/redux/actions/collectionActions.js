@@ -110,7 +110,7 @@ export const searchCollections = (type, identifier, offset, limit, query, succes
 
     await api
         .post("/collections/search", {
-            criteria: criteria,
+            criteria: query,
             sortProperty: "createdAt",
             offset: offset,
             limit: limit,

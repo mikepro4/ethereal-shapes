@@ -13,6 +13,7 @@ import Slider from "../../form/Slider";
 import TabGroup from "../../form/TabGroup";
 import Checkbox from "../../form/Checkbox";
 import ColorPicker from "../../form/ColorPicker";
+import ReactSelectAsync from "../../form/ReactSelectAsync";
 
 import Block from "../../block"
 
@@ -38,8 +39,13 @@ import {
     createNFT,
     deleteNFT,
     updateNFTImage,
-    updateNFTShape
+    updateNFTShape,
+    searchNFTs
 } from "../../../../redux/actions/nftActions"
+
+import {
+    searchCollections
+} from "../../../../redux/actions/collectionActions"
 
 class NFTSettingsForm extends Component {
 
@@ -191,6 +197,27 @@ class NFTSettingsForm extends Component {
         }
     }
 
+    getOptions = (input, callback) => {
+
+        this.props.searchCollections(
+            "",
+            "",
+            0,
+            20,
+            {
+                collectionTitle: input
+            },
+            data => {
+                console.log(data)
+                callback(data.all.map(collection => ({
+                    value: collection._id,
+                    label: collection.metadata.title
+                }))
+                );
+            }
+        );
+    }
+
     render() {
         const { handleSubmit } = this.props;
 
@@ -238,6 +265,15 @@ class NFTSettingsForm extends Component {
                     name="nft.name"
                     component={Input}
                     title="Name" placeholder="Name"
+                />
+
+                <Field
+                    name="metadata.collection"
+                    component={ReactSelectAsync}
+                    loadOptions={(input, callback) => this.getOptions(input, callback)}
+                    placeholder="Search collections"
+                    ref="collection search"
+                    label="Collection"
                 />
 
                 <div className="prompt">
@@ -469,6 +505,8 @@ export default connect(mapStateToProps, {
     createNFT,
     updateNFTImage,
     updateNFTShape,
-    createShape
+    createShape,
+    searchNFTs,
+    searchCollections
 })(withRouter(NFTSettingsForm));
 
