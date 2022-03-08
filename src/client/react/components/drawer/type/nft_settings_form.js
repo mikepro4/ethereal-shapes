@@ -254,6 +254,14 @@ class NFTSettingsForm extends Component {
 
         return (
             <Form onSubmit={handleSubmit} autoComplete="off">
+                <Field
+                    name="metadata.collection"
+                    component={ReactSelectAsync}
+                    loadOptions={(input, callback) => this.getOptions(input, callback)}
+                    placeholder="Search collections"
+                    ref="collection search"
+                    label="Collection"
+                />
 
                 <Field
                     name="_id"
@@ -265,15 +273,6 @@ class NFTSettingsForm extends Component {
                     name="nft.name"
                     component={Input}
                     title="Name" placeholder="Name"
-                />
-
-                <Field
-                    name="metadata.collection"
-                    component={ReactSelectAsync}
-                    loadOptions={(input, callback) => this.getOptions(input, callback)}
-                    placeholder="Search collections"
-                    ref="collection search"
-                    label="Collection"
                 />
 
                 <div className="prompt">

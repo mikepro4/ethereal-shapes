@@ -337,10 +337,12 @@
         justify-content: center;
         position: relative;
         margin-bottom: 20px;
+        aspect-ratio: 1;
 
         img {
             // max-height: 500px;
             max-width: 100%;
+            
         }
     }
 }

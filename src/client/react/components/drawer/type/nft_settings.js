@@ -25,6 +25,7 @@ import NFTSettingsForm from "./nft_settings_form"
 
 import {
     hideDrawer,
+    updateCollection,
     updateCollectionItem,
     updateQueryString
 } from "../../../../redux/actions/appActions"
@@ -88,6 +89,11 @@ class NFTSettings extends Component {
             this.props.updateNFT(this.props.drawerData, data, () => {
                 this.props.loadNewNFT(data)
                 this.props.updateCollectionItem(this.props.drawerData)
+
+                // if(this.props.collection && this.props.collection.details) {
+                //     if(this.props.nft.newNFT.metadata.collection && this.props.nft.newNFT.metadata.collection.value && data.metadata.collection.value !== this.props.nft.newNFT.metadata.collection.value)
+                //     this.props.updateCollection(true)
+                // }
 
                 if(data.metadata.shapeId !== this.props.nft.newNFT.metadata.shapeId) {
                         this.props.loadShape(data.metadata.shapeId, false, (data) => {
@@ -163,7 +169,7 @@ class NFTSettings extends Component {
                         </div>
 
                         <div className="nft-image-right">
-                            <div className="update-image" onClick={() => this.launchImageEditor()}>Update</div>
+                            <div className="update-image" onClick={() => this.launchImageEditor()}>Change image</div>
                         </div>
                         
                     </div>
@@ -294,9 +300,9 @@ class NFTSettings extends Component {
             </div> */}
 
             {this.renderImagePreviewAdmin()}
-            {this.props.nft.newNFT && this.props.nft.newNFT.metadata && this.props.nft.newNFT.metadata.tokenId && <div className="short-url">
+            {/* {this.props.nft.newNFT && this.props.nft.newNFT.metadata && this.props.nft.newNFT.metadata.tokenId && <div className="short-url">
                 <a href={"https://www.etherealshapes.com/" + this.props.nft.newNFT.metadata.tokenId} target="_blank">https://www.etherealshapes.com/{this.props.nft.newNFT.metadata.tokenId}</a>
-            </div>}
+            </div>} */}
             
             
             <NFTSettingsForm 
@@ -335,7 +341,8 @@ function mapStateToProps(state) {
         authenticated: state.auth.authenticated,
         nft: state.activeNFT,
         drawerData: state.app.drawerData,
-        app: state.app
+        app: state.app,
+        collection: state.collection
 	};
 }
 
@@ -348,6 +355,7 @@ export default withRouter(connect(mapStateToProps, {
     hideDrawer,
     loadShape,
     loadNewShape,
+    updateCollection,
     updateCollectionItem,
     updateQueryString
 })(NFTSettings));

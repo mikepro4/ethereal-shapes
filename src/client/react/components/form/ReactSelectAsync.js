@@ -28,35 +28,31 @@ const ReactSelect = ({
 
 	return (
 		<div className={containerClassName}>
-			<div className="input-group-left">
-				{label ? <div className="input-label">{label}</div> : ""}
-			</div>
+            {label ? <div className="form-label">{label}</div> : ""}
+            <AsyncSelect
+                {...input}
+                onChange={data =>  {
+                    input.onChange(data)
+                }}
+                onBlur= { event => event.preventDefault()}
+                loadOptions={_.throttle(loadOptions, 500)}
+                defaultOptions={true}
+                placeholder={placeholder}
+                simpleValue
+                isClearable
+                searchable
+                className="react-select"
+                classNamePrefix="react-select"
+                formatOptionLabel={option => <div className="option-label"> {option.label}</div>}
+            />
 
-			<div className="input-group-right">
-				<AsyncSelect
-					{...input}
-					onChange={data =>  {
-                        input.onChange(data)
-                    }}
-					onBlur={() => input.onBlur(input.value)}
-					loadOptions={_.throttle(loadOptions, 500)}
-					defaultOptions={true}
-					placeholder={placeholder}
-					simpleValue
-					isClearable
-					searchable
-                    className="react-select"
-                    classNamePrefix="react-select"
-				/>
-
-				{touched && error ? (
-					<div className="input-error">
-						{touched && error && <span>{error}</span>}
-					</div>
-				) : (
-					""
-				)}
-			</div>
+            {touched && error ? (
+                <div className="input-error">
+                    {touched && error && <span>{error}</span>}
+                </div>
+            ) : (
+                ""
+            )}
 		</div>
 	);
 };

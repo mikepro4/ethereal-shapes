@@ -201,52 +201,59 @@ class NFTDetails extends Component {
 
     renderButton(type) {
 
-        switch (type) {
-            case "own":
-                return (
-                    <div>
-                        {!this.props.more && this.renderArrow()}
-                        {this.props.mic && !this.props.app.iframe && this.renderMic()}
-                    </div>
-                )
-            case "sold":
-                return (
-                    <div>
-                        {!this.props.more && this.renderArrow()}
-                        {this.props.mic && !this.props.app.iframe && this.renderMic()}
-                    </div>)
+        // switch (type) {
+        //     case "own":
+        //         return (
+        //             <div>
+        //                 {!this.props.more && this.renderArrow()}
+        //                 {this.props.mic && !this.props.app.iframe && this.renderMic()}
+        //             </div>
+        //         )
+        //     case "sold":
+        //         return (
+        //             <div>
+        //                 {!this.props.more && this.renderArrow()}
+        //                 {this.props.mic && !this.props.app.iframe && this.renderMic()}
+        //             </div>)
 
-            case "buy":
-                return (<Button
-                    className={"buy-button main-button"}
-                    type="submit"
-                    loading={this.props.app.buying}
-                    text="Buy"
-                    large="true"
-                    onClick={() => this.buyNFT()}
-                />)
+        //     case "buy":
+        //         return (<Button
+        //             className={"buy-button main-button"}
+        //             type="submit"
+        //             loading={this.props.app.buying}
+        //             text="Buy"
+        //             large="true"
+        //             onClick={() => this.buyNFT()}
+        //         />)
 
-            case "mint":
-                return (<Button
-                    className={"mint-button main-button"}
-                    type="submit"
-                    text="Mint"
-                    large="true"
-                    loading={this.props.app.minting}
-                    onClick={() => this.mintNFT()}
-                />)
-            case "create":
-                return (<div>
-                    {!this.props.app.iframe && this.props.app.user && <Button
-                        className={"create-button main-button"}
-                        onClick={() => this.createNFT()}
-                        text="Create"
-                        large="true"
-                    />}
-                </div>)
-            default:
-                return;
-        }
+        //     case "mint":
+        //         return (<Button
+        //             className={"mint-button main-button"}
+        //             type="submit"
+        //             text="Mint"
+        //             large="true"
+        //             loading={this.props.app.minting}
+        //             onClick={() => this.mintNFT()}
+        //         />)
+        //     case "create":
+        //         return (<div>
+        //             {!this.props.app.iframe && this.props.app.user && <Button
+        //                 className={"create-button main-button"}
+        //                 onClick={() => this.createNFT()}
+        //                 text="Create"
+        //                 large="true"
+        //             />}
+        //         </div>)
+        //     default:
+        //         return;
+        // }
+
+        return (
+            <div>
+                {!this.props.more && this.renderArrow()}
+                {this.props.mic && !this.props.app.iframe && this.renderMic()}
+            </div>
+        )
     }
 
     createNFT = () => {
@@ -363,13 +370,14 @@ class NFTDetails extends Component {
                         </div>
 
                         <div className="metadata-status-bar">
-                            {this.getStatus()}
+                            {/* {this.getStatus()} */}
 
-                            {this.renderPrice()}
+                            {/* {this.renderPrice()} */}
 
                             {this.props.user && this.props.item.metadata.featured && <span className="f">F</span>}
-                            {this.props.user && this.props.item.metadata.approved && <span className="f">A</span>}
+                            {this.props.user && this.props.item.metadata.approved && <span className="f green" >A</span>}
                             {this.props.user && this.props.item.metadata.rejected && <span className="f">R</span>}
+                            {this.props.user && this.props.item.metadata.collection && this.props.item.metadata.collection.value && <span className="f purple">C</span>}
                         </div>
                     </div>}
 

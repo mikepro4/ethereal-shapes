@@ -217,9 +217,24 @@
 }
 
 .f {
-    background: $white;
-    color: $black;
+    background: rgba($white, 0.15);
+    color: $white;
     border-radius: 3px;
-    padding: 0 3px 0 3px;
-    margin-left: 5px;
+    padding: 0 3px 1px 3px;
+    margin-right: 5px;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.green {
+        background: rgba(#29FF7F, 0.15);
+        color: #29FF7F;
+    }
+
+    &.purple {
+        background: #8247E5;
+        color: $white;
+    }
 }
