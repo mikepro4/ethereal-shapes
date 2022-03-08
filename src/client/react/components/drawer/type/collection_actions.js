@@ -10,7 +10,8 @@ import * as _ from "lodash"
 import {
     updateCollection,
     hideDrawer,
-    updateCollectionItem
+    updateCollectionItem,
+    updateQueryString
 } from "../../../../redux/actions/appActions"
 
 import CollectionActionsForm from "./collection_actions_form"
@@ -61,6 +62,13 @@ class CollectionActions extends Component {
                    </div>
                 </div>
 
+                <div className="test" onClick={() => {
+                    this.props.updateQueryString({approved: true}, this.props.location, this.props.history)
+                    this.props.updateCollection(true)
+                }}>
+                    update to Approved
+                </div>
+
                 <CollectionActionsForm 
                     enableReinitialize="true"
                     loading={this.state.loading}
@@ -83,5 +91,6 @@ export default withRouter(connect(mapStateToProps, {
     updateCollection,
     hideDrawer,
     updateNFTCollection,
-    updateCollectionItem
+    updateCollectionItem,
+    updateQueryString
 })(CollectionActions));

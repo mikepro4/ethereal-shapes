@@ -77,6 +77,21 @@ class Collection extends Component {
         </Helmet>
     )
 
+    buildQuery = () => {
+        let query = {
+            collectionId: this.getQueryParams().id,
+        }
+
+        if(this.getQueryParams().approved !== undefined) {
+            query = {
+                ...query,
+                approved: this.getQueryParams().approved
+            }
+        }
+
+        return query
+    }
+
     render() {
 
         return (
@@ -128,10 +143,6 @@ class Collection extends Component {
 
                     <div className="main-title-right">
                         <div className="actions-icon" onClick={() => this.props.showDrawer("collection-actions")}>
-                            <Icon icon="add" />
-                        </div>
-
-                        <div className="actions-icon" onClick={() => this.props.showDrawer("collection-actions")}>
                             <Icon icon="settings" />
                         </div>
                     </div>
@@ -146,10 +157,7 @@ class Collection extends Component {
                             count: count
                         })
                     }}
-                    query={{
-                        collectionId: this.getQueryParams().id,
-                        approved: false
-                    }}
+                    query={this.buildQuery()}
                     updateCollectionItem={this.props.loadNFTDetails}
                     handleClick={() => this.props.handleClick()}
                 />

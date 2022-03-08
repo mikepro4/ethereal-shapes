@@ -51,7 +51,7 @@ class collectionView extends Component {
     render() {
         return (
             <div className="collection-row">
-                <Link to={"/collection?type=all&id=" + this.props.item._id} className="row-left" onClick={() => this.props.loadCollectionToState(this.props.item)}>
+                <Link to={"/collection?id=" + this.props.item._id} className="row-left" onClick={() => this.props.loadCollectionToState(this.props.item)}>
                     <div className="collection-title">
                         {this.props.item.metadata.title}
                     </div>
