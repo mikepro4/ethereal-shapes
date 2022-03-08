@@ -16,20 +16,7 @@
         flex-shrink: 1;flex-direction: column;
     }
 
-    .collection-stats {
-        font-size: 11px;
-        margin: 3px 0 0 0;
-
-        span {
-            margin-right: 5px;
-            color: rgba($white, 0.3);
-            
-
-            &.collection-pinned {
-                color: rgba($white, 1)
-            }
-        }
-    }
+    
 
     .collection-actions {
         display: flex;
@@ -39,6 +26,21 @@
             padding: 10px;
             cursor: pointer;
             margin-left: 10px;
+        }
+    }
+}
+
+.collection-stats {
+    font-size: 11px;
+    margin: 3px 0 0 0;
+
+    span {
+        margin-right: 5px;
+        color: rgba($white, 0.3);
+        
+
+        &.collection-pinned {
+            color: rgba($white, 1)
         }
     }
 }

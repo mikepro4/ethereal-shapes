@@ -21,7 +21,8 @@ import {
 
 import {
     loadCollection,
-    loadCollectionToState
+    loadCollectionToState,
+    getCollectionStats
 } from "../../../redux/actions/collectionActions"
 
 
@@ -31,6 +32,8 @@ class Collection extends Component {
         super(props)
 
         this.state = {
+            all: 0,
+            approved: 0
         }
 
     }
@@ -39,6 +42,24 @@ class Collection extends Component {
         this.props.loadCollection(this.getQueryParams().id, (data) => {
             this.props.loadCollectionToState(data)
         })
+
+       this.getStats()
+    
+    }
+
+    getStats = () => {
+        this.props.getCollectionStats(this.getQueryParams().id, (data) => {
+            this.setState({
+                all: data.all,
+                approved: data.approved,
+            })
+        })
+    }
+
+    componentDidUpdate(prevprops) {
+        if(this.props.app.updateCollectionItem !== prevprops.app.updateCollectionItem && this.props.app.updateCollectionItem) {
+            this.getStats()
+        }
     }
 
     getQueryParams = () => {
@@ -83,7 +104,20 @@ class Collection extends Component {
 
                 <div className="main-title">
                     <div className="main-page-title">{this.props.collection.details && this.props.collection.details.metadata.title}</div>
-                    {this.state.count > 0 && <div className="main-page-subtitle">{this.state.count} items</div>}
+
+                    <div className="collection-stats">
+                        <span className="collection-pinned">
+                            {this.state.approved}
+                        </span>
+
+                        <span className="collection-divider">
+                            /
+                        </span>
+
+                        <span className="collection-total">
+                            {this.state.all}
+                        </span>
+                    </div>
                 </div>
 
                 <ListResults
@@ -96,7 +130,8 @@ class Collection extends Component {
                         })
                     }}
                     query={{
-                        collectionId: this.getQueryParams().id
+                        collectionId: this.getQueryParams().id,
+                        approved: false
                     }}
                     updateCollectionItem={this.props.loadNFTDetails}
                     handleClick={() => this.props.handleClick()}
@@ -121,6 +156,7 @@ export default {
         loadCollectionToState,
         showDrawer,
         searchNFTs,
-        loadNFTDetails
+        loadNFTDetails,
+        getCollectionStats
     })(Collection))
 }

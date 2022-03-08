@@ -22,8 +22,8 @@ class collectionView extends Component {
         super(props)
 
         this.state = {
-            all: [],
-            approved: []
+            all: 0,
+            approved: 0
         }
     }
 
