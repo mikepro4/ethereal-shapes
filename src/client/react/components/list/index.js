@@ -17,6 +17,7 @@ import WordView from "./views/wordView"
 import NFTView from "./views/nftView"
 import ShapeView from "./views/shapeView"
 import NFTReview from "./views/nftReview"
+import CollectionView from "./views/collectionView"
 
 class ListResults extends Component {
 
@@ -133,7 +134,7 @@ class ListResults extends Component {
             this.props.identifier,
 			newOffset,
             this.state.limit, 
-            "",
+            this.props.query,
             (results) => {
                 let newCollection = _.concat(this.state.collection, results.all)
 
@@ -220,6 +221,17 @@ class ListResults extends Component {
                     return (<ShapeView
                         item={item}
                         key={item._id}
+                        handleClick={() => this.props.handleClick()}
+                    />)
+                } else {
+                    return(<div key={item._id}/>)
+                }
+            case "collection":
+                if(!this.state.updateCollection) {
+                    return (<CollectionView
+                        item={item}
+                        key={item._id}
+                        count={this.state.count}
                         handleClick={() => this.props.handleClick()}
                     />)
                 } else {

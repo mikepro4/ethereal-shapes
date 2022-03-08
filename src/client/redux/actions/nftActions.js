@@ -391,40 +391,45 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
     let sortProperty = "createdAt"
     let sortDirection = "-1"
 
-    if(type == "user") {
-        criteria = {
-            createdBy: identifier
-        }
-    }
-
-    if(type == "featured_NFTs") {
-        criteria = {
-            featured: true,
-        }
-
-        sortProperty = "featuredOrder"
-
-        sortDirection = "1"
-    }
-
-    if(type == "sale") {
-        criteria = {
-            sale: true
-        }
-    }
-
-    if(type == "my-nfts") {
-        if(!identifier) {
+    if(query) {
+        criteria = query
+    } else{
+        if(type == "user") {
             criteria = {
-                owner: "no"
-            }
-        } else {
-            criteria = {
-                owner: identifier
+                createdBy: identifier
             }
         }
-       
+    
+        if(type == "featured_NFTs") {
+            criteria = {
+                featured: true,
+            }
+    
+            sortProperty = "featuredOrder"
+    
+            sortDirection = "1"
+        }
+    
+        if(type == "sale") {
+            criteria = {
+                sale: true
+            }
+        }
+    
+        if(type == "my-nfts") {
+            if(!identifier) {
+                criteria = {
+                    owner: "no"
+                }
+            } else {
+                criteria = {
+                    owner: identifier
+                }
+            }
+           
+        }
     }
+    
 
     if(type == "recent_nfts") {
         let draft = getState().app.draft

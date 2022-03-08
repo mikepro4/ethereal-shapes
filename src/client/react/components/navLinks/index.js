@@ -5,7 +5,7 @@ import classNames from "classnames"
 
 import NavLinks from "./nav_links"
 
-import {searchSales} from "../../../redux/actions/nftActions"
+import { searchSales } from "../../../redux/actions/nftActions"
 
 class Nav extends Component {
 
@@ -15,7 +15,7 @@ class Nav extends Component {
 
     componentDidMount = () => {
         this.props.searchSales((data => {
-            if(data.count > 0) {
+            if (data.count > 0) {
                 this.setState({
                     salesActive: true
                 })
@@ -23,66 +23,70 @@ class Nav extends Component {
         }))
     }
 
-	render() {
+    render() {
 
         let mobileTabs = [
-			{
-			  	url: "/featured",
-				name: "Featured",
-			},
+            {
+                url: "/featured",
+                name: "Featured",
+            },
             {
                 url: "/all",
                 name: "All NFTs",
             },
-			{
-			  	url: "/sale",
-				name: "On Sale",
+            {
+                url: "/sale",
+                name: "On Sale",
                 active: this.props.app.salesActive
-			}
-		]
+            }
+        ]
 
         let mainLinks = [
-			{
-			  	url: "/featured",
-				name: "Featured",
-			},
+            {
+                url: "/featured",
+                name: "Featured",
+            },
             {
                 url: "/all",
                 name: "All NFTs",
             },
-			{
-			  	url: "/sale",
-				name: "On Sale",
+            {
+                url: "/sale",
+                name: "On Sale",
                 active: this.props.app.salesActive
-			},
-			// {
-			//   	url: "/my-nfts",
-			// 	name: "My NFTs",
-			// },
-			{
-			  	url: "/about",
-				name: "About",
-			},
-			{
-			  	url: "/planet",
-				name: "Planet",
-			},
-			{
-			  	url: "/iteration2",
-				name: "Iteration 2",
-			}
-		]
+            },
+            // {
+            //   	url: "/my-nfts",
+            // 	name: "My NFTs",
+            // },
+            {
+                url: "/about",
+                name: "About",
+            },
+            {
+                url: "/planet",
+                name: "Planet",
+            },
+            {
+                url: "/iteration2",
+                name: "Iteration 2",
+            },
+            {
+                url: "/collections",
+                name: "Collections",
+            }
+        ]
 
         let links
 
-        if(this.props.linksType == "mainLinks") {
+        if (this.props.linksType == "mainLinks") {
             links = mainLinks
-        } else if(this.props.linksType == "mobileTabs") {
+        } else if (this.props.linksType == "mobileTabs") {
             links = mobileTabs
         }
 
-		return (
-			<div className={"nav-container theme-" + this.props.theme}>
+        return (
+            <div className={"nav-container theme-" + this.props.theme}>
 
                 <NavLinks
                     links={links}
@@ -91,14 +95,14 @@ class Nav extends Component {
 
             </div>
         )
-	}
+    }
 }
 
 function mapStateToProps(state) {
-	return {
+    return {
         theme: state.app.theme,
         app: state.app
-	};
+    };
 }
 
 export default connect(mapStateToProps, {

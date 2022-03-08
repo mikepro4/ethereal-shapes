@@ -16,6 +16,8 @@ import Review from "../react/pages/review"
 import Planet from "../react/pages/planet"
 import Iteration1 from "../react/pages/iteration1"
 import Iteration2 from "../react/pages/iteration2"
+import Collections from "../react/pages/collections"
+import Collection from "../react/pages/collection"
 
 export default [
     {
@@ -27,6 +29,22 @@ export default [
                 exact: true,
                 params: {
                     name: "home"
+                }
+            },
+            {
+                ...Collection,
+                path: "/collection",
+                exact: true,
+                params: {
+                    name: "collection"
+                }
+            },
+            {
+                ...Collections,
+                path: "/collections",
+                exact: true,
+                params: {
+                    name: "collections"
                 }
             },
             {

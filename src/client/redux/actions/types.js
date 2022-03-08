@@ -113,3 +113,10 @@ export const UPDATE_ACCOUNT = "app/UPDATE_ACCOUNT"
 export const UPDATE_MARKET_TOKENS = "app/UPDATE_MARKET_TOKENS"
 
 // =============================================================================
+
+// Collection
+
+export const LOAD_COLLECTION = "app/LOAD_COLLECTION"
+export const CLEAR_COLLECTION = "app/CLEAR_COLLECTION"
+
+// =============================================================================
