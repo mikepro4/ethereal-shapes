@@ -97,17 +97,14 @@ export const deleteGenerator = (generatorId, success) => async (
 // ===========================================================================
 
 
-export const updateGeneratorDetails = (generator, success) => async (
+export const updateGenerator = (generator, success) => async (
     dispatch,
 	getState,
 	api
 ) => {
 
     await api
-        .post("/generator/update", { 
-            generatorId: generator._id, 
-            metadata: generator.metadata,
-        })
+        .post("/generator/update", generator)
         .then(response => {
             if (success) {
                 success(response.data);

@@ -37,7 +37,7 @@ import axios from "axios";
 
 import Web3Modal from "web3modal";
 
-import { change } from "redux-form";
+import { change, reset } from "redux-form";
 
 import {
     nftAddress, nftMarketAddress
@@ -49,6 +49,10 @@ import { ethers } from "ethers";
 
 export const changeForm = (formName, field, value ) => dispatch => {
 	dispatch(change(formName, field, value));
+};
+
+export const resetForm = (formName, field, value ) => dispatch => {
+	dispatch(reset(formName));
 };
 
 /////////////////////////////////////////////////
