@@ -54,12 +54,12 @@ class TabGroup extends Component {
                             className="control-tab-container"
                             ref="tab"
                         >
-                            <ul className="tab-options">
+                            <ul className={"tab-options " + this.props.className}>
                                 {this.state.tabOptions.map((tabOption) => {
                                     return (
                                         <li
                                             className={classNames({
-                                                "tab-option-active": this.state.currentValue == tabOption.value
+                                                "tab-option-active": this.state.currentValue == tabOption.value,
                                             }, "tab-option")}
                                             onClick={() => this.changeValue(tabOption.value)}
                                             key={tabOption.value}

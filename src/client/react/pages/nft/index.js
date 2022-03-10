@@ -90,6 +90,7 @@ class NFTPage extends Component {
 	}
 
     componentDidMount() {
+        this.props.showDrawer("generation");
         this.props.updateMarketTokens()
 
         if (this.props.match.params.tokenId) {

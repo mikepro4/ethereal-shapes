@@ -630,10 +630,12 @@ class Viz extends Component {
                 if (point) {
                     let t_radius = this.calculateRadius(soundModifier, i)
 
-                    let tx = this.state.x + Math.cos(this.state.rotate + this.state.step * i + soundModifier) * t_radius;
+                    let start = 200
+
+                    let tx = this.state.x + Math.cos(this.state.rotate + this.state.step  * i + soundModifier) * t_radius;
                     let ty = this.state.y + Math.sin(this.state.rotate + this.state.step * i + soundModifier) * t_radius;
 
-                    point.vx += (tx - point.x) * this.state.rotate_point_speed;
+                    point.vx += (tx - point.x) * this.state.rotate_point_speed ;
                     point.vy += (ty - point.y) * this.state.rotate_point_speed;
 
                     point.x += point.vx;
