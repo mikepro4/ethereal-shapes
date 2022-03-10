@@ -265,6 +265,12 @@ class GenerationForm extends Component {
             <Form onSubmit={handleSubmit} autoComplete="off">
 
                 <Field
+                    name="title"
+                    component={Input}
+                    title="Title" placeholder="Title"
+                />
+
+                <Field
                     name="iterations"
                     component={Input}
                     title="Iterations" placeholder="Iterations"

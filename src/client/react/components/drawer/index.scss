@@ -408,3 +408,14 @@
         height: 200px;
     }
 }
+
+.generator-actions {
+    margin-top: 100px;
+    li {
+        margin-bottom: 30px;
+
+        &:last-child {
+            margin-top: 100px;
+        }
+    }
+}

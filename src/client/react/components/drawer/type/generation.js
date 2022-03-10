@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import classNames from "classnames"
-import { Icon, Button, Classes, Intent, Position, Toaster  } from "@blueprintjs/core";
+import { Icon, Button, Classes, Intent, Position, Toaster } from "@blueprintjs/core";
 
 import qs from "qs";
 import * as _ from "lodash"
@@ -14,14 +14,12 @@ import * as _ from "lodash"
 // } from "../../../../redux/actions/profileActions"
 
 
-// import {
-//     updateWord,
-//     loadWord,
-//     createWord,
-//     deleteWord
-// } from "../../../../redux/actions/wordsActions"
+import {
+    createGenerator
+} from "../../../../redux/actions/generatorActions"
 
 import GenerationForm from "./generation_form"
+import GeneratorSelectorForm from "./generator_selector_form"
 
 class Generation extends Component {
 
@@ -31,16 +29,16 @@ class Generation extends Component {
         this.state = {
             loading: false
         }
-    
+
         this.debouncedOnChange = _.debounce(this.handleFormSubmit, 1000);
     }
-    
+
 
     handleFormSubmit(data) {
         console.log(data)
 
         this.setState({
-			loading: true
+            loading: true
         })
 
         this.props.updateWord(this.props.word, data, () => {
@@ -55,23 +53,39 @@ class Generation extends Component {
         })
     }
 
+    handleFormSubmitGenerator(data) {
+        console.log(data)
+
+    }
+
     getQueryParams = () => {
-		return qs.parse(this.props.location.search.substring(1));
+        return qs.parse(this.props.location.search.substring(1));
     };
 
-	render() {
+    render() {
         return (
             <div className={"app-drawer-content-container standard-drawer nft-settings-drawer theme-" + this.props.theme}>
-                
-               <GenerationForm
+
+                <GeneratorSelectorForm
+                    enableReinitialize="true"
+                    loading={this.state.loading}
+                    onSubmit={this.handleFormSubmitGenerator.bind(this)}
+                    theme={this.props.theme}
+                    onChange={values => {
+                        console.log(values)
+                    }}
+                />
+
+                <GenerationForm
                     enableReinitialize="true"
                     initialValues={
                         {
+                            title: "Generator 1",
                             iterations: 1,
                             from: this.props.shape && this.props.shape.currentShape && this.props.shape.currentShape.defaultViz && this.props.shape.currentShape.defaultViz.shape.step,
                             to: this.props.shape && this.props.shape.currentShape && this.props.shape.currentShape.defaultViz && this.props.shape.currentShape.defaultViz.shape.step + 0.1,
                             stepAmount: 0.01,
-                            math: "sin",
+                            math: this.props.shape && this.props.shape.currentShape && this.props.shape.currentShape.defaultViz && this.props.shape.currentShape.defaultViz.shape.math,
                         }
                     }
                     loading={this.state.loading}
@@ -90,20 +104,63 @@ class Generation extends Component {
                         // })
                     }}
                 />
+
+                <ul className="generator-actions">
+                    <li>
+                        <Button
+                            className={"main-button "}
+                            loading={this.props.loading}
+                            text="Save new generator"
+                            large="true"
+                            icon="plus"
+                            onClick={() => { 
+                                this.props.createGenerator(this.props.form.generationForm.values, (data) => {
+                                    console.log(data)
+                                })
+                            }}
+                        />
+                    </li>
+
+                    <li>
+                        <Button
+                            className={"main-button "}
+                            loading={this.props.loading}
+                            text="Update generator"
+                            icon="refresh"
+                            large="true"
+                            onClick={() => { }}
+                        />
+                    </li>
+
+                    <li>
+                        <Button
+                            className={"main-button "}
+                            loading={this.props.loading}
+                            text="Delete generator"
+                            large="true"
+                            icon="trash"
+                            onClick={() => { }}
+                        />
+                    </li>
+
+                </ul>
+
             </div>
 
         )
- 
-	}
+
+    }
 }
 
 function mapStateToProps(state) {
-	return {
+    return {
         user: state.app.user,
         authenticated: state.auth.authenticated,
-        shape: state.shape
-	};
+        shape: state.shape,
+        form: state.form
+    };
 }
 
 export default withRouter(connect(mapStateToProps, {
+    createGenerator
 })(Generation));
