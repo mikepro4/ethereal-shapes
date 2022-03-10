@@ -246,9 +246,7 @@ class GenerationForm extends Component {
                         onClick={() => fields.push({
                             type: "step",
                             math: this.props.initialValues && this.props.initialValues.math,
-                            from: this.props.initialValues.from,
-                            to: this.props.initialValues.to,
-                            stepAmount: this.props.initialValues.stepAmount,
+                            stepAmount: 0.1,
                         })}
                         text="Add parameter"
                         icon="plus"
