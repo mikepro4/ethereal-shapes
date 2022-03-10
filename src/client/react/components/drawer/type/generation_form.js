@@ -17,6 +17,8 @@ import { StaticJsonRpcProvider } from "@ethersproject/providers";
 
 import { changeForm } from "../../../../redux/actions/appActions"
 
+import update from "immutability-helper";
+
 
 class GenerationForm extends Component {
     renderColors = ({ fields, meta: { error, submitFailed } }) => {
@@ -94,14 +96,14 @@ class GenerationForm extends Component {
             },
         ]
 
-        // let finalshape
-        // if(this.props.shape.newShape) {
-        //     finalshape = this.props.newShape.defaultViz.shape
-        // } else {
-        //     if(this.props.shape.currentShape) {
-        //         finalshape = this.props.shape.currentShape.defaultViz.shape
-        //     }
-        // }
+        let finalshape
+        if(this.props.shape.newShape && this.props.shape.newShape.defaultViz) {
+            finalshape = this.props.newShape.defaultViz.shape
+        } else {
+            if(this.props.shape.currentShape && this.props.shape.currentShape.defaultViz) {
+                finalshape = this.props.shape.currentShape.defaultViz.shape
+            }
+        }
 
 
 
@@ -158,47 +160,58 @@ class GenerationForm extends Component {
                                 options={parameterOptions}
                                 component={ReactSelect}
                                 label="Select parameter"
+                                onChange={(data) => {
+                                    let newParameters = update(this.props.stateForm.generationForm.values.parameters, {
+                                        $splice: [[index, 1, {
+                                            ...this.props.stateForm.generationForm.values.parameters[index],
+                                            from: finalshape[data.value],
+                                            to: finalshape[data.value] + 0.5
+                                        }]]
+                                    });
+
+                                    this.props.changeForm("generationForm", "parameters", newParameters)
+                                }}
                             />
 
-                            {currentParameter && currentParameter.changeParameter 
-                            && (currentParameter.changeParameter.value == "frequency" 
-                            || currentParameter.changeParameter.value == "step"
-                            || currentParameter.changeParameter.value == "rotateSpeed"
-                            || currentParameter.changeParameter.value == "boldRate"
-                            || currentParameter.changeParameter.value == "friction"
-                            || currentParameter.changeParameter.value == "rotatePointSpeed") && (
-                                <div>
-                                    {currentParameter && currentParameter.type 
-                                    && (currentParameter.type == "step"
-                                    || currentParameter.type == "range") && (
-                                        <Field
-                                            name={`${parameter}.stepAmount`}
-                                            component={Input}
-                                            title="Step amount" placeholder="Step Amount"
-                                        />
-                                    )}
-
-                                    {currentParameter && currentParameter.type && (currentParameter.type == "range" || currentParameter.type == "random") && (
-                                        <div>
-                                            <div className="form-horizontal">
-
+                            {currentParameter && currentParameter.changeParameter
+                                && (currentParameter.changeParameter.value == "frequency"
+                                    || currentParameter.changeParameter.value == "step"
+                                    || currentParameter.changeParameter.value == "rotateSpeed"
+                                    || currentParameter.changeParameter.value == "boldRate"
+                                    || currentParameter.changeParameter.value == "friction"
+                                    || currentParameter.changeParameter.value == "pointRotateSpeed") && (
+                                    <div>
+                                        {currentParameter && currentParameter.type
+                                            && (currentParameter.type == "step"
+                                                || currentParameter.type == "range") && (
                                                 <Field
-                                                    name={`${parameter}.from`}
+                                                    name={`${parameter}.stepAmount`}
                                                     component={Input}
-                                                    title="From" placeholder="From"
+                                                    title="Step amount" placeholder="Step Amount"
                                                 />
-                                                <Field
-                                                    name={`${parameter}.to`}
-                                                    component={Input}
-                                                    title="To" placeholder="To"
-                                                />
+                                            )}
+
+                                        {currentParameter && currentParameter.type && (currentParameter.type == "range" || currentParameter.type == "random") && (
+                                            <div>
+                                                <div className="form-horizontal">
+
+                                                    <Field
+                                                        name={`${parameter}.from`}
+                                                        component={Input}
+                                                        title="From" placeholder="From"
+                                                    />
+                                                    <Field
+                                                        name={`${parameter}.to`}
+                                                        component={Input}
+                                                        title="To" placeholder="To"
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
 
-                                    )}
+                                        )}
 
-                                </div>
-                            )}
+                                    </div>
+                                )}
 
                             {currentParameter && currentParameter.changeParameter && currentParameter.changeParameter.value == "math" && (
                                 <Field
@@ -236,10 +249,6 @@ class GenerationForm extends Component {
                             from: this.props.initialValues.from,
                             to: this.props.initialValues.to,
                             stepAmount: this.props.initialValues.stepAmount,
-                            changeParameter: {
-                                value: "step",
-                                label: "Step"
-                            }
                         })}
                         text="Add parameter"
                         icon="plus"
@@ -264,7 +273,7 @@ class GenerationForm extends Component {
                 <FieldArray name="parameters" component={this.renderColors} />
 
                 {this.props.user && <Button
-                    className={"submit-button update-shape main-button"}
+                    className={"control button-update main-button "}
                     loading={this.props.loading}
                     type="submit"
                     text="Generate"
