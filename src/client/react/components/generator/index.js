@@ -17,6 +17,11 @@ import {
     updateIteration
 } from "../../../redux/actions/generatorActions"
 
+import {
+    loadNewShape
+} from "../../../redux/actions/shapeActions"
+
+
 import SmallButton from "../smallButton"
 
 class Generator extends Component {
@@ -39,6 +44,12 @@ class Generator extends Component {
                 this.props.loadGeneratorToState(data.all[0])
             }
         );
+    }
+
+    componentDidUpdate = (prevprops) => {
+        if(this.props.generator.currentIteration !== prevprops.generator.currentIteration) {
+            this.generateIteration()
+        }
     }
 
     toggleRecord = () => {
@@ -65,11 +76,98 @@ class Generator extends Component {
                     iteration = 0
                 }
                 this.props.updateIteration(iteration)
+                this.generateIteration(iteration)
     
             }, this.props.generator.details.iterationGap);
 
             this.setState({ timeInterval });
         }
+    }
+
+    generateStep = (shape) => {
+        // console.log(this.props.generator.details.parameters)
+        let contains = _.filter(this.props.generator.details.parameters, (parameter) => {
+            return ( parameter.changeParameter.value == "step" )
+        })
+        if(contains.length > 0) {
+            let param = contains[0]
+
+            if(param.stepDirection == "forward") {
+                return shape.step + param.stepAmount * this.props.generator.currentIteration
+            } else if(param.stepDirection == "backward") { 
+                return shape.step - param.stepAmount * this.props.generator.currentIteration
+            }
+        } else {
+            return shape.step
+        }
+    }
+
+    generateFrequency = () => {
+    }
+
+    generateRotateSpeed = () => {
+    }
+
+    generateBoldRate = () => {
+    }
+
+    generateFriction = () => {
+    }
+
+    generatePointRotateSpeed = () => {
+    }
+
+    generateIteration = () => {
+        // console.log(this.props.shape.currentShape.defaultViz.shape, iteration)
+        // console.log(this.props.generator.details)
+
+        let parameterOptions = [
+            {
+                value: "math",
+                label: "Math"
+            },
+            {
+                value: "frequency",
+                label: "Frequency"
+            },
+            {
+                value: "step",
+                label: "Step"
+            },
+            {
+                value: "rotateSpeed",
+                label: "Rotation"
+            },
+            {
+                value: "boldRate",
+                label: "Boldness"
+            },
+            {
+                value: "friction",
+                label: "Friction"
+            },
+            {
+                value: "pointRotateSpeed",
+                label: "Point rotation speed"
+            },
+        ]
+
+        let shape = this.props.shape.currentShape.defaultViz.shape
+
+        let newShape = {
+            ...shape,
+            step: this.generateStep(shape)
+        }
+
+        this.props.loadNewShape({
+            ...this.props.shape.currentShape,
+            defaultViz: {
+                ...this.props.shape.currentShape.defaultViz,
+                shape: newShape
+            }
+        })
+
+        console.log(newShape)
     }
 
     render() {
@@ -98,7 +196,10 @@ class Generator extends Component {
     
                         <SmallButton
                             iconName="arrow-left"
-                            onClick={() => this.props.prevIteration()}
+                            onClick={() => {
+                                this.props.prevIteration()
+                                // this.generateIteration()
+                            }}
                         />
     
                         <SmallButton
@@ -109,7 +210,10 @@ class Generator extends Component {
     
                         <SmallButton
                             iconName="arrow-right"
-                            onClick={() => this.props.nextIteration()}
+                            onClick={() => {
+                                this.props.nextIteration()
+                                // this.generateIteration()
+                            }}
                         />
     
                         <SmallButton
@@ -156,7 +260,8 @@ function mapStateToProps(state) {
         location: state.router.location,
         demoMode: false,
         app: state.app,
-        generator: state.generator
+        generator: state.generator,
+        shape: state.shape
     };
 }
 
@@ -171,5 +276,6 @@ export default connect(mapStateToProps, {
     stopGenerator,
     nextIteration,
     prevIteration,
-    updateIteration
+    updateIteration,
+    loadNewShape
 })(withRouter(Generator));
