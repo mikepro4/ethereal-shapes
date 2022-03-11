@@ -68,6 +68,8 @@ export const generatorReducer = (state = initialState, action) => {
             return {
                 ...state,
                 details: action.payload,
+                currentIteration: 0,
+                status: "stop",
             } ;
         case CLEAR_GENERATOR:
             return {

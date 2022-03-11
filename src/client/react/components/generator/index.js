@@ -13,7 +13,8 @@ import {
     playGenerator,
     stopGenerator,
     nextIteration,
-    prevIteration
+    prevIteration,
+    updateIteration
 } from "../../../redux/actions/generatorActions"
 
 import SmallButton from "../smallButton"
@@ -51,8 +52,23 @@ class Generator extends Component {
     togglePlay = () => {
         if(this.props.generator.status == "play"){
             this.props.pauseGenerator()
+            clearInterval(this.state.timeInterval)
         } else {
             this.props.playGenerator()
+            const timeInterval = setInterval(() => {
+
+                let iteration
+
+                if(this.props.generator.currentIteration + 1 < this.props.generator.details.iterations) {
+                    iteration = this.props.generator.currentIteration + 1
+                } else {
+                    iteration = 0
+                }
+                this.props.updateIteration(iteration)
+    
+            }, this.props.generator.details.iterationGap);
+
+            this.setState({ timeInterval });
         }
     }
 
@@ -73,7 +89,11 @@ class Generator extends Component {
                         <SmallButton
                             title={this.props.generator.details.title}
                             iconName="edit"
-                            onClick={() => this.props.showDrawer("generation")}
+                            onClick={() => {
+                                this.props.pauseGenerator()
+                                clearInterval(this.state.timeInterval)
+                                this.props.showDrawer("generation")}
+                            }
                         />
     
                         <SmallButton
@@ -84,7 +104,7 @@ class Generator extends Component {
                         <SmallButton
                             title={this.props.generator.currentIteration}
                             iterationCount={true}
-                            onClick={() => alert("iterations")}
+                            onClick={() => this.props.showDrawer("iterations")}
                         />
     
                         <SmallButton
@@ -99,7 +119,10 @@ class Generator extends Component {
     
                         <SmallButton
                             iconName="stop"
-                            onClick={() => this.props.stopGenerator()}
+                            onClick={() => {
+                                this.props.stopGenerator()
+                                clearInterval(this.state.timeInterval)
+                            }}
                         />
 
                         <SmallButton
@@ -112,8 +135,8 @@ class Generator extends Component {
                     </div>
                     <div className="generator-right">
                         <SmallButton
-                            iconName="cross"
-                            onClick={() => alert("exit")}
+                            iconName="plus"
+                            onClick={() => alert("add")}
                         />
                     </div>
                 </div>
@@ -147,5 +170,6 @@ export default connect(mapStateToProps, {
     playGenerator,
     stopGenerator,
     nextIteration,
-    prevIteration
+    prevIteration,
+    updateIteration
 })(withRouter(Generator));

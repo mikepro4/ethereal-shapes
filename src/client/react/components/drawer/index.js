@@ -19,6 +19,7 @@ import DeleteCollection from "./type/delete_collection"
 import EditCollection from "./type/edit_collection"
 import CollectionActions from "./type/collection_actions"
 import Generation from "./type/generation"
+import Iterations from "./type/iterations"
 
 class Drawer extends Component {
 
@@ -55,6 +56,8 @@ class Drawer extends Component {
                 return (<CollectionActions hideDrawer={() => this.hideDrawer()} enablePortal/>)
             case "generation":
                 return (<Generation hideDrawer={() => this.hideDrawer()} enablePortal/>)
+            case "iterations":
+                return (<Iterations hideDrawer={() => this.hideDrawer()} enablePortal/>)
             default:
                 return ;
         }
