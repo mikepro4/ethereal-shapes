@@ -47,6 +47,8 @@ import ipfsHttpClient from "ipfs-http-client";
 
 import { Buffer } from 'buffer';
 
+import Generator from "../../components/generator"
+
 // var client = ipfsHttpClient('ipfs.infura.io:5001/api/v0', "", { protocol: "https"}) // leaving out the arguments will default to these values
 
 import {
@@ -90,7 +92,7 @@ class NFTPage extends Component {
 	}
 
     componentDidMount() {
-        this.props.showDrawer("generation");
+        // this.props.showDrawer("generation");
         this.props.updateMarketTokens()
 
         if (this.props.match.params.tokenId) {
@@ -846,12 +848,16 @@ class NFTPage extends Component {
                     } large={true} more={true} mic={true} type={this.renderButtonStatus()} />}
                 </div>
 
-                <div className="description-editor">
+                <Generator
+                    details={this.props.generator}
+                />
+
+                {/* <div className="description-editor">
                     <EditorEditableField
                         value={this.state.description ? this.state.description : ""}
                         updateField={(value) => this.handleDescriptionChange(value)}
                     />
-                </div>
+                </div> */}
 
                 {this.renderScreen()}
 
@@ -886,7 +892,8 @@ function mapStateToProps(state) {
         app: state.app,
         shape: state.shape,
         nft: state.activeNFT.newNFT,
-        player: state.player
+        player: state.player,
+        generator: state.generator
     };
 }
 

@@ -5,9 +5,145 @@ import axios from "axios";
 import update from "immutability-helper";
 
 import {
-    LOAD_COLLECTION,
-    CLEAR_COLLECTION
+    LOAD_GENERATOR,
+    CLEAR_GENERATOR,
+    PLAY_GENERATOR,
+    PAUSE_GENERATOR,
+    STOP_GENERATOR,
+    NEXT_ITERATION,
+    PREV_ITERATION,
+    UPDATE_ITERATION
 } from "./types";
+
+// ===========================================================================
+
+export const updateIteration = (iteration, success) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: UPDATE_ITERATION,
+        payload: iteration
+    });
+    
+    if (success) {
+        success();
+    }
+};
+
+// ===========================================================================
+
+export const prevIteration = (success) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: PREV_ITERATION,
+    });
+    
+    if (success) {
+        success();
+    }
+};
+
+// ===========================================================================
+
+export const nextIteration = (success) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: NEXT_ITERATION,
+    });
+    
+    if (success) {
+        success();
+    }
+};
+
+// ===========================================================================
+
+export const stopGenerator = (success) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: STOP_GENERATOR,
+    });
+    
+    if (success) {
+        success();
+    }
+};
+
+// ===========================================================================
+
+export const pauseGenerator = (success) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: PAUSE_GENERATOR,
+    });
+    
+    if (success) {
+        success();
+    }
+};
+
+// ===========================================================================
+
+export const playGenerator = (success) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: PLAY_GENERATOR,
+    });
+    
+    if (success) {
+        success();
+    }
+};
+
+// ===========================================================================
+
+export const clearGenerator = (success) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: CLEAR_GENERATOR,
+    });
+    
+    if (success) {
+        success();
+    }
+};
+
+// ===========================================================================
+
+export const loadGeneratorToState = (generator, success) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: LOAD_GENERATOR,
+        payload: generator
+    });
+
+    if (success) {
+        success();
+    }
+};
 
 // ===========================================================================
 

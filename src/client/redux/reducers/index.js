@@ -8,6 +8,7 @@ import { blocksReducer } from "./blocksReducer";
 import { shapeReducer } from "./shapeReducer";
 import { nftReducer } from "./nftReducer";
 import { collectionReducer } from "./collectionReducer";
+import { generatorReducer } from "./generatorReducer";
 
 export default (history) => combineReducers({
     router: connectRouter(history),
@@ -18,5 +19,6 @@ export default (history) => combineReducers({
     blocks: blocksReducer,
     shape: shapeReducer,
     activeNFT: nftReducer,
-    collection: collectionReducer
+    collection: collectionReducer,
+    generator: generatorReducer
 })

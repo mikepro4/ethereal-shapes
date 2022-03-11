@@ -65,6 +65,17 @@ class GenerationForm extends Component {
             }
         ]
 
+        let stepDirection = [
+            {
+                value: "backward",
+                name: "Backward"
+            },
+            {
+                value: "forward",
+                name: "Forward"
+            }
+        ]
+
         let parameterOptions = [
             {
                 value: "math",
@@ -96,14 +107,14 @@ class GenerationForm extends Component {
             },
         ]
 
-        let finalshape
-        if(this.props.shape.newShape && this.props.shape.newShape.defaultViz) {
-            finalshape = this.props.newShape.defaultViz.shape
-        } else {
-            if(this.props.shape.currentShape && this.props.shape.currentShape.defaultViz) {
-                finalshape = this.props.shape.currentShape.defaultViz.shape
-            }
-        }
+        // let finalshape
+        // if(this.props.shape.newShape && this.props.shape.newShape.defaultViz) {
+        //     finalshape = this.props.shape.newShape.defaultViz.shape
+        // } else {
+        //     if(this.props.shape.currentShape && this.props.shape.currentShape.defaultViz) {
+        //         finalshape = this.props.shape.currentShape.defaultViz.shape
+        //     }
+        // }
 
 
 
@@ -161,15 +172,17 @@ class GenerationForm extends Component {
                                 component={ReactSelect}
                                 label="Select parameter"
                                 onChange={(data) => {
-                                    let newParameters = update(this.props.stateForm.generationForm.values.parameters, {
-                                        $splice: [[index, 1, {
-                                            ...this.props.stateForm.generationForm.values.parameters[index],
-                                            from: finalshape[data.value],
-                                            to: finalshape[data.value] + 0.5
-                                        }]]
-                                    });
-
-                                    this.props.changeForm("generationForm", "parameters", newParameters)
+                                    // if(this.props.stateForm.generationForm) {
+                                    //     let newParameters = update(this.props.stateForm.generationForm.values.parameters, {
+                                    //         $splice: [[index, 1, {
+                                    //             ...this.props.stateForm.generationForm.values.parameters[index],
+                                    //             from: finalshape[data.value],
+                                    //             to: finalshape[data.value] + 0.5
+                                    //         }]]
+                                    //     });
+    
+                                    //     this.props.changeForm("generationForm", "parameters", newParameters)
+                                    // }
                                 }}
                             />
 
@@ -184,16 +197,25 @@ class GenerationForm extends Component {
                                         {currentParameter && currentParameter.type
                                             && (currentParameter.type == "step"
                                                 || currentParameter.type == "range") && (
-                                                <Field
-                                                    name={`${parameter}.stepAmount`}
-                                                    component={Input}
-                                                    title="Step amount" placeholder="Step Amount"
-                                                />
+                                                <div>
+                                                    <Field
+                                                        name={`${parameter}.stepAmount`}
+                                                        component={Input}
+                                                        title="Step amount" placeholder="Step Amount"
+                                                    />
+                                                    <Field
+                                                        name={`${parameter}.stepDirection`}
+                                                        component={TabGroup}
+                                                        className="stepDirection-tabs"
+                                                        tabOptions={stepDirection}
+                                                        label="Step direction"
+                                                    />
+                                                </div>
                                             )}
 
                                         {currentParameter && currentParameter.type && (currentParameter.type == "range" || currentParameter.type == "random") && (
                                             <div>
-                                                <div className="form-horizontal">
+                                                <div>
 
                                                     <Field
                                                         name={`${parameter}.from`}
@@ -268,11 +290,20 @@ class GenerationForm extends Component {
                     title="Title" placeholder="Title"
                 />
 
-                <Field
-                    name="iterations"
-                    component={Input}
-                    title="Iterations" placeholder="Iterations"
-                />
+                <div className="form-horizontal">
+                    <Field
+                        name="iterations"
+                        component={Input}
+                        title="Iterations" placeholder="Iterations"
+                    />
+
+                    <Field
+                        name="iterationGap"
+                        component={Input}
+                        title="Iteration gap" placeholder="Iteration gap"
+                    />
+                </div>
+                
 
                 <FieldArray name="parameters" component={this.renderColors} />
 

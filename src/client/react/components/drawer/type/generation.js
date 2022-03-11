@@ -21,7 +21,8 @@ import {
     createGenerator,
     loadGenerator,
     updateGenerator,
-    deleteGenerator
+    deleteGenerator,
+    loadGeneratorToState
 } from "../../../../redux/actions/generatorActions"
 
 import GenerationForm from "./generation_form"
@@ -40,24 +41,32 @@ class Generation extends Component {
         this.debouncedOnChange = _.debounce(this.handleFormSubmit, 1000);
     }
 
+    componentDidMount = () => {
+        if(this.props.generator.details) {
+            this.setState({
+                generator: this.props.generator.details
+            })
+        }
+    }
+
 
     handleFormSubmit(data) {
         console.log(data)
 
-        this.setState({
-            loading: true
-        })
+        // this.setState({
+        //     loading: true
+        // })
 
-        this.props.updateWord(this.props.word, data, () => {
-            // this.props.hideDrawer()
-            this.setState({
-                loading: false
-            })
+        // this.props.updateWord(this.props.word, data, () => {
+        //     // this.props.hideDrawer()
+        //     this.setState({
+        //         loading: false
+        //     })
 
-            this.props.loadWord(this.getQueryParams().word, (data) => {
-                console.log(data)
-            })
-        })
+        //     this.props.loadWord(this.getQueryParams().word, (data) => {
+        //         console.log(data)
+        //     })
+        // })
     }
 
     handleFormSubmitGenerator(data) {
@@ -77,6 +86,12 @@ class Generation extends Component {
                 <GeneratorSelectorForm
                     enableReinitialize="true"
                     loading={this.state.loading}
+                    // initialValues={
+                    //     {
+                    //         value: this.state.generator && this.state.generator.details && this.state.generator.details._id,
+                    //         label: this.state.generator && this.state.generator.details && this.state.generator.details.title
+                    //     }
+                    // }
                     onSubmit={this.handleFormSubmitGenerator.bind(this)}
                     theme={this.props.theme}
                     onChange={values => {
@@ -85,6 +100,8 @@ class Generation extends Component {
                                 this.setState({
                                     generator: data
                                 })
+
+                                this.props.loadGeneratorToState(data)
                             })
                         } else {
                             this.setState({
@@ -119,6 +136,23 @@ class Generation extends Component {
                 />
 
                 <ul className="generator-actions">
+
+                    <li>
+                        <Button
+                            className={"main-button "}
+                            loading={this.props.loading}
+                            text="Load generator"
+                            large="true"
+                            icon="play"
+                            onClick={() => {
+                                this.props.loadGeneratorToState(this.props.form.generationForm.values, (data) => {
+                                    console.log(data)
+                                    this.props.hideDrawer()
+                                })
+                            }}
+                        />
+                    </li>
+
                     <li>
                         <Button
                             className={"main-button "}
@@ -147,6 +181,7 @@ class Generation extends Component {
                                 this.props.updateGenerator(this.props.form.generationForm.values, (data) => {
                                     console.log(data)
                                     this.props.hideDrawer()
+                                    this.props.loadGeneratorToState(data.generator)
                                 })
                             }}
                         />
@@ -184,7 +219,8 @@ function mapStateToProps(state) {
         user: state.app.user,
         authenticated: state.auth.authenticated,
         shape: state.shape,
-        form: state.form
+        form: state.form,
+        generator: state.generator
     };
 }
 
@@ -194,5 +230,6 @@ export default withRouter(connect(mapStateToProps, {
     updateGenerator,
     deleteGenerator,
     hideDrawer,
-    resetForm
+    resetForm,
+    loadGeneratorToState
 })(Generation));

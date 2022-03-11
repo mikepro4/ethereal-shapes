@@ -120,3 +120,16 @@ export const LOAD_COLLECTION = "app/LOAD_COLLECTION"
 export const CLEAR_COLLECTION = "app/CLEAR_COLLECTION"
 
 // =============================================================================
+
+// Generator
+
+export const LOAD_GENERATOR = "app/LOAD_GENERATOR"
+export const CLEAR_GENERATOR = "app/CLEAR_GENERATOR"
+export const PLAY_GENERATOR = "app/PLAY_GENERATOR"
+export const PAUSE_GENERATOR = "app/PAUSE_GENERATOR"
+export const STOP_GENERATOR = "app/STOP_GENERATOR"
+export const NEXT_ITERATION = "app/NEXT_ITERATION"
+export const PREV_ITERATION = "app/PREV_ITERATION"
+export const UPDATE_ITERATION = "app/UPDATE_ITERATION"
+
+// =============================================================================

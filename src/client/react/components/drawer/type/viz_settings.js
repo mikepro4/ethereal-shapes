@@ -31,7 +31,8 @@ import {
     demoOn,
     demoOff,
     setTouchZones,
-    setDownloadSVG
+    setDownloadSVG,
+    showDrawer
 } from "../../../../redux/actions/appActions"
 
 class VizSettings extends Component {
@@ -156,7 +157,6 @@ class VizSettings extends Component {
                             }}
                         />
 
-
                     </div>
 
                     {!this.props.app.iframe && <div>
@@ -211,6 +211,10 @@ class VizSettings extends Component {
                             className={"control button-saveas main-button theme-" + this.props.theme}
                             onClick={() => this.props.setDownloadSVG(true)}>Save as SVG</Button>
 
+                        <Button
+                            className={"control button-saveas main-button theme-" + this.props.theme}
+                            onClick={() => this.props.showDrawer("generation")}>Show generator</Button>
+
                         <div className="demo-switch-container">
                             {this.renderDemoSwitch()}
                         </div>
@@ -254,5 +258,6 @@ export default withRouter(connect(mapStateToProps, {
     demoOn,
     demoOff,
     setTouchZones,
-    setDownloadSVG
+    setDownloadSVG,
+    showDrawer
 })(VizSettings));

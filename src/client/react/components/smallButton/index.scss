@@ -1,0 +1,40 @@
+.small-button {
+    cursor: pointer;
+    background: rgba($white, 0.1);
+    padding: 5px 5px;
+    border-radius: 3px;
+    margin-right:  10px;
+
+
+    .small-button-title {
+        font-size: 11px;
+    }
+
+    span:nth-child(2) {
+        margin-left: 5px;
+    }
+
+    svg {
+        width: 12px;
+        height: 12px;
+        position: relative;
+        // top: -1px;
+        // right: -1px;
+    }
+
+    min-width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.iteration-count {
+        width: 50px;
+        justify-content: left;
+    }
+}
+
+.generator-left {
+    display: flex;
+}
+
