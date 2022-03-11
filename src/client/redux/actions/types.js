@@ -132,4 +132,7 @@ export const NEXT_ITERATION = "app/NEXT_ITERATION"
 export const PREV_ITERATION = "app/PREV_ITERATION"
 export const UPDATE_ITERATION = "app/UPDATE_ITERATION"
 
+export const START_RECORD_NFT = "app/START_RECORD_NFT"
+export const STOP_RECORD_NFT = "app/STOP_RECORD_NFT"
+
 // =============================================================================

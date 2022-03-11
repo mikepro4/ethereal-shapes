@@ -12,8 +12,42 @@ import {
     STOP_GENERATOR,
     NEXT_ITERATION,
     PREV_ITERATION,
-    UPDATE_ITERATION
+    UPDATE_ITERATION,
+    START_RECORD_NFT,
+    STOP_RECORD_NFT
 } from "./types";
+
+// ===========================================================================
+
+export const startRecord = (success) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: START_RECORD_NFT
+    });
+    
+    if (success) {
+        success();
+    }
+};
+
+// ===========================================================================
+
+export const stopRecord = (success) => async (
+    dispatch,
+    getState,
+    api
+) => {
+    dispatch({
+        type: STOP_RECORD_NFT
+    });
+    
+    if (success) {
+        success();
+    }
+};
 
 // ===========================================================================
 

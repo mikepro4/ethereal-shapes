@@ -9,17 +9,30 @@ import {
     STOP_GENERATOR,
     NEXT_ITERATION,
     PREV_ITERATION,
-    UPDATE_ITERATION
+    UPDATE_ITERATION,
+    START_RECORD_NFT,
+    STOP_RECORD_NFT
 } from "../actions/types";
 
 export const initialState = {
     details: null,
     status: "stop",
+    record: false,
     currentIteration: 0
 };
 
 export const generatorReducer = (state = initialState, action) => {
 	switch (action.type) {
+        case START_RECORD_NFT:
+            return {
+                ...state,
+                record: true
+            } ;
+        case STOP_RECORD_NFT:
+            return {
+                ...state,
+                record: false
+            } ;
         case PLAY_GENERATOR:
             return {
                 ...state,
@@ -39,12 +52,12 @@ export const generatorReducer = (state = initialState, action) => {
         case NEXT_ITERATION:
             return {
                 ...state,
-                currentIteration: this.state.currentIteration + 1
+                currentIteration: state.currentIteration + 1
             } ;
         case PREV_ITERATION:
             return {
                 ...state,
-                currentIteration: this.state.currentIteration - 1
+                currentIteration: state.currentIteration - 1
             } ;
         case UPDATE_ITERATION:
             return {

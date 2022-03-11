@@ -20,7 +20,8 @@ class SmallButton extends Component {
             <div 
                 className={classNames({
                     "small-button": true,
-                    "iteration-count": this.props.iterationCount
+                    "iteration-count": this.props.iterationCount,
+                    "record": this.props.record
                 })}
                 onClick={() => this.props.onClick()}
             >

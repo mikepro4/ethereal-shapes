@@ -32,6 +32,10 @@
         width: 50px;
         justify-content: left;
     }
+
+    &.record {
+        background: $red1;
+    }
 }
 
 .generator-left {

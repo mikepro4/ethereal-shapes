@@ -4,7 +4,17 @@ import { withRouter, Link } from "react-router-dom";
 import classNames from "classnames"
 
 import { showDrawer } from "../../../redux/actions/appActions"
-import { searchGenerators, loadGeneratorToState } from "../../../redux/actions/generatorActions"
+import { 
+    searchGenerators, 
+    loadGeneratorToState,
+    startRecord,
+    stopRecord,
+    pauseGenerator,
+    playGenerator,
+    stopGenerator,
+    nextIteration,
+    prevIteration
+} from "../../../redux/actions/generatorActions"
 
 import SmallButton from "../smallButton"
 
@@ -30,8 +40,33 @@ class Generator extends Component {
         );
     }
 
+    toggleRecord = () => {
+        if(this.props.generator.record){
+            this.props.stopRecord()
+        } else {
+            this.props.startRecord()
+        }
+    }
+
+    togglePlay = () => {
+        if(this.props.generator.status == "play"){
+            this.props.pauseGenerator()
+        } else {
+            this.props.playGenerator()
+        }
+    }
+
     render() {
         if(this.props.generator && this.props.generator.details) {
+
+            let icon
+
+            if(this.props.generator.status == "play") {
+                icon = "pause"
+            } else {
+                icon = "play"
+            }
+
             return(
                 <div className="generator">
                     <div className="generator-left">
@@ -43,28 +78,34 @@ class Generator extends Component {
     
                         <SmallButton
                             iconName="arrow-left"
-                            onClick={() => alert("back")}
+                            onClick={() => this.props.prevIteration()}
                         />
     
                         <SmallButton
-                            title="0"
+                            title={this.props.generator.currentIteration}
                             iterationCount={true}
                             onClick={() => alert("iterations")}
                         />
     
                         <SmallButton
                             iconName="arrow-right"
-                            onClick={() => alert("right")}
+                            onClick={() => this.props.nextIteration()}
                         />
     
                         <SmallButton
-                            iconName="play"
-                            onClick={() => alert("play")}
+                            iconName={icon}
+                            onClick={() => this.togglePlay()}
                         />
     
                         <SmallButton
                             iconName="stop"
-                            onClick={() => alert("stop")}
+                            onClick={() => this.props.stopGenerator()}
+                        />
+
+                        <SmallButton
+                            iconName="record"
+                            record={this.props.generator.record}
+                            onClick={() => this.toggleRecord()}
                         />
     
                         
@@ -99,5 +140,12 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
     showDrawer,
     searchGenerators,
-    loadGeneratorToState
+    loadGeneratorToState,
+    startRecord,
+    stopRecord,
+    pauseGenerator,
+    playGenerator,
+    stopGenerator,
+    nextIteration,
+    prevIteration
 })(withRouter(Generator));
