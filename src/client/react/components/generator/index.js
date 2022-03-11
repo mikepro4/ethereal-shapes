@@ -84,21 +84,21 @@ class Generator extends Component {
         }
     }
 
-    generateStep = (shape) => {
+    generateParameter = (shape, key) => {
         // console.log(this.props.generator.details.parameters)
         let contains = _.filter(this.props.generator.details.parameters, (parameter) => {
-            return ( parameter.changeParameter.value == "step" )
+            return ( parameter.changeParameter.value == key )
         })
         if(contains.length > 0) {
             let param = contains[0]
 
             if(param.stepDirection == "forward") {
-                return shape.step + param.stepAmount * this.props.generator.currentIteration
+                return shape[key] + param.stepAmount * this.props.generator.currentIteration
             } else if(param.stepDirection == "backward") { 
-                return shape.step - param.stepAmount * this.props.generator.currentIteration
+                return shape[key] - param.stepAmount * this.props.generator.currentIteration
             }
         } else {
-            return shape.step
+            return shape[key]
         }
     }
 
@@ -156,7 +156,12 @@ class Generator extends Component {
 
         let newShape = {
             ...shape,
-            step: this.generateStep(shape)
+            step: this.generateParameter(shape, "step"),
+            frequency: this.generateParameter(shape, "frequency"),
+            rotateSpeed: this.generateParameter(shape, "rotateSpeed"),
+            boldRate: this.generateParameter(shape, "boldRate"),
+            friction: this.generateParameter(shape, "friction"),
+            pointRotateSpeed: this.generateParameter(shape, "pointRotateSpeed"),
         }
 
         this.props.loadNewShape({

@@ -101,6 +101,7 @@ class SliderComponent extends Component {
     }
 
     subtract = () => {
+        let inc 
         if(this.props.incrementStep) {
             inc = this.props.incrementStep
         } else {
