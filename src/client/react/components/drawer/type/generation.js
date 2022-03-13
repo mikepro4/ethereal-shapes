@@ -173,6 +173,7 @@ class Generation extends Component {
                             large="true"
                             icon="plus"
                             onClick={() => {
+                                delete this.props.form.generationForm.values["_id"]; 
                                 this.props.createGenerator(this.props.form.generationForm.values, (data) => {
                                     console.log(data)
                                     this.props.hideDrawer()

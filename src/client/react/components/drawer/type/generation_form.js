@@ -76,6 +76,21 @@ class GenerationForm extends Component {
             }
         ]
 
+        let rangeBehavior = [
+            {
+                value: "single",
+                name: "Single"
+            },
+            {
+                value: "loop",
+                name: "Loop"
+            },
+            {
+                value: "bounce",
+                name: "Bounce"
+            }
+        ]
+
         let parameterOptions = [
             {
                 value: "math",
@@ -159,6 +174,24 @@ class GenerationForm extends Component {
                             <h4>Parameter #{index + 1}</h4>
 
                             <Field
+                                name={`${parameter}.delayIterations`}
+                                component={Input}
+                                title="Delay iterations" placeholder="Delay iterations"
+                            />
+
+                            {this.props.stateForm.generationForm && this.props.stateForm.generationForm.values && this.props.stateForm.generationForm.values.iterations &&  <Field
+                                name={`${parameter}.delayIterations`}
+                                component={Slider}
+                                label="Delay iterations"
+                                resetValue={1000}
+                                sliderMax={this.props.stateForm.generationForm.values.iterations}
+                                labelStepSize={this.props.stateForm.generationForm.values.iterations / 5}
+                                incrementStep={1}
+                                stepSize={1}
+                            />}
+                           
+
+                            <Field
                                 name={`${parameter}.type`}
                                 component={TabGroup}
                                 className="type-tabs"
@@ -196,7 +229,7 @@ class GenerationForm extends Component {
                                     <div>
                                         {currentParameter && currentParameter.type
                                             && (currentParameter.type == "step"
-                                                || currentParameter.type == "range") && (
+                                                ) && (
                                                 <div>
                                                     <Field
                                                         name={`${parameter}.stepAmount`}
@@ -226,6 +259,29 @@ class GenerationForm extends Component {
                                                         name={`${parameter}.to`}
                                                         component={Input}
                                                         title="To" placeholder="To"
+                                                    />
+
+                                                    <Field
+                                                        name={`${parameter}.rangeIterations`}
+                                                        component={Input}
+                                                        title="Range iterations" placeholder="Range iterations"
+                                                    />
+                                                    <Field
+                                                        name={`${parameter}.rangeIterations`}
+                                                        component={Slider}
+                                                        label="Range iterations"
+                                                        resetValue={1000}
+                                                        sliderMax={this.props.stateForm.generationForm.values.iterations}
+                                                        labelStepSize={this.props.stateForm.generationForm.values.iterations / 5}
+                                                        incrementStep={1}
+                                                        stepSize={1}
+                                                    />
+                                                    <Field
+                                                        name={`${parameter}.rangeBehavior`}
+                                                        component={TabGroup}
+                                                        className="rangeBehavior-tabs"
+                                                        tabOptions={rangeBehavior}
+                                                        label="Range behavior"
                                                     />
                                                 </div>
                                             </div>

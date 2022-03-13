@@ -136,6 +136,10 @@ class Generator extends Component {
        
     }
 
+    isOdd = (num) => { 
+        return num % 2;
+    }
+
     generateParameter = (shape, key) => {
         // console.log(this.props.generator.details.parameters)
         let contains = _.filter(this.props.generator.details.parameters, (parameter) => {
@@ -143,17 +147,61 @@ class Generator extends Component {
         })
         if (contains.length > 0) {
             let param = contains[0]
-            if(param.type == "step") {
-                if (param.stepDirection == "forward") {
-                    return shape[key] + param.stepAmount * this.props.generator.currentIteration
-                } else if (param.stepDirection == "backward") {
-                    return shape[key] - param.stepAmount * this.props.generator.currentIteration
+            let delayIterations
+
+            if(param.delayIterations) {
+                delayIterations = param.delayIterations
+            } else {
+                delayIterations = 0
+            }
+            if(this.props.generator.currentIteration > parseInt(delayIterations, 10)) {
+                if(param.type == "step") {
+                    if (param.stepDirection == "forward") {
+                        return shape[key] + param.stepAmount * this.props.generator.currentIteration
+                    } else if (param.stepDirection == "backward") {
+                        return shape[key] - param.stepAmount * this.props.generator.currentIteration
+                    }
+                }  if(param.type == "random") {
+                    console.log(param)
+                    let from = parseInt(param.from, 10)
+                    let to = parseInt(param.to, 10)
+                    return(this.randomNumber(from, to))
+                } if(param.type == "range") {
+                    console.log(param)
+                    let from = parseInt(param.from, 10)
+                    let to = parseInt(param.to, 10)
+                    let delayIterations = parseInt(param.delayIterations, 10)
+                    let rangeIterations = parseInt(param.rangeIterations, 10)
+
+                    let startFrame = delayIterations
+                    let endframe = delayIterations + rangeIterations
+                    let difference = to - from
+                    let step = (difference / rangeIterations).toFixed(6)
+
+                    let frame = this.props.generator.currentIteration % rangeIterations
+                    let finalFrame = rangeIterations - frame * 100
+                    console.log(frame)
+
+                    if(this.props.generator.currentIteration < endframe) {
+                        return shape[key] + step * (this.props.generator.currentIteration - delayIterations)
+                    } else {
+                        if(param.rangeBehavior == "loop") {
+                            return shape[key] + step * (rangeIterations - frame)
+                        } if(param.rangeBehavior == "single") {
+                            return shape[key] + step * (rangeIterations)
+                        }
+                        // if(this.props.generator.currentIteration % rangeIterations) {
+                        //     return shape[key] + step * finalFrame
+                        // } else {
+                        //     return shape[key] - step * finalFrame
+                        // }
+                        
+                    }
+
+
                 }
-            }  if(param.type == "random") {
-                console.log(param)
-                let from = parseInt(param.from, 10)
-                let to = parseInt(param.to, 10)
-                return(this.randomNumber(from, to))
+            } else {
+                return shape[key]
             }
             
         } else {

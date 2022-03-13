@@ -58,5 +58,11 @@
             grid-column-gap: 2px;
         }
 
+        &.rangeBehavior-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-column-gap: 2px;
+        }
+
     }
 }
