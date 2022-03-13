@@ -60,9 +60,10 @@ export const generatorReducer = (state = initialState, action) => {
                 currentIteration: state.currentIteration - 1
             } ;
         case UPDATE_ITERATION:
+            let i = parseInt(action.payload, 10)
             return {
                 ...state,
-                currentIteration: action.payload
+                currentIteration: i ? i : 0
             } ;
         case LOAD_GENERATOR:
             return {

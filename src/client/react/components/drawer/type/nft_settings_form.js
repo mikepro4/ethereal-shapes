@@ -393,7 +393,15 @@ class NFTSettingsForm extends Component {
                     loading={this.state.loading}
                     onClick={() => {
 
-                        this.props.createShape(this.props.shape.currentShape, (data) => {
+                        let shape
+
+                        if(this.props.shape.newShape && this.props.shape.newShape.defaultViz) {
+                            shape = this.props.shape.newShape
+                        } else {
+                            shape = this.props.shape.currentShape
+                        }
+
+                        this.props.createShape(shape, (data) => {
 
 
                             let newNFT = {
