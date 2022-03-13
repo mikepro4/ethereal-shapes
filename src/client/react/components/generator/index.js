@@ -137,7 +137,7 @@ class Generator extends Component {
     }
 
     isOdd = (num) => { 
-        return num % 2;
+        return (num % 2 == 0);
     }
 
     generateParameter = (shape, key) => {
@@ -186,9 +186,17 @@ class Generator extends Component {
                         return shape[key] + step * (this.props.generator.currentIteration - delayIterations)
                     } else {
                         if(param.rangeBehavior == "loop") {
-                            return shape[key] + step * (rangeIterations - frame)
+                            return shape[key] + step * frame
                         } if(param.rangeBehavior == "single") {
                             return shape[key] + step * (rangeIterations)
+                        } if(param.rangeBehavior == "bounce") {
+                            let test = Math.floor(this.props.generator.currentIteration / rangeIterations)
+                            console.log("TEST: ", test, this.isOdd(parseInt(test, 10)))
+                            if(!this.isOdd(parseInt(test, 10))) {
+                                return shape[key] + step * (rangeIterations - frame) 
+                            } else {
+                                return shape[key] + step * (frame + 1)
+                            }
                         }
                         // if(this.props.generator.currentIteration % rangeIterations) {
                         //     return shape[key] + step * finalFrame
