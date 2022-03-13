@@ -47,7 +47,7 @@ class Iterations extends Component {
 
 	render() {
         return (
-            <div className={"app-drawer-content-container standard-drawer connect-wallet theme-" + this.props.theme}>
+            <div className={"app-drawer-content-container standard-drawer iterations-drawer theme-" + this.props.theme}>
                <IterationForm
                     enableReinitialize="true"
                     initialValues={

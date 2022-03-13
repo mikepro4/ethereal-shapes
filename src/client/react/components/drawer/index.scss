@@ -316,7 +316,7 @@
 }
 
 .nft-settings-drawer {
-    height: 85%;
+    height: 80%;
     @media only screen and (min-width: $mobile) {
         width: 600px;
     }
@@ -418,4 +418,8 @@
             margin-top: 100px;
         }
     }
+}
+
+.iterations-drawer {
+    padding-bottom: 0;
 }

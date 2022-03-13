@@ -4,10 +4,17 @@
     padding: 5px 5px;
     border-radius: 3px;
     margin-right:  10px;
+    transition: all 0.5s linear;
 
+    &:active {
+        background: $white;
+    }
 
     .small-button-title {
         font-size: 11px;
+        width: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     span:nth-child(2) {
@@ -29,6 +36,9 @@
     justify-content: center;
 
     &.iteration-count {
+        .small-button-title {
+            width: inherit;
+        }
         width: 50px;
         justify-content: left;
     }
@@ -38,7 +48,7 @@
     }
 }
 
-.generator-left {
+.generator-left, .generator-right {
     display: flex;
 }
 

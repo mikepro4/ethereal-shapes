@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import classNames from "classnames"
 
-import { showDrawer } from "../../../redux/actions/appActions"
+import { 
+    showDrawer,
+    hideDrawer
+} from "../../../redux/actions/appActions"
 import { 
     searchGenerators, 
     loadGeneratorToState,
@@ -102,21 +105,6 @@ class Generator extends Component {
         }
     }
 
-    generateFrequency = () => {
-    }
-
-    generateRotateSpeed = () => {
-    }
-
-    generateBoldRate = () => {
-    }
-
-    generateFriction = () => {
-    }
-
-    generatePointRotateSpeed = () => {
-    }
-
     generateIteration = () => {
         // console.log(this.props.shape.currentShape.defaultViz.shape, iteration)
         // console.log(this.props.generator.details)
@@ -172,7 +160,7 @@ class Generator extends Component {
             }
         })
 
-        console.log(newShape)
+        // console.log(newShape)
     }
 
     render() {
@@ -187,7 +175,11 @@ class Generator extends Component {
             }
 
             return(
-                <div className="generator">
+                <div 
+                    className={classNames({
+                        "generator": true,
+                        "demo": this.props.app.demoMode
+                    })}>
                     <div className="generator-left">
                         <SmallButton
                             title={this.props.generator.details.title}
@@ -195,7 +187,12 @@ class Generator extends Component {
                             onClick={() => {
                                 this.props.pauseGenerator()
                                 clearInterval(this.state.timeInterval)
-                                this.props.showDrawer("generation")}
+                                if(this.props.app.drawerType == "generation") {
+                                    this.props.hideDrawer()
+                                } else {
+                                    this.props.showDrawer("generation")
+                                }
+                            }
                             }
                         />
     
@@ -244,6 +241,10 @@ class Generator extends Component {
                     </div>
                     <div className="generator-right">
                         <SmallButton
+                            iconName="media"
+                            onClick={() => alert("image")}
+                        />
+                        <SmallButton
                             iconName="plus"
                             onClick={() => alert("add")}
                         />
@@ -263,7 +264,6 @@ class Generator extends Component {
 function mapStateToProps(state) {
     return {
         location: state.router.location,
-        demoMode: false,
         app: state.app,
         generator: state.generator,
         shape: state.shape
@@ -282,5 +282,6 @@ export default connect(mapStateToProps, {
     nextIteration,
     prevIteration,
     updateIteration,
-    loadNewShape
+    loadNewShape,
+    hideDrawer
 })(withRouter(Generator));

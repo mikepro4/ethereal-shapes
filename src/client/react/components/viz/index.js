@@ -280,7 +280,7 @@ class Viz extends Component {
     }
 
     updateVizState = (defaultViz) => {
-        console.log(defaultViz)
+        // console.log(defaultViz)
 
         if (defaultViz) {
             const {

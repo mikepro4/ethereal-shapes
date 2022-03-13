@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Intent, Spinner } from "@blueprintjs/core";
 
-// import Input from "../../form/BladeInput";
+import Input from "../../form/BladeInput";
 import Textarea from "../../form/BladeTextarea";
 import Slider from "../../form/Slider";
 import TabGroup from "../../form/TabGroup";
@@ -21,6 +21,12 @@ class IterationsForm extends Component {
 
         return (
             <Form onSubmit={handleSubmit} autoComplete="off">
+
+                <Field
+                    name="iteration"
+                    component={Input}
+                    title="Iteration" placeholder="Iteration"
+                />
 
                 <Field
                     name="iteration"
