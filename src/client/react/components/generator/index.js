@@ -168,8 +168,8 @@ class Generator extends Component {
                     return(this.randomNumber(from, to))
                 } if(param.type == "range") {
                     console.log(param)
-                    let from = parseInt(param.from, 10)
-                    let to = parseInt(param.to, 10)
+                    let from = parseFloat(param.from, 10)
+                    let to = parseFloat(param.to, 10)
                     let delayIterations = parseInt(param.delayIterations, 10)
                     let rangeIterations = parseInt(param.rangeIterations, 10)
 
@@ -181,6 +181,7 @@ class Generator extends Component {
                     let frame = this.props.generator.currentIteration % rangeIterations
                     let finalFrame = rangeIterations - frame * 100
                     console.log(frame)
+                    console.log("FROM", from)
 
                     if(this.props.generator.currentIteration < endframe) {
                         return shape[key] + step * (this.props.generator.currentIteration - delayIterations)
