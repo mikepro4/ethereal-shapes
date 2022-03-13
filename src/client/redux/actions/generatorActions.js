@@ -284,4 +284,27 @@ export const updateGenerator = (generator, success) => async (
         });
 }
 
+// ===========================================================================
+
+export const assignGenerator = (collectionId, generatorId, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/generator/assign", {
+            collectionId: collectionId,
+            generatorId: generatorId
+        })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+            
+        });
+}
+
 

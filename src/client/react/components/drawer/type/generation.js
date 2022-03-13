@@ -22,7 +22,8 @@ import {
     loadGenerator,
     updateGenerator,
     deleteGenerator,
-    loadGeneratorToState
+    loadGeneratorToState,
+    assignGenerator
 } from "../../../../redux/actions/generatorActions"
 
 import GenerationForm from "./generation_form"
@@ -42,7 +43,7 @@ class Generation extends Component {
     }
 
     componentDidMount = () => {
-        if(this.props.generator.details) {
+        if (this.props.generator.details) {
             this.setState({
                 generator: this.props.generator.details
             })
@@ -78,6 +79,14 @@ class Generation extends Component {
         return qs.parse(this.props.location.search.substring(1));
     };
 
+    componentDidUpdate =(prevprops) => {
+        if(!_.isEqual(this.props.generator.details, prevprops.generator.details)) {
+            this.setState({
+                generator: this.props.generator.details
+            })
+        }
+    }
+
     render() {
         // console.log(this.state)
         return (
@@ -95,7 +104,7 @@ class Generation extends Component {
                     onSubmit={this.handleFormSubmitGenerator.bind(this)}
                     theme={this.props.theme}
                     onChange={values => {
-                        if(values.generatorId && values.generatorId.value) {
+                        if (values.generatorId && values.generatorId.value) {
                             this.props.loadGenerator(values.generatorId.value, (data) => {
                                 this.setState({
                                     generator: data
@@ -109,7 +118,7 @@ class Generation extends Component {
                             })
                             this.props.resetForm("generationForm")
                         }
-                        
+
                     }}
                 />
 
@@ -138,19 +147,22 @@ class Generation extends Component {
                 <ul className="generator-actions">
 
                     <li>
-                        <Button
-                            className={"main-button "}
-                            loading={this.props.loading}
-                            text="Load generator"
-                            large="true"
-                            icon="play"
-                            onClick={() => {
-                                this.props.loadGeneratorToState(this.props.form.generationForm.values, (data) => {
-                                    console.log(data)
-                                    this.props.hideDrawer()
-                                })
-                            }}
-                        />
+                        {this.state.generator && this.state.generator._id &&
+                            <Button
+                                className={"main-button "}
+                                loading={this.props.loading}
+                                text="Assign To collection"
+                                large="true"
+                                icon="play"
+                                onClick={() => {
+                                    // console.log(this.state.generator._id, this.props.nft.newNFT.metadata.collection.value)
+                                    this.props.assignGenerator(this.props.nft.newNFT.metadata.collection.value, this.state.generator._id, (data) => {
+                                        console.log(data)
+                                        this.props.hideDrawer()
+                                    })
+                                }}
+                            />
+                        }
                     </li>
 
                     <li>
@@ -220,7 +232,9 @@ function mapStateToProps(state) {
         authenticated: state.auth.authenticated,
         shape: state.shape,
         form: state.form,
-        generator: state.generator
+        generator: state.generator,
+        app: state.app,
+        nft: state.activeNFT
     };
 }
 
@@ -231,5 +245,6 @@ export default withRouter(connect(mapStateToProps, {
     deleteGenerator,
     hideDrawer,
     resetForm,
-    loadGeneratorToState
+    loadGeneratorToState,
+    assignGenerator
 })(Generation));

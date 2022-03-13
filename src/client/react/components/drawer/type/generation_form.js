@@ -102,19 +102,19 @@ class GenerationForm extends Component {
                 label: "Friction"
             },
             {
-                value: "pointRotateSpeed",
+                value: "rotatePointSpeed",
                 label: "Point rotation speed"
             },
         ]
 
-        // let finalshape
-        // if(this.props.shape.newShape && this.props.shape.newShape.defaultViz) {
-        //     finalshape = this.props.shape.newShape.defaultViz.shape
-        // } else {
-        //     if(this.props.shape.currentShape && this.props.shape.currentShape.defaultViz) {
-        //         finalshape = this.props.shape.currentShape.defaultViz.shape
-        //     }
-        // }
+        let finalshape
+        if(this.props.shape.newShape && this.props.shape.newShape.defaultViz) {
+            finalshape = this.props.shape.newShape.defaultViz.shape
+        } else {
+            if(this.props.shape.currentShape && this.props.shape.currentShape.defaultViz) {
+                finalshape = this.props.shape.currentShape.defaultViz.shape
+            }
+        }
 
 
 
@@ -172,17 +172,17 @@ class GenerationForm extends Component {
                                 component={ReactSelect}
                                 label="Select parameter"
                                 onChange={(data) => {
-                                    // if(this.props.stateForm.generationForm) {
-                                    //     let newParameters = update(this.props.stateForm.generationForm.values.parameters, {
-                                    //         $splice: [[index, 1, {
-                                    //             ...this.props.stateForm.generationForm.values.parameters[index],
-                                    //             from: finalshape[data.value],
-                                    //             to: finalshape[data.value] + 0.5
-                                    //         }]]
-                                    //     });
+                                    if(this.props.stateForm.generationForm) {
+                                        let newParameters = update(this.props.stateForm.generationForm.values.parameters, {
+                                            $splice: [[index, 1, {
+                                                ...this.props.stateForm.generationForm.values.parameters[index],
+                                                from: finalshape[data.value],
+                                                to: finalshape[data.value] + 0.5
+                                            }]]
+                                        });
     
-                                    //     this.props.changeForm("generationForm", "parameters", newParameters)
-                                    // }
+                                        this.props.changeForm("generationForm", "parameters", newParameters)
+                                    }
                                 }}
                             />
 
@@ -192,7 +192,7 @@ class GenerationForm extends Component {
                                     || currentParameter.changeParameter.value == "rotateSpeed"
                                     || currentParameter.changeParameter.value == "boldRate"
                                     || currentParameter.changeParameter.value == "friction"
-                                    || currentParameter.changeParameter.value == "pointRotateSpeed") && (
+                                    || currentParameter.changeParameter.value == "rotatePointSpeed") && (
                                     <div>
                                         {currentParameter && currentParameter.type
                                             && (currentParameter.type == "step"

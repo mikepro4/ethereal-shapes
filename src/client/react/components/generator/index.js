@@ -10,6 +10,7 @@ import {
     hideDrawer
 } from "../../../redux/actions/appActions"
 import {
+    loadGenerator,
     searchGenerators,
     loadGeneratorToState,
     startRecord,
@@ -32,6 +33,10 @@ import {
     createShape
 } from "../../../redux/actions/shapeActions"
 
+import {
+    loadCollection
+} from "../../../redux/actions/collectionActions"
+
 
 import SmallButton from "../smallButton"
 
@@ -44,22 +49,51 @@ class Generator extends Component {
     }
 
     componentDidMount = () => {
-        this.props.searchGenerators(
-            "",
-            "",
-            0,
-            1,
-            {},
-            data => {
-                console.log(data.all[0])
-                this.props.loadGeneratorToState(data.all[0])
-            }
-        );
+        // this.props.loadCollection(this.props.nft.newNFT.metadata.collectionId, (data) => {
+        //     console.log("GENERATOR ", data)
+        // })
+            // this.props.searchGenerators(
+            //     "",
+            //     "",
+            //     0,
+            //     1,
+            //     {},
+            //     data => {
+            //         console.log(data.all[0])
+            //         this.props.loadGeneratorToState(data.all[0])
+            //     }
+            // );
+            // if(this.props.nft && this.props.nft.newNFT && this.props.nft.newNFT.metadata  && this.props.nft.newNFT.metadata.collectionId) {
+                this.updateGenerator()
+            // }
+    }
+
+    updateGenerator = () => {
+        if(this.props.nft && this.props.nft.newNFT && this.props.nft.newNFT.metadata  && this.props.nft.newNFT.metadata.collection) {
+            this.props.loadCollection(this.props.nft.newNFT.metadata.collection.value, (data) => {
+                console.log("COLLECTION: ", data)
+                this.props.loadGenerator(
+                    data.metadata.generatorId,
+                    data => {
+                        console.log(data)
+                        this.props.loadGeneratorToState(data)
+                    }
+                );
+            })
+        }
+        
     }
 
     componentDidUpdate = (prevprops) => {
         if (this.props.generator.currentIteration !== prevprops.generator.currentIteration) {
             this.generateIteration()
+        }
+
+        if (this.props.nft.newNFT._id !== prevprops.nft.newNFT._id) {
+            // this.props.loadCollection(this.props.nft.newNFT.metadata.collectionId, (data) => {
+            //     console.log("GENERATOR ", data)
+            // })
+            this.updateGenerator()
         }
     }
 
@@ -95,6 +129,13 @@ class Generator extends Component {
         }
     }
 
+    randomNumber = (from, to) => {
+        var randomnum = (Math.random() * (to - from + from) + from).toFixed(6);
+        console.log("RAAAAAANDOM: ", randomnum)
+        return randomnum
+       
+    }
+
     generateParameter = (shape, key) => {
         // console.log(this.props.generator.details.parameters)
         let contains = _.filter(this.props.generator.details.parameters, (parameter) => {
@@ -102,12 +143,19 @@ class Generator extends Component {
         })
         if (contains.length > 0) {
             let param = contains[0]
-
-            if (param.stepDirection == "forward") {
-                return shape[key] + param.stepAmount * this.props.generator.currentIteration
-            } else if (param.stepDirection == "backward") {
-                return shape[key] - param.stepAmount * this.props.generator.currentIteration
+            if(param.type == "step") {
+                if (param.stepDirection == "forward") {
+                    return shape[key] + param.stepAmount * this.props.generator.currentIteration
+                } else if (param.stepDirection == "backward") {
+                    return shape[key] - param.stepAmount * this.props.generator.currentIteration
+                }
+            }  if(param.type == "random") {
+                console.log(param)
+                let from = parseInt(param.from, 10)
+                let to = parseInt(param.to, 10)
+                return(this.randomNumber(from, to))
             }
+            
         } else {
             return shape[key]
         }
@@ -223,11 +271,11 @@ class Generator extends Component {
     }
 
     showToast = (message) => {
-		this.refs.toaster.show({
-			message: message,
-			intent: Intent.SUCCESS
-		});
-	};
+        this.refs.toaster.show({
+            message: message,
+            intent: Intent.SUCCESS
+        });
+    };
 
     render() {
         if (this.props.generator && this.props.generator.details && !this.props.app.menuOpen) {
@@ -315,10 +363,10 @@ class Generator extends Component {
                             onClick={() => this.saveIteration()}
                         />
                     </div>
-                    
+
                     <Toaster position={Position.BOTTOM_RIGHT} ref="toaster" />
                 </div>
-                
+
             )
         } else {
             return (<div></div>)
@@ -356,5 +404,7 @@ export default connect(mapStateToProps, {
     hideDrawer,
     createShape,
     createNFT,
-    searchNFTs
+    searchNFTs,
+    loadCollection,
+    loadGenerator
 })(withRouter(Generator));
