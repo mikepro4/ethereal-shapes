@@ -17,7 +17,11 @@ import Polygon from "../icons/polygon"
 
 import NavLinks from "../../components/navLinks"
 
-import { showDrawer } from "../../../redux/actions/appActions"
+import { 
+    showDrawer,
+    showMenu,
+    hideMenu
+} from "../../../redux/actions/appActions"
 
 import AccountDisplay from "./account"
 
@@ -256,6 +260,7 @@ class Header extends Component {
                 })
             }, 1)
             document.body.classList.add("no-scroll")
+            this.props.showMenu()
         }
 
         if (this.state.menuOpen) {
@@ -432,6 +437,8 @@ class Header extends Component {
                 menuClosing: false,
             })
         }, 1000)
+
+        this.props.hideMenu()
     }
 
     renderStatus() {
@@ -563,5 +570,7 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-    showDrawer
+    showDrawer,
+    showMenu,
+    hideMenu
 })(withRouter(Header));

@@ -20,6 +20,7 @@ import Block from "../../block"
 
 import {
     hideDrawer,
+    updateCollection
 } from "../../../../redux/actions/appActions"
 
 import {
@@ -442,7 +443,7 @@ class NFTSettingsForm extends Component {
 
 
 
-                {this.props.nft.newNFT._id == this.props.app.drawerData._id && <Button
+                <Button
                     className={"submit-button main-button theme-" + this.props.theme}
                     loading={this.state.loading}
                     onClick={() => {
@@ -450,18 +451,18 @@ class NFTSettingsForm extends Component {
                             loading: true
                         })
 
-                        this.props.deleteNFT(this.props.nft.newNFT._id, () => {
+                        this.props.deleteNFT(this.props.app.drawerData._id, () => {
                             this.props.hideDrawer()
                             this.setState({
                                 loading: false
                             })
 
-                            this.props.history.push("/");
+                            this.props.updateCollection(true);
                         })
                     }}
                     text="Delete"
                     large="true"
-                />}
+                />
 
                 {/* <Button
                     className={"submit-button control theme-" + this.props.theme}
@@ -514,6 +515,7 @@ export default connect(mapStateToProps, {
     updateNFTShape,
     createShape,
     searchNFTs,
-    searchCollections
+    searchCollections,
+    updateCollection
 })(withRouter(NFTSettingsForm));
 

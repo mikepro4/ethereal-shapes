@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import classNames from "classnames"
 
-import { 
+import { Button, Position, Toaster, Intent } from "@blueprintjs/core";
+
+import {
     showDrawer,
     hideDrawer
 } from "../../../redux/actions/appActions"
-import { 
-    searchGenerators, 
+import {
+    searchGenerators,
     loadGeneratorToState,
     startRecord,
     stopRecord,
@@ -21,7 +23,13 @@ import {
 } from "../../../redux/actions/generatorActions"
 
 import {
-    loadNewShape
+    createNFT,
+    searchNFTs
+} from "../../../redux/actions/nftActions"
+
+import {
+    loadNewShape,
+    createShape
 } from "../../../redux/actions/shapeActions"
 
 
@@ -50,13 +58,13 @@ class Generator extends Component {
     }
 
     componentDidUpdate = (prevprops) => {
-        if(this.props.generator.currentIteration !== prevprops.generator.currentIteration) {
+        if (this.props.generator.currentIteration !== prevprops.generator.currentIteration) {
             this.generateIteration()
         }
     }
 
     toggleRecord = () => {
-        if(this.props.generator.record){
+        if (this.props.generator.record) {
             this.props.stopRecord()
         } else {
             this.props.startRecord()
@@ -64,7 +72,7 @@ class Generator extends Component {
     }
 
     togglePlay = () => {
-        if(this.props.generator.status == "play"){
+        if (this.props.generator.status == "play") {
             this.props.pauseGenerator()
             clearInterval(this.state.timeInterval)
         } else {
@@ -73,14 +81,14 @@ class Generator extends Component {
 
                 let iteration
 
-                if(this.props.generator.currentIteration + 1 < this.props.generator.details.iterations) {
+                if (this.props.generator.currentIteration + 1 < this.props.generator.details.iterations) {
                     iteration = this.props.generator.currentIteration + 1
                 } else {
                     iteration = 0
                 }
                 this.props.updateIteration(iteration)
                 this.generateIteration(iteration)
-    
+
             }, this.props.generator.details.iterationGap);
 
             this.setState({ timeInterval });
@@ -90,14 +98,14 @@ class Generator extends Component {
     generateParameter = (shape, key) => {
         // console.log(this.props.generator.details.parameters)
         let contains = _.filter(this.props.generator.details.parameters, (parameter) => {
-            return ( parameter.changeParameter.value == key )
+            return (parameter.changeParameter.value == key)
         })
-        if(contains.length > 0) {
+        if (contains.length > 0) {
             let param = contains[0]
 
-            if(param.stepDirection == "forward") {
+            if (param.stepDirection == "forward") {
                 return shape[key] + param.stepAmount * this.props.generator.currentIteration
-            } else if(param.stepDirection == "backward") { 
+            } else if (param.stepDirection == "backward") {
                 return shape[key] - param.stepAmount * this.props.generator.currentIteration
             }
         } else {
@@ -163,19 +171,77 @@ class Generator extends Component {
         // console.log(newShape)
     }
 
+    saveIteration() {
+        let shape
+
+        if (this.props.shape.newShape && this.props.shape.newShape.defaultViz) {
+            shape = this.props.shape.newShape
+        } else {
+            shape = this.props.shape.currentShape
+        }
+
+        this.props.createShape(shape, (shapeData) => {
+            let nft = this.props.nft.newNFT
+
+
+
+            this.props.searchNFTs(
+                "",
+                "",
+                0,
+                1,
+                {},
+                data => {
+                    console.log(data)
+
+                    let newNFT = {
+                        ...nft,
+                        metadata: {
+                            ...nft.metadata,
+                            owner: "",
+                            minted: false,
+                            featured: false,
+                            featuredOrder: 0,
+                            createdAt: new Date(),
+                            shapeId: shapeData._id
+                        },
+                        nft: {
+                            ...nft.nft,
+                            name: "#" + data.count
+                        }
+                    }
+
+                    this.props.createNFT(newNFT, (nft) => {
+                        // this.props.history.push("/nft?id=" + nft._id);
+                        this.showToast("Created " + nft.nft.name)
+                    })
+                }
+            );
+
+
+        })
+    }
+
+    showToast = (message) => {
+		this.refs.toaster.show({
+			message: message,
+			intent: Intent.SUCCESS
+		});
+	};
+
     render() {
-        if(this.props.generator && this.props.generator.details) {
+        if (this.props.generator && this.props.generator.details && !this.props.app.menuOpen) {
 
             let icon
 
-            if(this.props.generator.status == "play") {
+            if (this.props.generator.status == "play") {
                 icon = "pause"
             } else {
                 icon = "play"
             }
 
-            return(
-                <div 
+            return (
+                <div
                     className={classNames({
                         "generator": true,
                         "demo": this.props.app.demoMode
@@ -187,7 +253,7 @@ class Generator extends Component {
                             onClick={() => {
                                 this.props.pauseGenerator()
                                 clearInterval(this.state.timeInterval)
-                                if(this.props.app.drawerType == "generation") {
+                                if (this.props.app.drawerType == "generation") {
                                     this.props.hideDrawer()
                                 } else {
                                     this.props.showDrawer("generation")
@@ -195,7 +261,7 @@ class Generator extends Component {
                             }
                             }
                         />
-    
+
                         <SmallButton
                             iconName="arrow-left"
                             onClick={() => {
@@ -203,13 +269,13 @@ class Generator extends Component {
                                 // this.generateIteration()
                             }}
                         />
-    
+
                         <SmallButton
                             title={this.props.generator.currentIteration}
                             iterationCount={true}
                             onClick={() => this.props.showDrawer("iterations")}
                         />
-    
+
                         <SmallButton
                             iconName="arrow-right"
                             onClick={() => {
@@ -217,12 +283,12 @@ class Generator extends Component {
                                 // this.generateIteration()
                             }}
                         />
-    
+
                         <SmallButton
                             iconName={icon}
                             onClick={() => this.togglePlay()}
                         />
-    
+
                         <SmallButton
                             iconName="stop"
                             onClick={() => {
@@ -236,8 +302,8 @@ class Generator extends Component {
                             record={this.props.generator.record}
                             onClick={() => this.toggleRecord()}
                         />
-    
-                        
+
+
                     </div>
                     <div className="generator-right">
                         <SmallButton
@@ -246,16 +312,19 @@ class Generator extends Component {
                         />
                         <SmallButton
                             iconName="plus"
-                            onClick={() => alert("add")}
+                            onClick={() => this.saveIteration()}
                         />
                     </div>
+                    
+                    <Toaster position={Position.BOTTOM_RIGHT} ref="toaster" />
                 </div>
-            ) 
+                
+            )
         } else {
-            return(<div></div>)
+            return (<div></div>)
         }
-        
-        
+
+
     }
 }
 
@@ -266,7 +335,8 @@ function mapStateToProps(state) {
         location: state.router.location,
         app: state.app,
         generator: state.generator,
-        shape: state.shape
+        shape: state.shape,
+        nft: state.activeNFT
     };
 }
 
@@ -283,5 +353,8 @@ export default connect(mapStateToProps, {
     prevIteration,
     updateIteration,
     loadNewShape,
-    hideDrawer
+    hideDrawer,
+    createShape,
+    createNFT,
+    searchNFTs
 })(withRouter(Generator));

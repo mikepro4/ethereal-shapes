@@ -1,7 +1,10 @@
 import moment from "moment";
 
 export const checkUser = (user, history) => {
-    if(!user) {
+    
+
+    const token = localStorage.getItem('token');
+    if (!token) {
         history.push("/auth/login")
     }
 	// const momentDuration = moment.duration(time, "seconds");

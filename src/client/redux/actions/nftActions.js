@@ -41,6 +41,7 @@ export const updateNFTCollection = (nftId, collectionId, success) => async (
             })
             .then(response => {
                 if (success) {
+                    dispatch(updateCollection(true));
                     success(response.data);
                 }
             })
@@ -447,7 +448,7 @@ export const searchNFTs = (type, identifier, offset, limit, query, success) => a
 
         criteria = {
             notMinted: draft ? true : false,
-            approved: approved ? true : false,
+            // approved: approved ? true : false,
             rejected: rejected ? true : false,
             sold: sold ? true : false,
         }
