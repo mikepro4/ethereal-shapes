@@ -28,6 +28,26 @@ import {
 
 import { updateMarketTokens, updateCollectionItem, updateCollection } from "./appActions"
 
+export const getNftBuckets = (property, buckets, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/NFTs/getBuckets", {
+            property: property,
+            buckets: buckets
+        })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
 export const updateAllNfts = (success) => async (
     dispatch,
 	getState,

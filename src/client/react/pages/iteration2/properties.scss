@@ -1,0 +1,107 @@
+.section-properties {
+    // grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
+    // column-gap: 30px;
+
+    @media only screen and (max-width: $mobile) {
+        margin-bottom: 50px;
+
+        column-gap: 30px;
+    }
+    
+    @media only screen and (min-width: $mobile) {
+        margin-bottom: 180px;
+    }
+
+    .chart-header {
+        display: flex;
+        justify-content: space-between;
+        
+        @media only screen and (max-width: $mobile) {
+            padding: 0 20px;
+            margin-top: 40px;
+        }
+        
+        @media only screen and (min-width: $mobile) {
+            margin-bottom: 50px;
+        } 
+
+        .header-label {
+            opacity: 0.5;
+
+            @media only screen and (max-width: $mobile) {
+                font-size: 11px;
+            }
+            
+            @media only screen and (min-width: $mobile) {
+                font-size: 13px;
+            }  
+        }
+
+        .header-value {
+            font-weight: 300;
+            
+            @media only screen and (max-width: $mobile) {
+                font-size: 30px;
+            }
+            
+            @media only screen and (min-width: $mobile) {
+                font-size: 50px;
+            }  
+        }
+    }
+
+    .properties-container {
+        display: grid;
+        @media only screen and (max-width: $mobile) {
+            padding: 0 20px;
+            grid-column: 1 / 7;
+            grid-template-columns:1fr 1fr;
+            column-gap: 20px;
+            row-gap: 20px;
+            font-size: 14px;
+        }
+        
+        @media only screen and (min-width: $mobile) {
+            grid-column: 1 / 7;
+            grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
+            column-gap: 30px;
+            row-gap: 20px;
+            font-size: 16px;
+        } 
+
+        .single-property {
+            cursor: pointer;
+
+
+            .label-container {
+                color: rgba($white, 0.5);
+                transition: all 0.2s;
+            }
+
+            &.active {
+                .label-container {
+                    color: $white;
+                }
+            }
+
+            &:hover {
+                .label-container {
+                    color: $white;
+                }
+            }
+
+        }
+    }
+
+    .section-main-text {
+        
+
+        @media only screen and (max-width: $mobile) {
+            grid-column: 1 / 7;
+        }
+        
+        @media only screen and (min-width: $mobile) {
+            grid-column: 4 / 7;
+        }
+    }
+}

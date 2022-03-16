@@ -41,6 +41,7 @@ import Timeline from "../../components/player/Timeline"
 import Playlist from "../../components/playlist"
 import YoutubePlaylist from "../../components/youtubePlaylist"
 
+import Properties from "./properties"
 
 
 class About extends Component {
@@ -740,7 +741,7 @@ void main() {
                         </div>
                     </div>
 
-                    <div className="iteration2-section section-design">
+                    {/* <div className="iteration2-section section-design">
                         {this.renderSectionHeader("02", "Design", true)}
 
                         <Playlist
@@ -757,7 +758,6 @@ void main() {
                                 Algorithmic interactive art
                             </h1>
 
-                            {/* <button onClick={() => this.download("hello.html","This is the content of my file :)")}>Download File</button> */}
                         </div>
 
                         <ul className="section-approach-bottom">
@@ -817,8 +817,6 @@ void main() {
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien.
                             </h2>
                         </div>
-                        {/* <<div className="section-process-list"></div>
-                        <div className="section-process-view"></div>> */}
 
                         <div className="section-process-playlist">
                             <Playlist
@@ -908,42 +906,17 @@ void main() {
                             </div>
 
                         </div>
-
-
-                        {/* <div className="section-background">
-
-                            <div className="section-techno-description">
-                                <h2 className="section-normal-title">
-                                    Original music
-                                </h2>
-
-                                <p className="section-main-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
-                                </p>
-
-                                <p className="section-main-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
-                                </p>
-                            </div>
-                        </div> */}
                        
-                    </div>
+                    </div> */}
 
                     <div className="iteration2-section">
-                        {this.renderSectionHeader("07", "Technology", true)}
+                        {this.renderSectionHeader("07", "Properties", true)}
 
                         <h1 className="section-big-title">
-                            10 years of practice
+                            Rarity curve
                         </h1>
 
-                        <div className="section-technology">
-                            <p className="section-main-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis vehicula nunc. Nullam eget dolor non urna pharetra euismod sed quis sapien. 
-                            </p>
-                        </div>
+                        <Properties/>
 
                     </div>
 
