@@ -133,7 +133,6 @@ class NFTPage extends Component {
 
 
         if (this.props.location.search) {
-            console.log("here")
             console.log(this.getQueryParams().id)
 
             this.props.loadNFT(this.getQueryParams().id, (data) => {

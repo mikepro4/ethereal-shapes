@@ -307,32 +307,32 @@ export const updateMarketTokens = (success) => async (
         return item;
     }))
 
-    console.log(items)
-    let activeNFT = getState().activeNFT.currentNFT
-    if(activeNFT && activeNFT.nft) {
-        let activeFileUrl = getState().activeNFT.currentNFT.nft.fileUrl
-        let activeId = getState().activeNFT.currentNFT._id
+    // console.log(items)
+    // let activeNFT = getState().activeNFT.currentNFT
+    // if(activeNFT && activeNFT.nft) {
+    //     let activeFileUrl = getState().activeNFT.currentNFT.nft.fileUrl
+    //     let activeId = getState().activeNFT.currentNFT._id
     
-        let filteredNfts = _.filter(items, { image: activeFileUrl })
+    //     let filteredNfts = _.filter(items, { image: activeFileUrl })
     
-        let activeFileOwner = filteredNfts[0].owner
-        let activeTokenId = filteredNfts[0].tokenId
+    //     let activeFileOwner = filteredNfts[0].owner
+    //     let activeTokenId = filteredNfts[0].tokenId
     
-        await api
-            .post("/NFT/updateOwner", {
-                nftId: activeId,
-                owner: activeFileOwner,
-                tokenId: activeTokenId ? activeTokenId : ""
-            })
-            .then(response => {
-                if (success) {
-                    success(response.data);
-                }
-            })
-            .catch(() => {
-                // dispatch(authError('Account with this email already exists'));
-            });
-    }
+    //     await api
+    //         .post("/NFT/updateOwner", {
+    //             nftId: activeId,
+    //             owner: activeFileOwner,
+    //             tokenId: activeTokenId ? activeTokenId : ""
+    //         })
+    //         .then(response => {
+    //             if (success) {
+    //                 success(response.data);
+    //             }
+    //         })
+    //         .catch(() => {
+    //             // dispatch(authError('Account with this email already exists'));
+    //         });
+    // }
 
     if (items.length > 0 && success) {
         success();

@@ -192,6 +192,8 @@ export const updateShape = (shape, data, success) => async (
 	api
 ) => {
 
+    let nftId = getState().activeNFT.newNFT._id
+
     let date
 
     if(data.main) {
@@ -224,6 +226,7 @@ export const updateShape = (shape, data, success) => async (
 
     await api
         .post("/shape/update", { 
+            nftId: nftId,
             shapeId: newShape._id, 
             metadata: newShape.metadata,
             defaultViz: newShape.defaultViz,

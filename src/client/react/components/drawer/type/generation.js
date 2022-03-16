@@ -192,7 +192,7 @@ class Generation extends Component {
                             large="true"
                             onClick={() => {
                                 this.props.updateGenerator(this.props.form.generationForm.values, (data) => {
-                                    console.log(data)
+                                    console.log("GENERATOR", data)
                                     this.props.hideDrawer()
                                     this.props.loadGeneratorToState(data.generator)
                                 })

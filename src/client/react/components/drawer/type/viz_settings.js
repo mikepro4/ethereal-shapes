@@ -23,7 +23,9 @@ import {
 } from "../../../../redux/actions/shapeActions"
 
 import {
-    updateNFTShape
+    updateNFTShape,
+    loadNFT,
+    loadNewNFT
 } from "../../../../redux/actions/nftActions"
 
 
@@ -54,9 +56,17 @@ class VizSettings extends Component {
                 loading: false
             })
 
-            this.props.loadShape(this.getQueryParams().shape, (data) => {
+            this.props.loadNFT(this.getQueryParams().id, (data) => {
                 console.log(data)
+                this.props.loadNewNFT(data, () => {
+                })
             })
+
+            
+
+            // this.props.loadNewNFT(data.Nft, (data) => {
+            //     console.log(data)
+            // })
         })
     }
 
@@ -160,7 +170,7 @@ class VizSettings extends Component {
                     </div>
 
                     {!this.props.app.iframe && <div>
-                        {this.props.user && <Button
+                        {/* {this.props.user && <Button
                             className={"control button-update main-button theme-" + this.props.theme}
                             loading={this.state.loading}
                             onClick={() => {
@@ -199,7 +209,7 @@ class VizSettings extends Component {
                                 })
                             }
                             }
-                        >Save new shape</Button>}
+                        >Save new shape</Button>} */}
 
 
 
@@ -259,5 +269,7 @@ export default withRouter(connect(mapStateToProps, {
     demoOff,
     setTouchZones,
     setDownloadSVG,
-    showDrawer
+    showDrawer,
+    loadNFT,
+    loadNewNFT
 })(VizSettings));

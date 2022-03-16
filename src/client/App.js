@@ -27,6 +27,10 @@ import ESMarket from "../../artifacts/contracts/ESMarket.sol/ESMarket.json";
 import { ethers } from "ethers";
 
 import {
+    updateAllNfts
+} from "../client/redux/actions/nftActions"
+
+import {
     showDrawer,
     updateAccount,
     updateMarketTokens,
@@ -86,6 +90,7 @@ class App extends Component {
             this.props.setIframe(true)
         }
         this.auth()
+        // this.props.updateAllNfts()
         // if (this.props.app.user) {
         //     this.loadWeb3()
         //     this.props.updateMarketTokens()
@@ -419,5 +424,6 @@ export default {
         setRejected,
         setSold,
         setIframe,
+        updateAllNfts
     })(App))
 };

@@ -28,6 +28,24 @@ import {
 
 import { updateMarketTokens, updateCollectionItem, updateCollection } from "./appActions"
 
+export const updateAllNfts = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/NFTs/updateAllNfts", { })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+            // dispatch(authError('Account with this email already exists'));
+        });
+}
+
 
 export const updateNFTCollection = (nftId, collectionId, success) => async (
     dispatch,

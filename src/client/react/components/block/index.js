@@ -73,7 +73,7 @@ class Block extends Component {
     componentDidUpdate = (prevprops) => {
         if(!_.isEqual(prevprops.sortedBlocks, this.props.sortedBlocks)) {
             let image1 = _.filter(this.props.sortedBlocks, {position: this.props.position});
-            console.log("here",image1 )
+            // console.log("here",image1 )
 
             // let image = _.filter(this.props.sortedBlocks, {position: this.props.position});
             // let image = this.props.sortedBlocks[this.props.position]

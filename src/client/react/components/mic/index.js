@@ -156,7 +156,7 @@ class MicAudio extends Component {
 
     }
     renderTranscript() {
-        console.log("here", this.state.results)
+        // console.log("here", this.state.results)
         return (<div>
             {this.state.results && this.state.results.length > 0 && this.state.results.map((result, i) => {
                 return (
@@ -243,7 +243,6 @@ class MicAudio extends Component {
     }
 
     renderResponse() {
-        console.log(this.state.response)
         return (<div>
             {this.state.response && this.state.response.length > 0 && _.reverse(this.state.response).map((result, i) => {
                 if (i <= 3) {
