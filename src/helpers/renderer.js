@@ -67,7 +67,7 @@ export default (
         <link rel="manifest" href="/site.webmanifest">
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
         <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#0000000">
+        <meta name="theme-color" content="#000000">
         <meta property="og:url" content="https://www.etherealshapes.com/ />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Ethereal Shapes" />
