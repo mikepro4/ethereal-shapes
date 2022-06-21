@@ -11,7 +11,7 @@ import { configure as createStore } from "./client/redux/store";
 import reducer from "./client/redux/reducers";
 import buildAssets from "../webpack-assets.json";
 
-const PORT = process.env.PORT || 444;
+const PORT = process.env.PORT || 3000;
 const BASE_API_URL = process.env.BASE_API_URL || "http://localhost:5000";
 const HOST = process.env.HOST || `localhost:${PORT}`;
 const PROXY_ROUTE = "/api";
@@ -90,13 +90,7 @@ app.get("*", (request, response) => {
         response.send(html);
     });
 });
-if(process.env.BASE_API_URL) {
-    app.listen(PORT, () => {
-        console.log("Server listening at port: ", PORT);
-    });
-} else {
-    https.createServer(options, app).listen(PORT, () => {
-        console.log("Server listening at port: ", PORT);
-    });
-}
+app.listen(PORT, '0.0.0.0', () => {
+    console.log("Server listening at port: ", PORT);
+});
 
